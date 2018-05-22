@@ -9,7 +9,7 @@ An example of the potential benefits of using a capability-based architecture ca
 
 ### Input Value Types
 The following list shows the current planned input value types. These are the most fundamental level of values from which sensors will operate.
-* Boolean
+* Bool
   * Simple True/False
   * Example: A digital GPIO input
 * Float
