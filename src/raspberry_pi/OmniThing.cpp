@@ -1,5 +1,6 @@
 #include <iostream>
 #include <pigpio.h>
+#include <frozen.h>
 
 #include "DigitalInputPinRaspberryPi.h"
 #include "DigitalOutputPinRaspberryPi.h"
