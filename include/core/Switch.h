@@ -1,6 +1,8 @@
 #ifndef OMNI_SWITCH_H
 #define OMNI_SWITCH_H
 
+#include "Device.h"
+
 namespace omni
 {
     class OutputBool;
