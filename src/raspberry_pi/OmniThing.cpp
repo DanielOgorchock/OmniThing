@@ -41,8 +41,8 @@ int main(int argc, char* argv[])
     Switch sw(out);
     ContactSensor contact(in);
 
-    Trigger t_sw(&sw, 1000, Switch::Cmd_Toggle);
-    Trigger t_contact(&contact, 1000, ContactSensor::Cmd_Poll);
+    Trigger t_sw(&sw, 15000, Switch::Cmd_Toggle);
+    Trigger t_contact(&contact, 10000, ContactSensor::Cmd_Poll);
 
     omnithing.addDevice(&sw);
     omnithing.addDevice(&contact);
