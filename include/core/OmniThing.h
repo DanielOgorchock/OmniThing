@@ -25,7 +25,7 @@ namespace omni
 
             }
 
-            Trigger(Device* d, unsigned long inter, char* cm, char* js=nullptr, bool rep = true):
+            Trigger(Device* d, unsigned long inter, const char* cm, const char* js=nullptr, bool rep = true):
                 dev(d),
                 interval(inter),
                 cmd(cm),
