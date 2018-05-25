@@ -13,6 +13,8 @@ namespace omni
             InputBool& m_rInput;
             bool m_bInvert;
 
+            void sendJsonPacket();
+
         protected:
         public:
             ContactSensor(InputBool& input, bool invert = false);

@@ -14,6 +14,8 @@ namespace omni
             bool m_bInvert;
             bool m_bValue;
 
+            void sendJsonPacket();
+
         protected:
         public:
             Switch(OutputBool& output, bool invert = false, bool initial = false);

@@ -3,10 +3,22 @@
 
 #include <string.h>
 #include <iostream> //TODO: change this!!!
+#include "frozen.h"
+#include "OmniThing.h"
 
 namespace omni
 {
 //private
+    void Switch::sendJsonPacket()
+    {
+        char buffer[100] = "";
+        struct json_out out = JSON_OUT_BUF(buffer, sizeof(buffer));
+
+        json_printf(&out, "{uid: %u, type: %s, state: %s}", getUid(), getType(), (read()?"on":"off"));
+
+        OmniThing::getInstance().sendJson(buffer);
+    }
+
 //protected
 //public
     Switch::Switch(OutputBool& output, bool invert, bool initial):
@@ -28,7 +40,7 @@ namespace omni
         if(!strcmp(cmd, Cmd_Poll))
         {
             std::cout << "Poll triggered for " << getType() << " " << getUid() << std::endl;
-            read();
+            sendJsonPacket();
         }
         else if(!strcmp(cmd, Cmd_On))
         {
@@ -45,7 +57,7 @@ namespace omni
             std::cout << "Toggle triggered for " << getType() << " " << getUid() << std::endl;
             toggle();
         }
-        
+
     }
 
     void Switch::write(bool b)
@@ -54,6 +66,7 @@ namespace omni
         m_rOutput.writeBool(isInverted() ? !b : b);
 
         std::cout << "Switch: write() state=" << (b?"on":"off") << std::endl;
+        sendJsonPacket();
     }
 
 

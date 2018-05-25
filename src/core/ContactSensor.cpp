@@ -3,10 +3,22 @@
 
 #include <iostream> //TODO: replace!!!
 #include <string.h>
+#include "frozen.h"
+#include "OmniThing.h"
 
 namespace omni
 {
 //private
+    void ContactSensor::sendJsonPacket()
+    {
+        char buffer[100] = "";
+        struct json_out out = JSON_OUT_BUF(buffer, sizeof(buffer));
+
+        json_printf(&out, "{uid: %u, type: %s, state: %s}", getUid(), getType(), (read()?"closed":"open"));
+
+        OmniThing::getInstance().sendJson(buffer);
+    }
+
 //protected
 //public
     ContactSensor::ContactSensor(InputBool& input, bool invert):
@@ -28,6 +40,7 @@ namespace omni
         {
             std::cout << "Poll triggered for " << getType() << " " << getUid() << std::endl;
             read();
+            sendJsonPacket();
         }
 
     }
