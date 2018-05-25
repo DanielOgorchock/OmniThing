@@ -67,6 +67,7 @@ namespace omni
             void sendJson(const char* json);
             void addDevice(Device* dev); 
             void addTrigger(Trigger& t);
+            void addTrigger(Device* d, unsigned long interval, const char* cmd, const char* json = nullptr, bool repeat = true);
 
     };
 }

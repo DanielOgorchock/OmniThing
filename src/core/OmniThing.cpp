@@ -154,4 +154,9 @@ namespace omni
     {
         m_Triggers[m_nTriggerCount++] = t;
     }
+
+    void OmniThing::addTrigger(Device* d, unsigned long interval, const char* cmd, const char* json, bool repeat)
+    {
+        m_Triggers[m_nTriggerCount++] = Trigger(d, interval, cmd, json, repeat);
+    }
 }
