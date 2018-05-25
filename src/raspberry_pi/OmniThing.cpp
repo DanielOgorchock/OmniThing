@@ -6,6 +6,8 @@
 #include "DigitalInputPinRaspberryPi.h"
 #include "DigitalOutputPinRaspberryPi.h"
 
+#include "OmniThing.h"
+#include "OmniUtil.h"
 #include "ContactSensor.h"
 #include "Switch.h"
 
@@ -13,6 +15,8 @@
 int main(int argc, char* argv[])
 {
     using namespace omni;
+
+    OmniThing& omnithing = OmniThing::getInstance();
 
     if(gpioInitialise() == PI_INIT_FAILED)
     {
@@ -26,14 +30,22 @@ int main(int argc, char* argv[])
     Switch sw(out);
     ContactSensor contact(in);
 
+    Trigger t_sw(&sw, 1000, "toggle");
+    Trigger t_contact(&contact, 1000, "poll");
+
+    omnithing.addDevice(&sw);
+    omnithing.addDevice(&contact);
+
+    omnithing.addTrigger(t_sw);
+    omnithing.addTrigger(t_contact);
+
+    omnithing.init();
+
     while(true)
     {
-        sleep(2);
-        sw.recvJson("toggle", nullptr); 
-        std::cout << std::endl;
-        contact.recvJson("poll", nullptr);
+        sleepMillis(10);
 
-        std::cout << std::endl << std::endl;
+        omnithing.run();
     }
 
     return 0;
