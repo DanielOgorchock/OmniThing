@@ -26,7 +26,7 @@ namespace omni
             res.set_content("ok", "text/plain");
         });
 
-        m_Server.listen("localhost", port);
+        m_Server.listen("localhost", m_nPort);
     }
 
     void NetworkReceiverHttpLib::run()
