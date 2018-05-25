@@ -2,13 +2,15 @@
 #include "OmniUtil.h"
 
 #include "Device.h"
+#include "NetworkReceiver.h"
 
 namespace omni
 {
 //private
     OmniThing::OmniThing():
         m_nDeviceCount(0),
-        m_nTriggerCount(0)
+        m_nTriggerCount(0),
+        m_pNetworkReceiver(nullptr)
     {
 
     }
@@ -74,11 +76,28 @@ namespace omni
     {
        initDevices(); 
        initScheduler();
+
+       if(m_pNetworkReceiver)
+           m_pNetworkReceiver->init();
     }
 
     void OmniThing::run()
     {
         runScheduler();
+
+        if(m_pNetworkReceiver)
+        {
+            const char* json_rcvd = m_pNetworkReceiver->getJsonString();
+            if(json_rcvd)
+            {
+                //TODO: THIS
+            }
+        }
+    }
+
+    void OmniThing::setNetworkReceiver(NetworkReceiver* nr)
+    {
+        m_pNetworkReceiver = nr;
     }
 
     void OmniThing::sendJson(const char* json)

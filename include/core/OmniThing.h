@@ -6,6 +6,7 @@
 namespace omni
 {
     class Device;
+    class NetworkReceiver;
  
     class Trigger // used by the scheduler
     {
@@ -51,12 +52,15 @@ namespace omni
             unsigned short m_nTriggerCount;
             Trigger m_Triggers[10]; // TODO: use config file for number
 
+            CloudReceiver* m_pNetworkReceiver;
 
 
         public:
             static OmniThing& getInstance();
             void init();
             void run();
+
+            void setNetworkReceiver(NetworkReceiver* nr);
 
             void sendJson(const char* json);
             void addDevice(Device* dev); 
