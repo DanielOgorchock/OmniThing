@@ -1,6 +1,9 @@
 #include "Switch.h"
 #include "OutputBool.h"
 
+#include <string.h>
+#include <iostream> //TODO: change this!!!
+
 namespace omni
 {
 //private
