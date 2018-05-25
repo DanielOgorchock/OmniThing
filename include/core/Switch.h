@@ -22,6 +22,7 @@ namespace omni
             virtual ~Switch();
 
             virtual void recvJson(const char* cmd, const char* json);
+            virtual void init();
 
             const char* getType() const {return "Switch";}
             bool isInverted() const {return m_bInvert;}

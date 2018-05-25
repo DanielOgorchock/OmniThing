@@ -12,15 +12,18 @@ namespace omni
         private:
             InputBool& m_rInput;
             bool m_bInvert;
+            bool m_bLastVal;
 
             void sendJsonPacket();
 
         protected:
         public:
-            ContactSensor(InputBool& input, bool invert = false);
+            ContactSensor(InputBool& input, bool invert = false, bool constantPoll = true);
             virtual ~ContactSensor();
 
             virtual void recvJson(const char* cmd, const char* json);
+            virtual void run();
+            virtual void init();
 
             const char* getType() const {return "ContactSensor";}
             bool isInverted() const {return m_bInvert;}

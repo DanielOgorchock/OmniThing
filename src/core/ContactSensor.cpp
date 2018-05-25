@@ -21,12 +21,12 @@ namespace omni
 
 //protected
 //public
-    ContactSensor::ContactSensor(InputBool& input, bool invert):
-        Device(false),
+    ContactSensor::ContactSensor(InputBool& input, bool invert, bool constantPoll):
+        Device(constantPoll),
         m_rInput(input),
         m_bInvert(invert)
     {
-
+         
     }
 
     ContactSensor::~ContactSensor()
@@ -43,6 +43,22 @@ namespace omni
             sendJsonPacket();
         }
 
+    }
+
+    void ContactSensor::run()
+    {
+        bool val = read(); 
+        if(val != m_bLastVal)
+        {
+            sendJsonPacket();
+        }
+        m_bLastVal = val; 
+    }
+
+    void ContactSensor::init()
+    {
+        m_bLastVal = read(); 
+        sendJsonPacket();
     }
 
     bool ContactSensor::read()

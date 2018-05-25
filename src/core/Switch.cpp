@@ -60,6 +60,11 @@ namespace omni
 
     }
 
+    void Switch::init()
+    {
+        sendJsonPacket();
+    }
+
     void Switch::write(bool b)
     {
         m_bValue = b;
