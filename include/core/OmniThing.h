@@ -13,8 +13,8 @@ namespace omni
             Device* dev;
             unsigned long interval;
             unsigned long long triggerTime;
-            char* cmd;
-            char* json;
+            const char* cmd;
+            const char* json;
             bool repeating;
 
             Trigger(): // just to allow the array to be built
