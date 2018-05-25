@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
     std::cout << "Initialized pigpio\n";
 
     DigitalOutputPinRaspberryPi out(22, false, false);
-    DigitalInputPinRasberryPi in(7, false, DigitalInputPinRasberryPi::Pullup); 
+    DigitalInputPinRaspberryPi in(7, false, DigitalInputPinRaspberryPi::Pullup); 
 
     while(true)
     {
