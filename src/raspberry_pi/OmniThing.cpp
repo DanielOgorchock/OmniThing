@@ -6,6 +6,9 @@
 #include "DigitalInputPinRaspberryPi.h"
 #include "DigitalOutputPinRaspberryPi.h"
 
+#include "ContactSensor.h"
+#include "Switch.h"
+
 
 int main(int argc, char* argv[])
 {
@@ -20,13 +23,17 @@ int main(int argc, char* argv[])
     DigitalOutputPinRaspberryPi out(22, false, false);
     DigitalInputPinRaspberryPi in(7, false, DigitalInputPinRaspberryPi::PinMode::Pullup); 
 
+    Switch sw(out);
+    ContactSensor contact(in);
+
     while(true)
     {
-        sleep(3);
-        std::cout << "Toggling pin\n";
-        out.writeVoid(); 
-        std::cout << "Reading pin\n";
-        in.readBool();
+        sleep(2);
+        sw.recvJson("toggle", nullptr); 
+        std::cout << std::endl;
+        contact.recvJson("poll", nullptr);
+
+        std::cout << std::endl << std::endl;
     }
 
     return 0;
