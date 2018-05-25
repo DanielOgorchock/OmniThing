@@ -22,7 +22,7 @@ namespace omni
 
             virtual ~AnalogInputPin();
 
-            unsigned char getPin() const {return m_nPin;}
+            unsigned short getPin() const {return m_nPin;}
 
             unsigned int readUInt() final; 
             float readFloat() final;

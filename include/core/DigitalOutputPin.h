@@ -21,7 +21,7 @@ namespace omni
 
             virtual ~DigitalOutputPin();
 
-            unsigned char getPin() const {return m_nPin;}
+            unsigned short getPin() const {return m_nPin;}
             bool isInverted() const {return m_bInvertLogic;}
             bool getValue() const {return m_bValue;}
 

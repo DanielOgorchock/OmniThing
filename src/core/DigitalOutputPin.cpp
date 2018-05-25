@@ -21,7 +21,7 @@ namespace omni
 
     void DigitalOutputPin::writeVoid() //behaves as a toggle
     {
-        writePin(isInverted() ? m_bValue : !m_bValue);
+        writePin(!m_bValue);
     }
 
     void DigitalOutputPin::writeBool(bool b)
