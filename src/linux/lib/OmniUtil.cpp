@@ -12,6 +12,6 @@ namespace omni
 
     void sleepMillis(unsigned long long ms)
     {
-        std::this_thread::sleep_for(std::chrono::duration<time_unit, std::milli>(duration));
+        std::this_thread::sleep_for(std::chrono::duration<unsigned long long, std::milli>(ms));
     }
 }

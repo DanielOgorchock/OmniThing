@@ -1,6 +1,8 @@
 #include "OmniThing.h"
 #include "OmniUtil.h"
 
+#include "Device.h"
+
 namespace omni
 {
 //private
@@ -14,7 +16,7 @@ namespace omni
     void OmniThing::runScheduler()
     {
         //run all run-enabled devices
-        for(unsigned short i = 0; i < m_nDeviceCount)
+        for(unsigned short i = 0; i < m_nDeviceCount; ++i)
         {
             if(m_Devices[i]->isRunning())
             {
@@ -41,7 +43,7 @@ namespace omni
     void OmniThing::initDevices()
     {
         //run init on all devices
-        for(unsigned short i = 0; i < m_nDeviceCount)
+        for(unsigned short i = 0; i < m_nDeviceCount; ++i)
         {
             m_Devices[i]->init();
         }
@@ -71,12 +73,12 @@ namespace omni
         //TODO: THIS
     } 
 
-    void addDevice(Device* dev)
+    void OmniThing::addDevice(Device* dev)
     {
         m_Devices[m_nDeviceCount++] = dev;
     }
 
-    void addTrigger(Trigger& t)
+    void OmniThing::addTrigger(Trigger& t)
     {
         m_Triggers[m_nTriggerCount++] = t;
     }
