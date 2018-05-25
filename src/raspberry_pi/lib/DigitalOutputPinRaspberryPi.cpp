@@ -17,8 +17,8 @@ namespace omni
     }
 
 //public
-    DigitalOutputPinRaspberryPi::DigitalOutputPinRaspberryPi(unsigned short pin, bool invertLogic):
-        DigitalOutputPin(pin, invertLogic)
+    DigitalOutputPinRaspberryPi::DigitalOutputPinRaspberryPi(unsigned short pin, bool initialVal, bool invertLogic):
+        DigitalOutputPin(pin, initialVal, invertLogic)
     {
         gpioSetMode(pin, PI_OUTPUT);
     }

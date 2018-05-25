@@ -13,7 +13,7 @@ namespace omni
             void writePin(bool b) final;
 
         public:
-            DigitalOutputPinRaspberryPi(unsigned short pin, bool invertLogic);
+            DigitalOutputPinRaspberryPi(unsigned short pin, bool initialVal, bool invertLogic);
 
             virtual ~DigitalOutputPinRaspberryPi();
     };
