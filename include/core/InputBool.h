@@ -1,5 +1,5 @@
-#ifndef OMNI_INPUT_BOOL_H
-#define OMNI_INPUT_BOOL_H
+#ifndef OMNI_INPUTBOOL_H
+#define OMNI_INPUTBOOL_H
 
 
 

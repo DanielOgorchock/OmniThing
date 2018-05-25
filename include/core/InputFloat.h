@@ -1,5 +1,5 @@
-#ifndef OMNI_INPUT_FLOAT_H
-#define OMNI_INPUT_FLOAT_H
+#ifndef OMNI_INPUTFLOAT_H
+#define OMNI_INPUTFLOAT_H
 
 
 
