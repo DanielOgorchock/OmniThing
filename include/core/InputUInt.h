@@ -10,7 +10,7 @@ namespace omni
         public:
             virtual ~InputUInt();
 
-            virtual bool readUInt() = 0;
+            virtual unsigned int readUInt() = 0;
     };
 }
 #endif

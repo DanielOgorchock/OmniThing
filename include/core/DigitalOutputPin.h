@@ -17,7 +17,7 @@ namespace omni
             virtual void writePin(bool b) = 0;
 
         public:
-            DigitalOutputPin(unsigned char pin, bool initalValue=false, bool invertLogic=false);
+            DigitalOutputPin(unsigned char pin, bool initalValue, bool invertLogic);
 
             virtual ~DigitalOutputPin();
 

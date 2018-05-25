@@ -15,7 +15,7 @@ namespace omni
             virtual bool readPin() = 0;
 
         public:
-            DigitalInputPin(unsigned char pin, bool invertLogic=false);
+            DigitalInputPin(unsigned char pin, bool invertLogic);
 
             virtual ~DigitalInputPin();
 
