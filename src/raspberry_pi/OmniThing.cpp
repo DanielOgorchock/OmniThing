@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 
     while(true)
     {
-        sleep(1);
+        sleep(3);
         std::cout << "Toggling pin\n";
         out.writeVoid(); 
     }
