@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
 
     OmniThing& omnithing = OmniThing::getInstance();
 
-    NetworkReceiverHttpLib receiver;
+    NetworkReceiverHttpLib receiver(1337);
 
     omnithing.setNetworkReceiver(&receiver);
 

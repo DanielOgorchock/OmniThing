@@ -7,8 +7,9 @@ namespace omni
 //private
 //protected
 //public
-    NetworkReceiverHttpLib::NetworkReceiverHttpLib():
-        m_Server()
+    NetworkReceiverHttpLib::NetworkReceiverHttpLib(unsigned short port):
+        m_Server(),
+        m_nPort(port)
     {
         m_JsonBuffer[0] = 0; 
     }
@@ -25,7 +26,7 @@ namespace omni
             res.set_content("ok", "text/plain");
         });
 
-        m_Server.listen("localhost", 80);
+        m_Server.listen("localhost", port);
     }
 
     void NetworkReceiverHttpLib::run()
