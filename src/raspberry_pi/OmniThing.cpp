@@ -20,7 +20,8 @@ int main(int argc, char* argv[])
 
     OmniThing& omnithing = OmniThing::getInstance();
 
-    NetworkReceiverHttpLib receiver(1337);
+    const char* ip = "192.168.2.104";
+    NetworkReceiverHttpLib receiver(ip, 1337);
 
     omnithing.setNetworkReceiver(&receiver);
 

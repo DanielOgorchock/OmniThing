@@ -3,6 +3,7 @@
 
 #include "Device.h"
 #include "NetworkReceiver.h"
+#include <iostream>
 
 namespace omni
 {
@@ -87,10 +88,12 @@ namespace omni
 
         if(m_pNetworkReceiver)
         {
+            m_pNetworkReceiver->run();
+
             const char* json_rcvd = m_pNetworkReceiver->getJsonString();
             if(json_rcvd)
             {
-                //TODO: THIS
+                std::cout << "Received json: " << json_rcvd << std::endl;
             }
         }
     }
