@@ -10,6 +10,7 @@ namespace omni
 //protected
 //public
     Switch::Switch(OutputBool& output, bool invert, bool initial):
+        Device(false),
         m_rOutput(output),
         m_bInvert(invert),
         m_bValue(initial)

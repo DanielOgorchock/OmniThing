@@ -10,6 +10,7 @@ namespace omni
 //protected
 //public
     ContactSensor::ContactSensor(InputBool& input, bool invert):
+        Device(false),
         m_rInput(input),
         m_bInvert(invert)
     {

@@ -12,11 +12,12 @@ namespace omni
         protected:
 
         public:
-            Device();
+            Device(bool run);
             virtual ~Device();
 
             virtual void recvJson(const char* cmd, const char* json) = 0;
             virtual void run() {}
+            virtual void init() {}
 
             unsigned short getUid() const {return m_nUid;}
             bool isRunning() const {return m_bRun;}

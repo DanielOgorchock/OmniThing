@@ -7,9 +7,9 @@ namespace omni
 //private
 //protected
 //public
-    Device::Device():
+    Device::Device(bool run):
         m_nUid(0),
-        m_bRun(true)
+        m_bRun(run)
     {
         static unsigned short nextUid = 0;
         m_nUid = nextUid++;
