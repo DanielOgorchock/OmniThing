@@ -45,6 +45,8 @@ namespace omni
             void runScheduler();
             void initDevices();
             void initScheduler();
+            void parseJson(const char* json);
+            Device* findDevice(unsigned int uid);
 
             unsigned short m_nDeviceCount;
             Device* m_Devices[10]; // TODO: use config file for number

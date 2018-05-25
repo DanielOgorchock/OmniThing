@@ -8,7 +8,7 @@
 #include "Switch.h"
 
 #include "NetworkReceiverHttpLib.h"
-
+#include "DigitalInputPinStub.h"
 
 int main(int argc, char* argv[])
 {
@@ -20,6 +20,10 @@ int main(int argc, char* argv[])
     NetworkReceiverHttpLib receiver(ip, 1337);
 
     omnithing.setNetworkReceiver(&receiver);
+
+    DigitalInputPinStub stub(22, false);
+    ContactSensor contact(stub, false);
+    omnithing.addDevice(&contact);
 
     omnithing.init();
 

@@ -3,7 +3,9 @@
 
 #include "Device.h"
 #include "NetworkReceiver.h"
+#include "frozen.h"
 #include <iostream>
+#include <string.h>
 
 namespace omni
 {
@@ -65,6 +67,40 @@ namespace omni
 
     }
 
+    void OmniThing::parseJson(const char* json)
+    {
+        unsigned int uid;
+        char cmd[24]; 
+        
+        int res = json_scanf(json, strlen(json), "{uid:%u, cmd:%s}", &uid, cmd);
+        if(res != 2)
+        {
+            std::cout << "problem scanning err=" << res << " : " << json << std::endl;
+        }
+
+        Device* d = findDevice(uid);
+        if(!d)
+        {
+            std::cout << "No device found with uid=" << uid << std::endl;
+        }
+        else
+        {
+            d->recvJson(cmd, json);
+        }
+    }
+
+    Device* OmniThing::findDevice(unsigned int uid)
+    {
+        for(unsigned int i = 0; i < m_nDeviceCount; ++ i)
+        {
+            Device* d = m_Devices[i];
+            if(d->getUid() == uid)
+                return d;
+        }
+
+        return nullptr;
+    }
+
 //public
     OmniThing& OmniThing::getInstance()
     {
@@ -94,6 +130,7 @@ namespace omni
             if(json_rcvd)
             {
                 std::cout << "Received json: " << json_rcvd << std::endl;
+                parseJson(json_rcvd);
             }
         }
     }
