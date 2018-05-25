@@ -1,0 +1,29 @@
+#ifndef OMNI_DIGITALINPUTPIN_H
+#define OMNI_DIGITALINPUTPIN_H
+
+#include "InputBool.h"
+
+namespace omni
+{
+    class DigitalInputPin : public InputBool
+    {
+        private:
+            unsigned char m_nPin;
+            bool m_bInvertLogic;
+
+        protected:
+            virtual bool readPin() = 0;
+
+        public:
+            DigitalInputPin(unsigned char pin, bool invertLogic=false);
+
+            virtual ~DigitalInputPin();
+
+            unsigned char getPin() const {return m_nPin;}
+            bool isInverted() const {return m_bInvertLogic;}
+
+            bool readBool() final; //DigitalInputPin definitions should overwrite readPin, not this
+    };
+}
+
+#endif
