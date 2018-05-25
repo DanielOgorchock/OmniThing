@@ -22,7 +22,6 @@ namespace omni
     {
         m_Server.Post("/", [](const auto& req, auto& res)
         {
-            std::cout << req.body() << std::endl;
             res.set_content("ok", "text/plain");
         });
 
