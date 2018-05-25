@@ -11,12 +11,18 @@
 #include "ContactSensor.h"
 #include "Switch.h"
 
+#include "NetworkReceiverHttpLib"
+
 
 int main(int argc, char* argv[])
 {
     using namespace omni;
 
     OmniThing& omnithing = OmniThing::getInstance();
+
+    NetworkReceiverHttpLib receiver;
+
+    omnithing->setNetworkReceiver(&receiver);
 
     if(gpioInitialise() == PI_INIT_FAILED)
     {
