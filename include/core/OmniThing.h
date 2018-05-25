@@ -43,6 +43,7 @@ namespace omni
 
             void runScheduler();
             void initDevices();
+            void initScheduler();
 
             unsigned short m_nDeviceCount;
             Device* m_Devices[10]; // TODO: use config file for number

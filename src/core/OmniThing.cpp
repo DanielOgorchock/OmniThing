@@ -50,6 +50,18 @@ namespace omni
 
     }
 
+    void OmniThing::initScheduler()
+    {
+        unsigned long long time = getMillis();
+        for(unsigned short i = 0; i < m_nTriggerCount; ++i)
+        {
+            Trigger& t = m_Triggers[i];
+            
+            t.triggerTime = time + t.interval;
+        }
+
+    }
+
 //public
     OmniThing& OmniThing::getInstance()
     {
@@ -61,6 +73,7 @@ namespace omni
     void OmniThing::init()
     {
        initDevices(); 
+       initScheduler();
     }
 
     void OmniThing::run()
