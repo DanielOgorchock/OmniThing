@@ -1,5 +1,7 @@
 #include "NetworkReceiverHttpLib.h"
 
+#include <iostream>
+
 namespace omni
 {
 //private
