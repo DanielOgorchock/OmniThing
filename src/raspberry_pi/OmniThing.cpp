@@ -11,7 +11,7 @@
 #include "ContactSensor.h"
 #include "Switch.h"
 
-#include "NetworkReceiverHttpLib"
+#include "NetworkReceiverHttpLib.h"
 
 
 int main(int argc, char* argv[])
