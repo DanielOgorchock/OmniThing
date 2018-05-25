@@ -52,7 +52,7 @@ namespace omni
             unsigned short m_nTriggerCount;
             Trigger m_Triggers[10]; // TODO: use config file for number
 
-            CloudReceiver* m_pNetworkReceiver;
+            NetworkReceiver* m_pNetworkReceiver;
 
 
         public:
