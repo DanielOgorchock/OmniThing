@@ -20,7 +20,12 @@ namespace omni
     DigitalOutputPinRaspberryPi::DigitalOutputPinRaspberryPi(unsigned short pin, bool initialVal, bool invertLogic):
         DigitalOutputPin(pin, initialVal, invertLogic)
     {
-        gpioSetMode(pin, PI_OUTPUT);
+        if(gpioSetMode(pin, PI_OUTPUT))
+        {
+            std::cerr << "Failed to set pin " << pin << " to output\n";
+        }
+
+        writeBool(initialVal);
     }
 
     DigitalOutputPinRaspberryPi::~DigitalOutputPinRaspberryPi()
