@@ -13,11 +13,12 @@ namespace omni
             bool readPin() final;
 
         public:
+            enum class PinMode {Normal, Pullup, Pulldown};
+
             DigitalInputPinRaspberryPi(unsigned short pin, bool invertLogic, PinMode pm);
 
             virtual ~DigitalInputPinRaspberryPi();
 
-            enum class PinMode {Normal, Pullup, Pulldown};
     };
 }
 
