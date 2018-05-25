@@ -10,7 +10,7 @@ namespace omni
     {
         private:
             httplib::Server m_Server;
-            char m_JsonBuffer[128] //TODO: make size configurable
+            char m_JsonBuffer[128]; //TODO: make size configurable
 
         protected:
 
