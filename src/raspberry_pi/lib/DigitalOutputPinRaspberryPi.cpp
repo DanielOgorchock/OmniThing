@@ -10,6 +10,7 @@ namespace omni
 //protected
     void DigitalOutputPinRaspberryPi::writePin(bool b)
     {
+        std::cout << "DigitalOutputPinRaspberryPi: pin=" << getPin() << " val=" << b << std::endl;
         int res = gpioWrite(getPin(), b);
 
         if(res == PI_BAD_GPIO || res == PI_BAD_LEVEL)
