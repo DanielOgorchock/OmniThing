@@ -30,7 +30,7 @@ namespace omni
         if(pm == PinMode::Normal)
             pullupdown = PI_PUD_OFF;
         else if(pm == PinMode::Pullup)
-            pullupdown = PI_PUD_UP
+            pullupdown = PI_PUD_UP;
 
         gpioSetPullUpDown(pin, pullupdown);
              
