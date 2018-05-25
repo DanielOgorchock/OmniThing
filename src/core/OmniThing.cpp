@@ -114,6 +114,9 @@ namespace omni
        initDevices(); 
        initScheduler();
 
+       if(m_pNetworkSender)
+           m_pNetworkSender->init();
+
        if(m_pNetworkReceiver)
            m_pNetworkReceiver->init();
     }
@@ -121,6 +124,11 @@ namespace omni
     void OmniThing::run()
     {
         runScheduler();
+
+        if(m_pNetworkSender)
+        {
+            m_pNetworkSender->run();
+        }
 
         if(m_pNetworkReceiver)
         {
@@ -140,9 +148,17 @@ namespace omni
         m_pNetworkReceiver = nr;
     }
 
+    void OmniThing::setNetworkSender(NetworkReceiver* ns)
+    {
+        m_pNetworkSender = ns;
+    }
+
     void OmniThing::sendJson(const char* json)
     {
-        //TODO: THIS
+        if(m_pNetworkSender)
+        {
+            m_pNetworkSender->sendJson(json);
+        }
     } 
 
     void OmniThing::addDevice(Device* dev)

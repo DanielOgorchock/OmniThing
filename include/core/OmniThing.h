@@ -7,6 +7,7 @@ namespace omni
 {
     class Device;
     class NetworkReceiver;
+    class NetworkSender;
  
     class Trigger // used by the scheduler
     {
@@ -55,6 +56,7 @@ namespace omni
             Trigger m_Triggers[10]; // TODO: use config file for number
 
             NetworkReceiver* m_pNetworkReceiver;
+            NetworkSender* m_pNetworkSender;
 
 
         public:
@@ -63,6 +65,7 @@ namespace omni
             void run();
 
             void setNetworkReceiver(NetworkReceiver* nr);
+            void setNetworkSender(NetworkSender* ns);
 
             void sendJson(const char* json);
             void addDevice(Device* dev); 

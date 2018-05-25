@@ -18,8 +18,12 @@ int main(int argc, char* argv[])
 
     const char* ip = "192.168.2.101";
     NetworkReceiverHttpLib receiver(ip, 1337);
-
     omnithing.setNetworkReceiver(&receiver);
+
+    const char* destIp = "192.168.2.200";
+    NetworkReceiverHttpLib sender(destIp, 80);
+    omnithing.setNetworkSender(&sender);
+
 
     DigitalInputPinStub stub(22, false);
     ContactSensor contact(stub, false);

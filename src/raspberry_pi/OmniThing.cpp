@@ -22,8 +22,12 @@ int main(int argc, char* argv[])
 
     const char* ip = "192.168.2.104";
     NetworkReceiverHttpLib receiver(ip, 1337);
-
     omnithing.setNetworkReceiver(&receiver);
+
+    const char* destIp = "192.168.2.200";
+    NetworkReceiverHttpLib sender(destIp, 80);
+    omnithing.setNetworkSender(&sender);
+
 
     if(gpioInitialise() == PI_INIT_FAILED)
     {
