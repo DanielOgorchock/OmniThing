@@ -14,7 +14,7 @@ namespace omni
         char buffer[100] = "";
         struct json_out out = JSON_OUT_BUF(buffer, sizeof(buffer));
 
-        json_printf(&out, "{uid: %u, type: %s, state: %s}", getUid(), getType(), (read()?"closed":"open"));
+        json_printf(&out, "{uid: %u, type: \"%s\", state: \"%s\"}", getUid(), getType(), (read()?"closed":"open"));
 
         OmniThing::getInstance().sendJson(buffer);
     }
