@@ -1,7 +1,7 @@
 #ifndef OMNI_DIGITALOUTPUTPINRASPBERRYPI_H
 #define OMNI_DIGITALOUTPUTPINRASPBERRYPI_H
 
-#include "DigtalOutputPin.h"
+#include "DigitalOutputPin.h"
 
 namespace omni
 {
