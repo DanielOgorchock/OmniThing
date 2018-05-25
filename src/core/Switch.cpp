@@ -52,7 +52,7 @@ namespace omni
         m_bValue = b;
         m_rOutput.writeBool(isInverted() ? !b : b);
 
-        std::cout << "Switch: write() state=" << b?"on":"off" << std::endl;
+        std::cout << "Switch: write() state=" << (b?"on":"off") << std::endl;
     }
 
 
