@@ -66,7 +66,6 @@ namespace omni
         bool val = m_rInput.readBool();
 
         val = isInverted() ? !val : val;
-        std::cout << "ContactSensor: read() state=" << (val?"closed":"open") << std::endl;
         return val;
     }
 
