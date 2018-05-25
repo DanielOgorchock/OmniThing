@@ -12,7 +12,7 @@ namespace omni
         public:
             virtual ~InputFloat();
 
-            virtual bool getFloat() = 0;
+            virtual float readFloat() = 0;
     };
 }
 #endif

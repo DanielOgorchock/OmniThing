@@ -12,7 +12,7 @@ namespace omni
         public:
             virtual ~InputBool();
 
-            virtual bool getBool() = 0;
+            virtual bool readBool() = 0;
     };
 }
 #endif
