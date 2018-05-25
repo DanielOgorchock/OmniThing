@@ -32,17 +32,17 @@ namespace omni
         else if(!strcmp(cmd, Cmd_On))
         {
             std::cout << "On triggered for " << getType() << " " << getUid() << std::endl;
-            read();
+            on();
         }
         else if(!strcmp(cmd, Cmd_Off))
         {
             std::cout << "Off triggered for " << getType() << " " << getUid() << std::endl;
-            read();
+            off();
         }
         else if(!strcmp(cmd, Cmd_Toggle))
         {
             std::cout << "Toggle triggered for " << getType() << " " << getUid() << std::endl;
-            read();
+            toggle();
         }
         
     }
