@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
     omnithing.setNetworkReceiver(&receiver);
 
     const char* destIp = "192.168.2.200";
-    NetworkSenderHttpLib sender(destIp, 80);
+    NetworkSenderHttpLib sender(destIp, 39500);
     omnithing.setNetworkSender(&sender);
 
 
