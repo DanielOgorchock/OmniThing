@@ -3,6 +3,7 @@
 
 #include "Device.h"
 #include "NetworkReceiver.h"
+#include "NetworkSender.h"
 #include "frozen.h"
 #include <iostream>
 #include <string.h>
@@ -148,7 +149,7 @@ namespace omni
         m_pNetworkReceiver = nr;
     }
 
-    void OmniThing::setNetworkSender(NetworkReceiver* ns)
+    void OmniThing::setNetworkSender(NetworkSender* ns)
     {
         m_pNetworkSender = ns;
     }

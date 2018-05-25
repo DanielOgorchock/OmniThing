@@ -8,7 +8,7 @@ namespace omni
 //private
 //protected
 //public
-    NetworkSenderHttpLib(const char* address, unsigned int port):
+    NetworkSenderHttpLib::NetworkSenderHttpLib(const char* address, unsigned int port):
         m_Address(address),
         m_nPort(port)
     {

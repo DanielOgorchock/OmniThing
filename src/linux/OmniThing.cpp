@@ -8,6 +8,7 @@
 #include "Switch.h"
 
 #include "NetworkReceiverHttpLib.h"
+#include "NetworkSenderHttpLib.h"
 #include "DigitalInputPinStub.h"
 
 int main(int argc, char* argv[])
@@ -21,7 +22,7 @@ int main(int argc, char* argv[])
     omnithing.setNetworkReceiver(&receiver);
 
     const char* destIp = "192.168.2.200";
-    NetworkReceiverHttpLib sender(destIp, 80);
+    NetworkSenderHttpLib sender(destIp, 80);
     omnithing.setNetworkSender(&sender);
 
 
