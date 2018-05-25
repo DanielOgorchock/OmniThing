@@ -19,7 +19,7 @@ elseif(BUILD_RPI)
     include_directories(include/core)
     include_directories(include/linux/lib)
     include_directories(include/raspberry_pi/lib)
-    find_package(pigpio)
+    target_link_libraries(OmniThing pigpio pthread rt)
 endif()
 
 unset(BUILD_LINUX CACHE)
