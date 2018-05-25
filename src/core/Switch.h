@@ -51,4 +51,13 @@ namespace omni
 
         std::cout << "Switch: write() state=" << b?"on":"off" << std::endl;
     }
+
+
+
+
+
+    const char* Switch::Cmd_Poll    = "poll";
+    const char* Switch::Cmd_On      = "on";
+    const char* Switch::Cmd_Off     = "off";
+    const char* Switch::Cmd_Toggle  = "toggle";
 }

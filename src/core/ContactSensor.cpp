@@ -9,7 +9,7 @@ namespace omni
 //private
 //protected
 //public
-    ContactSensor(InputBool& input, bool invert):
+    ContactSensor::ContactSensor(InputBool& input, bool invert):
         m_rInput(input),
         m_bInvert(invert)
     {
@@ -31,12 +31,16 @@ namespace omni
 
     }
 
-    bool read()
+    bool ContactSensor::read()
     {
         bool val = m_rInput.readBool();
 
         val = isInverted() ? !val : val;
-        std::cout << "ContactSensor: read() state=" << val?"closed":"open" << std::endl;
+        std::cout << "ContactSensor: read() state=" << (val?"closed":"open") << std::endl;
         return val;
     }
+
+
+
+    const char* ContactSensor::Cmd_Poll = "poll";
 }

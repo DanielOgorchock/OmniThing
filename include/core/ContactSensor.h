@@ -10,11 +10,6 @@ namespace omni
     class ContactSensor : public Device
     {
         private:
-            static const char* Type = "ContactSensor";
-            
-            //json commands/format strings
-            static const char* Cmd_Poll = "poll";
-
             InputBool& m_rInput;
             bool m_bInvert;
 
@@ -25,9 +20,13 @@ namespace omni
 
             virtual void recvJson(const char* cmd, const char* json);
 
-            const char* getType() const {return Type;}
+            const char* getType() const {return "ContactSensor";}
             bool isInverted() const {return m_bInvert;}
             virtual bool read();
+
+            //json commands/format strings
+            static const char* Cmd_Poll;
+
     };
 }
 
