@@ -6,7 +6,7 @@ namespace omni
 
 
 //public
-    AnalogInputPin::AnalogInputPin(unsigned char pin, unsigned int maxVal, float minVolt, float maxVolt):
+    AnalogInputPin::AnalogInputPin(unsigned short pin, unsigned int maxVal, float minVolt, float maxVolt):
         m_nPin(pin),
         m_nMaxValue(maxVal),
         m_fMinVoltage(minVolt),
@@ -31,9 +31,9 @@ namespace omni
     {
         float percentage = readPin() / static_cast<float>(m_nMaxValue);
 
-        float difference = m_nMaxVoltage - m_nMinVoltage;
+        float difference = m_fMaxVoltage - m_fMinVoltage;
 
-        return m_nMinVoltage + percentage*difference;
+        return m_fMinVoltage + percentage*difference;
     }
 }
 

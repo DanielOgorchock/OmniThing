@@ -9,7 +9,7 @@ namespace omni
     class AnalogInputPin : public InputUInt, public InputFloat
     {
         private:
-            unsigned char m_nPin;
+            unsigned short m_nPin;
             unsigned int m_nMaxValue;
             float m_fMinVoltage;
             float m_fMaxVoltage;
@@ -18,7 +18,7 @@ namespace omni
             virtual unsigned int readPin() = 0;
 
         public:
-            AnalogInputPin(unsigned char pin, unsigned int maxVal, float minVolt, float maxVolt);
+            AnalogInputPin(unsigned short pin, unsigned int maxVal, float minVolt, float maxVolt);
 
             virtual ~AnalogInputPin();
 

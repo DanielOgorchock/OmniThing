@@ -6,7 +6,7 @@ namespace omni
 
 
 //public
-    DigitalOutputPin::DigitalOutputPin(unsigned char pin, bool initialValue, bool invertLogic):
+    DigitalOutputPin::DigitalOutputPin(unsigned short pin, bool initialValue, bool invertLogic):
         m_nPin(pin),
         m_bValue(initialValue),
         m_bInvertLogic(invertLogic)

@@ -13,7 +13,7 @@ namespace omni
             bool readPin() final;
 
         public:
-            DigitalInputPinStub(unsigned char pin, bool invertLogic);
+            DigitalInputPinStub(unsigned short pin, bool invertLogic);
 
             virtual ~DigitalInputPinStub();
     };

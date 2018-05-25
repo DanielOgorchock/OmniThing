@@ -9,7 +9,7 @@ namespace omni
     class DigitalOutputPin : public OutputVoid, public OutputBool
     {
         private:
-            unsigned char m_nPin;
+            unsigned short m_nPin;
             bool m_bInvertLogic;
             bool m_bValue;
 
@@ -17,7 +17,7 @@ namespace omni
             virtual void writePin(bool b) = 0;
 
         public:
-            DigitalOutputPin(unsigned char pin, bool initalValue, bool invertLogic);
+            DigitalOutputPin(unsigned short pin, bool initalValue, bool invertLogic);
 
             virtual ~DigitalOutputPin();
 

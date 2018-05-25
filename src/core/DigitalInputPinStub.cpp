@@ -13,16 +13,21 @@ namespace omni
     {
         static bool bogusVal = false;
         
-        bogusVal = !bogusVal
+        bogusVal = !bogusVal;
         std::cout << "DigitalInputPinStub: readPin(): " << bogusVal << std::endl; 
         return bogusVal;
     }
 
 //public
-    DigitalInputPinStub::DigitalInputPinStub(unsigned char pin, bool invertLogic):
+    DigitalInputPinStub::DigitalInputPinStub(unsigned short pin, bool invertLogic):
         DigitalInputPin(pin, invertLogic)
     {
         std::cout << "DigitalInputPinStub: Constructor(): pin=" << pin << "  invertLogic=" << invertLogic << std::endl;
+    }
+
+    DigitalInputPinStub::~DigitalInputPinStub()
+    {
+
     }
 
 }

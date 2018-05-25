@@ -8,14 +8,14 @@ namespace omni
     class DigitalInputPin : public InputBool
     {
         private:
-            unsigned char m_nPin;
+            unsigned short m_nPin;
             bool m_bInvertLogic;
 
         protected:
             virtual bool readPin() = 0;
 
         public:
-            DigitalInputPin(unsigned char pin, bool invertLogic);
+            DigitalInputPin(unsigned short pin, bool invertLogic);
 
             virtual ~DigitalInputPin();
 
