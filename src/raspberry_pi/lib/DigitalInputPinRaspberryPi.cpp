@@ -17,6 +17,8 @@ namespace omni
             val = 0;
         }
 
+        std::cout << "DigitalInputPinRaspberryPi: pin=" << getPin() << "val=" << val << std::endl;
+
         return val;
     }
 

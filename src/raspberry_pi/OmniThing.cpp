@@ -18,12 +18,15 @@ int main(int argc, char* argv[])
     std::cout << "Initialized pigpio\n";
 
     DigitalOutputPinRaspberryPi out(22, false, false);
+    DigitalInputPinRasberryPi in(7, false, DigitalInputPinRasberryPi::Pullup); 
 
     while(true)
     {
         sleep(3);
         std::cout << "Toggling pin\n";
         out.writeVoid(); 
+        std::cout << "Reading pin\n";
+        in.readBool();
     }
 
     return 0;
