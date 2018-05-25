@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
 
     NetworkReceiverHttpLib receiver;
 
-    omnithing->setNetworkReceiver(&receiver);
+    omnithing.setNetworkReceiver(&receiver);
 
     if(gpioInitialise() == PI_INIT_FAILED)
     {
