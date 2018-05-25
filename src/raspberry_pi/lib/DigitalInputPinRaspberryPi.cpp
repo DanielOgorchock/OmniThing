@@ -10,7 +10,14 @@ namespace omni
 //protected
     bool DigitalInputPinRaspberryPi::readPin()
     {
+        int val = gpioRead(getPin());
+        if(val == PI_BAD_GPIO)
+        {
+            std::cerr << "Problem reading pin " << getPin() << std::endl;
+            val = 0;
+        }
 
+        return val;
     }
 
 //public
@@ -31,13 +38,6 @@ namespace omni
 
     DigitalInputPinRaspberryPi::~DigitalInputPinRaspberryPi()
     {
-        int val = gpioRead(getPin());
-        if(val == PI_BAD_GPIO)
-        {
-            std::err << "Problem reading pin " << getPin() << std::endl;
-            val = 0;
-        }
 
-        return val;
     }
 }

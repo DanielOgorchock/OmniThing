@@ -13,7 +13,7 @@ namespace omni
         int res = gpioWrite(getPin(), b);
 
         if(res == PI_BAD_GPIO || res == PI_BAD_LEVEL)
-            std::err << "Problem writing pin " << getPin() << std::endl;
+            std::cerr << "Problem writing pin " << getPin() << std::endl;
     }
 
 //public
