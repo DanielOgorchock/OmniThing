@@ -13,8 +13,8 @@ namespace omni
     {
         static bool bogusVal = false;
         
-        bogusVal = !bogusVal;
-        std::cout << "DigitalInputPinStub: readPin(): " << bogusVal << std::endl; 
+        bogusVal = bogusVal;
+        //std::cout << "DigitalInputPinStub: readPin(): " << bogusVal << std::endl; 
         return bogusVal;
     }
 

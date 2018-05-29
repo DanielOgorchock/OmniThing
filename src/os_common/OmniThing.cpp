@@ -1,6 +1,5 @@
 #include <iostream>
 #include <frozen.h>
-#include <unistd.h>
 
 #include "OmniThing.h"
 #include "OmniUtil.h"
@@ -17,7 +16,7 @@ int main(int argc, char* argv[])
 
     OmniThing& omnithing = OmniThing::getInstance();
 
-    const char* ip = "192.168.2.101";
+    const char* ip = "192.168.2.105";
     NetworkReceiverHttpLib receiver(ip, 1337);
     omnithing.setNetworkReceiver(&receiver);
 

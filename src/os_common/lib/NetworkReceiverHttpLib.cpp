@@ -27,7 +27,10 @@ namespace omni
         });
 
         std::cout << "Starting http server...\n";
-        m_Server.listen(m_IP, m_nPort);
+		if (!m_Server.listen(m_IP, m_nPort))
+		{
+			std::cout << "Failed to bind socket\n";
+		}
         std::cerr << "Server Failed\n";
     }
 
@@ -37,7 +40,8 @@ namespace omni
         m_Server(),
         m_IP(ip),
         m_nPort(port),
-        m_bWipeBuffer(false)
+        m_bWipeBuffer(false),
+		m_bUnlockMutex(false)
     {
         m_JsonBuffer[0] = 0; 
     }
@@ -60,7 +64,11 @@ namespace omni
             m_bWipeBuffer = false;
         }
 
-        m_BufferMutex.unlock();
+		if (m_bUnlockMutex)
+		{
+			m_bUnlockMutex = false;
+			m_BufferMutex.unlock();
+		}
     }
 
     const char* NetworkReceiverHttpLib::getJsonString()
@@ -71,6 +79,7 @@ namespace omni
         }
 
         m_BufferMutex.lock();
+		m_bUnlockMutex = true;
 
         m_bWipeBuffer = true;
         return m_JsonBuffer;

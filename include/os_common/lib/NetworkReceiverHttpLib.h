@@ -17,6 +17,7 @@ namespace omni
             unsigned short m_nPort;
             std::thread* m_Thread;
             std::mutex m_BufferMutex;
+			bool m_bUnlockMutex;
             bool m_bWipeBuffer;
 
             void listenerThread();
