@@ -32,6 +32,7 @@ int main(int argc, char* argv[])
     if(gpioInitialise() == PI_INIT_FAILED)
     {
         std::cerr << "Failed to initialize pigpio library" << std::endl;
+        return 1;
     }
     std::cout << "Initialized pigpio\n";
 

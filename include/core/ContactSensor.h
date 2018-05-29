@@ -25,12 +25,14 @@ namespace omni
             virtual void run();
             virtual void init();
 
-            const char* getType() const {return "ContactSensor";}
+            const char* getType() const {return Type;}
             bool isInverted() const {return m_bInvert;}
             virtual bool read();
 
             //json commands/format strings
             static const char* Cmd_Poll;
+            //Type
+            static const char* Type;
 
     };
 }

@@ -72,4 +72,5 @@ namespace omni
 
 
     const char* ContactSensor::Cmd_Poll = "poll";
+    const char* ContactSensor::Type     = "ContactSensor";
 }

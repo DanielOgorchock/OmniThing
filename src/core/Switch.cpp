@@ -82,4 +82,5 @@ namespace omni
     const char* Switch::Cmd_On      = "on";
     const char* Switch::Cmd_Off     = "off";
     const char* Switch::Cmd_Toggle  = "toggle";
+    const char* Switch::Type        = "Switch";
 }

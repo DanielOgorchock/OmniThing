@@ -24,7 +24,7 @@ namespace omni
             virtual void recvJson(const char* cmd, const char* json);
             virtual void init();
 
-            const char* getType() const {return "Switch";}
+            const char* getType() const {return Type;}
             bool isInverted() const {return m_bInvert;}
             virtual bool read() const {return m_bValue;}
             virtual void write(bool b);
@@ -32,6 +32,9 @@ namespace omni
             virtual void off() {write(false);} 
             virtual void toggle() {write(!read());}
 
+            //Type
+            static const char* Type;
+            
             //json commands/format strings
             static const char* Cmd_Poll;
             static const char* Cmd_On;
