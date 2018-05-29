@@ -1,7 +1,8 @@
 #include "DigitalInputPinRaspberryPi.h"
 
-#include <iostream>
 #include <pigpio.h>
+
+#include "Logger.h"
 
 namespace omni
 {
@@ -13,7 +14,7 @@ namespace omni
         int val = gpioRead(getPin());
         if(val == PI_BAD_GPIO)
         {
-            std::cerr << "Problem reading pin " << getPin() << std::endl;
+            LOG << "Problem reading pin " << getPin() << Logger::endl;
             val = 0;
         }
 

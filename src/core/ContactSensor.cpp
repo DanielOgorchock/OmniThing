@@ -1,10 +1,11 @@
 #include "ContactSensor.h"
 #include "InputBool.h"
 
-#include <iostream> //TODO: replace!!!
 #include <string.h>
 #include "frozen.h"
 #include "OmniThing.h"
+
+#include "Logger.h"
 
 namespace omni
 {
@@ -38,7 +39,7 @@ namespace omni
     {
         if(!strcmp(cmd, Cmd_Poll))
         {
-            std::cout << "Poll triggered for " << getType() << " " << getUid() << std::endl;
+            LOG << "Poll triggered for " << getType() << " " << getUid() << Logger::endl;
             read();
             sendJsonPacket();
         }

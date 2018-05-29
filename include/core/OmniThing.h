@@ -8,6 +8,7 @@ namespace omni
     class Device;
     class NetworkReceiver;
     class NetworkSender;
+    class Logger;
  
     class Trigger // used by the scheduler
     {
@@ -57,6 +58,7 @@ namespace omni
 
             NetworkReceiver* m_pNetworkReceiver;
             NetworkSender* m_pNetworkSender;
+            Logger* m_pLogger;
 
 
         public:
@@ -66,6 +68,9 @@ namespace omni
 
             void setNetworkReceiver(NetworkReceiver* nr);
             void setNetworkSender(NetworkSender* ns);
+            void setLogger(Logger* l);
+
+            Logger& getLogger();
 
             void sendJson(const char* json);
             void addDevice(Device* dev); 

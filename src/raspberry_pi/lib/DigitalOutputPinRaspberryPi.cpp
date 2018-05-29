@@ -1,7 +1,8 @@
 #include "DigitalOutputPinRaspberryPi.h"
 
-#include <iostream>
 #include <pigpio.h>
+
+#include "Logger.h"
 
 namespace omni
 {
@@ -10,11 +11,11 @@ namespace omni
 //protected
     void DigitalOutputPinRaspberryPi::writePin(bool b)
     {
-        std::cout << "DigitalOutputPinRaspberryPi: pin=" << getPin() << " val=" << b << std::endl;
+        LOG << "DigitalOutputPinRaspberryPi: pin=" << getPin() << " val=" << b << Logger::endl;
         int res = gpioWrite(getPin(), b);
 
         if(res == PI_BAD_GPIO || res == PI_BAD_LEVEL)
-            std::cerr << "Problem writing pin " << getPin() << std::endl;
+            LOG << "Problem writing pin " << getPin() << Logger::endl;
     }
 
 //public
@@ -23,7 +24,7 @@ namespace omni
     {
         if(gpioSetMode(pin, PI_OUTPUT))
         {
-            std::cerr << "Failed to set pin " << pin << " to output\n";
+            LOG << "Failed to set pin " << pin << " to output\n";
         }
 
         writeBool(initialVal);

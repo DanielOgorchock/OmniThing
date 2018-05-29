@@ -4,8 +4,8 @@
 #include "Device.h"
 #include "NetworkReceiver.h"
 #include "NetworkSender.h"
+#include "Logger.h"
 #include "frozen.h"
-#include <iostream>
 #include <string.h>
 
 namespace omni
@@ -76,13 +76,13 @@ namespace omni
         int res = json_scanf(json, strlen(json), "{uid:%u, cmd:%s}", &uid, cmd);
         if(res != 2)
         {
-            std::cout << "problem scanning err=" << res << " : " << json << std::endl;
+            LOG << "problem scanning err=" << res << " : " << json << Logger::endl;
         }
 
         Device* d = findDevice(uid);
         if(!d)
         {
-            std::cout << "No device found with uid=" << uid << std::endl;
+            LOG << "No device found with uid=" << uid << Logger::endl;
         }
         else
         {
@@ -138,7 +138,7 @@ namespace omni
             const char* json_rcvd = m_pNetworkReceiver->getJsonString();
             if(json_rcvd)
             {
-                std::cout << "Received json: " << json_rcvd << std::endl;
+                LOG << "Received json: " << json_rcvd << Logger::endl;
                 parseJson(json_rcvd);
             }
         }
@@ -152,6 +152,16 @@ namespace omni
     void OmniThing::setNetworkSender(NetworkSender* ns)
     {
         m_pNetworkSender = ns;
+    }
+
+    void OmniThing::setLogger(Logger* l)
+    {
+        m_pLogger = l;
+    }
+
+    Logger& getLogger()
+    {
+        return *m_pLogger;
     }
 
     void OmniThing::sendJson(const char* json)

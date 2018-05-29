@@ -14,11 +14,15 @@
 #include "NetworkReceiverHttpLib.h"
 #include "NetworkSenderHttpLib.h"
 
+#include "LoggerStdout.h"
+
 int main(int argc, char* argv[])
 {
     using namespace omni;
 
     OmniThing& omnithing = OmniThing::getInstance();
+
+    omnithing.setLogger(new LoggerStdout());
 
     const char* ip = "192.168.2.104";
     NetworkReceiverHttpLib receiver(ip, 1337);
@@ -31,10 +35,10 @@ int main(int argc, char* argv[])
 
     if(gpioInitialise() == PI_INIT_FAILED)
     {
-        std::cerr << "Failed to initialize pigpio library" << std::endl;
+        LOG << "Failed to initialize pigpio library" << Logger::endl;
         return 1;
     }
-    std::cout << "Initialized pigpio\n";
+    LOG << "Initialized pigpio\n";
 
     DigitalOutputPinRaspberryPi out(22, false, false);
     DigitalInputPinRaspberryPi in(7, false, DigitalInputPinRaspberryPi::PinMode::Pullup); 

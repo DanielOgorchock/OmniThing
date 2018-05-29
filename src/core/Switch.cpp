@@ -2,9 +2,10 @@
 #include "OutputBool.h"
 
 #include <string.h>
-#include <iostream> //TODO: change this!!!
 #include "frozen.h"
 #include "OmniThing.h"
+
+#include "Logger.h"
 
 namespace omni
 {
@@ -39,22 +40,22 @@ namespace omni
     {
         if(!strcmp(cmd, Cmd_Poll))
         {
-            std::cout << "Poll triggered for " << getType() << " " << getUid() << std::endl;
+            LOG << "Poll triggered for " << getType() << " " << getUid() << Logger::endl;
             sendJsonPacket();
         }
         else if(!strcmp(cmd, Cmd_On))
         {
-            std::cout << "On triggered for " << getType() << " " << getUid() << std::endl;
+            LOG << "On triggered for " << getType() << " " << getUid() << Logger::endl;
             on();
         }
         else if(!strcmp(cmd, Cmd_Off))
         {
-            std::cout << "Off triggered for " << getType() << " " << getUid() << std::endl;
+            LOG << "Off triggered for " << getType() << " " << getUid() << Logger::endl;
             off();
         }
         else if(!strcmp(cmd, Cmd_Toggle))
         {
-            std::cout << "Toggle triggered for " << getType() << " " << getUid() << std::endl;
+            LOG << "Toggle triggered for " << getType() << " " << getUid() << Logger::endl;
             toggle();
         }
 
@@ -70,7 +71,7 @@ namespace omni
         m_bValue = b;
         m_rOutput.writeBool(isInverted() ? !b : b);
 
-        std::cout << "Switch: write() state=" << (b?"on":"off") << std::endl;
+        LOG << "Switch: write() state=" << (b?"on":"off") << Logger::endl;
         sendJsonPacket();
     }
 

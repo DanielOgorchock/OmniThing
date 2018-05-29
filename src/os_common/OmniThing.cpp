@@ -1,4 +1,3 @@
-#include <iostream>
 #include <frozen.h>
 
 #include "OmniThing.h"
@@ -10,11 +9,15 @@
 #include "NetworkSenderHttpLib.h"
 #include "DigitalInputPinStub.h"
 
+#include "LoggerStdout.h"
+
 int main(int argc, char* argv[])
 {
     using namespace omni;
 
     OmniThing& omnithing = OmniThing::getInstance();
+
+    omnithing.setLogger(new LoggerStdout());
 
     const char* ip = "192.168.2.105";
     NetworkReceiverHttpLib receiver(ip, 1337);

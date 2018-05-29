@@ -1,16 +1,17 @@
 #include "NetworkReceiverHttpLib.h"
 
-#include <iostream>
 #include <string>
 #include <thread>
 #include <string.h>
+
+#include "Logger.h"
 
 namespace omni
 {
 //private
     void NetworkReceiverHttpLib::listenerThread()
     {
-        std::cout << "Starting http server thread...\n";
+        LOG << "Starting http server thread...\n";
 
         m_Server.Post("/", [this](const auto& req, auto& res)
         {
@@ -18,7 +19,7 @@ namespace omni
 
             m_BufferMutex.lock();
 
-            std::cout << (std::string("Received message: ") + body + "\n");
+            LOG << (std::string("Received message: ") + body + "\n");
             res.set_content("ok\n", "text/plain");
 
             strcpy(m_JsonBuffer, body.c_str());
@@ -26,12 +27,12 @@ namespace omni
             m_BufferMutex.unlock();
         });
 
-        std::cout << "Starting http server...\n";
+        LOG << "Starting http server...\n";
 		if (!m_Server.listen(m_IP, m_nPort))
 		{
-			std::cout << "Failed to bind socket\n";
+			LOG << "Failed to bind socket\n";
 		}
-        std::cerr << "Server Failed\n";
+        LOG << "Server Failed\n";
     }
 
 //protected

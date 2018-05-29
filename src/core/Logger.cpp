@@ -9,4 +9,6 @@ namespace omni
     {
 
     }
+
+    char Logger::endl = '\n';
 }

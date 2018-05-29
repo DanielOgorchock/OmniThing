@@ -1,6 +1,10 @@
 #ifndef OMNI_LOGGER_H
 #define OMNI_LOGGER_H
 
+#include "OmniThing.h"
+
+#define LOG OmniThing::getInstance()->getLogger()
+
 namespace omni
 {
     class Logger
@@ -10,7 +14,7 @@ namespace omni
         public:
             virtual ~Logger();
 
-            static char endl() {return '\n';}
+            static char endl;
 
             virtual STREAM_OP_RET operator<< (bool val) = 0;
             virtual STREAM_OP_RET operator<< (short val) = 0;
