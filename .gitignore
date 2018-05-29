@@ -4,3 +4,4 @@ Makefile
 test
 cmake_install.cmake
 OmniThing
+.vs
