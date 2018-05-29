@@ -32,6 +32,8 @@ namespace omni
             virtual void off() {write(false);} 
             virtual void toggle() {write(!read());}
 
+            static Device* createFromJson(const char* json);
+
             //Type
             static const char* Type;
             
@@ -41,6 +43,7 @@ namespace omni
             static const char* Cmd_Off;
             static const char* Cmd_Toggle;
 
+            static DeviceConfig DevConf;
     };
 }
 

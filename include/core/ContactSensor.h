@@ -29,11 +29,14 @@ namespace omni
             bool isInverted() const {return m_bInvert;}
             virtual bool read();
 
+            static Device* createFromJson(const char* json);
+
             //json commands/format strings
             static const char* Cmd_Poll;
             //Type
             static const char* Type;
 
+            static DeviceConfig DevConf;
     };
 }
 

@@ -8,7 +8,8 @@ namespace omni
     class NetworkReceiver;
     class NetworkSender;
     class Logger;
- 
+    class DeviceConfig;
+
     class Trigger // used by the scheduler
     {
         public:
@@ -55,6 +56,9 @@ namespace omni
             unsigned short m_nTriggerCount;
             Trigger m_Triggers[10]; // TODO: use config file for number
 
+            unsigned short m_nDeviceConfigCount;
+            DeviceConfig* m_DeviceConfigs[20]; //TODO: use config file for number
+
             NetworkReceiver* m_pNetworkReceiver;
             NetworkSender* m_pNetworkSender;
             Logger *m_pDefaultLogger; // doesn't do anything but should avoid crashes
@@ -76,6 +80,7 @@ namespace omni
             void addDevice(Device* dev); 
             void addTrigger(Trigger& t);
             void addTrigger(Device* d, unsigned long interval, const char* cmd, const char* json = nullptr, bool repeat = true);
+            void addDeviceConfig(DeviceConfig* dc);
 
     };
 }

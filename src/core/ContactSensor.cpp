@@ -70,8 +70,14 @@ namespace omni
         return val;
     }
 
+    Device* ContactSensor::createFromJson(const char* json)
+    {
+        return nullptr;
+    }
 
 
     const char* ContactSensor::Cmd_Poll = "poll";
     const char* ContactSensor::Type     = "ContactSensor";
+
+    DeviceConfig ContactSensor::DevConf(Type, createFromJson); 
 }

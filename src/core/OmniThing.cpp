@@ -2,6 +2,7 @@
 #include "OmniUtil.h"
 
 #include "Device.h"
+#include "DeviceConfig.h"
 #include "NetworkReceiver.h"
 #include "NetworkSender.h"
 #include "Logger.h"
@@ -14,6 +15,7 @@ namespace omni
     OmniThing::OmniThing():
         m_nDeviceCount(0),
         m_nTriggerCount(0),
+        m_nDeviceConfigCount(0),
         m_pNetworkReceiver(nullptr),
         m_pNetworkSender(nullptr),
         m_pDefaultLogger(new Logger()),
@@ -119,14 +121,21 @@ namespace omni
 
     void OmniThing::init()
     {
-       initDevices(); 
-       initScheduler();
+        initDevices(); 
+        initScheduler();
 
-       if(m_pNetworkSender)
-           m_pNetworkSender->init();
+        if(m_pNetworkSender)
+            m_pNetworkSender->init();
 
-       if(m_pNetworkReceiver)
-           m_pNetworkReceiver->init();
+        if(m_pNetworkReceiver)
+            m_pNetworkReceiver->init();
+
+        // Provide some debug output
+        LOG << "Device Configurations:\n";
+        for(unsigned int i = 0; i < m_nDeviceConfigCount; ++i)
+        {
+            LOG << "\t" << m_DeviceConfigs[i]->getType() << "\n";
+        }
     }
 
     void OmniThing::run()
@@ -192,5 +201,10 @@ namespace omni
     void OmniThing::addTrigger(Device* d, unsigned long interval, const char* cmd, const char* json, bool repeat)
     {
         m_Triggers[m_nTriggerCount++] = Trigger(d, interval, cmd, json, repeat);
+    }
+
+    void OmniThing::addDeviceConfig(DeviceConfig* dc)
+    {
+        m_DeviceConfigs[m_nDeviceConfigCount++] = dc;
     }
 }

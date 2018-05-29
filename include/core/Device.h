@@ -1,5 +1,6 @@
 #ifndef OMNI_DEVICE_H
 #define OMNI_DEVICE_H
+#include "DeviceConfig.h"
 
 namespace omni
 {

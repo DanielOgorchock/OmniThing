@@ -75,6 +75,10 @@ namespace omni
         sendJsonPacket();
     }
 
+    Device* Switch::createFromJson(const char* json)
+    {
+        return nullptr;
+    }
 
 
 
@@ -84,4 +88,6 @@ namespace omni
     const char* Switch::Cmd_Off     = "off";
     const char* Switch::Cmd_Toggle  = "toggle";
     const char* Switch::Type        = "Switch";
+
+    DeviceConfig Switch::DevConf(Type, createFromJson); 
 }
