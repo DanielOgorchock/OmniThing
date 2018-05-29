@@ -40,22 +40,22 @@ namespace omni
     {
         if(!strcmp(cmd, Cmd_Poll))
         {
-            LOG << "Poll triggered for " << getType() << " " << getUid() << Logger::endl;
+            LOG << F("Poll triggered for ") << getType() << F(" ") << getUid() << Logger::endl;
             sendJsonPacket();
         }
         else if(!strcmp(cmd, Cmd_On))
         {
-            LOG << "On triggered for " << getType() << " " << getUid() << Logger::endl;
+            LOG << F("On triggered for ") << getType() << F(" ") << getUid() << Logger::endl;
             on();
         }
         else if(!strcmp(cmd, Cmd_Off))
         {
-            LOG << "Off triggered for " << getType() << " " << getUid() << Logger::endl;
+            LOG << F("Off triggered for ") << getType() << F(" ") << getUid() << Logger::endl;
             off();
         }
         else if(!strcmp(cmd, Cmd_Toggle))
         {
-            LOG << "Toggle triggered for " << getType() << " " << getUid() << Logger::endl;
+            LOG << F("Toggle triggered for ") << getType() << F(" ") << getUid() << Logger::endl;
             toggle();
         }
 
@@ -71,7 +71,7 @@ namespace omni
         m_bValue = b;
         m_rOutput.writeBool(isInverted() ? !b : b);
 
-        LOG << "Switch: write() state=" << (b?"on":"off") << Logger::endl;
+        LOG << F("Switch: write() state=") << (b?F("on"):F("off")) << Logger::endl;
         sendJsonPacket();
     }
 

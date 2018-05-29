@@ -73,16 +73,16 @@ namespace omni
         unsigned int uid;
         char cmd[24]; 
         
-        int res = json_scanf(json, strlen(json), "{uid:%u, cmd:%s}", &uid, cmd);
+        int res = json_scanf(json, strlen(json), F("{uid:%u, cmd:%s}"), &uid, cmd);
         if(res != 2)
         {
-            LOG << "problem scanning err=" << res << " : " << json << Logger::endl;
+            LOG << F("problem scanning err=") << res << F(" : ") << json << Logger::endl;
         }
 
         Device* d = findDevice(uid);
         if(!d)
         {
-            LOG << "No device found with uid=" << uid << Logger::endl;
+            LOG << F("No device found with uid=") << uid << Logger::endl;
         }
         else
         {
@@ -138,7 +138,7 @@ namespace omni
             const char* json_rcvd = m_pNetworkReceiver->getJsonString();
             if(json_rcvd)
             {
-                LOG << "Received json: " << json_rcvd << Logger::endl;
+                LOG << F("Received json: ") << json_rcvd << Logger::endl;
                 parseJson(json_rcvd);
             }
         }

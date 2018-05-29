@@ -39,7 +39,7 @@ namespace omni
     {
         if(!strcmp(cmd, Cmd_Poll))
         {
-            LOG << "Poll triggered for " << getType() << " " << getUid() << Logger::endl;
+            LOG << F("Poll triggered for ") << getType() << F(" ") << getUid() << Logger::endl;
             read();
             sendJsonPacket();
         }

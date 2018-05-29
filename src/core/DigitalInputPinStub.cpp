@@ -20,7 +20,7 @@ namespace omni
     DigitalInputPinStub::DigitalInputPinStub(unsigned short pin, bool invertLogic):
         DigitalInputPin(pin, invertLogic)
     {
-        LOG << "DigitalInputPinStub: Constructor(): pin=" << pin << "  invertLogic=" << invertLogic << Logger::endl;
+        LOG << F("DigitalInputPinStub: Constructor(): pin=") << pin << F("  invertLogic=") << invertLogic << Logger::endl;
     }
 
     DigitalInputPinStub::~DigitalInputPinStub()
