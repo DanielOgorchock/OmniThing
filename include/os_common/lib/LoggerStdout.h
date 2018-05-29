@@ -2,6 +2,7 @@
 #define OMNI_LOGGERSTDOUT_H
 
 #include "Logger.h"
+#include <iostream>
 
 namespace omni
 {
@@ -12,17 +13,19 @@ namespace omni
         public:
             virtual ~LoggerStdout();
 
-            virtual STREAM_OP_RET operator<< (bool val);
-            virtual STREAM_OP_RET operator<< (short val);
-            virtual STREAM_OP_RET operator<< (unsigned short val);
-            virtual STREAM_OP_RET operator<< (int val);
-            virtual STREAM_OP_RET operator<< (unsigned int val);
-            virtual STREAM_OP_RET operator<< (long val);
-            virtual STREAM_OP_RET operator<< (unsigned long val);
-            virtual STREAM_OP_RET operator<< (float val);
-            virtual STREAM_OP_RET operator<< (double val);
-            virtual STREAM_OP_RET operator<< (long double val);
-            virtual STREAM_OP_RET operator<< (void* val);
+            virtual Logger& operator<< (bool val);
+            virtual Logger& operator<< (short val);
+            virtual Logger& operator<< (unsigned short val);
+            virtual Logger& operator<< (int val);
+            virtual Logger& operator<< (unsigned int val);
+            virtual Logger& operator<< (long val);
+            virtual Logger& operator<< (unsigned long val);
+            virtual Logger& operator<< (float val);
+            virtual Logger& operator<< (double val);
+            virtual Logger& operator<< (long double val);
+            virtual Logger& operator<< (void* val);
+            virtual Logger& operator<< (const char* val);
+            virtual Logger& operator<< (char val);
 
     };
 }

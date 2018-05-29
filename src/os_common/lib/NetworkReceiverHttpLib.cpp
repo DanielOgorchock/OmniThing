@@ -19,7 +19,7 @@ namespace omni
 
             m_BufferMutex.lock();
 
-            LOG << (std::string("Received message: ") + body + "\n");
+            LOG << "Received message: " << body.c_str() << "\n";
             res.set_content("ok\n", "text/plain");
 
             strcpy(m_JsonBuffer, body.c_str());

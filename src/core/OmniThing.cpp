@@ -159,7 +159,7 @@ namespace omni
         m_pLogger = l;
     }
 
-    Logger& getLogger()
+    Logger& OmniThing::getLogger()
     {
         return *m_pLogger;
     }

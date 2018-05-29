@@ -3,7 +3,7 @@
 
 #include "OmniThing.h"
 
-#define LOG OmniThing::getInstance()->getLogger()
+#define LOG OmniThing::getInstance().getLogger()
 
 namespace omni
 {
@@ -16,17 +16,19 @@ namespace omni
 
             static char endl;
 
-            virtual STREAM_OP_RET operator<< (bool val) = 0;
-            virtual STREAM_OP_RET operator<< (short val) = 0;
-            virtual STREAM_OP_RET operator<< (unsigned short val) = 0;
-            virtual STREAM_OP_RET operator<< (int val) = 0;
-            virtual STREAM_OP_RET operator<< (unsigned int val) = 0;
-            virtual STREAM_OP_RET operator<< (long val) = 0;
-            virtual STREAM_OP_RET operator<< (unsigned long val) = 0;
-            virtual STREAM_OP_RET operator<< (float val) = 0;
-            virtual STREAM_OP_RET operator<< (double val) = 0;
-            virtual STREAM_OP_RET operator<< (long double val) = 0;
-            virtual STREAM_OP_RET operator<< (void* val) = 0;
+            virtual Logger& operator<< (bool val) = 0;
+            virtual Logger& operator<< (short val) = 0;
+            virtual Logger& operator<< (unsigned short val) = 0;
+            virtual Logger& operator<< (int val) = 0;
+            virtual Logger& operator<< (unsigned int val) = 0;
+            virtual Logger& operator<< (long val) = 0;
+            virtual Logger& operator<< (unsigned long val) = 0;
+            virtual Logger& operator<< (float val) = 0;
+            virtual Logger& operator<< (double val) = 0;
+            virtual Logger& operator<< (long double val) = 0;
+            virtual Logger& operator<< (void* val) = 0;
+            virtual Logger& operator<< (const char* val) = 0;
+            virtual Logger& operator<< (char val) = 0;
     };
 }
 #endif

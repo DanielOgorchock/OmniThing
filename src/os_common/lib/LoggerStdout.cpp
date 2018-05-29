@@ -12,60 +12,94 @@ namespace omni
 
     }
 
-    STREAM_OP_RET LoggerStdout::operator<< (bool val)
+    Logger& LoggerStdout::operator<< (bool val)
     {
-        return std::cout << val;
+        std::cout << val;
+        std::cout.flush();
+        return *this;
     }
 
-    STREAM_OP_RET LoggerStdout::operator<< (short val)
+    Logger& LoggerStdout::operator<< (short val)
     {
-        return std::cout << val;
+        std::cout << val;
+        std::cout.flush();
+        return *this;
     }
 
-    STREAM_OP_RET LoggerStdout::operator<< (unsigned short val)
+    Logger& LoggerStdout::operator<< (unsigned short val)
     {
-        return std::cout << val;
+        std::cout << val;
+        std::cout.flush();
+        return *this;
     }
 
-    STREAM_OP_RET LoggerStdout::operator<< (int val)
+    Logger& LoggerStdout::operator<< (int val)
     {
-        return std::cout << val;
+        std::cout << val;
+        std::cout.flush();
+        return *this;
     }
 
-    STREAM_OP_RET LoggerStdout::operator<< (unsigned int val)
+    Logger& LoggerStdout::operator<< (unsigned int val)
     {
-        return std::cout << val;
+        std::cout << val;
+        std::cout.flush();
+        return *this;
     }
 
-    STREAM_OP_RET LoggerStdout::operator<< (long val)
+    Logger& LoggerStdout::operator<< (long val)
     {
-        return std::cout << val;
+        std::cout << val;
+        std::cout.flush();
+        return *this;
     }
 
-    STREAM_OP_RET LoggerStdout::operator<< (unsigned long val)
+    Logger& LoggerStdout::operator<< (unsigned long val)
     {
-        return std::cout << val;
+        std::cout << val;
+        std::cout.flush();
+        return *this;
     }
 
-    STREAM_OP_RET LoggerStdout::operator<< (float val)
+    Logger& LoggerStdout::operator<< (float val)
     {
-        return std::cout << val;
+        std::cout << val;
+        std::cout.flush();
+        return *this;
     }
 
-    STREAM_OP_RET LoggerStdout::operator<< (double val)
+    Logger& LoggerStdout::operator<< (double val)
     {
-        return std::cout << val;
+        std::cout << val;
+        std::cout.flush();
+        return *this;
     }
 
-    STREAM_OP_RET LoggerStdout::operator<< (long double val)
+    Logger& LoggerStdout::operator<< (long double val)
     {
-        return std::cout << val;
+        std::cout << val;
+        std::cout.flush();
+        return *this;
     }
 
-    STREAM_OP_RET LoggerStdout::operator<< (void* val)
+    Logger& LoggerStdout::operator<< (void* val)
     {
-        return std::cout << val;
+        std::cout << val;
+        std::cout.flush();
+        return *this;
     }
 
+    Logger& LoggerStdout::operator<< (const char* val)
+    {
+        std::cout << val;
+        std::cout.flush();
+        return *this;
+    }
 
+    Logger& LoggerStdout::operator<< (char val)
+    {
+        std::cout << val;
+        std::cout.flush();
+        return *this;
+    }
 }
