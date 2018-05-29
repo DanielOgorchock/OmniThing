@@ -1,6 +1,5 @@
 #include "Device.h"
 
-#include <iostream> //TODO: replace with Logger class for arduino support
 
 namespace omni
 {
