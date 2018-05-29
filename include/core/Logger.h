@@ -16,19 +16,19 @@ namespace omni
 
             static char endl;
 
-            virtual Logger& operator<< (bool val) = 0;
-            virtual Logger& operator<< (short val) = 0;
-            virtual Logger& operator<< (unsigned short val) = 0;
-            virtual Logger& operator<< (int val) = 0;
-            virtual Logger& operator<< (unsigned int val) = 0;
-            virtual Logger& operator<< (long val) = 0;
-            virtual Logger& operator<< (unsigned long val) = 0;
-            virtual Logger& operator<< (float val) = 0;
-            virtual Logger& operator<< (double val) = 0;
-            virtual Logger& operator<< (long double val) = 0;
-            virtual Logger& operator<< (void* val) = 0;
-            virtual Logger& operator<< (const char* val) = 0;
-            virtual Logger& operator<< (char val) = 0;
+            virtual Logger& operator<< (bool val) {return *this;}
+            virtual Logger& operator<< (short val) {return *this;}
+            virtual Logger& operator<< (unsigned short val) {return *this;}
+            virtual Logger& operator<< (int val) {return *this;}
+            virtual Logger& operator<< (unsigned int val) {return *this;}
+            virtual Logger& operator<< (long val) {return *this;}
+            virtual Logger& operator<< (unsigned long val) {return *this;}
+            virtual Logger& operator<< (float val) {return *this;}
+            virtual Logger& operator<< (double val) {return *this;}
+            virtual Logger& operator<< (long double val) {return *this;}
+            virtual Logger& operator<< (void* val) {return *this;}
+            virtual Logger& operator<< (const char* val) {return *this;}
+            virtual Logger& operator<< (char val) {return *this;}
     };
 }
 #endif

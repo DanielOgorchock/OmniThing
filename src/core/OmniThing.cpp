@@ -14,7 +14,10 @@ namespace omni
     OmniThing::OmniThing():
         m_nDeviceCount(0),
         m_nTriggerCount(0),
-        m_pNetworkReceiver(nullptr)
+        m_pNetworkReceiver(nullptr),
+        m_pNetworkSender(nullptr),
+        m_pDefaultLogger(new Logger()),
+        m_pLogger(m_pDefaultLogger)
     {
 
     }
@@ -48,6 +51,8 @@ namespace omni
 
     void OmniThing::initDevices()
     {
+        LOG << F("Initializing devices...\n");
+
         //run init on all devices
         for(unsigned short i = 0; i < m_nDeviceCount; ++i)
         {
@@ -58,6 +63,8 @@ namespace omni
 
     void OmniThing::initScheduler()
     {
+        LOG << F("Initializing scheduler...\n");
+
         unsigned long long time = getMillis();
         for(unsigned short i = 0; i < m_nTriggerCount; ++i)
         {

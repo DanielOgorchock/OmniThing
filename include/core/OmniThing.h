@@ -2,7 +2,6 @@
 #define OMNI_OMNITHING_H
 
 
-
 namespace omni
 {
     class Device;
@@ -58,6 +57,7 @@ namespace omni
 
             NetworkReceiver* m_pNetworkReceiver;
             NetworkSender* m_pNetworkSender;
+            Logger *m_pDefaultLogger; // doesn't do anything but should avoid crashes
             Logger* m_pLogger;
 
 
