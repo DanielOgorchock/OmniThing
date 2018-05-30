@@ -4,6 +4,16 @@
 namespace omni
 {
     class Device;
+
+    class InputBool;
+    class InputFloat;
+    class InputUInt;
+
+    class OutputVoid;
+    class OutputBool;
+    class OutputFloat;
+    class OutputString;
+
     class NetworkReceiver;
     class NetworkSender;
     class Logger;
@@ -57,6 +67,27 @@ namespace omni
 
             unsigned short m_nDeviceConfigCount;
             ObjectConfig<Device>* m_DeviceConfigs[20]; //TODO: use config file for number
+
+            unsigned short m_nInputBoolConfigCount;
+            ObjectConfig<InputBool>* m_InputBoolConfigs[10]; //TODO: use config file for number
+
+            unsigned short m_nInputFloatConfigCount;
+            ObjectConfig<InputFloat>* m_InputFloatConfigs[10]; //TODO: use config file for number
+
+            unsigned short m_nInputUIntConfigCount;
+            ObjectConfig<InputUInt>* m_InputUIntConfigs[10]; //TODO: use config file for number
+
+            unsigned short m_nOutputVoidConfigCount;
+            ObjectConfig<OutputVoid>* m_OutputVoidConfigs[10]; //TODO: use config file for number
+
+            unsigned short m_nOutputBoolConfigCount;
+            ObjectConfig<OutputBool>* m_OutputBoolConfigs[10]; //TODO: use config file for number
+
+            unsigned short m_nOutputFloatConfigCount;
+            ObjectConfig<OutputFloat>* m_OutputFloatConfigs[10]; //TODO: use config file for number
+
+            unsigned short m_nOutputStringConfigCount;
+            ObjectConfig<OutputString>* m_OutputStringConfigs[10]; //TODO: use config file for number
 
             NetworkReceiver* m_pNetworkReceiver;
             NetworkSender* m_pNetworkSender;
