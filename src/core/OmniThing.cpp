@@ -292,7 +292,7 @@ namespace omni
             LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
             return false;
         }
-        m_InputBoolConfigs[m_nInputBoolConfigCount++]; 
+        m_InputBoolConfigs[m_nInputBoolConfigCount++] = c; 
         return true;
     }
 
@@ -303,7 +303,7 @@ namespace omni
             LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
             return false;
         }
-        m_InputFloatConfigs[m_nInputFloatConfigCount++]; 
+        m_InputFloatConfigs[m_nInputFloatConfigCount++] = c; 
         return true;
     }
 
@@ -314,7 +314,7 @@ namespace omni
             LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
             return false;
         }
-        m_InputUIntConfigs[m_nInputUIntConfigCount++]; 
+        m_InputUIntConfigs[m_nInputUIntConfigCount++] = c; 
         return true;
     }
 
@@ -325,7 +325,7 @@ namespace omni
             LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
             return false;
         }
-        m_OutputVoidConfigs[m_nOutputVoidConfigCount++]; 
+        m_OutputVoidConfigs[m_nOutputVoidConfigCount++] = c; 
         return true;
     }
 
@@ -336,7 +336,7 @@ namespace omni
             LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
             return false;
         }
-        m_OutputBoolConfigs[m_nOutputBoolConfigCount++]; 
+        m_OutputBoolConfigs[m_nOutputBoolConfigCount++] = c; 
         return true;
     }
 
@@ -347,7 +347,7 @@ namespace omni
             LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
             return false;
         }
-        m_OutputFloatConfigs[m_nOutputFloatConfigCount++]; 
+        m_OutputFloatConfigs[m_nOutputFloatConfigCount++] = c; 
         return true;
     }
 
@@ -358,7 +358,7 @@ namespace omni
             LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
             return false;
         }
-        m_OutputStringConfigs[m_nOutputStringConfigCount++]; 
+        m_OutputStringConfigs[m_nOutputStringConfigCount++] = c; 
         return true;
     }
 
