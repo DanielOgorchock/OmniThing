@@ -1,7 +1,6 @@
 {
     "InputBools": [
         {"type": "DigitalInputPinRaspberryPi", "pin": 7, "invert": false, "pinMode": "Pullup"},
-        {"type": "DigitalInputPinRaspberryPi", "pin": 8, "invert": false, "pinMode": "Pullup"}
     ],
 
     "InputFloats": [
@@ -30,7 +29,7 @@
 
     "Devices": [
         {"type": "Switch", "outputIndex": 0, "invert": false, "initial": false},
-        {"type": "ContactSensor", "inputIndex": 0, "invert": false", "constantPoll": true}
+        {"type": "ContactSensor", "inputIndex": 0, "invert": false, "constantPoll": true}
     ],
 
     "Triggers": [
