@@ -27,10 +27,7 @@ int main(int argc, char* argv[])
     NetworkSenderHttpLib sender(destIp, 39500);
     omnithing.setNetworkSender(&sender);
 
-
-    DigitalInputPinStub stub(22, false);
-    ContactSensor contact(stub, false);
-    omnithing.addDevice(&contact);
+    omnithing.loadJsonConfig("{\"InputBools\": [{\"type\": \"DigitalInputPinStub\", \"pin\": 12, \"invertLogic\": true}] }");
 
     omnithing.init();
 

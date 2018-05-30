@@ -16,6 +16,12 @@ namespace omni
             DigitalInputPinStub(unsigned short pin, bool invertLogic);
 
             virtual ~DigitalInputPinStub();
+
+            
+            static InputBool* createFromJson(const char* json);
+
+            static const char* Type;
+            static ObjectConfig<InputBool> InputBoolConf;
     };
 }
 
