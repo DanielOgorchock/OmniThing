@@ -105,14 +105,13 @@ namespace omni
         }
 
         //check for triggers
-        //TODO: account for overflow in the for loop
         //TODO: account for non-repeating triggers
         unsigned long long time = getMillis();
         for(unsigned short i = 0; i < m_Triggers.getCount(); ++i)
         {
             Trigger& t = m_Triggers[i];
             
-            if(time >= t.triggerTime)
+            if(time - t.triggerTime >= t.interval)
             {
                 t.triggerTime += t.interval;
                 t.dev->recvJson(t.cmd, t.json);
@@ -141,7 +140,7 @@ namespace omni
         {
             Trigger& t = m_Triggers[i];
             
-            t.triggerTime = time + t.interval;
+            t.triggerTime = time;
         }
 
     }
