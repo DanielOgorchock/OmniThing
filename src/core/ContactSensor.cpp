@@ -76,7 +76,9 @@ namespace omni
         bool invert;
         bool constantPoll;
 
-        if(json_scanf(json, strlen(json), "{input: %u, invert: %B, constantPoll: %B}", &inputIndex, &invert, &constantPoll) != 3)
+        unsigned int len = strlen(json);
+
+        if(json_scanf(json, len, "{inputIndex: %u, invert: %B, constantPoll: %B}", &inputIndex, &invert, &constantPoll) != 3)
         {
             return nullptr;
         }
