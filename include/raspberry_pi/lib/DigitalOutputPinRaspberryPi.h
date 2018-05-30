@@ -17,8 +17,8 @@ namespace omni
 
             virtual ~DigitalOutputPinRaspberryPi();
 
-            static OutputVoid* createVoidFromJson(char* json);
-            static OutputBool* createBoolFromJson(char* json);
+            static OutputVoid* createVoidFromJson(const char* json);
+            static OutputBool* createBoolFromJson(const char* json);
 
             static ObjectConfig<OutputVoid> OutputVoidConf;
             static ObjectConfig<OutputBool> OutputBoolConf;
