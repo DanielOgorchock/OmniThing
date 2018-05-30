@@ -1,6 +1,7 @@
 {
     "InputBools": [
-        {"type": "DigitalInputPinRaspberryPi", "pin": 7, "invert": false, "pinMode": "Pullup"}
+        {"type": "DigitalInputPinRaspberryPi", "pin": 7, "invert": false, "pinMode": "Pullup"},
+        {"type": "DigitalInputPinRaspberryPi", "pin": 8, "invert": false, "pinMode": "Pullup"}
     ],
 
     "InputFloats": [
