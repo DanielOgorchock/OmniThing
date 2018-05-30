@@ -16,6 +16,9 @@
 
 #include "LoggerStdout.h"
 
+#include <fstream>
+#include <sstream>
+
 int main(int argc, char* argv[])
 {
     using namespace omni;
@@ -40,20 +43,11 @@ int main(int argc, char* argv[])
     }
     LOG << "Initialized pigpio\n";
 
-    DigitalOutputPinRaspberryPi out(22, false, false);
-    DigitalInputPinRaspberryPi in(7, false, DigitalInputPinRaspberryPi::PinMode::Pullup); 
+    std::ifstream f("example_configs/raspberry_pi.json");
+    std::stringstream buffer;
+    buffer << f.rdbuf();
 
-    Switch sw(out);
-    ContactSensor contact(in);
-
-    Trigger t_sw(&sw, 15000, Switch::Cmd_Poll);
-    Trigger t_contact(&contact, 10000, ContactSensor::Cmd_Poll);
-
-    omnithing.addDevice(&sw);
-    omnithing.addDevice(&contact);
-
-    omnithing.addTrigger(t_sw);
-    omnithing.addTrigger(t_contact);
+    omnithing.loadJsonConfig(buffer.str().c_str());
 
     omnithing.init();
 

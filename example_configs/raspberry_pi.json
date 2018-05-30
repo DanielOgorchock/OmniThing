@@ -1,0 +1,40 @@
+{
+    "InputBools": [
+        {"type": "DigitalInputPinRaspberryPi", "pin": 7, "invert": false, "pinMode": "Pullup"}
+    ],
+
+    "InputFloats": [
+
+    ],
+
+    "InputUInts": [
+
+    ],
+
+    "OutputVoids": [
+
+    ],
+
+    "OutputBools": [
+        {"type": "DigitalOutputPinRaspberryPi", "pin": 22, "invert": false, "initial": false}
+    ],
+
+    "OutputFloats": [
+
+    ],
+
+    "OutputStrings": [
+
+    ],
+
+    "Devices": [
+        {"type": "Switch", "outputIndex": 0, "invert": false, "initial": false},
+        {"type": "ContactSensor", "inputIndex": 0, "invert": false", "constantPoll": true}
+    ],
+
+    "Triggers": [
+        {"deviceIndex": 0, "interval": 30000, "command": "poll"},
+        {"deviceIndex": 1, "interval": 10000, "command": "poll"}
+    ]
+
+}
