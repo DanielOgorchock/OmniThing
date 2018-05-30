@@ -120,10 +120,6 @@ namespace omni
 
     void OmniThing::init()
     {
-        initDevices(); 
-        initScheduler();
-
-
         // Provide some debug output
         LOG << F("\nDevice Configurations:\n");
         for(unsigned int i = 0; i < m_DeviceConfigs.getCount(); ++i)
@@ -185,6 +181,9 @@ namespace omni
             m_pNetworkReceiver->init();
         else
             LOG << F("WARNING: no NetworkReceiver configured\n");
+
+        initDevices(); 
+        initScheduler();
     }
 
     void OmniThing::run()
@@ -429,4 +428,8 @@ namespace omni
         }
     }
 
+    bool OmniThing::loadJsonConfig(const char* json)
+    {
+        return true;
+    }
 }

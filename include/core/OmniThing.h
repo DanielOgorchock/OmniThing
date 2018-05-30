@@ -63,9 +63,11 @@ namespace omni
 
             // Devices and Inputs/Outputs
             FixedArray<Device*,         10> m_Devices;
+
             FixedArray<InputBool*,      10> m_InputBools;
             FixedArray<InputFloat*,     10> m_InputFloats;
             FixedArray<InputUInt*,      10> m_InputUInts;
+
             FixedArray<OutputVoid*,     10> m_OutputVoids;
             FixedArray<OutputBool*,     10> m_OutputBools;
             FixedArray<OutputFloat*,    10> m_OutputFloats;
@@ -128,6 +130,7 @@ namespace omni
             bool addOutputFloatConfig(ObjectConfig<OutputFloat>* c);
             bool addOutputStringConfig(ObjectConfig<OutputString>* c);
 
+            bool loadJsonConfig(const char* json);
 
 
     };
