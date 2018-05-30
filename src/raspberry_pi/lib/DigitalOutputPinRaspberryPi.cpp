@@ -46,6 +46,6 @@ namespace omni
     }
 
     const char* DigitalOutputPinRaspberryPi::Type = "DigitalOutputPinRaspberryPi";
-    ObjectConfig<OutputVoid> DigitalOutputPinRaspberryPi::OutputVoidConf(type, createVoidFromJson);
-    ObjectConfig<OutputBool> DigitalOutputPinRaspberryPi::OutputBoolConf(type, createBoolFromJson);
+    ObjectConfig<OutputVoid> DigitalOutputPinRaspberryPi::OutputVoidConf(Type, createVoidFromJson);
+    ObjectConfig<OutputBool> DigitalOutputPinRaspberryPi::OutputBoolConf(Type, createBoolFromJson);
 }
