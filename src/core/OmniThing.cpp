@@ -15,16 +15,6 @@ namespace omni
 {
 //private
     OmniThing::OmniThing():
-        m_nDeviceCount(0),
-        m_nTriggerCount(0),
-        m_nDeviceConfigCount(0),
-        m_nInputBoolConfigCount(0),
-        m_nInputFloatConfigCount(0),
-        m_nInputUIntConfigCount(0),
-        m_nOutputVoidConfigCount(0),
-        m_nOutputBoolConfigCount(0),
-        m_nOutputFloatConfigCount(0),
-        m_nOutputStringConfigCount(0),
         m_pNetworkReceiver(nullptr),
         m_pNetworkSender(nullptr),
         m_pDefaultLogger(new LoggerStdout()),
@@ -36,7 +26,7 @@ namespace omni
     void OmniThing::runScheduler()
     {
         //run all run-enabled devices
-        for(unsigned short i = 0; i < m_nDeviceCount; ++i)
+        for(unsigned short i = 0; i < m_Devices.getCount(); ++i)
         {
             if(m_Devices[i]->isRunning())
             {
@@ -48,7 +38,7 @@ namespace omni
         //TODO: account for overflow in the for loop
         //TODO: account for non-repeating triggers
         unsigned long long time = getMillis();
-        for(unsigned short i = 0; i < m_nTriggerCount; ++i)
+        for(unsigned short i = 0; i < m_Triggers.getCount(); ++i)
         {
             Trigger& t = m_Triggers[i];
             
@@ -65,7 +55,7 @@ namespace omni
         LOG << F("Initializing devices...\n");
 
         //run init on all devices
-        for(unsigned short i = 0; i < m_nDeviceCount; ++i)
+        for(unsigned short i = 0; i < m_Devices.getCount(); ++i)
         {
             m_Devices[i]->init();
         }
@@ -77,7 +67,7 @@ namespace omni
         LOG << F("Initializing scheduler...\n");
 
         unsigned long long time = getMillis();
-        for(unsigned short i = 0; i < m_nTriggerCount; ++i)
+        for(unsigned short i = 0; i < m_Triggers.getCount(); ++i)
         {
             Trigger& t = m_Triggers[i];
             
@@ -110,7 +100,7 @@ namespace omni
 
     Device* OmniThing::findDevice(unsigned int uid)
     {
-        for(unsigned int i = 0; i < m_nDeviceCount; ++ i)
+        for(unsigned int i = 0; i < m_Devices.getCount(); ++i)
         {
             Device* d = m_Devices[i];
             if(d->getUid() == uid)
@@ -145,49 +135,49 @@ namespace omni
 
         // Provide some debug output
         LOG << F("\nDevice Configurations:\n");
-        for(unsigned int i = 0; i < m_nDeviceConfigCount; ++i)
+        for(unsigned int i = 0; i < m_DeviceConfigs.getCount(); ++i)
         {
             LOG << F("\t") << m_DeviceConfigs[i]->getType() << F("\n");
         }
 
         LOG << F("\nInputBool Configurations:\n");
-        for(unsigned int i = 0; i < m_nInputBoolConfigCount; ++i)
+        for(unsigned int i = 0; i < m_InputBoolConfigs.getCount(); ++i)
         {
             LOG << F("\t") << m_InputBoolConfigs[i]->getType() << F("\n");
         }
 
         LOG << F("\nInputFloat Configurations:\n");
-        for(unsigned int i = 0; i < m_nInputFloatConfigCount; ++i)
+        for(unsigned int i = 0; i < m_InputFloatConfigs.getCount(); ++i)
         {
             LOG << F("\t") << m_InputFloatConfigs[i]->getType() << F("\n");
         }
 
         LOG << F("\nInputUInt Configurations:\n");
-        for(unsigned int i = 0; i < m_nInputUIntConfigCount; ++i)
+        for(unsigned int i = 0; i < m_InputUIntConfigs.getCount(); ++i)
         {
             LOG << F("\t") << m_InputUIntConfigs[i]->getType() << F("\n");
         }
 
         LOG << F("\nOutputVoid Configurations:\n");
-        for(unsigned int i = 0; i < m_nOutputVoidConfigCount; ++i)
+        for(unsigned int i = 0; i < m_OutputVoidConfigs.getCount(); ++i)
         {
             LOG << F("\t") << m_OutputVoidConfigs[i]->getType() << F("\n");
         }
 
         LOG << F("\nOutputBool Configurations:\n");
-        for(unsigned int i = 0; i < m_nOutputBoolConfigCount; ++i)
+        for(unsigned int i = 0; i < m_OutputBoolConfigs.getCount(); ++i)
         {
             LOG << F("\t") << m_OutputBoolConfigs[i]->getType() << F("\n");
         }
 
         LOG << F("\nOutputFloat Configurations:\n");
-        for(unsigned int i = 0; i < m_nOutputFloatConfigCount; ++i)
+        for(unsigned int i = 0; i < m_OutputFloatConfigs.getCount(); ++i)
         {
             LOG << F("\t") << m_OutputFloatConfigs[i]->getType() << F("\n");
         }
 
         LOG << F("\nOutputString Configurations:\n");
-        for(unsigned int i = 0; i < m_nOutputStringConfigCount; ++i)
+        for(unsigned int i = 0; i < m_OutputStringConfigs.getCount(); ++i)
         {
             LOG << F("\t") << m_OutputStringConfigs[i]->getType() << F("\n");
         }
@@ -246,27 +236,26 @@ namespace omni
         }
     } 
 
-    //TODO: make all max sizes below configurable!
     bool OmniThing::addDevice(Device* dev)
     {
-        if(m_nDeviceCount >= 20)
+        if(m_Devices.addElement(dev))
+            return true;
+        else
         {
-            LOG << F("Device array full\n");
+            LOG << F("Failed to add device uid=") << dev->getUid() << F(" type=") << dev->getType() << F("\n");
             return false;
         }
-        m_Devices[m_nDeviceCount++] = dev;
-        return true;
     }
 
     bool OmniThing::addTrigger(Trigger& t)
     {
-        if(m_nTriggerCount >= 10)
+        if(m_Triggers.addElement(t))
+            return true;
+        else
         {
-            LOG << F("Trigger array full\n");
+            LOG << F("Failed to add Trigger (array full)\n");
             return false;
         }
-        m_Triggers[m_nTriggerCount++] = t;
-        return true;
     }
 
     bool OmniThing::addTrigger(Device* d, unsigned long interval, const char* cmd, const char* json, bool repeat)
@@ -277,90 +266,90 @@ namespace omni
 
     bool OmniThing::addDeviceConfig(ObjectConfig<Device>* dc)
     {
-        if(m_nDeviceConfigCount >= 20)
+        if(m_DeviceConfigs.addElement(dc))
+            return true;
+        else
         {
-            LOG << F("Full array; could not add ") << dc->getType() << Logger::endl;
+            LOG << F("Failed to add Config (array full) type=") << dc->getType() << Logger::endl;
             return false;
         }
-        m_DeviceConfigs[m_nDeviceConfigCount++] = dc;
-        return true;
     }
 
     bool OmniThing::addInputBoolConfig(ObjectConfig<InputBool>* c)
     {
-        if(m_nInputBoolConfigCount >= 10)
+        if(m_InputBoolConfigs.addElement(c))
+            return true;
+        else
         {
-            LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
+            LOG << F("Failed to add Config (array full) type=") << c->getType() << Logger::endl;
             return false;
         }
-        m_InputBoolConfigs[m_nInputBoolConfigCount++] = c; 
-        return true;
     }
 
     bool OmniThing::addInputFloatConfig(ObjectConfig<InputFloat>* c)
     {
-        if(m_nInputFloatConfigCount >= 10)
+        if(m_InputFloatConfigs.addElement(c))
+            return true;
+        else
         {
-            LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
+            LOG << F("Failed to add Config (array full) type=") << c->getType() << Logger::endl;
             return false;
         }
-        m_InputFloatConfigs[m_nInputFloatConfigCount++] = c; 
-        return true;
     }
 
     bool OmniThing::addInputUIntConfig(ObjectConfig<InputUInt>* c)
     {
-        if(m_nInputUIntConfigCount >= 10)
+        if(m_InputUIntConfigs.addElement(c))
+            return true;
+        else
         {
-            LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
+            LOG << F("Failed to add Config (array full) type=") << c->getType() << Logger::endl;
             return false;
         }
-        m_InputUIntConfigs[m_nInputUIntConfigCount++] = c; 
-        return true;
     }
 
     bool OmniThing::addOutputVoidConfig(ObjectConfig<OutputVoid>* c)
     {
-        if(m_nOutputVoidConfigCount >= 10)
+        if(m_OutputVoidConfigs.addElement(c))
+            return true;
+        else
         {
-            LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
+            LOG << F("Failed to add Config (array full) type=") << c->getType() << Logger::endl;
             return false;
         }
-        m_OutputVoidConfigs[m_nOutputVoidConfigCount++] = c; 
-        return true;
     }
 
     bool OmniThing::addOutputBoolConfig(ObjectConfig<OutputBool>* c)
     {
-        if(m_nOutputBoolConfigCount >= 10)
+        if(m_OutputBoolConfigs.addElement(c))
+            return true;
+        else
         {
-            LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
+            LOG << F("Failed to add Config (array full) type=") << c->getType() << Logger::endl;
             return false;
         }
-        m_OutputBoolConfigs[m_nOutputBoolConfigCount++] = c; 
-        return true;
     }
 
     bool OmniThing::addOutputFloatConfig(ObjectConfig<OutputFloat>* c)
     {
-        if(m_nOutputFloatConfigCount >= 10)
+        if(m_OutputFloatConfigs.addElement(c))
+            return true;
+        else
         {
-            LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
+            LOG << F("Failed to add Config (array full) type=") << c->getType() << Logger::endl;
             return false;
         }
-        m_OutputFloatConfigs[m_nOutputFloatConfigCount++] = c; 
-        return true;
     }
 
     bool OmniThing::addOutputStringConfig(ObjectConfig<OutputString>* c)
     {
-        if(m_nOutputStringConfigCount >= 10)
+        if(m_OutputStringConfigs.addElement(c))
+            return true;
+        else
         {
-            LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
+            LOG << F("Failed to add Config (array full) type=") << c->getType() << Logger::endl;
             return false;
         }
-        m_OutputStringConfigs[m_nOutputStringConfigCount++] = c; 
-        return true;
     }
 
 }

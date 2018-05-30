@@ -1,6 +1,8 @@
 #ifndef OMNI_OMNITHING_H
 #define OMNI_OMNITHING_H
 
+#include "FixedArray.h"
+
 namespace omni
 {
     class Device;
@@ -59,35 +61,30 @@ namespace omni
             void parseJson(const char* json);
             Device* findDevice(unsigned int uid);
 
-            unsigned short m_nDeviceCount;
-            Device* m_Devices[10]; // TODO: use config file for number
+            // Devices and Inputs/Outputs
+            FixedArray<Device*,         10> m_Devices;
+            FixedArray<InputBool*,      10> m_InputBools;
+            FixedArray<InputFloat*,     10> m_InputFloats;
+            FixedArray<InputUInt*,      10> m_InputUInts;
+            FixedArray<OutputVoid*,     10> m_OutputVoids;
+            FixedArray<OutputBool*,     10> m_OutputBools;
+            FixedArray<OutputFloat*,    10> m_OutputFloats;
+            FixedArray<OutputString*,   10> m_OutputStrings;
 
-            unsigned short m_nTriggerCount;
-            Trigger m_Triggers[10]; // TODO: use config file for number
+            // Triggers
+            FixedArray<Trigger, 10> m_Triggers;
 
-            unsigned short m_nDeviceConfigCount;
-            ObjectConfig<Device>* m_DeviceConfigs[20]; //TODO: use config file for number
+            //Configs
+            FixedArray<ObjectConfig<Device>*,       20> m_DeviceConfigs;
 
-            unsigned short m_nInputBoolConfigCount;
-            ObjectConfig<InputBool>* m_InputBoolConfigs[10]; //TODO: use config file for number
+            FixedArray<ObjectConfig<InputBool>*,    10> m_InputBoolConfigs;
+            FixedArray<ObjectConfig<InputFloat>*,   10> m_InputFloatConfigs;
+            FixedArray<ObjectConfig<InputUInt>*,    10> m_InputUIntConfigs;
 
-            unsigned short m_nInputFloatConfigCount;
-            ObjectConfig<InputFloat>* m_InputFloatConfigs[10]; //TODO: use config file for number
-
-            unsigned short m_nInputUIntConfigCount;
-            ObjectConfig<InputUInt>* m_InputUIntConfigs[10]; //TODO: use config file for number
-
-            unsigned short m_nOutputVoidConfigCount;
-            ObjectConfig<OutputVoid>* m_OutputVoidConfigs[10]; //TODO: use config file for number
-
-            unsigned short m_nOutputBoolConfigCount;
-            ObjectConfig<OutputBool>* m_OutputBoolConfigs[10]; //TODO: use config file for number
-
-            unsigned short m_nOutputFloatConfigCount;
-            ObjectConfig<OutputFloat>* m_OutputFloatConfigs[10]; //TODO: use config file for number
-
-            unsigned short m_nOutputStringConfigCount;
-            ObjectConfig<OutputString>* m_OutputStringConfigs[10]; //TODO: use config file for number
+            FixedArray<ObjectConfig<OutputVoid>*,   10> m_OutputVoidConfigs;
+            FixedArray<ObjectConfig<OutputBool>*,   10> m_OutputBoolConfigs;
+            FixedArray<ObjectConfig<OutputFloat>*,  10> m_OutputFloatConfigs;
+            FixedArray<ObjectConfig<OutputString>*, 10> m_OutputStringConfigs;
 
             NetworkReceiver* m_pNetworkReceiver;
             NetworkSender* m_pNetworkSender;
@@ -118,6 +115,8 @@ namespace omni
             bool addOutputBoolConfig(ObjectConfig<OutputBool>* c);
             bool addOutputFloatConfig(ObjectConfig<OutputFloat>* c);
             bool addOutputStringConfig(ObjectConfig<OutputString>* c);
+
+
 
     };
 }
