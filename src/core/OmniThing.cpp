@@ -144,53 +144,54 @@ namespace omni
             LOG << F("WARNING: no NetworkReceiver configured\n");
 
         // Provide some debug output
-        LOG << F("Device Configurations:\n");
+        LOG << F("\nDevice Configurations:\n");
         for(unsigned int i = 0; i < m_nDeviceConfigCount; ++i)
         {
             LOG << F("\t") << m_DeviceConfigs[i]->getType() << F("\n");
         }
 
-        LOG << F("InputBool Configurations:\n");
+        LOG << F("\nInputBool Configurations:\n");
         for(unsigned int i = 0; i < m_nInputBoolConfigCount; ++i)
         {
             LOG << F("\t") << m_InputBoolConfigs[i]->getType() << F("\n");
         }
 
-        LOG << F("InputFloat Configurations:\n");
+        LOG << F("\nInputFloat Configurations:\n");
         for(unsigned int i = 0; i < m_nInputFloatConfigCount; ++i)
         {
             LOG << F("\t") << m_InputFloatConfigs[i]->getType() << F("\n");
         }
 
-        LOG << F("InputUInt Configurations:\n");
+        LOG << F("\nInputUInt Configurations:\n");
         for(unsigned int i = 0; i < m_nInputUIntConfigCount; ++i)
         {
             LOG << F("\t") << m_InputUIntConfigs[i]->getType() << F("\n");
         }
 
-        LOG << F("OutputVoid Configurations:\n");
+        LOG << F("\nOutputVoid Configurations:\n");
         for(unsigned int i = 0; i < m_nOutputVoidConfigCount; ++i)
         {
             LOG << F("\t") << m_OutputVoidConfigs[i]->getType() << F("\n");
         }
 
-        LOG << F("OutputBool Configurations:\n");
+        LOG << F("\nOutputBool Configurations:\n");
         for(unsigned int i = 0; i < m_nOutputBoolConfigCount; ++i)
         {
             LOG << F("\t") << m_OutputBoolConfigs[i]->getType() << F("\n");
         }
 
-        LOG << F("OutputFloat Configurations:\n");
+        LOG << F("\nOutputFloat Configurations:\n");
         for(unsigned int i = 0; i < m_nOutputFloatConfigCount; ++i)
         {
             LOG << F("\t") << m_OutputFloatConfigs[i]->getType() << F("\n");
         }
 
-        LOG << F("OutputString Configurations:\n");
+        LOG << F("\nOutputString Configurations:\n");
         for(unsigned int i = 0; i < m_nOutputStringConfigCount; ++i)
         {
             LOG << F("\t") << m_OutputStringConfigs[i]->getType() << F("\n");
         }
+        LOG << Logger::endl;
 
 
     }
