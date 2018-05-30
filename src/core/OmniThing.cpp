@@ -9,7 +9,7 @@
 #include "frozen.h"
 #include <string.h>
 
-//#include "LoggerStdout.h" //TODO: REMOVE THIS
+#include "LoggerStdout.h" //TODO: REMOVE THIS
 
 namespace omni
 {
@@ -27,7 +27,7 @@ namespace omni
         m_nOutputStringConfigCount(0),
         m_pNetworkReceiver(nullptr),
         m_pNetworkSender(nullptr),
-        m_pDefaultLogger(new Logger()),
+        m_pDefaultLogger(new LoggerStdout()),
         m_pLogger(m_pDefaultLogger)
     {
 
