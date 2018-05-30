@@ -12,7 +12,7 @@ namespace omni
     {
         private:
             httplib::Server m_Server;
-            char m_JsonBuffer[128]; //TODO: make size configurable
+            char m_JsonBuffer[2048]; //TODO: make size configurable
             const char* m_IP;
             unsigned short m_nPort;
             std::thread* m_Thread;
