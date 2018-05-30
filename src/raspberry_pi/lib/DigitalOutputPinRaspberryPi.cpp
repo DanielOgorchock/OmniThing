@@ -9,7 +9,7 @@
 namespace omni
 {
 //private
-    DigitalOutputPinRaspberryPi* createFromJson(const char* json)
+    DigitalOutputPinRaspberryPi* DigitalOutputPinRaspberryPi::createFromJson(const char* json)
     {
         unsigned int len = strlen(json);
 
