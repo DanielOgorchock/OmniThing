@@ -35,4 +35,7 @@ The following list shows the current planned output value types.
   * Floating point value
   * Example: Analog voltage output
   * Class: OutputFloat
-
+* String
+  * String output value
+  * Example: Run a bash command on Linux computer
+  * Class: OutputString
