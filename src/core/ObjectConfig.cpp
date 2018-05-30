@@ -3,6 +3,13 @@
 
 #include "Logger.h"
 #include "Device.h"
+#include "InputBool.h"
+#include "InputFloat.h"
+#include "InputUInt.h"
+#include "OutputVoid.h"
+#include "OutputBool.h"
+#include "OutputFloat.h"
+#include "OutputString.h"
 
 namespace omni
 {
@@ -11,4 +18,40 @@ namespace omni
     {
         OmniThing::getInstance().addDeviceConfig(conf);
     }
+
+    void registerConfig(ObjectConfig<InputBool>* conf)
+    {
+        OmniThing::getInstance().addInputBoolConfig(conf);
+    }
+
+    void registerConfig(ObjectConfig<InputFloat>* conf)
+    {
+        OmniThing::getInstance().addInputFloatConfig(conf);
+    }
+
+    void registerConfig(ObjectConfig<InputUInt>* conf)
+    {
+        OmniThing::getInstance().addInputUIntConfig(conf);
+    }
+
+    void registerConfig(ObjectConfig<OutputVoid>* conf)
+    {
+        OmniThing::getInstance().addOutputVoidConfig(conf);
+    }
+
+    void registerConfig(ObjectConfig<OutputBool>* conf)
+    {
+        OmniThing::getInstance().addOutputBoolConfig(conf);
+    }
+
+    void registerConfig(ObjectConfig<OutputFloat>* conf)
+    {
+        OmniThing::getInstance().addOutputFloatConfig(conf);
+    }
+
+    void registerConfig(ObjectConfig<OutputString>* conf)
+    {
+        OmniThing::getInstance().addOutputStringConfig(conf);
+    }
+
 }

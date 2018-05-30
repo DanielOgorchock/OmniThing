@@ -10,6 +10,13 @@ namespace omni
         LOG << F("No register overload configured for type: ") << conf->getType() << F("\n");
     }
     void registerConfig(ObjectConfig<Device>* conf);
+    void registerConfig(ObjectConfig<InputBool>* conf);
+    void registerConfig(ObjectConfig<InputFloat>* conf);
+    void registerConfig(ObjectConfig<InputUInt>* conf);
+    void registerConfig(ObjectConfig<OutputVoid>* conf);
+    void registerConfig(ObjectConfig<OutputBool>* conf);
+    void registerConfig(ObjectConfig<OutputFloat>* conf);
+    void registerConfig(ObjectConfig<OutputString>* conf);
 
     template <class T>
     class ObjectConfig
