@@ -23,6 +23,66 @@ namespace omni
 
     }
 
+    void OmniThing::printContainersDebug()
+    {
+        LOG << F("\n############# CONFIGURATIONS ##############\n");
+        LOG << F("Device Configurations:\n");
+        for(unsigned int i = 0; i < m_DeviceConfigs.getCount(); ++i)
+        {
+            LOG << F("\t") << m_DeviceConfigs[i]->getType() << F("\n");
+        }
+
+        LOG << F("\nInputBool Configurations:\n");
+        for(unsigned int i = 0; i < m_InputBoolConfigs.getCount(); ++i)
+        {
+            LOG << F("\t") << m_InputBoolConfigs[i]->getType() << F("\n");
+        }
+
+        LOG << F("\nInputFloat Configurations:\n");
+        for(unsigned int i = 0; i < m_InputFloatConfigs.getCount(); ++i)
+        {
+            LOG << F("\t") << m_InputFloatConfigs[i]->getType() << F("\n");
+        }
+
+        LOG << F("\nInputUInt Configurations:\n");
+        for(unsigned int i = 0; i < m_InputUIntConfigs.getCount(); ++i)
+        {
+            LOG << F("\t") << m_InputUIntConfigs[i]->getType() << F("\n");
+        }
+
+        LOG << F("\nOutputVoid Configurations:\n");
+        for(unsigned int i = 0; i < m_OutputVoidConfigs.getCount(); ++i)
+        {
+            LOG << F("\t") << m_OutputVoidConfigs[i]->getType() << F("\n");
+        }
+
+        LOG << F("\nOutputBool Configurations:\n");
+        for(unsigned int i = 0; i < m_OutputBoolConfigs.getCount(); ++i)
+        {
+            LOG << F("\t") << m_OutputBoolConfigs[i]->getType() << F("\n");
+        }
+
+        LOG << F("\nOutputFloat Configurations:\n");
+        for(unsigned int i = 0; i < m_OutputFloatConfigs.getCount(); ++i)
+        {
+            LOG << F("\t") << m_OutputFloatConfigs[i]->getType() << F("\n");
+        }
+
+        LOG << F("\nOutputString Configurations:\n");
+        for(unsigned int i = 0; i < m_OutputStringConfigs.getCount(); ++i)
+        {
+            LOG << F("\t") << m_OutputStringConfigs[i]->getType() << F("\n");
+        }
+
+        LOG << F("\n############# DEVICES ##############\n");
+        LOG << F("Devices:\n");
+        for(unsigned int i = 0; i < m_Devices.getCount(); ++i)
+        {
+            LOG << F("\t") << m_Devices[i]->getType() << F("\n");
+        }
+        LOG << Logger::endl;
+    }
+
     void OmniThing::runScheduler()
     {
         //run all run-enabled devices
@@ -121,55 +181,7 @@ namespace omni
     void OmniThing::init()
     {
         // Provide some debug output
-        LOG << F("\nDevice Configurations:\n");
-        for(unsigned int i = 0; i < m_DeviceConfigs.getCount(); ++i)
-        {
-            LOG << F("\t") << m_DeviceConfigs[i]->getType() << F("\n");
-        }
-
-        LOG << F("\nInputBool Configurations:\n");
-        for(unsigned int i = 0; i < m_InputBoolConfigs.getCount(); ++i)
-        {
-            LOG << F("\t") << m_InputBoolConfigs[i]->getType() << F("\n");
-        }
-
-        LOG << F("\nInputFloat Configurations:\n");
-        for(unsigned int i = 0; i < m_InputFloatConfigs.getCount(); ++i)
-        {
-            LOG << F("\t") << m_InputFloatConfigs[i]->getType() << F("\n");
-        }
-
-        LOG << F("\nInputUInt Configurations:\n");
-        for(unsigned int i = 0; i < m_InputUIntConfigs.getCount(); ++i)
-        {
-            LOG << F("\t") << m_InputUIntConfigs[i]->getType() << F("\n");
-        }
-
-        LOG << F("\nOutputVoid Configurations:\n");
-        for(unsigned int i = 0; i < m_OutputVoidConfigs.getCount(); ++i)
-        {
-            LOG << F("\t") << m_OutputVoidConfigs[i]->getType() << F("\n");
-        }
-
-        LOG << F("\nOutputBool Configurations:\n");
-        for(unsigned int i = 0; i < m_OutputBoolConfigs.getCount(); ++i)
-        {
-            LOG << F("\t") << m_OutputBoolConfigs[i]->getType() << F("\n");
-        }
-
-        LOG << F("\nOutputFloat Configurations:\n");
-        for(unsigned int i = 0; i < m_OutputFloatConfigs.getCount(); ++i)
-        {
-            LOG << F("\t") << m_OutputFloatConfigs[i]->getType() << F("\n");
-        }
-
-        LOG << F("\nOutputString Configurations:\n");
-        for(unsigned int i = 0; i < m_OutputStringConfigs.getCount(); ++i)
-        {
-            LOG << F("\t") << m_OutputStringConfigs[i]->getType() << F("\n");
-        }
-        LOG << Logger::endl;
-
+        printContainersDebug();
 
         // Initialize Network Sender/Receiver
         if(m_pNetworkSender)

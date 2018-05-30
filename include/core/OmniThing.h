@@ -55,6 +55,8 @@ namespace omni
         private:
             OmniThing(); //don't allow manual creation
 
+            void printContainersDebug();
+
             void runScheduler();
             void initDevices();
             void initScheduler();
