@@ -36,7 +36,7 @@ namespace omni
             //Type
             static const char* Type;
 
-            static DeviceConfig DevConf;
+            static ObjectConfig<Device> DevConf;
     };
 }
 

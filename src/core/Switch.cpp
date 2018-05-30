@@ -89,5 +89,5 @@ namespace omni
     const char* Switch::Cmd_Toggle  = "toggle";
     const char* Switch::Type        = "Switch";
 
-    DeviceConfig Switch::DevConf(Type, createFromJson); 
+    ObjectConfig<Device> Switch::DevConf(Type, createFromJson); 
 }

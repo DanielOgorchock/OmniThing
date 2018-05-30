@@ -79,5 +79,5 @@ namespace omni
     const char* ContactSensor::Cmd_Poll = "poll";
     const char* ContactSensor::Type     = "ContactSensor";
 
-    DeviceConfig ContactSensor::DevConf(Type, createFromJson); 
+    ObjectConfig<Device> ContactSensor::DevConf(Type, createFromJson); 
 }

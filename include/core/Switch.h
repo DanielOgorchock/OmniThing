@@ -43,7 +43,7 @@ namespace omni
             static const char* Cmd_Off;
             static const char* Cmd_Toggle;
 
-            static DeviceConfig DevConf;
+            static ObjectConfig<Device> DevConf;
     };
 }
 

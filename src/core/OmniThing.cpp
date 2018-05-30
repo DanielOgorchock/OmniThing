@@ -2,12 +2,14 @@
 #include "OmniUtil.h"
 
 #include "Device.h"
-#include "DeviceConfig.h"
+#include "ObjectConfig.h"
 #include "NetworkReceiver.h"
 #include "NetworkSender.h"
 #include "Logger.h"
 #include "frozen.h"
 #include <string.h>
+
+//#include "LoggerStdout.h" //TODO: REMOVE THIS
 
 namespace omni
 {
@@ -207,7 +209,7 @@ namespace omni
         m_Triggers[m_nTriggerCount++] = Trigger(d, interval, cmd, json, repeat);
     }
 
-    void OmniThing::addDeviceConfig(DeviceConfig* dc)
+    void OmniThing::addDeviceConfig(ObjectConfig<Device>* dc)
     {
         m_DeviceConfigs[m_nDeviceConfigCount++] = dc;
     }
