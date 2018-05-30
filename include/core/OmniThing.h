@@ -107,10 +107,17 @@ namespace omni
             Logger& getLogger();
 
             void sendJson(const char* json);
-            void addDevice(Device* dev); 
-            void addTrigger(Trigger& t);
-            void addTrigger(Device* d, unsigned long interval, const char* cmd, const char* json = nullptr, bool repeat = true);
-            void addDeviceConfig(ObjectConfig<Device>* dc);
+            bool addDevice(Device* dev); 
+            bool addTrigger(Trigger& t);
+            bool addTrigger(Device* d, unsigned long interval, const char* cmd, const char* json = nullptr, bool repeat = true);
+            bool addDeviceConfig(ObjectConfig<Device>* dc);
+            bool addInputBoolConfig(ObjectConfig<InputBool>* c);
+            bool addInputFloatConfig(ObjectConfig<InputFloat>* c);
+            bool addInputUIntConfig(ObjectConfig<InputUInt>* c);
+            bool addOutputVoidConfig(ObjectConfig<OutputVoid>* c);
+            bool addOutputBoolConfig(ObjectConfig<OutputBool>* c);
+            bool addOutputFloatConfig(ObjectConfig<OutputFloat>* c);
+            bool addOutputStringConfig(ObjectConfig<OutputString>* c);
 
     };
 }

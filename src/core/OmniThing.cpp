@@ -201,23 +201,121 @@ namespace omni
         }
     } 
 
-    void OmniThing::addDevice(Device* dev)
+    //TODO: make all max sizes below configurable!
+    bool OmniThing::addDevice(Device* dev)
     {
+        if(m_nDeviceCount >= 20)
+        {
+            LOG << F("Device array full\n");
+            return false;
+        }
         m_Devices[m_nDeviceCount++] = dev;
+        return true;
     }
 
-    void OmniThing::addTrigger(Trigger& t)
+    bool OmniThing::addTrigger(Trigger& t)
     {
+        if(m_nTriggerCount >= 10)
+        {
+            LOG << F("Trigger array full\n");
+            return false;
+        }
         m_Triggers[m_nTriggerCount++] = t;
+        return true;
     }
 
-    void OmniThing::addTrigger(Device* d, unsigned long interval, const char* cmd, const char* json, bool repeat)
+    bool OmniThing::addTrigger(Device* d, unsigned long interval, const char* cmd, const char* json, bool repeat)
     {
-        m_Triggers[m_nTriggerCount++] = Trigger(d, interval, cmd, json, repeat);
+        Trigger tmp(d, interval, cmd, json, repeat);
+        return addTrigger(tmp);
     }
 
-    void OmniThing::addDeviceConfig(ObjectConfig<Device>* dc)
+    bool OmniThing::addDeviceConfig(ObjectConfig<Device>* dc)
     {
+        if(m_nDeviceConfigCount >= 20)
+        {
+            LOG << F("Full array; could not add ") << dc->getType() << Logger::endl;
+            return false;
+        }
         m_DeviceConfigs[m_nDeviceConfigCount++] = dc;
+        return true;
     }
+
+    bool OmniThing::addInputBoolConfig(ObjectConfig<InputBool>* c)
+    {
+        if(m_nInputBoolConfigCount >= 10)
+        {
+            LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
+            return false;
+        }
+        m_InputBoolConfigs[m_nInputBoolConfigCount++]; 
+        return true;
+    }
+
+    bool OmniThing::addInputFloatConfig(ObjectConfig<InputFloat>* c)
+    {
+        if(m_nInputFloatConfigCount >= 10)
+        {
+            LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
+            return false;
+        }
+        m_InputFloatConfigs[m_nInputFloatConfigCount++]; 
+        return true;
+    }
+
+    bool OmniThing::addInputUIntConfig(ObjectConfig<InputUInt>* c)
+    {
+        if(m_nInputUIntConfigCount >= 10)
+        {
+            LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
+            return false;
+        }
+        m_InputUIntConfigs[m_nInputUIntConfigCount++]; 
+        return true;
+    }
+
+    bool OmniThing::addOutputVoidConfig(ObjectConfig<OutputVoid>* c)
+    {
+        if(m_nOutputVoidConfigCount >= 10)
+        {
+            LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
+            return false;
+        }
+        m_OutputVoidConfigs[m_nOutputVoidConfigCount++]; 
+        return true;
+    }
+
+    bool OmniThing::addOutputBoolConfig(ObjectConfig<OutputBool>* c)
+    {
+        if(m_nOutputBoolConfigCount >= 10)
+        {
+            LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
+            return false;
+        }
+        m_OutputBoolConfigs[m_nOutputBoolConfigCount++]; 
+        return true;
+    }
+
+    bool OmniThing::addOutputFloatConfig(ObjectConfig<OutputFloat>* c)
+    {
+        if(m_nOutputFloatConfigCount >= 10)
+        {
+            LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
+            return false;
+        }
+        m_OutputFloatConfigs[m_nOutputFloatConfigCount++]; 
+        return true;
+    }
+
+    bool OmniThing::addOutputStringConfig(ObjectConfig<OutputString>* c)
+    {
+        if(m_nOutputStringConfigCount >= 10)
+        {
+            LOG << F("Full array; could not add ") << c->getType() << Logger::endl;
+            return false;
+        }
+        m_OutputStringConfigs[m_nOutputStringConfigCount++]; 
+        return true;
+    }
+
 }
