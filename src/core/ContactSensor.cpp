@@ -84,7 +84,8 @@ namespace omni
         auto ibs = OmniThing::getInstance().getInputBools();
         if(inputIndex >= ibs.getCount())
         {
-            LOG << F("Index out of range\n");
+            LOG << F("ContactSensor: InputBool index out of range\n");
+            return nullptr;
         }
 
         return new ContactSensor(*(ibs[inputIndex]), invert, constantPoll); 

@@ -452,7 +452,9 @@ namespace omni
         {
             if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
             {
-                strncpy(buffer, t.ptr, t.len); 
+                strncpy(buffer, t.ptr, t.len);
+                buffer[t.len]=0;
+ 
                 LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
                 return false;
             } 
@@ -464,7 +466,9 @@ namespace omni
                 if(!strcmp(buffer, conf->getType()))
                 {
                     found = true;
-                    strncpy(buffer, t.ptr, t.len); 
+                    strncpy(buffer, t.ptr, t.len);
+                    buffer[t.len]=0;
+ 
                     auto obj = conf->createFromJson(buffer);
                     if(!obj)
                     {
@@ -474,6 +478,11 @@ namespace omni
                     else
                     {
                         addInputBool(obj); 
+                        strncpy(buffer, t.ptr, t.len);
+                        buffer[t.len]=0;
+
+                        buffer[t.len] = 0;
+                        LOG << F("Successfully created new ") << buffer << Logger::endl;
                     }
                     break; 
                 }
@@ -490,7 +499,9 @@ namespace omni
         {
             if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
             {
-                strncpy(buffer, t.ptr, t.len); 
+                strncpy(buffer, t.ptr, t.len);
+                buffer[t.len]=0;
+ 
                 LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
                 return false;
             } 
@@ -502,7 +513,9 @@ namespace omni
                 if(!strcmp(buffer, conf->getType()))
                 {
                     found = true;
-                    strncpy(buffer, t.ptr, t.len); 
+                    strncpy(buffer, t.ptr, t.len);
+                    buffer[t.len]=0;
+ 
                     auto obj = conf->createFromJson(buffer);
                     if(!obj)
                     {
@@ -512,6 +525,10 @@ namespace omni
                     else
                     {
                         addInputFloat(obj); 
+                        strncpy(buffer, t.ptr, t.len);
+                        buffer[t.len]=0;
+
+                        LOG << F("Successfully created new ") << buffer << Logger::endl;
                     }
                     break; 
                 }
@@ -528,7 +545,9 @@ namespace omni
         {
             if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
             {
-                strncpy(buffer, t.ptr, t.len); 
+                strncpy(buffer, t.ptr, t.len);
+                buffer[t.len]=0;
+ 
                 LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
                 return false;
             } 
@@ -540,7 +559,9 @@ namespace omni
                 if(!strcmp(buffer, conf->getType()))
                 {
                     found = true;
-                    strncpy(buffer, t.ptr, t.len); 
+                    strncpy(buffer, t.ptr, t.len);
+                    buffer[t.len]=0;
+ 
                     auto obj = conf->createFromJson(buffer);
                     if(!obj)
                     {
@@ -550,6 +571,10 @@ namespace omni
                     else
                     {
                         addInputUInt(obj); 
+                        strncpy(buffer, t.ptr, t.len);
+                        buffer[t.len]=0;
+
+                        LOG << F("Successfully created new ") << buffer << Logger::endl;
                     }
                     break; 
                 }
@@ -566,7 +591,9 @@ namespace omni
         {
             if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
             {
-                strncpy(buffer, t.ptr, t.len); 
+                strncpy(buffer, t.ptr, t.len);
+                buffer[t.len]=0;
+ 
                 LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
                 return false;
             } 
@@ -578,7 +605,9 @@ namespace omni
                 if(!strcmp(buffer, conf->getType()))
                 {
                     found = true;
-                    strncpy(buffer, t.ptr, t.len); 
+                    strncpy(buffer, t.ptr, t.len);
+                    buffer[t.len]=0;
+ 
                     auto obj = conf->createFromJson(buffer);
                     if(!obj)
                     {
@@ -588,6 +617,10 @@ namespace omni
                     else
                     {
                         addOutputVoid(obj); 
+                        strncpy(buffer, t.ptr, t.len);
+                        buffer[t.len]=0;
+
+                        LOG << F("Successfully created new ") << buffer << Logger::endl;
                     }
                     break; 
                 }
@@ -604,7 +637,9 @@ namespace omni
         {
             if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
             {
-                strncpy(buffer, t.ptr, t.len); 
+                strncpy(buffer, t.ptr, t.len);
+                buffer[t.len]=0;
+ 
                 LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
                 return false;
             } 
@@ -616,7 +651,9 @@ namespace omni
                 if(!strcmp(buffer, conf->getType()))
                 {
                     found = true;
-                    strncpy(buffer, t.ptr, t.len); 
+                    strncpy(buffer, t.ptr, t.len);
+                    buffer[t.len]=0;
+ 
                     auto obj = conf->createFromJson(buffer);
                     if(!obj)
                     {
@@ -626,6 +663,10 @@ namespace omni
                     else
                     {
                         addOutputBool(obj); 
+                        strncpy(buffer, t.ptr, t.len);
+                        buffer[t.len]=0;
+
+                        LOG << F("Successfully created new ") << buffer << Logger::endl;
                     }
                     break; 
                 }
@@ -642,7 +683,9 @@ namespace omni
         {
             if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
             {
-                strncpy(buffer, t.ptr, t.len); 
+                strncpy(buffer, t.ptr, t.len);
+                buffer[t.len]=0;
+ 
                 LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
                 return false;
             } 
@@ -654,7 +697,9 @@ namespace omni
                 if(!strcmp(buffer, conf->getType()))
                 {
                     found = true;
-                    strncpy(buffer, t.ptr, t.len); 
+                    strncpy(buffer, t.ptr, t.len);
+                    buffer[t.len]=0;
+ 
                     auto obj = conf->createFromJson(buffer);
                     if(!obj)
                     {
@@ -664,6 +709,10 @@ namespace omni
                     else
                     {
                         addOutputFloat(obj); 
+                        strncpy(buffer, t.ptr, t.len);
+                        buffer[t.len]=0;
+
+                        LOG << F("Successfully created new ") << buffer << Logger::endl;
                     }
                     break; 
                 }
@@ -680,7 +729,9 @@ namespace omni
         {
             if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
             {
-                strncpy(buffer, t.ptr, t.len); 
+                strncpy(buffer, t.ptr, t.len);
+                buffer[t.len]=0;
+ 
                 LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
                 return false;
             } 
@@ -692,7 +743,9 @@ namespace omni
                 if(!strcmp(buffer, conf->getType()))
                 {
                     found = true;
-                    strncpy(buffer, t.ptr, t.len); 
+                    strncpy(buffer, t.ptr, t.len);
+                    buffer[t.len]=0;
+ 
                     auto obj = conf->createFromJson(buffer);
                     if(!obj)
                     {
@@ -702,6 +755,10 @@ namespace omni
                     else
                     {
                         addOutputString(obj); 
+                        strncpy(buffer, t.ptr, t.len);
+                        buffer[t.len]=0;
+
+                        LOG << F("Successfully created new ") << buffer << Logger::endl;
                     }
                     break; 
                 }
@@ -718,7 +775,9 @@ namespace omni
         {
             if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
             {
-                strncpy(buffer, t.ptr, t.len); 
+                strncpy(buffer, t.ptr, t.len);
+                buffer[t.len]=0;
+ 
                 LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
                 return false;
             } 
@@ -730,7 +789,9 @@ namespace omni
                 if(!strcmp(buffer, conf->getType()))
                 {
                     found = true;
-                    strncpy(buffer, t.ptr, t.len); 
+                    strncpy(buffer, t.ptr, t.len);
+                    buffer[t.len]=0;
+ 
                     auto obj = conf->createFromJson(buffer);
                     if(!obj)
                     {
@@ -740,6 +801,10 @@ namespace omni
                     else
                     {
                         addDevice(obj); 
+                        strncpy(buffer, t.ptr, t.len);
+                        buffer[t.len]=0;
+
+                        LOG << F("Successfully created new ") << buffer << Logger::endl;
                     }
                     break; 
                 }
