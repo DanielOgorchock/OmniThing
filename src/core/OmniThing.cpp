@@ -131,10 +131,10 @@ namespace omni
             m_pNetworkReceiver->init();
 
         // Provide some debug output
-        LOG << "Device Configurations:\n";
+        LOG << F("Device Configurations:\n");
         for(unsigned int i = 0; i < m_nDeviceConfigCount; ++i)
         {
-            LOG << "\t" << m_DeviceConfigs[i]->getType() << "\n";
+            LOG << F("\t") << m_DeviceConfigs[i]->getType() << F("\n");
         }
     }
 
