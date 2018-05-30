@@ -123,15 +123,6 @@ namespace omni
         initDevices(); 
         initScheduler();
 
-        if(m_pNetworkSender)
-            m_pNetworkSender->init();
-        else
-            LOG << F("WARNING: no NetworkSender configured\n");
-
-        if(m_pNetworkReceiver)
-            m_pNetworkReceiver->init();
-        else
-            LOG << F("WARNING: no NetworkReceiver configured\n");
 
         // Provide some debug output
         LOG << F("\nDevice Configurations:\n");
@@ -184,6 +175,16 @@ namespace omni
         LOG << Logger::endl;
 
 
+        // Initialize Network Sender/Receiver
+        if(m_pNetworkSender)
+            m_pNetworkSender->init();
+        else
+            LOG << F("WARNING: no NetworkSender configured\n");
+
+        if(m_pNetworkReceiver)
+            m_pNetworkReceiver->init();
+        else
+            LOG << F("WARNING: no NetworkReceiver configured\n");
     }
 
     void OmniThing::run()
@@ -243,6 +244,82 @@ namespace omni
         else
         {
             LOG << F("Failed to add device uid=") << dev->getUid() << F(" type=") << dev->getType() << F("\n");
+            return false;
+        }
+    }
+    bool OmniThing::addInputBool(InputBool* e)
+    {
+        if(m_InputBools.addElement(e))
+            return true;
+        else
+        {
+            LOG << F("Failed to add InputBool (array full)\n");
+            return false;
+        }
+    }
+
+    bool OmniThing::addInputFloat(InputFloat* e)
+    {
+        if(m_InputFloats.addElement(e))
+            return true;
+        else
+        {
+            LOG << F("Failed to add InputFloat (array full)\n");
+            return false;
+        }
+    }
+
+    bool OmniThing::addInputUInt(InputUInt* e)
+    {
+        if(m_InputUInts.addElement(e))
+            return true;
+        else
+        {
+            LOG << F("Failed to add InputUInt (array full)\n");
+            return false;
+        }
+    }
+
+    bool OmniThing::addOutputVoid(OutputVoid* e)
+    {
+        if(m_OutputVoids.addElement(e))
+            return true;
+        else
+        {
+            LOG << F("Failed to add OutputVoid (array full)\n");
+            return false;
+        }
+    }
+
+    bool OmniThing::addOutputBool(OutputBool* e)
+    {
+        if(m_OutputBools.addElement(e))
+            return true;
+        else
+        {
+            LOG << F("Failed to add OutputBool (array full)\n");
+            return false;
+        }
+    }
+
+    bool OmniThing::addOutputFloat(OutputFloat* e)
+    {
+        if(m_OutputFloats.addElement(e))
+            return true;
+        else
+        {
+            LOG << F("Failed to add OutputFloat (array full)\n");
+            return false;
+        }
+    }
+
+    bool OmniThing::addOutputString(OutputString* e)
+    {
+        if(m_OutputStrings.addElement(e))
+            return true;
+        else
+        {
+            LOG << F("Failed to add OutputString (array full)\n");
             return false;
         }
     }
