@@ -126,9 +126,13 @@ namespace omni
 
         if(m_pNetworkSender)
             m_pNetworkSender->init();
+        else
+            LOG << F("WARNING: no NetworkSender configured\n");
 
         if(m_pNetworkReceiver)
             m_pNetworkReceiver->init();
+        else
+            LOG << F("WARNING: no NetworkReceiver configured\n");
 
         // Provide some debug output
         LOG << F("Device Configurations:\n");
