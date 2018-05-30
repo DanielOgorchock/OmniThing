@@ -459,7 +459,8 @@ namespace omni
     //      "OutputBools":      [ {"type": string, ... } , ... ],
     //      "OutputFloats":     [ {"type": string, ... } , ... ],
     //      "OutputStrings":    [ {"type": string, ... } , ... ],
-    //      "Devices":          [ {"type": string, ... } , ... ]
+    //      "Devices":          [ {"type": string, ... } , ... ],
+    //      "Triggers":         [ {"deviceIndex": int, "interval": int, "command": string}, ... ]
     // }
     //      
     bool OmniThing::loadJsonConfig(const char* json)
