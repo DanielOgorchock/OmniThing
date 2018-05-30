@@ -86,7 +86,8 @@ namespace omni
         for(unsigned int i = 0; i < m_Triggers.getCount(); ++i)
         {
             auto& t = m_Triggers[i];
-            LOG << F("\tuid=") << t.dev->getUid() << F(" Type=") << t.dev->getType() << F(" interval=") << t.interval << F("\n");
+            LOG << F("\tuid=") << t.dev->getUid() << F(" Type=") << t.dev->getType() << F(" interval=") << t.interval;
+            LOG << F(" command=") << t.cmd << Logger::endl;
         }
         LOG << Logger::endl;
     }
