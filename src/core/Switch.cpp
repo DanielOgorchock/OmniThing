@@ -77,7 +77,25 @@ namespace omni
 
     Device* Switch::createFromJson(const char* json)
     {
-        return nullptr;
+        unsigned int outputIndex;
+        bool invert;
+        bool initial;
+
+        unsigned int len = strlen(json);
+
+        if(json_scanf(json, len, "{outputIndex: %u, invert: %B, initial: %B}", &outputIndex, &invert, &initial) != 3)
+        {
+            return nullptr;
+        }
+
+        auto obs = OmniThing::getInstance().getOutputBools();
+        if(outputIndex >= obs.getCount())
+        {
+            LOG << F("ERROR: outputIndex is too large\n");
+            return nullptr;
+        }
+
+        return new Switch(*(obs[outputIndex]), invert, initial);
     }
 
 
