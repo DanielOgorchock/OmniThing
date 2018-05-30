@@ -35,4 +35,17 @@ namespace omni
 
     }
 
+    OutputVoid* DigitalOutputPinRaspberryPi::createVoidFromJson(const char* json)
+    {
+        return nullptr;
+    }
+
+    OutputBool* DigitalOutputPinRaspberryPi::createBoolFromJson(const char* json)
+    {
+        return nullptr;
+    }
+
+    const char* type = "DigitalOutputPinRaspberryPi";
+    ObjectConfig<OutputVoid> DigitalOutputPinRaspberryPi::OutputVoidConf(type, createVoidFromJson);
+    ObjectConfig<OutputBool> DigitalOutputPinRaspberryPi::OutputBoolConf(type, createBoolFromJson);
 }

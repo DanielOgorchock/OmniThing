@@ -43,4 +43,12 @@ namespace omni
     {
 
     }
+
+    InputBool* DigitalInputPinRaspberryPi::createFromJson(const char* json)
+    {
+        return nullptr;
+    }
+
+    const char* type = "DigitalInputPinRaspberryPi";
+    ObjectConfig<InputBool> DigitalInputPinRaspberryPi::InputBoolConf(type, createFromJson);
 }

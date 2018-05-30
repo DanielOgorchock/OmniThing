@@ -16,6 +16,12 @@ namespace omni
             DigitalOutputPinRaspberryPi(unsigned short pin, bool initialVal, bool invertLogic);
 
             virtual ~DigitalOutputPinRaspberryPi();
+
+            static OutputVoid* createVoidFromJson(char* json);
+            static OutputBool* createBoolFromJson(char* json);
+
+            static ObjectConfig<OutputVoid> OutputVoidConf;
+            static ObjectConfig<OutputBool> OutputBoolConf;
     };
 }
 

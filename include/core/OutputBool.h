@@ -1,6 +1,7 @@
 #ifndef OMNI_OUTPUTBOOL_H
 #define OMNI_OUTPUTBOOL_H
 
+#include "ObjectConfig.h"
 
 
 namespace omni

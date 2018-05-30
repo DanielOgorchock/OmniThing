@@ -1,6 +1,7 @@
 #ifndef OMNI_INPUTBOOL_H
 #define OMNI_INPUTBOOL_H
 
+#include "ObjectConfig.h"
 
 
 namespace omni

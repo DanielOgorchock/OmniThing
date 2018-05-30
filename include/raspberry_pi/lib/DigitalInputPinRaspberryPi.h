@@ -19,6 +19,9 @@ namespace omni
 
             virtual ~DigitalInputPinRaspberryPi();
 
+            static InputBool* createFromJson(const char* json);
+
+            static ObjectConfig<InputBool> InputBoolConf;
     };
 }
 

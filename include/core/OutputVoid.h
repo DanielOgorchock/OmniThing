@@ -1,7 +1,7 @@
 #ifndef OMNI_OUTPUTVOID_H
 #define OMNI_OUTPUTVOID_H
 
-
+#include "ObjectConfig.h"
 
 namespace omni
 {
