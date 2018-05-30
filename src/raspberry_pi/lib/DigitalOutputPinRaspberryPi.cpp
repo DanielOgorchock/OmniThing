@@ -3,10 +3,27 @@
 #include <pigpio.h>
 
 #include "Logger.h"
+#include "frozen.h"
+#include <string.h>
 
 namespace omni
 {
 //private
+    DigitalOutputPinRaspberryPi* createFromJson(const char* json)
+    {
+        unsigned int len = strlen(json);
+
+        unsigned int pin;
+        bool initial;
+        bool invert;
+
+        if(json_scanf(json, len, "{pin: %u, initial: %B, invert: %B}", &pin, &initial, &invert) != 3)
+        {
+            return nullptr;
+        }
+
+        return new DigitalOutputPinRaspberryPi(pin, initial, invert);
+    }
 
 //protected
     void DigitalOutputPinRaspberryPi::writePin(bool b)
@@ -37,12 +54,12 @@ namespace omni
 
     OutputVoid* DigitalOutputPinRaspberryPi::createVoidFromJson(const char* json)
     {
-        return nullptr;
+        return createFromJson(json);
     }
 
     OutputBool* DigitalOutputPinRaspberryPi::createBoolFromJson(const char* json)
     {
-        return nullptr;
+        return createFromJson(json);
     }
 
     const char* DigitalOutputPinRaspberryPi::Type = "DigitalOutputPinRaspberryPi";

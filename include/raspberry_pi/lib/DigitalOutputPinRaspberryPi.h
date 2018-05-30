@@ -8,6 +8,7 @@ namespace omni
     class DigitalOutputPinRaspberryPi : public DigitalOutputPin
     {
         private:
+            static DigitalOutputPinRaspberryPi* createFromJson(const char* json);
 
         protected:
             void writePin(bool b) final;

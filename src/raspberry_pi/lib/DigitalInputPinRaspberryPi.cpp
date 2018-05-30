@@ -3,6 +3,8 @@
 #include <pigpio.h>
 
 #include "Logger.h"
+#include "frozen.h"
+#include <string.h>
 
 namespace omni
 {
@@ -46,7 +48,30 @@ namespace omni
 
     InputBool* DigitalInputPinRaspberryPi::createFromJson(const char* json)
     {
-        return nullptr;
+        unsigned int len = strlen(json);
+
+        unsigned int pin;
+        bool invert;
+        char pinmodeBuf[20];
+
+        if(json_scanf(json, len, "{pin: %u, invert: %B, pinMode: %s}", &pin, &invert, pinmodeBuf) != 3)
+            return nullptr;
+
+        PinMode pm = PinMode::Normal;
+
+        if(!strcmp(pinmodeBuf, "Normal"))
+            pm = PinMode::Normal;
+        else if(!strcmp(pinmodeBuf, "Pullup"))
+            pm = PinMode::Pullup;
+        else if(!strcmp(pinmodeBuf, "Pulldown"))
+            pm = PinMode::Pulldown;
+        else
+        {
+            LOG << "ERROR: invalid pinmode=" << pinmodeBuf << Logger::endl;
+            return nullptr;
+        }
+            
+        return new DigitalInputPinRaspberryPi(pin, invert, pm);
     }
 
     const char* DigitalInputPinRaspberryPi::Type = "DigitalInputPinRaspberryPi";
