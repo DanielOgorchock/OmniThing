@@ -464,6 +464,8 @@ namespace omni
     //      
     bool OmniThing::loadJsonConfig(const char* json)
     {
+        LOG << F("Parsing Json Config:\n\t") << json << Logger::endl;
+
         struct json_token t;
         unsigned int len = strlen(json);
         char buffer[100];
