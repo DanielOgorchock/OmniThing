@@ -130,6 +130,18 @@ namespace omni
             bool addOutputFloatConfig(ObjectConfig<OutputFloat>* c);
             bool addOutputStringConfig(ObjectConfig<OutputString>* c);
 
+
+            const auto& getDevices() {return m_Devices;}
+
+            const auto& getInputBools() {return m_InputBools;}
+            const auto& getInputFloats() {return m_InputFloats;}
+            const auto& getInputUInts() {return m_InputUInts;}
+
+            const auto& getOutputVoids() {return m_OutputVoids;}
+            const auto& getOutputBools() {return m_OutputBools;}
+            const auto& getOutputFloats() {return m_OutputFloats;}
+            const auto& getOutputStrings() {return m_OutputStrings;}
+
             bool loadJsonConfig(const char* json);
 
 

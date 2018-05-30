@@ -72,7 +72,22 @@ namespace omni
 
     Device* ContactSensor::createFromJson(const char* json)
     {
-        return nullptr;
+        unsigned int inputIndex;
+        bool invert;
+        bool constantPoll;
+
+        if(json_scanf(json, strlen(json), "{input: %u, invert: %B, constantPoll: %B}", &inputIndex, &invert, &constantPoll) != 3)
+        {
+            return nullptr;
+        }
+
+        auto ibs = OmniThing::getInstance().getInputBools();
+        if(inputIndex >= ibs.getCount())
+        {
+            LOG << F("Index out of range\n");
+        }
+
+        return new ContactSensor(*(ibs[inputIndex]), invert, constantPoll); 
     }
 
 
