@@ -80,6 +80,14 @@ namespace omni
         {
             LOG << F("\t") << m_Devices[i]->getType() << F("\n");
         }
+
+        LOG << F("\n############# TRIGGERS ##############\n");
+        LOG << F("Triggers:\n");
+        for(unsigned int i = 0; i < m_Triggers.getCount(); ++i)
+        {
+            auto& t = m_Triggers[i];
+            LOG << F("\tuid=") << t.dev->getUid() << F(" Type=") << t.dev->getType() << F(" interval=") << t.interval << F("\n");
+        }
         LOG << Logger::endl;
     }
 
@@ -828,6 +836,32 @@ namespace omni
             }
         }
 
+        // scan for Triggers
+        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".Triggers", i, &t) > 0; ++i)
+        {
+            unsigned int deviceIndex;
+            unsigned long interval;
+
+            if(json_scanf(t.ptr, t.len, "{deviceIndex: %u, interval: %u, command: %s}", &deviceIndex, &interval, buffer) != 3)
+            {
+                strncpy(buffer, t.ptr, t.len);
+                buffer[t.len]=0;
+ 
+                LOG << F("ERROR: failed to parse trigger: ") << buffer << Logger::endl;
+                return false;
+            } 
+
+            if(deviceIndex >= m_Devices.getCount())
+            {
+                LOG << F("ERROR: trigger's device index=") << deviceIndex << F(" which is too large\n");
+                return false;
+            }
+
+            addTrigger(m_Devices[deviceIndex], interval, buffer);
+            strncpy(buffer, t.ptr, t.len);
+            buffer[t.len]=0;
+            LOG << F("Successfully created new ") << buffer << Logger::endl;
+        }
 
         return true;
     }

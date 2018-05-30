@@ -2,6 +2,7 @@
 #define OMNI_OMNITHING_H
 
 #include "FixedArray.h"
+#include <string.h>
 
 namespace omni
 {
@@ -27,13 +28,12 @@ namespace omni
             Device* dev;
             unsigned long interval;
             unsigned long long triggerTime;
-            const char* cmd;
+            char cmd[10];
             const char* json;
             bool repeating;
 
             Trigger(): // just to allow the array to be built
                 dev(nullptr),
-                cmd(nullptr),
                 json(nullptr)
             {
 
@@ -42,11 +42,11 @@ namespace omni
             Trigger(Device* d, unsigned long inter, const char* cm, const char* js=nullptr, bool rep = true):
                 dev(d),
                 interval(inter),
-                cmd(cm),
                 json(js),
                 repeating(rep)
             {
-
+                strncpy(cmd, cm, 9);
+                cmd[9] = 0;
             }
     };
 
