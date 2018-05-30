@@ -6,7 +6,7 @@
 #define LOG OmniThing::getInstance().getLogger()
 
 #ifdef FAKE_F_MACRO
-	#define F(x) (x) // TODO: find better solution
+	#define F(x) (x)
 #endif
 
 namespace omni
