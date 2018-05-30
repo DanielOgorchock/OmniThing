@@ -428,8 +428,330 @@ namespace omni
         }
     }
 
+
+    // {
+    //      "InputBools":       [ {"type": string, ... } , ... ],
+    //      "InputFloats":      [ {"type": string, ... } , ... ],
+    //      "InputUInts":       [ {"type": string, ... } , ... ],
+    //      "OutputVoids":      [ {"type": string, ... } , ... ],
+    //      "OutputBools":      [ {"type": string, ... } , ... ],
+    //      "OutputFloats":     [ {"type": string, ... } , ... ],
+    //      "OutputStrings":    [ {"type": string, ... } , ... ],
+    //      "Devices":          [ {"type": string, ... } , ... ]
+    // }
+    //      
     bool OmniThing::loadJsonConfig(const char* json)
     {
+        struct json_token t;
+        unsigned int len = strlen(json);
+        char buffer[100];
+        buffer[0] = 0;
+
+        // scan for InputBools
+        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".InputBools", i, &t) > 0; ++i)
+        {
+            if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
+            {
+                strncpy(buffer, t.ptr, t.len); 
+                LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
+                return false;
+            } 
+
+            bool found = false;
+            for(unsigned int i = 0; i < m_InputBoolConfigs.getCount(); ++i)
+            {
+                auto conf = m_InputBoolConfigs[i];
+                if(!strcmp(buffer, conf->getType()))
+                {
+                    found = true;
+                    strncpy(buffer, t.ptr, t.len); 
+                    auto obj = conf->createFromJson(buffer);
+                    if(!obj)
+                    {
+                        LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
+                        return false;
+                    }
+                    else
+                    {
+                        addInputBool(obj); 
+                    }
+                    break; 
+                }
+            }
+            if(!found)
+            {
+                LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
+                return false;
+            }
+        }
+
+        // scan for InputFloats
+        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".InputFloats", i, &t) > 0; ++i)
+        {
+            if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
+            {
+                strncpy(buffer, t.ptr, t.len); 
+                LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
+                return false;
+            } 
+
+            bool found = false;
+            for(unsigned int i = 0; i < m_InputFloatConfigs.getCount(); ++i)
+            {
+                auto conf = m_InputFloatConfigs[i];
+                if(!strcmp(buffer, conf->getType()))
+                {
+                    found = true;
+                    strncpy(buffer, t.ptr, t.len); 
+                    auto obj = conf->createFromJson(buffer);
+                    if(!obj)
+                    {
+                        LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
+                        return false;
+                    }
+                    else
+                    {
+                        addInputFloat(obj); 
+                    }
+                    break; 
+                }
+            }
+            if(!found)
+            {
+                LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
+                return false;
+            }
+        }
+
+        // scan for InputUInts
+        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".InputUInts", i, &t) > 0; ++i)
+        {
+            if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
+            {
+                strncpy(buffer, t.ptr, t.len); 
+                LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
+                return false;
+            } 
+
+            bool found = false;
+            for(unsigned int i = 0; i < m_InputUIntConfigs.getCount(); ++i)
+            {
+                auto conf = m_InputUIntConfigs[i];
+                if(!strcmp(buffer, conf->getType()))
+                {
+                    found = true;
+                    strncpy(buffer, t.ptr, t.len); 
+                    auto obj = conf->createFromJson(buffer);
+                    if(!obj)
+                    {
+                        LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
+                        return false;
+                    }
+                    else
+                    {
+                        addInputUInt(obj); 
+                    }
+                    break; 
+                }
+            }
+            if(!found)
+            {
+                LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
+                return false;
+            }
+        }
+
+        // scan for OutputVoids
+        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".OutputVoids", i, &t) > 0; ++i)
+        {
+            if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
+            {
+                strncpy(buffer, t.ptr, t.len); 
+                LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
+                return false;
+            } 
+
+            bool found = false;
+            for(unsigned int i = 0; i < m_OutputVoidConfigs.getCount(); ++i)
+            {
+                auto conf = m_OutputVoidConfigs[i];
+                if(!strcmp(buffer, conf->getType()))
+                {
+                    found = true;
+                    strncpy(buffer, t.ptr, t.len); 
+                    auto obj = conf->createFromJson(buffer);
+                    if(!obj)
+                    {
+                        LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
+                        return false;
+                    }
+                    else
+                    {
+                        addOutputVoid(obj); 
+                    }
+                    break; 
+                }
+            }
+            if(!found)
+            {
+                LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
+                return false;
+            }
+        }
+
+        // scan for OutputBools
+        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".OutputBools", i, &t) > 0; ++i)
+        {
+            if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
+            {
+                strncpy(buffer, t.ptr, t.len); 
+                LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
+                return false;
+            } 
+
+            bool found = false;
+            for(unsigned int i = 0; i < m_OutputBoolConfigs.getCount(); ++i)
+            {
+                auto conf = m_OutputBoolConfigs[i];
+                if(!strcmp(buffer, conf->getType()))
+                {
+                    found = true;
+                    strncpy(buffer, t.ptr, t.len); 
+                    auto obj = conf->createFromJson(buffer);
+                    if(!obj)
+                    {
+                        LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
+                        return false;
+                    }
+                    else
+                    {
+                        addOutputBool(obj); 
+                    }
+                    break; 
+                }
+            }
+            if(!found)
+            {
+                LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
+                return false;
+            }
+        }
+
+        // scan for OutputFloats
+        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".OutputFloats", i, &t) > 0; ++i)
+        {
+            if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
+            {
+                strncpy(buffer, t.ptr, t.len); 
+                LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
+                return false;
+            } 
+
+            bool found = false;
+            for(unsigned int i = 0; i < m_OutputFloatConfigs.getCount(); ++i)
+            {
+                auto conf = m_OutputFloatConfigs[i];
+                if(!strcmp(buffer, conf->getType()))
+                {
+                    found = true;
+                    strncpy(buffer, t.ptr, t.len); 
+                    auto obj = conf->createFromJson(buffer);
+                    if(!obj)
+                    {
+                        LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
+                        return false;
+                    }
+                    else
+                    {
+                        addOutputFloat(obj); 
+                    }
+                    break; 
+                }
+            }
+            if(!found)
+            {
+                LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
+                return false;
+            }
+        }
+
+        // scan for OutputStrings
+        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".OutputStrings", i, &t) > 0; ++i)
+        {
+            if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
+            {
+                strncpy(buffer, t.ptr, t.len); 
+                LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
+                return false;
+            } 
+
+            bool found = false;
+            for(unsigned int i = 0; i < m_OutputStringConfigs.getCount(); ++i)
+            {
+                auto conf = m_OutputStringConfigs[i];
+                if(!strcmp(buffer, conf->getType()))
+                {
+                    found = true;
+                    strncpy(buffer, t.ptr, t.len); 
+                    auto obj = conf->createFromJson(buffer);
+                    if(!obj)
+                    {
+                        LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
+                        return false;
+                    }
+                    else
+                    {
+                        addOutputString(obj); 
+                    }
+                    break; 
+                }
+            }
+            if(!found)
+            {
+                LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
+                return false;
+            }
+        }
+
+        // scan for Devices
+        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".Devices", i, &t) > 0; ++i)
+        {
+            if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
+            {
+                strncpy(buffer, t.ptr, t.len); 
+                LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
+                return false;
+            } 
+
+            bool found = false;
+            for(unsigned int i = 0; i < m_DeviceConfigs.getCount(); ++i)
+            {
+                auto conf = m_DeviceConfigs[i];
+                if(!strcmp(buffer, conf->getType()))
+                {
+                    found = true;
+                    strncpy(buffer, t.ptr, t.len); 
+                    auto obj = conf->createFromJson(buffer);
+                    if(!obj)
+                    {
+                        LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
+                        return false;
+                    }
+                    else
+                    {
+                        addDevice(obj); 
+                    }
+                    break; 
+                }
+            }
+            if(!found)
+            {
+                LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
+                return false;
+            }
+        }
+
+
         return true;
     }
 }
