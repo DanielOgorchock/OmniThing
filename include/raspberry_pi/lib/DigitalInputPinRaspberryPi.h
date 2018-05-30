@@ -21,6 +21,7 @@ namespace omni
 
             static InputBool* createFromJson(const char* json);
 
+            static const char* Type;
             static ObjectConfig<InputBool> InputBoolConf;
     };
 }

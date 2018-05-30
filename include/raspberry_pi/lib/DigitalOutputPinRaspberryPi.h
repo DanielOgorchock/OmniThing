@@ -20,6 +20,7 @@ namespace omni
             static OutputVoid* createVoidFromJson(const char* json);
             static OutputBool* createBoolFromJson(const char* json);
 
+            static const char* Type;
             static ObjectConfig<OutputVoid> OutputVoidConf;
             static ObjectConfig<OutputBool> OutputBoolConf;
     };
