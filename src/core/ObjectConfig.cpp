@@ -22,6 +22,8 @@ namespace omni
     void registerConfig(ObjectConfig<InputBool>* conf)
     {
         OmniThing::getInstance().addInputBoolConfig(conf);
+        LOG << "Adding inputbool\n";
+        LOG << conf->getType() << "\n";
     }
 
     void registerConfig(ObjectConfig<InputFloat>* conf)
