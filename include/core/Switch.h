@@ -16,6 +16,8 @@ namespace omni
 
             void sendJsonPacket();
 
+            void writeNoUpdate(bool b);
+
         protected:
         public:
             Switch(OutputBool& output, bool invert = false, bool initial = false);

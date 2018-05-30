@@ -20,6 +20,14 @@ namespace omni
         OmniThing::getInstance().sendJson(buffer);
     }
 
+    void Switch::writeNoUpdate(bool b)
+    {
+        m_bValue = b;
+        m_rOutput.writeBool(isInverted() ? !b : b);
+
+        LOG << F("Switch: write() state=") << (b?F("on"):F("off")) << Logger::endl;
+    }
+
 //protected
 //public
     Switch::Switch(OutputBool& output, bool invert, bool initial):
@@ -68,10 +76,7 @@ namespace omni
 
     void Switch::write(bool b)
     {
-        m_bValue = b;
-        m_rOutput.writeBool(isInverted() ? !b : b);
-
-        LOG << F("Switch: write() state=") << (b?F("on"):F("off")) << Logger::endl;
+        writeNoUpdate(b);
         sendJsonPacket();
     }
 
