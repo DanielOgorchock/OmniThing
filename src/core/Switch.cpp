@@ -36,7 +36,7 @@ namespace omni
         m_bInvert(invert),
         m_bValue(initial)
     {
-        write(m_bValue);
+        writeNoUpdate(m_bValue);
     }
 
     Switch::~Switch()
