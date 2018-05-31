@@ -25,7 +25,7 @@ long freeRam()
 
 void printFreeRam()
 {
-    omnithing.getLogger() << F("Free ram: ") << freeRam() << omni::Logger::endl;
+    omnithing.getLogger() << F("Free ram: ") << freeRam() << F(" bytes\n");
 }
 
 // the setup function runs once when you press reset or power the board
@@ -40,7 +40,6 @@ void setup()
     omnithing.addTrigger(&freeRamTrigger, 10000, nullptr, true);
 
     printFreeRam();
-
 
     LOG << F("Running arduino setup() function\n");
     

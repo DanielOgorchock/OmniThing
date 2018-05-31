@@ -1,5 +1,7 @@
 #include "TriggerableFunction.h"
 
+#include "Logger.h"
+
 namespace omni
 {
 //private
