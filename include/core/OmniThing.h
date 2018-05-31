@@ -1,6 +1,10 @@
 #ifndef OMNI_OMNITHING_H
 #define OMNI_OMNITHING_H
 
+#ifndef OMNI_NOT_ARDUINO
+    #include <Arduino.h>
+#endif
+
 #include "FixedArray.h"
 #include <string.h>
 

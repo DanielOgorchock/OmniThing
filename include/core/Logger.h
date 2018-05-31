@@ -34,6 +34,10 @@ namespace omni
             virtual Logger& operator<< (const char* val) {return *this;}
             virtual Logger& operator<< (char val) {return *this;}
 
+#ifndef OMNI_NOT_ARDUINO
+            
+#endif
+
             static Logger StubbedLogger;
     };
 }

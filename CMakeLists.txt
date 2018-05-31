@@ -12,6 +12,11 @@ file(GLOB_RECURSE sources_os_common src/os_common/lib/*.cpp)
 file(GLOB_RECURSE sources_rpi src/raspberry_pi/lib/*.cpp)
 file(GLOB_RECURSE sources_arduino src/arduino/lib/*.cpp)
 
+file(GLOB_RECURSE includes_core include/core/*.h)
+file(GLOB_RECURSE includes_os_common include/os_common/lib/*.h)
+file(GLOB_RECURSE includes_rpi include/raspberry_pi/lib/*.h)
+file(GLOB_RECURSE includes_arduino include/arduino/lib/*.h)
+
 if(BUILD_LINUX)
     message("Creating Linux Build Configuration")
     add_executable(OmniThing src/os_common/main_os.cpp ${sources_core} ${sources_os_common})
@@ -20,6 +25,7 @@ if(BUILD_LINUX)
     target_link_libraries(OmniThing pthread)
 
     add_definitions("-DOMNI_FAKE_F_MACRO")
+    add_definitions("-DOMNI_NOT_ARDUINO")
 elseif(BUILD_RPI)
     message("Creating Raspberry Pi Build Configuration")
     add_executable(OmniThing src/os_common/main_os.cpp ${sources_core} ${sources_os_common} ${sources_rpi})
@@ -30,6 +36,7 @@ elseif(BUILD_RPI)
 
     add_definitions("-DOMNI_FAKE_F_MACRO")
     add_definitions("-DOMNI_PLAT_RPI")
+    add_definitions("-DOMNI_NOT_ARDUINO")
 elseif(BUILD_WINDOWS)
 	message("Creating Windows Build Configuration")
 	add_executable(OmniThing src/os_common/main_os.cpp ${sources_core} ${sources_os_common})
@@ -41,6 +48,10 @@ elseif(BUILD_WINDOWS)
 	target_link_libraries(OmniThing ${ws2_32_LIBRARY_PATH})
 
     add_definitions("-DOMNI_FAKE_F_MACRO")
+    add_definitions("-DOMNI_NOT_ARDUINO")
+elseif(BUILD_ARDUINO)
+    message("Creating Arduino Build Configuration")
+    file(COPY ${sources_core} ${sources_arduino} ${includes_core} ${includes_arduino} DESTINATION arduino_build)
 endif()
 
 
