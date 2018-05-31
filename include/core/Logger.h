@@ -5,7 +5,7 @@
 
 #define LOG OmniThing::getInstance().getLogger()
 
-#ifdef FAKE_F_MACRO
+#ifdef OMNI_FAKE_F_MACRO
 	#define F(x) (x)
 #endif
 
@@ -33,6 +33,8 @@ namespace omni
             virtual Logger& operator<< (void* val) {return *this;}
             virtual Logger& operator<< (const char* val) {return *this;}
             virtual Logger& operator<< (char val) {return *this;}
+
+            static Logger StubbedLogger;
     };
 }
 #endif

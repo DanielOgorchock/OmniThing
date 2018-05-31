@@ -11,4 +11,6 @@ namespace omni
     }
 
     char Logger::endl = '\n';
+
+    Logger Logger::StubbedLogger;
 }

@@ -10,15 +10,13 @@
 #include "Triggerable.h"
 #include <string.h>
 
-#include "LoggerStdout.h" //TODO: REMOVE THIS
-
 namespace omni
 {
 //private
     OmniThing::OmniThing():
         m_pNetworkReceiver(nullptr),
         m_pNetworkSender(nullptr),
-        m_pDefaultLogger(new LoggerStdout()),
+        m_pDefaultLogger(&Logger::StubbedLogger),
         m_pLogger(m_pDefaultLogger)
     {
 

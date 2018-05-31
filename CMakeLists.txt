@@ -19,7 +19,7 @@ if(BUILD_LINUX)
     include_directories(include/os_common/lib)
     target_link_libraries(OmniThing pthread)
 
-	add_definitions("-DFAKE_F_MACRO")
+    add_definitions("-DOMNI_FAKE_F_MACRO")
 elseif(BUILD_RPI)
     message("Creating Raspberry Pi Build Configuration")
     add_executable(OmniThing src/raspberry_pi/OmniThing.cpp ${sources_core} ${sources_os_common} ${sources_rpi})
@@ -28,7 +28,7 @@ elseif(BUILD_RPI)
     include_directories(include/raspberry_pi/lib)
     target_link_libraries(OmniThing pigpio pthread rt)
 
-	add_definitions("-DFAKE_F_MACRO")
+    add_definitions("-DOMNI_FAKE_F_MACRO")
 elseif(BUILD_WINDOWS)
 	message("Creating Windows Build Configuration")
 	add_executable(OmniThing src/os_common/OmniThing.cpp ${sources_core} ${sources_os_common})
@@ -39,7 +39,7 @@ elseif(BUILD_WINDOWS)
 	find_library(ws2_32_LIBRARY_PATH ws2_32)
 	target_link_libraries(OmniThing ${ws2_32_LIBRARY_PATH})
 
-	add_definitions("-DFAKE_F_MACRO")
+    add_definitions("-DOMNI_FAKE_F_MACRO")
 endif()
 
 
