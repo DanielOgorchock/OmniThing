@@ -17,7 +17,8 @@ namespace omni
         m_pNetworkReceiver(nullptr),
         m_pNetworkSender(nullptr),
         m_pDefaultLogger(&Logger::StubbedLogger),
-        m_pLogger(m_pDefaultLogger)
+        m_pLogger(m_pDefaultLogger),
+        m_nTriggerStringsCount(0)
     {
 
     }
@@ -92,8 +93,7 @@ namespace omni
         for(unsigned int i = 0; i < m_Triggers.getCount(); ++i)
         {
             auto& t = m_Triggers[i];
-            LOG << F("\tinterval=") << t.interval;
-            LOG << F(" command=") << t.cmd << Logger::endl;
+            LOG << F("\tinterval=") << t.interval << Logger::endl;
         }
         LOG << Logger::endl;
     }
@@ -118,7 +118,7 @@ namespace omni
             if(time - t.triggerTime >= t.interval)
             {
                 t.triggerTime += t.interval;
-                t.target->trigger(t.cmd);
+                t.target->trigger(t.arg);
 
                 //remove this trigger if non-repeating
                 if(!t.repeating)
@@ -378,9 +378,9 @@ namespace omni
         }
     }
 
-    bool OmniThing::addTrigger(Device* d, unsigned long interval, const char* cmd, bool repeat)
+    bool OmniThing::addTrigger(Triggerable* t, unsigned long interval, void* arg, bool repeat)
     {
-        Trigger tmp(d, interval, cmd, repeat);
+        Trigger tmp(t, interval, arg, repeat);
         return addTrigger(tmp);
     }
 
@@ -942,7 +942,20 @@ namespace omni
                 return false;
             }
 
-            addTrigger(m_Devices[deviceIndex], interval, buffer, true);
+            unsigned int indx = m_nTriggerStringsCount;
+            if(indx >= OMNI_MAX_TRIGGERS)
+            {
+                LOG << F("ERROR: Cannot add new trigger (array full)\n");
+                return false;
+            }
+
+            ++m_nTriggerStringsCount;
+
+            strncpy(m_TriggerStrings[indx], buffer, 10);
+            m_TriggerStrings[indx][9] = 0;
+
+            addTrigger(m_Devices[deviceIndex], interval, m_TriggerStrings[indx], true);
+
             strncpy(buffer, t.ptr, t.len);
             buffer[t.len]=0;
             LOG << F("Successfully created new ") << buffer << Logger::endl;

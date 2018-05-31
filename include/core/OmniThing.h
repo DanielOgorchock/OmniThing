@@ -35,7 +35,7 @@ namespace omni
             Triggerable* target;
             unsigned long interval;
             unsigned long long triggerTime;
-            char cmd[10];
+            void* arg;
             bool repeating;
 
             Trigger(): // just to allow the array to be built
@@ -44,13 +44,12 @@ namespace omni
 
             }
 
-            Trigger(Triggerable* t, unsigned long inter, const char* cm, bool rep = true):
+            Trigger(Triggerable* t, unsigned long inter, void* ar, bool rep = true):
                 target(t),
                 interval(inter),
+                arg(ar),
                 repeating(rep)
             {
-                strncpy(cmd, cm, 9);
-                cmd[9] = 0;
             }
     };
 
@@ -67,7 +66,7 @@ namespace omni
 #define OMNI_MAX_OUTPUT_FLOATS          10
 #define OMNI_MAX_OUTPUT_STRINGS         10
 
-#define OMNI_MAX_TRIGGERS               10
+#define OMNI_MAX_TRIGGERS               20
 
 #define OMNI_MAX_DEVICE_CONFIGS         20
 
@@ -114,6 +113,9 @@ namespace omni
 
             // Triggers
             FixedArray<Trigger, OMNI_MAX_TRIGGERS> m_Triggers;
+
+            unsigned int m_nTriggerStringsCount;
+            char m_TriggerStrings [OMNI_MAX_TRIGGERS] [10];
 
             //Configs
             FixedArray<ObjectConfig<Device>*,       OMNI_MAX_DEVICE_CONFIGS>            m_DeviceConfigs;
@@ -162,7 +164,7 @@ namespace omni
             bool addOutputString(OutputString* e);
 
             bool addTrigger(Trigger& t);
-            bool addTrigger(Device* d, unsigned long interval, const char* cmd, bool repeat = true);
+            bool addTrigger(Triggerable* t, unsigned long interval, void* arg, bool repeat = true);
 
             bool addDeviceConfig(ObjectConfig<Device>* dc);
             bool addCompositePeriphConfig(ObjectConfig<CompositePeripheral>* c);
