@@ -115,15 +115,13 @@ namespace omni
             {
                 t.triggerTime += t.interval;
                 t.target->trigger(t.cmd);
-            }
-        }
-        //remove all non-repeating triggers
-        for(unsigned short i = 0; i < m_Triggers.getCount(); ++i)
-        {
-            if(!m_Triggers[i].repeating)
-            {
-                m_Triggers.removeElement(i);
-                --i;
+
+                //remove this trigger if non-repeating
+                if(!t.repeating)
+                {
+                    m_Triggers.removeElement(i);
+                    --i;
+                }
             }
         }
     }
@@ -870,7 +868,7 @@ namespace omni
                 return false;
             }
 
-            addTrigger(m_Devices[deviceIndex], interval, buffer);
+            addTrigger(m_Devices[deviceIndex], interval, buffer, true);
             strncpy(buffer, t.ptr, t.len);
             buffer[t.len]=0;
             LOG << F("Successfully created new ") << buffer << Logger::endl;
