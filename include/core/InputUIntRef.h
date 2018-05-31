@@ -18,6 +18,11 @@ namespace omni
             virtual ~InputUIntRef();
 
             unsigned int readUInt() final;
+
+            static InputUInt* createFromJson(const char* json);
+
+            static const char* Type;
+            static ObjectConfig<InputUInt> InputUIntConf;
     };
 }
 #endif

@@ -18,6 +18,11 @@ namespace omni
             virtual ~InputFloatRef();
 
             float readFloat() final;
+
+            static InputFloat* createFromJson(const char* json);
+
+            static const char* Type;
+            static ObjectConfig<InputFloat> InputFloatConf;
     };
 }
 #endif

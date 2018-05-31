@@ -33,6 +33,12 @@ namespace omni
             LOG << F("\t") << m_DeviceConfigs[i]->getType() << F("\n");
         }
 
+        LOG << F("\nComposite Peripheral Configurations:\n");
+        for(unsigned int i = 0; i < m_CompositePeriphConfigs.getCount(); ++i)
+        {
+            LOG << F("\t") << m_CompositePeriphConfigs[i]->getType() << F("\n");
+        }
+
         LOG << F("\nInputBool Configurations:\n");
         for(unsigned int i = 0; i < m_InputBoolConfigs.getCount(); ++i)
         {
@@ -274,6 +280,18 @@ namespace omni
             return false;
         }
     }
+
+    bool OmniThing::addCompositePeriph(CompositePeripheral* e)
+    {
+        if(m_CompositePeriphs.addElement(e))
+            return true;
+        else
+        {
+            LOG << F("Failed to add InputBool (array full)\n");
+            return false;
+        }
+    }
+
     bool OmniThing::addInputBool(InputBool* e)
     {
         if(m_InputBools.addElement(e))
@@ -379,6 +397,17 @@ namespace omni
         }
     }
 
+    bool OmniThing::addCompositePeriphConfig(ObjectConfig<CompositePeripheral>* c)
+    {
+        if(m_CompositePeriphConfigs.addElement(c))
+            return true;
+        else
+        {
+            LOG << F("Failed to add Config (array full) type=") << c->getType() << Logger::endl;
+            return false;
+        }
+    }
+
     bool OmniThing::addInputBoolConfig(ObjectConfig<InputBool>* c)
     {
         if(m_InputBoolConfigs.addElement(c))
@@ -477,6 +506,53 @@ namespace omni
         unsigned int len = strlen(json);
         char buffer[100];
         buffer[0] = 0;
+
+        // scan for CompositePeripherals
+        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".CompositePeriphs", i, &t) > 0; ++i)
+        {
+            if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
+            {
+                strncpy(buffer, t.ptr, t.len);
+                buffer[t.len]=0;
+ 
+                LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
+                return false;
+            } 
+
+            bool found = false;
+            for(unsigned int i = 0; i < m_CompositePeriphConfigs.getCount(); ++i)
+            {
+                auto conf = m_CompositePeriphConfigs[i];
+                if(!strcmp(buffer, conf->getType()))
+                {
+                    found = true;
+                    strncpy(buffer, t.ptr, t.len);
+                    buffer[t.len]=0;
+ 
+                    auto obj = conf->createFromJson(buffer);
+                    if(!obj)
+                    {
+                        LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
+                        return false;
+                    }
+                    else
+                    {
+                        addCompositePeriph(obj); 
+                        strncpy(buffer, t.ptr, t.len);
+                        buffer[t.len]=0;
+
+                        buffer[t.len] = 0;
+                        LOG << F("Successfully created new ") << buffer << Logger::endl;
+                    }
+                    break; 
+                }
+            }
+            if(!found)
+            {
+                LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
+                return false;
+            }
+        }
 
         // scan for InputBools
         for(unsigned int i = 0; json_scanf_array_elem(json, len, ".InputBools", i, &t) > 0; ++i)

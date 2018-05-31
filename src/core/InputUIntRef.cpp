@@ -2,6 +2,7 @@
 #include "CompositePeripheral.h"
 #include <string.h>
 #include "Logger.h"
+#include "frozen.h"
 
 namespace omni
 {
@@ -31,6 +32,26 @@ namespace omni
     {
         return m_Periph.getUInt(m_Name);
     }
+
+    InputUInt* InputUIntRef::createFromJson(const char* json)
+    {
+        unsigned int compositeIndex;
+        char name[20];
+        if(json_scanf(json, strlen(json), "{compositeIndex: %u, paramName: %s}", &compositeIndex, &name) != 2)
+            return nullptr;
+
+        auto composites = OmniThing::getInstance().getCompositePeriphs();
+        if(compositeIndex >= composites.getCount())
+        {
+            LOG << F("ERROR: compositeIndex=") << compositeIndex << F(" is out of bounds.\n");
+            return nullptr;
+        } 
+
+        return new InputUIntRef(*(composites[compositeIndex]), name);
+    }
+
+    const char* InputUIntRef::Type = "InputUIntRef";
+    ObjectConfig<InputUInt> InputUIntRef::InputUIntConf(Type, createFromJson);
 }
 
 

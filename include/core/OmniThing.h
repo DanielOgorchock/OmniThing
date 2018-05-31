@@ -9,6 +9,8 @@ namespace omni
     class Triggerable;
     class Device;
 
+    class CompositePeripheral;
+
     class InputBool;
     class InputFloat;
     class InputUInt;
@@ -64,6 +66,8 @@ namespace omni
             // Devices and Inputs/Outputs
             FixedArray<Device*,         10> m_Devices;
 
+            FixedArray<CompositePeripheral*, 10> m_CompositePeriphs;
+
             FixedArray<InputBool*,      10> m_InputBools;
             FixedArray<InputFloat*,     10> m_InputFloats;
             FixedArray<InputUInt*,      10> m_InputUInts;
@@ -78,6 +82,8 @@ namespace omni
 
             //Configs
             FixedArray<ObjectConfig<Device>*,       20> m_DeviceConfigs;
+
+            FixedArray<ObjectConfig<CompositePeripheral>*, 10> m_CompositePeriphConfigs;
 
             FixedArray<ObjectConfig<InputBool>*,    10> m_InputBoolConfigs;
             FixedArray<ObjectConfig<InputFloat>*,   10> m_InputFloatConfigs;
@@ -109,6 +115,8 @@ namespace omni
 
             bool addDevice(Device* dev); 
 
+            bool addCompositePeriph(CompositePeripheral* e);
+
             bool addInputBool(InputBool* e);
             bool addInputFloat(InputFloat* e);
             bool addInputUInt(InputUInt* e);
@@ -122,6 +130,7 @@ namespace omni
             bool addTrigger(Device* d, unsigned long interval, const char* cmd, bool repeat = true);
 
             bool addDeviceConfig(ObjectConfig<Device>* dc);
+            bool addCompositePeriphConfig(ObjectConfig<CompositePeripheral>* c);
             bool addInputBoolConfig(ObjectConfig<InputBool>* c);
             bool addInputFloatConfig(ObjectConfig<InputFloat>* c);
             bool addInputUIntConfig(ObjectConfig<InputUInt>* c);
@@ -132,6 +141,8 @@ namespace omni
 
 
             const auto& getDevices() {return m_Devices;}
+
+            const auto& getCompositePeriphs() {return m_CompositePeriphs;}
 
             const auto& getInputBools() {return m_InputBools;}
             const auto& getInputFloats() {return m_InputFloats;}

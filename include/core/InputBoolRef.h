@@ -18,6 +18,11 @@ namespace omni
             virtual ~InputBoolRef();
 
             bool readBool() final;
+
+            static InputBool* createFromJson(const char* json);
+
+            static const char* Type;
+            static ObjectConfig<InputBool> InputBoolConf;
     };
 }
 #endif
