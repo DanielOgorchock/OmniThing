@@ -12,7 +12,7 @@ namespace omni
         public:
             virtual ~Triggerable();
 
-            virtual void trigger(void* arg) {LOG << F("No trigger() implemented\n");};
+            virtual void trigger(void* arg);
 
     };
 }

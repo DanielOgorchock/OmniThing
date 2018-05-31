@@ -9,4 +9,9 @@ namespace omni
     {
 
     }
+
+    void Triggerable::trigger(void* arg) 
+    {
+        LOG << F("No trigger() implemented\n");
+    }
 }
