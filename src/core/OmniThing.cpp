@@ -7,6 +7,7 @@
 #include "NetworkSender.h"
 #include "Logger.h"
 #include "frozen.h"
+#include "Triggerable.h"
 #include <string.h>
 
 #include "LoggerStdout.h" //TODO: REMOVE THIS
@@ -87,7 +88,7 @@ namespace omni
         for(unsigned int i = 0; i < m_Triggers.getCount(); ++i)
         {
             auto& t = m_Triggers[i];
-            LOG << F("\tuid=") << t.dev->getUid() << F(" type=") << t.dev->getType() << F(" interval=") << t.interval;
+            LOG << F("\tinterval=") << t.interval;
             LOG << F(" command=") << t.cmd << Logger::endl;
         }
         LOG << Logger::endl;
@@ -114,7 +115,7 @@ namespace omni
             if(time - t.triggerTime >= t.interval)
             {
                 t.triggerTime += t.interval;
-                t.dev->recvJson(t.cmd, t.json);
+                t.target->trigger(t.cmd);
             }
         }
     }
@@ -355,9 +356,9 @@ namespace omni
         }
     }
 
-    bool OmniThing::addTrigger(Device* d, unsigned long interval, const char* cmd, const char* json, bool repeat)
+    bool OmniThing::addTrigger(Device* d, unsigned long interval, const char* cmd, bool repeat)
     {
-        Trigger tmp(d, interval, cmd, json, repeat);
+        Trigger tmp(d, interval, cmd, repeat);
         return addTrigger(tmp);
     }
 

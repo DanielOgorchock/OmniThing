@@ -18,4 +18,9 @@ namespace omni
     {
 
     }
+
+    void Device::trigger(void* arg)
+    {
+        recvJson(static_cast<const char*>(arg), nullptr);
+    }
 }

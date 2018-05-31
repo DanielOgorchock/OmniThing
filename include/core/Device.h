@@ -1,10 +1,11 @@
 #ifndef OMNI_DEVICE_H
 #define OMNI_DEVICE_H
 #include "ObjectConfig.h"
+#include "Triggerable.h"
 
 namespace omni
 {
-    class Device
+    class Device : public virtual Triggerable
     {
         private:
             unsigned short m_nUid;
@@ -25,6 +26,8 @@ namespace omni
             virtual const char* getType() const = 0;
 
             void setRun(bool b) {m_bRun = b;}
+
+            virtual void trigger(void* arg);
     };
 }
 

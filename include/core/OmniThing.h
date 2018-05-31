@@ -6,6 +6,7 @@
 
 namespace omni
 {
+    class Triggerable;
     class Device;
 
     class InputBool;
@@ -25,24 +26,21 @@ namespace omni
     class Trigger // used by the scheduler
     {
         public:
-            Device* dev;
+            Triggerable* target;
             unsigned long interval;
             unsigned long long triggerTime;
             char cmd[10];
-            const char* json;
             bool repeating;
 
             Trigger(): // just to allow the array to be built
-                dev(nullptr),
-                json(nullptr)
+                target(nullptr)
             {
 
             }
 
-            Trigger(Device* d, unsigned long inter, const char* cm, const char* js=nullptr, bool rep = true):
-                dev(d),
+            Trigger(Triggerable* t, unsigned long inter, const char* cm, bool rep = true):
+                target(t),
                 interval(inter),
-                json(js),
                 repeating(rep)
             {
                 strncpy(cmd, cm, 9);
@@ -121,7 +119,7 @@ namespace omni
             bool addOutputString(OutputString* e);
 
             bool addTrigger(Trigger& t);
-            bool addTrigger(Device* d, unsigned long interval, const char* cmd, const char* json = nullptr, bool repeat = true);
+            bool addTrigger(Device* d, unsigned long interval, const char* cmd, bool repeat = true);
 
             bool addDeviceConfig(ObjectConfig<Device>* dc);
             bool addInputBoolConfig(ObjectConfig<InputBool>* c);
