@@ -44,6 +44,21 @@ namespace omni
                 return true;
             }
 
+            bool removeElement(unsigned int index)
+            {
+                if(index >= S)
+                    return false;
+
+                for(unsigned int i = index; i < getCount()-1; ++i)
+                {
+                    m_Array[i] = m_Array[i+1];
+                }
+
+                --m_Count;
+
+                return true;
+            }
+
             void resetCount()
             {
                 m_Count = 0; 

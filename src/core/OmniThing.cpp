@@ -106,7 +106,6 @@ namespace omni
         }
 
         //check for triggers
-        //TODO: account for non-repeating triggers
         unsigned long long time = getMillis();
         for(unsigned short i = 0; i < m_Triggers.getCount(); ++i)
         {
@@ -116,6 +115,15 @@ namespace omni
             {
                 t.triggerTime += t.interval;
                 t.target->trigger(t.cmd);
+            }
+        }
+        //remove all non-repeating triggers
+        for(unsigned short i = 0; i < m_Triggers.getCount(); ++i)
+        {
+            if(!m_Triggers[i].repeating)
+            {
+                m_Triggers.removeElement(i);
+                --i;
             }
         }
     }
