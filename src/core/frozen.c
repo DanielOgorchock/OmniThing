@@ -71,6 +71,11 @@ typedef unsigned _int64 uint64_t;
 #define JSON_MAX_PATH_LEN 256
 #endif
 
+#ifndef OMNI_NOT_ARDUINO
+    #define PRId64 "I64d"
+    #define PRIu64 "I64u"
+#endif
+
 struct frozen {
   const char *end;
   const char *cur;

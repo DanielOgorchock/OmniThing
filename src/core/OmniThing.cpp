@@ -161,7 +161,7 @@ namespace omni
         unsigned int uid;
         char cmd[24]; 
         
-        int res = json_scanf(json, strlen(json), F("{uid:%u, cmd:%s}"), &uid, cmd);
+        int res = json_scanf(json, strlen(json), "{uid:%u, cmd:%s}", &uid, cmd);
         if(res != 2)
         {
             LOG << F("problem scanning err=") << res << F(" : ") << json << Logger::endl;

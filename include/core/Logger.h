@@ -9,6 +9,10 @@
 	#define F(x) (x)
 #endif
 
+#ifndef OMNI_NOT_ARDUINO
+    #include <Arduino.h>
+#endif
+
 namespace omni
 {
     class Logger
@@ -35,7 +39,7 @@ namespace omni
             virtual Logger& operator<< (char val) {return *this;}
 
 #ifndef OMNI_NOT_ARDUINO
-            
+            virtual Logger& operator<< (const __FlashStringHelper* val) {return *this;} 
 #endif
 
             static Logger StubbedLogger;

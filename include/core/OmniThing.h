@@ -54,10 +54,41 @@ namespace omni
             }
     };
 
+#define OMNI_MAX_DEVICES                20
+
+#define OMNI_MAX_COMPOSITE_PERIPHS      10
+
+#define OMNI_MAX_INPUT_BOOLS            10
+#define OMNI_MAX_INPUT_FLOATS           10
+#define OMNI_MAX_INPUT_UINTS            10
+
+#define OMNI_MAX_OUTPUT_VOIDS           10
+#define OMNI_MAX_OUTPUT_BOOLS           10
+#define OMNI_MAX_OUTPUT_FLOATS          10
+#define OMNI_MAX_OUTPUT_STRINGS         10
+
+#define OMNI_MAX_TRIGGERS               10
+
+#define OMNI_MAX_DEVICE_CONFIGS         20
+
+#define OMNI_MAX_COMPOSITE_PERIPH_CONFIGS 10
+
+#define OMNI_MAX_INPUT_BOOL_CONFIGS     10
+#define OMNI_MAX_INPUT_FLOAT_CONFIGS    10
+#define OMNI_MAX_INPUT_UINT_CONFIGS     10
+
+#define OMNI_MAX_OUTPUT_VOID_CONFIGS    10
+#define OMNI_MAX_OUTPUT_BOOL_CONFIGS    10
+#define OMNI_MAX_OUTPUT_FLOAT_CONFIGS   10
+#define OMNI_MAX_OUTPUT_STRING_CONFIGS  10
+
+
+
     class OmniThing
     {
         private:
             OmniThing(); //don't allow manual creation
+            OmniThing(const OmniThing& ot);
 
             void printContainersDebug();
 
@@ -68,35 +99,35 @@ namespace omni
             Device* findDevice(unsigned int uid);
 
             // Devices and Inputs/Outputs
-            FixedArray<Device*,         10> m_Devices;
+            FixedArray<Device*,         OMNI_MAX_DEVICES>           m_Devices;
 
-            FixedArray<CompositePeripheral*, 10> m_CompositePeriphs;
+            FixedArray<CompositePeripheral*, OMNI_MAX_COMPOSITE_PERIPHS> m_CompositePeriphs;
 
-            FixedArray<InputBool*,      10> m_InputBools;
-            FixedArray<InputFloat*,     10> m_InputFloats;
-            FixedArray<InputUInt*,      10> m_InputUInts;
+            FixedArray<InputBool*,      OMNI_MAX_INPUT_BOOLS>       m_InputBools;
+            FixedArray<InputFloat*,     OMNI_MAX_INPUT_FLOATS>      m_InputFloats;
+            FixedArray<InputUInt*,      OMNI_MAX_INPUT_UINTS>       m_InputUInts;
 
-            FixedArray<OutputVoid*,     10> m_OutputVoids;
-            FixedArray<OutputBool*,     10> m_OutputBools;
-            FixedArray<OutputFloat*,    10> m_OutputFloats;
-            FixedArray<OutputString*,   10> m_OutputStrings;
+            FixedArray<OutputVoid*,     OMNI_MAX_OUTPUT_VOIDS>      m_OutputVoids;
+            FixedArray<OutputBool*,     OMNI_MAX_OUTPUT_BOOLS>      m_OutputBools;
+            FixedArray<OutputFloat*,    OMNI_MAX_OUTPUT_FLOATS>     m_OutputFloats;
+            FixedArray<OutputString*,   OMNI_MAX_OUTPUT_STRINGS>    m_OutputStrings;
 
             // Triggers
-            FixedArray<Trigger, 10> m_Triggers;
+            FixedArray<Trigger, OMNI_MAX_TRIGGERS> m_Triggers;
 
             //Configs
-            FixedArray<ObjectConfig<Device>*,       20> m_DeviceConfigs;
+            FixedArray<ObjectConfig<Device>*,       OMNI_MAX_DEVICE_CONFIGS>            m_DeviceConfigs;
 
-            FixedArray<ObjectConfig<CompositePeripheral>*, 10> m_CompositePeriphConfigs;
+            FixedArray<ObjectConfig<CompositePeripheral>*, OMNI_MAX_COMPOSITE_PERIPH_CONFIGS> m_CompositePeriphConfigs;
 
-            FixedArray<ObjectConfig<InputBool>*,    10> m_InputBoolConfigs;
-            FixedArray<ObjectConfig<InputFloat>*,   10> m_InputFloatConfigs;
-            FixedArray<ObjectConfig<InputUInt>*,    10> m_InputUIntConfigs;
+            FixedArray<ObjectConfig<InputBool>*,    OMNI_MAX_INPUT_BOOL_CONFIGS>        m_InputBoolConfigs;
+            FixedArray<ObjectConfig<InputFloat>*,   OMNI_MAX_INPUT_FLOAT_CONFIGS>       m_InputFloatConfigs;
+            FixedArray<ObjectConfig<InputUInt>*,    OMNI_MAX_INPUT_UINT_CONFIGS>        m_InputUIntConfigs;
 
-            FixedArray<ObjectConfig<OutputVoid>*,   10> m_OutputVoidConfigs;
-            FixedArray<ObjectConfig<OutputBool>*,   10> m_OutputBoolConfigs;
-            FixedArray<ObjectConfig<OutputFloat>*,  10> m_OutputFloatConfigs;
-            FixedArray<ObjectConfig<OutputString>*, 10> m_OutputStringConfigs;
+            FixedArray<ObjectConfig<OutputVoid>*,   OMNI_MAX_OUTPUT_VOID_CONFIGS>       m_OutputVoidConfigs;
+            FixedArray<ObjectConfig<OutputBool>*,   OMNI_MAX_OUTPUT_BOOL_CONFIGS>       m_OutputBoolConfigs;
+            FixedArray<ObjectConfig<OutputFloat>*,  OMNI_MAX_OUTPUT_FLOAT_CONFIGS>      m_OutputFloatConfigs;
+            FixedArray<ObjectConfig<OutputString>*, OMNI_MAX_OUTPUT_STRING_CONFIGS>     m_OutputStringConfigs;
 
             NetworkReceiver* m_pNetworkReceiver;
             NetworkSender* m_pNetworkSender;
@@ -144,18 +175,18 @@ namespace omni
             bool addOutputStringConfig(ObjectConfig<OutputString>* c);
 
 
-            const auto& getDevices() {return m_Devices;}
+            const FixedArray<Device*, OMNI_MAX_DEVICES>& getDevices() {return m_Devices;}
 
-            const auto& getCompositePeriphs() {return m_CompositePeriphs;}
+            const FixedArray<CompositePeripheral*, OMNI_MAX_COMPOSITE_PERIPHS>& getCompositePeriphs() {return m_CompositePeriphs;}
 
-            const auto& getInputBools() {return m_InputBools;}
-            const auto& getInputFloats() {return m_InputFloats;}
-            const auto& getInputUInts() {return m_InputUInts;}
+            const FixedArray<InputBool*, OMNI_MAX_INPUT_BOOLS>& getInputBools() {return m_InputBools;}
+            const FixedArray<InputFloat*, OMNI_MAX_INPUT_FLOATS>& getInputFloats() {return m_InputFloats;}
+            const FixedArray<InputUInt*, OMNI_MAX_INPUT_UINTS>& getInputUInts() {return m_InputUInts;}
 
-            const auto& getOutputVoids() {return m_OutputVoids;}
-            const auto& getOutputBools() {return m_OutputBools;}
-            const auto& getOutputFloats() {return m_OutputFloats;}
-            const auto& getOutputStrings() {return m_OutputStrings;}
+            const FixedArray<OutputVoid*, OMNI_MAX_OUTPUT_VOIDS>& getOutputVoids() {return m_OutputVoids;}
+            const FixedArray<OutputBool*, OMNI_MAX_OUTPUT_BOOLS>& getOutputBools() {return m_OutputBools;}
+            const FixedArray<OutputFloat*, OMNI_MAX_OUTPUT_FLOATS>& getOutputFloats() {return m_OutputFloats;}
+            const FixedArray<OutputString*, OMNI_MAX_OUTPUT_STRINGS>& getOutputStrings() {return m_OutputStrings;}
 
             bool loadJsonConfig(const char* json);
 

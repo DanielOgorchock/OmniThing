@@ -51,7 +51,9 @@ elseif(BUILD_WINDOWS)
     add_definitions("-DOMNI_NOT_ARDUINO")
 elseif(BUILD_ARDUINO)
     message("Creating Arduino Build Configuration")
-    file(COPY ${sources_core} ${sources_arduino} ${includes_core} ${includes_arduino} DESTINATION arduino_build)
+    file(GLOB_RECURSE old_files arduino_build/*)
+    file(REMOVE ${old_files})
+    file(COPY src/arduino/OmniThing.ino ${sources_core} ${sources_arduino} ${includes_core} ${includes_arduino} DESTINATION arduino_build/OmniThing)
 endif()
 
 
