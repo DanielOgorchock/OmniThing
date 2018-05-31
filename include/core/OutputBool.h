@@ -2,11 +2,12 @@
 #define OMNI_OUTPUTBOOL_H
 
 #include "ObjectConfig.h"
+#include "Triggerable.h"
 
 
 namespace omni
 {
-    class OutputBool
+    class OutputBool : virtual public Triggerable
     {
         private:
 

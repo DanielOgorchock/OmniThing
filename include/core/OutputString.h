@@ -2,10 +2,11 @@
 #define OMNI_OUTPUTSTRING_H
 
 #include "ObjectConfig.h"
+#include "Triggerable.h"
 
 namespace omni
 {
-    class OutputString
+    class OutputString : virtual public Triggerable
     {
         private:
         protected:

@@ -2,11 +2,11 @@
 #define OMNI_INPUTBOOL_H
 
 #include "ObjectConfig.h"
-
+#include "Triggerable.h"
 
 namespace omni
 {
-    class InputBool
+    class InputBool : virtual public Triggerable
     {
         private:
 

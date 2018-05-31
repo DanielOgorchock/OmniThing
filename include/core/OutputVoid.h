@@ -2,10 +2,11 @@
 #define OMNI_OUTPUTVOID_H
 
 #include "ObjectConfig.h"
+#include "Triggerable.h"
 
 namespace omni
 {
-    class OutputVoid
+    class OutputVoid : virtual public Triggerable
     {
         private:
 

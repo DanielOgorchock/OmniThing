@@ -2,11 +2,12 @@
 #define OMNI_OUTPUTFLOAT_H
 
 #include "ObjectConfig.h"
+#include "Triggerable.h"
 
 
 namespace omni
 {
-    class OutputFloat
+    class OutputFloat : virtual public Triggerable
     {
         private:
 

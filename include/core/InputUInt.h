@@ -2,10 +2,11 @@
 #define OMNI_INPUTUINT_H
 
 #include "ObjectConfig.h"
+#include "Triggerable.h"
 
 namespace omni
 {
-    class InputUInt
+    class InputUInt : virtual public Triggerable
     {
         private:
 

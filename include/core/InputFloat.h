@@ -2,11 +2,12 @@
 #define OMNI_INPUTFLOAT_H
 
 #include "ObjectConfig.h"
+#include "Triggerable.h"
 
 
 namespace omni
 {
-    class InputFloat
+    class InputFloat : virtual public Triggerable
     {
         private:
 
