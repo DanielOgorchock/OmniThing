@@ -37,7 +37,7 @@ void setup()
     omnithing.setLogger(&logger);
 
     static TriggerableFunction freeRamTrigger(printFreeRam);
-    omnithing.addTrigger(&freeRamTrigger, 10000, nullptr, true);
+    omnithing.addTrigger(&freeRamTrigger, 30000, nullptr, true);
 
     printFreeRam();
 
