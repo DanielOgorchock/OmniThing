@@ -23,6 +23,15 @@ namespace omni
 
     void Switch::writeNoUpdate(bool b)
     {
+        if(b != m_bValue)
+        {
+            emit(Event_Changed);
+            if(b)
+                emit(Event_On);
+            else
+                emit(Event_Off);
+        }
+
         m_bValue = b;
         m_rOutput.writeBool(isInverted() ? !b : b);
 
@@ -107,11 +116,17 @@ namespace omni
 
 
 
+    //commands
     const char* Switch::Cmd_Poll    = "poll";
     const char* Switch::Cmd_On      = "on";
     const char* Switch::Cmd_Off     = "off";
     const char* Switch::Cmd_Toggle  = "toggle";
-    const char* Switch::Type        = "Switch";
 
+    //events
+    const char* Switch::Event_On        = "on";
+    const char* Switch::Event_Off       = "off";
+    const char* Switch::Event_Changed   = "changed";
+
+    const char* Switch::Type        = "Switch";
     ObjectConfig<Device> Switch::DevConf(Type, createFromJson); 
 }

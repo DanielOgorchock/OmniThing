@@ -42,7 +42,17 @@ namespace omni
         if(!strcmp(cmd, Cmd_Poll))
         {
             LOG << F("Poll triggered for ") << getType() << F(" ") << getUid() << Logger::endl;
-            read();
+            bool val = read(); 
+            if(val != m_bLastVal)
+            {
+                emit(Event_Changed);
+
+                if(val)
+                    emit(Event_Open);
+                else
+                    emit(Event_Closed);
+            }
+            m_bLastVal = val; 
             sendJsonPacket();
         }
 
@@ -53,6 +63,13 @@ namespace omni
         bool val = read(); 
         if(val != m_bLastVal)
         {
+            emit(Event_Changed);
+
+            if(val)
+                emit(Event_Open);
+            else
+                emit(Event_Closed);
+
             sendJsonPacket();
         }
         m_bLastVal = val; 
@@ -96,8 +113,14 @@ namespace omni
     }
 
 
+    //commands
     const char* ContactSensor::Cmd_Poll = "poll";
-    const char* ContactSensor::Type     = "ContactSensor";
 
+    //events
+    const char* ContactSensor::Event_Open       = "open";
+    const char* ContactSensor::Event_Closed     = "closed";
+    const char* ContactSensor::Event_Changed    = "changed";
+
+    const char* ContactSensor::Type     = "ContactSensor";
     ObjectConfig<Device> ContactSensor::DevConf(Type, createFromJson); 
 }

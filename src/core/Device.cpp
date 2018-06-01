@@ -1,5 +1,7 @@
 #include "Device.h"
 
+#include "OmniThing.h"
+#include "Logger.h"
 
 namespace omni
 {
@@ -22,5 +24,11 @@ namespace omni
     void Device::trigger(void* arg)
     {
         recvJson(static_cast<const char*>(arg), nullptr);
+    }
+
+    void Device::emit(const char* event)
+    {
+        LOG << F("emitting event=") << event << F(" deviceUID=") << getUid() << Logger::endl;
+        OmniThing::getInstance().addEvent(this, event);
     }
 }

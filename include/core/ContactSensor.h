@@ -31,10 +31,17 @@ namespace omni
 
             static Device* createFromJson(const char* json);
 
-            //json commands/format strings
-            static const char* Cmd_Poll;
             //Type
             static const char* Type;
+
+            //json commands/format strings
+            static const char* Cmd_Poll;
+
+            //events
+            static const char* Event_Open;
+            static const char* Event_Closed;
+            static const char* Event_Changed;
+           
 
             static ObjectConfig<Device> DevConf;
     };

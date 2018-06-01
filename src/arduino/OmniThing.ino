@@ -78,6 +78,7 @@ void setup()
     configWithProgmem(Config_Output_Strings);
     configWithProgmem(Config_Devices);
     configWithProgmem(Config_Triggers);
+    configWithProgmem(Config_Subscriptions);
 
     omnithing.init();    
 }

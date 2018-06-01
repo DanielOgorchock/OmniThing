@@ -60,6 +60,12 @@ namespace omni
                     {"deviceIndex": 1, "interval": 10000, "command": "poll"}
                 ]})BEGIN";
 
+    const char Config_Subscriptions[] PROGMEM =
+        R"BEGIN({"Subscriptions": [
+                    {"sourceIndex": 0, "event": "changed", "subscriberIndex": 1, "command": "poll"},
+                    {"sourceIndex": 1, "event": "changed", "subscriberIndex": 0, "command": "toggle"}
+                ]})BEGIN";
+
 }
 
 #endif

@@ -143,6 +143,29 @@ namespace omni
         }
     }
 
+    void OmniThing::checkEvents()
+    {
+        for(unsigned int i = 0; i < m_Events.getCount(); ++i)
+        {
+            auto& e = m_Events[i];
+            for(unsigned int j = 0; j < m_Subscriptions.getCount(); ++i)
+            {
+                auto& s = m_Subscriptions[i];
+                if(s.event == e)
+                {
+                    LOG << F("event uid=") << e.src->getUid() << F(" type=") << e.src->getType();
+                    LOG << F(" triggered subscription: uid=") << s.subscriber->getUid();
+                    LOG << F(" type=") << s.subscriber->getType() << F(" cmd=") << s.cmd << Logger::endl;
+
+                    s.subscriber->trigger(s.cmd);
+                }
+            }
+        }
+
+        // clear events
+        m_Events.resetCount();
+    }
+
     void OmniThing::initDevices()
     {
         LOG << F("Initializing devices...\n");
@@ -229,12 +252,14 @@ namespace omni
             LOG << F("WARNING: no NetworkReceiver configured\n");
 
         initDevices(); 
+        m_Events.resetCount();
         initScheduler();
     }
 
     void OmniThing::run()
     {
         runScheduler();
+        checkEvents();
 
         if(m_pNetworkSender)
         {
@@ -401,6 +426,28 @@ namespace omni
         return addTrigger(tmp);
     }
 
+    bool OmniThing::addEvent(Device* src, const char* event)
+    {
+        if(m_Events.addElement(Event(src, event)))
+            return true;
+        else
+        {
+            LOG << F("Failed to add event (array full)\n");
+            return false;
+        }
+    }
+
+    bool OmniThing::addSubscription(Subscription& sub)
+    {
+        if(m_Subscriptions.addElement(sub))
+            return true;
+        else
+        {
+            LOG << F("Failed to add subscription (array full)\n");
+            return false;
+        }
+    }
+
     bool OmniThing::addDeviceConfig(ObjectConfig<Device>* dc)
     {
         if(m_DeviceConfigs.addElement(dc))
@@ -535,6 +582,7 @@ namespace omni
     //      "OutputStrings":    [ {"type": string, ... } , ... ],
     //      "Devices":          [ {"type": string, ... } , ... ],
     //      "Triggers":         [ {"deviceIndex": int, "interval": int, "command": string}, ... ]
+    //      "Subscriptions": [{"sourceIndex": int, "event": string, "subscriberIndex": int, "command": string}]
     // }
     //      
     bool OmniThing::loadJsonConfig(const char* json)
@@ -1100,7 +1148,55 @@ namespace omni
             LOG << F("Successfully created new ") << buffer << Logger::endl;
         }
 
+// "Subscriptions": [{"sourceIndex": int, "event": string, "subscriberIndex": int, "command": string}]
+        // scan for Subscriptions
+        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".Subscriptions", i, &t) > 0; ++i)
+        {
+            unsigned int srcI;
+            char event[20]; 
+            unsigned int subI;
+            char cmd[10];
+
+            if(json_scanf(t.ptr, t.len, "{sourceIndex: %u, event: %s, subscriberIndex: %u, command: %s}",
+                        &srcI, event, &subI, cmd) != 4)
+            {
+                    strncpy(buffer, t.ptr, t.len);
+                    buffer[t.len]=0;
+     
+                    LOG << F("ERROR: failed to parse subscription: ") << buffer << Logger::endl;
+                    return false;
+            }
+
+            if(srcI >= m_Devices.getCount())
+            {
+                LOG << F("ERROR: source device index too large\n");
+                return false;
+            }
+            if(subI >= m_Devices.getCount())
+            {
+                LOG << F("ERROR: subscriber device index too large\n");
+                return false;
+            }
+
+            Device* src = m_Devices[srcI];
+            Device* sub = m_Devices[subI];
+
+            Event e(src, event);
+            Subscription s(e, sub, cmd);
+            addSubscription(s);
+
+            strncpy(buffer, t.ptr, t.len);
+            buffer[t.len]=0;
+            LOG << F("Successfully created new ") << buffer << Logger::endl;
+        }
+
         LOG << Logger::endl;
         return true;
     }
+
+    bool operator==(const Event& l, const Event&r)
+    {
+        return l.src == r.src && (!strcmp(l.event, r.event));
+    }
+
 }

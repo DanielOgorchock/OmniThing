@@ -168,6 +168,7 @@ namespace omni
         if(!client.connect(m_DestIp, m_nDestPort))
         {
             LOG << F("Connection to address=") << m_DestIp << F(" port=") << m_nDestPort << F(" failed\n");
+            client.stop();
             return;
         }
 

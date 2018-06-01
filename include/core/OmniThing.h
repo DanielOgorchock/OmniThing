@@ -29,6 +29,54 @@ namespace omni
     class Logger;
     template <class T> class ObjectConfig;
 
+    class Event
+    {
+        public:
+            Device* src;
+            char event[20];
+
+            Event():
+                src(nullptr)
+            {
+                event[0] = 0;
+            }
+
+            Event(Device* s, const char* e):
+                src(s)
+            {
+                strncpy(event, e, 20);
+            }
+
+    };
+    bool operator==(const Event& l, const Event&r);
+
+    class Subscription
+    {
+        public:
+            Event event;
+            Device* subscriber;
+            char cmd[10];
+
+            Subscription():
+                subscriber(0)
+            {
+                cmd[0] = 0;
+            }
+
+            Subscription(const Event& e, Device* s, const char* c):
+                event(e),
+                subscriber(s)
+            {
+                strncpy(cmd, c, 10);
+            }
+
+            Subscription(const Subscription& s):
+                event(s.event)
+            {   
+                strncpy(cmd, s.cmd, 10);
+            }
+    };
+
     class Trigger // used by the scheduler
     {
         public:
@@ -68,6 +116,9 @@ namespace omni
 
 #define OMNI_MAX_TRIGGERS               80
 
+#define OMNI_MAX_EVENTS                 20
+#define OMNI_MAX_SUBSCRIPTIONS          40
+
 #define OMNI_MAX_DEVICE_CONFIGS         40
 
 #define OMNI_MAX_COMPOSITE_PERIPH_CONFIGS 20
@@ -95,6 +146,8 @@ namespace omni
             void printContainersDebug();
 
             void runScheduler();
+            void checkEvents();
+
             void initDevices();
             void initScheduler();
             void parseJson(const char* json);
@@ -116,6 +169,10 @@ namespace omni
 
             // Triggers
             FixedArray<Trigger, OMNI_MAX_TRIGGERS> m_Triggers;
+
+            // Subscriptions/Events
+            FixedArray<Event,           OMNI_MAX_EVENTS>        m_Events;
+            FixedArray<Subscription,    OMNI_MAX_SUBSCRIPTIONS> m_Subscriptions;
 
             unsigned int m_nTriggerStringsCount;
             char m_TriggerStrings [OMNI_MAX_TRIGGERS] [10];
@@ -171,6 +228,9 @@ namespace omni
 
             bool addTrigger(Trigger& t);
             bool addTrigger(Triggerable* t, unsigned long interval, void* arg, bool repeat = true);
+
+            bool addEvent(Device* src, const char* event);
+            bool addSubscription(Subscription& sub);
 
             bool addDeviceConfig(ObjectConfig<Device>* dc);
             bool addCompositePeriphConfig(ObjectConfig<CompositePeripheral>* c);

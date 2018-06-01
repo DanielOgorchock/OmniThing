@@ -28,6 +28,7 @@ namespace omni
             void setRun(bool b) {m_bRun = b;}
 
             virtual void trigger(void* arg);
+            void emit(const char* event);
     };
 }
 
