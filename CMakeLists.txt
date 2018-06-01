@@ -53,7 +53,7 @@ elseif(BUILD_ARDUINO)
     message("Creating Arduino Build Configuration")
     file(GLOB_RECURSE old_files arduino_build/*)
     file(REMOVE ${old_files})
-    file(COPY src/arduino/OmniThing.ino ${sources_core} ${sources_arduino} ${includes_core} ${includes_arduino} DESTINATION arduino_build/OmniThing)
+    file(COPY include/arduino/ArduinoJsonConfig.h src/arduino/OmniThing.ino ${sources_core} ${sources_arduino} ${includes_core} ${includes_arduino} DESTINATION arduino_build/OmniThing)
 endif()
 
 

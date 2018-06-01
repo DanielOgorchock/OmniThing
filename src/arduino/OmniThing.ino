@@ -5,6 +5,9 @@
 #include "LoggerSerial.h"
 #include "TriggerableFunction.h"
 
+#include "ArduinoJsonConfig.h"
+#include <avr/pgmspace.h>
+
 auto& omnithing = omni::OmniThing::getInstance();
 
 long freeRam()
@@ -28,6 +31,17 @@ void printFreeRam()
     omnithing.getLogger() << F("Free ram: ") << freeRam() << F(" bytes\n");
 }
 
+void configWithProgmem(const char* json)
+{
+    using namespace omni;
+
+    char buffer[1500];
+    printFreeRam();
+
+    strcpy_P(buffer, json);
+    omnithing.loadJsonConfig(buffer);
+}
+
 // the setup function runs once when you press reset or power the board
 void setup() 
 {
@@ -42,6 +56,17 @@ void setup()
     printFreeRam();
 
     LOG << F("Running arduino setup() function\n");
+
+    configWithProgmem(Config_Composite_Periphs);
+    configWithProgmem(Config_Input_Bools);
+    configWithProgmem(Config_Input_Floats);
+    configWithProgmem(Config_Input_UInts);
+    configWithProgmem(Config_Output_Voids);
+    configWithProgmem(Config_Output_Bools);
+    configWithProgmem(Config_Output_Floats);
+    configWithProgmem(Config_Output_Strings);
+    configWithProgmem(Config_Devices);
+    configWithProgmem(Config_Triggers);
     
     omnithing.init();    
 }
