@@ -6,6 +6,7 @@ option(BUILD_LINUX "Build for a generic linux target" OFF)
 option(BUILD_WINDOWS "Build for a windows target" OFF)
 option(BUILD_RPI "Build for a raspberry pi linux target" OFF)
 option(BUILD_ARDUINO "Create directory structure for Arduino IDE" OFF)
+set(ARDUINO_CONFIG "include/arduino/ArduinoJsonConfig.h" CACHE STRING "Which header file to use for config")
 
 file(GLOB_RECURSE sources_core src/core/*.cpp src/core/*.c)
 file(GLOB_RECURSE sources_os_common src/os_common/lib/*.cpp)
@@ -54,6 +55,9 @@ elseif(BUILD_ARDUINO)
     file(GLOB_RECURSE old_files arduino_build/*)
     file(REMOVE ${old_files})
     file(COPY include/arduino/ArduinoJsonConfig.h src/arduino/OmniThing.ino ${sources_core} ${sources_arduino} ${includes_core} ${includes_arduino} DESTINATION arduino_build/OmniThing)
+    file(COPY ${ARDUINO_CONFIG} DESTINATION arduino_build/OmniThing)
+    get_filename_component(configname ${ARDUINO_CONFIG} NAME)
+    file(RENAME arduino_build/OmniThing/${configname} arduino_build/OmniThing/ArduinoJsonConfig.h)
 endif()
 
 
