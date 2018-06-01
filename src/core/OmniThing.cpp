@@ -178,6 +178,7 @@ namespace omni
         if(res != 2)
         {
             LOG << F("problem scanning err=") << res << F(" : ") << json << Logger::endl;
+            return;
         }
 
         Device* d = findDevice(uid);
@@ -560,6 +561,8 @@ namespace omni
                         found = true;
                         strncpy(buffer, t.ptr, t.len);
                         buffer[t.len]=0;
+
+                        LOG << F("Found configuration\n");
      
                         auto obj = conf->createFromJson(buffer);
                         if(!obj)
@@ -607,6 +610,8 @@ namespace omni
                         found = true;
                         strncpy(buffer, t.ptr, t.len);
                         buffer[t.len]=0;
+
+                        LOG << F("Found configuration\n");
      
                         auto obj = conf->createFromJson(buffer);
                         if(!obj)
