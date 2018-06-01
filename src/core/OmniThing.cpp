@@ -372,7 +372,7 @@ namespace omni
     {
         if(m_Triggers.addElement(t))
         {
-            m_Triggers[m_Triggers.getCount()-1] = getMillis();
+            m_Triggers[m_Triggers.getCount()-1].triggerTime = getMillis();
             return true;
         }
         else
