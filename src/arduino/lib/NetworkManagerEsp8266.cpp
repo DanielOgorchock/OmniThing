@@ -110,6 +110,7 @@ namespace omni
     {
         auto& manager = getInstance();
         LOG << F("WiFi connection info:\n");
+        LOG << F("Connected? ") << ((WiFi.status() == WL_CONNECTED) ? F("yes\n") : F("no\n"));
         LOG << F("localIP = ") << WiFi.localIP().toString().c_str() << Logger::endl;
         LOG << F("MAC address = ") << WiFi.macAddress().c_str() << Logger::endl;
         LOG << F("SSID = ") << WiFi.SSID().c_str() << Logger::endl;
