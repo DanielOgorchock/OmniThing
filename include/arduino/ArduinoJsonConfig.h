@@ -35,7 +35,7 @@ namespace omni
 
     const char Config_Output_Bools[] PROGMEM =
         R"BEGIN({"OutputBools": [
-                    {"type": "DigitalOutputPinArduino", "pin": 10, "initial": true, "invert": false}
+                    {"type": "DigitalOutputPinArduino", "pin": 14, "initial": true, "invert": false}
                 ]})BEGIN";
 
     const char Config_Output_Floats[] PROGMEM =
