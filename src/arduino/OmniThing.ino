@@ -65,6 +65,7 @@ void setup()
     printFreeRam();
 
     LOG << F("Running arduino setup() function\n");
+    LOG << F("A0 = ") << A0 << Logger::endl;
 
     configWithProgmem(Config_Network_Receiver);
     configWithProgmem(Config_Network_Sender);

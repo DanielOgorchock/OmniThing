@@ -25,7 +25,7 @@ namespace omni
             virtual void run();
             virtual void init();
 
-            const char* getType() const {return Type;}
+            virtual const char* getType() const {return Type;}
             bool isInverted() const {return m_bInvert;}
             virtual bool read();
 
@@ -34,7 +34,7 @@ namespace omni
             //Type
             static const char* Type;
 
-            //json commands/format strings
+            //json commands
             static const char* Cmd_Poll;
 
             //events

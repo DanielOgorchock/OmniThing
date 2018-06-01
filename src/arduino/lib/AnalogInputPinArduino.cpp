@@ -18,6 +18,7 @@ namespace omni
         if(json_scanf(json, len, "{pin: %u, minVoltage: %f, maxVoltage: %f}", &pin, &minVoltage, &maxVoltage)!=3)
             return nullptr;
 
+        LOG << F("minVoltage=") << minVoltage << F(" maxVoltage=") << maxVoltage << Logger::endl;
         return new AnalogInputPinArduino(pin, minVoltage, maxVoltage);
     }
 
