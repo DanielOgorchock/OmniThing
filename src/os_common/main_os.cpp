@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
     LOG << "Initialized pigpio\n";
 #endif
 
-    std::cout << "Attempting to open configuration file: " << argv[3] << std::endl;
+    std::cout << "Attempting to open configuration file: " << argv[1] << std::endl;
 
     std::ifstream f(argv[1]);
     if(!f.is_open())
