@@ -22,7 +22,6 @@ namespace omni
 
     const char Config_Input_Floats[] PROGMEM =
         R"BEGIN({"InputFloats": [
-                    {"type": "AnalogInputPinArduino", "pin": 17, "minVoltage": 0, "maxVoltage": 3.3}
                 ]})BEGIN";
 
     const char Config_Input_UInts[] PROGMEM =

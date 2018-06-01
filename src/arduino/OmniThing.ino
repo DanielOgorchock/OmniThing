@@ -84,6 +84,8 @@ void setup()
     omnithing.init();    
 
     LOG << F("Entering main loop\n");
+
+    delay(10);
 }
 
 // the loop function runs over and over again forever
