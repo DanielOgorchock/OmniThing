@@ -50,6 +50,6 @@ namespace omni
     }
 
     const char* AnalogInputPinArduino::Type = "AnalogInputPinArduino";
-    static ObjectConfig<InputUInt> AnalogInputPinArduino::InputUIntConf(Type, createUIntFromJson);
-    static ObjectConfig<InputFloat> AnalogInputPinArduino::InputFloatConf(Type, createFloatFromJson);
+    ObjectConfig<InputUInt> AnalogInputPinArduino::InputUIntConf(Type, createUIntFromJson);
+    ObjectConfig<InputFloat> AnalogInputPinArduino::InputFloatConf(Type, createFloatFromJson);
 }

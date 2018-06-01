@@ -6,7 +6,10 @@
 #include "TriggerableFunction.h"
 
 #include "ArduinoJsonConfig.h"
-#include <avr/pgmspace.h>
+
+#if defined(ARDUINO_ARCH_AVR)
+    #include <avr/pgmspace.h>
+#endif
 
 #include "frozen.h"
 
@@ -37,11 +40,15 @@ void configWithProgmem(const char* json)
 {
     using namespace omni;
 
+#if defined(ARDUINO_ARCH_AVR)
     char buffer[1500];
     printFreeRam();
 
     strcpy_P(buffer, json);
     omnithing.loadJsonConfig(buffer);
+#else
+    omnithing.loadJsonConfig(json);
+#endif
 }
 
 // the setup function runs once when you press reset or power the board
