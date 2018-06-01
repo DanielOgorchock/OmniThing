@@ -927,7 +927,7 @@ namespace omni
             unsigned int deviceIndex;
             unsigned long interval;
 
-            if(json_scanf(t.ptr, t.len, "{deviceIndex: %u, interval: %u, command: %s}", &deviceIndex, &interval, buffer) != 3)
+            if(json_scanf(t.ptr, t.len, "{deviceIndex: %u, interval: %lu, command: %s}", &deviceIndex, &interval, buffer) != 3)
             {
                 strncpy(buffer, t.ptr, t.len);
                 buffer[t.len]=0;

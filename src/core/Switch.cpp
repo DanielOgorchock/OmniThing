@@ -17,6 +17,7 @@ namespace omni
 
         json_printf(&out, "{uid: %u, type: \"%s\", state: \"%s\"}", getUid(), getType(), (read()?"on":"off"));
 
+        LOG << buffer << Logger::endl;
         OmniThing::getInstance().sendJson(buffer);
     }
 
