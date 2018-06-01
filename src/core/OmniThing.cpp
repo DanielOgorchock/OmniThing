@@ -119,6 +119,7 @@ namespace omni
             {
                 t.triggerTime += t.interval;
                 t.target->trigger(t.arg);
+                LOG << Logger::endl; //splits up debug output from triggers nicely
 
                 //remove this trigger if non-repeating
                 if(!t.repeating)
