@@ -6,3 +6,4 @@ cmake_install.cmake
 OmniThing
 .vs
 arduino_build
+personal_configs
