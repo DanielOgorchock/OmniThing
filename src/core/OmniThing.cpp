@@ -371,7 +371,10 @@ namespace omni
     bool OmniThing::addTrigger(Trigger& t)
     {
         if(m_Triggers.addElement(t))
+        {
+            m_Triggers[m_Triggers.getCount()-1] = getMillis();
             return true;
+        }
         else
         {
             LOG << F("Failed to add Trigger (array full)\n");
