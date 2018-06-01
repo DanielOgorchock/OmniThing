@@ -113,9 +113,9 @@ namespace omni
         for(unsigned int i = 0; i < m_Subscriptions.getCount(); ++i)
         {
             auto& t = m_Subscriptions[i];
-            LOG << F("\tsrc_uid=") << t.event.src.getUid()
+            LOG << F("\tsrc_uid=") << t.event.src->getUid()
                 << F(" event=")    << t.event.event
-                << F(" sub_uid=")  << t.subscriber.getUid() 
+                << F(" sub_uid=")  << t.subscriber->getUid() 
                 << F(" cmd=")      << t.cmd
                 << Logger::endl;
         }
