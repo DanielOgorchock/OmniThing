@@ -66,6 +66,8 @@ void setup()
 
     LOG << F("Running arduino setup() function\n");
 
+    configWithProgmem(Config_Network_Receiver);
+    configWithProgmem(Config_Network_Sender);
     configWithProgmem(Config_Composite_Periphs);
     configWithProgmem(Config_Input_Bools);
     configWithProgmem(Config_Input_Floats);

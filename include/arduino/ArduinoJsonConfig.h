@@ -5,6 +5,12 @@
 
 namespace omni
 {
+    const char Config_Network_Receiver[] PROGMEM =
+        R"BEGIN({"NetworkReceiver": {}})BEGIN";
+
+    const char Config_Network_Sender[] PROGMEM =
+        R"BEGIN({"NetworkSender": {}})BEGIN";
+
     const char Config_Composite_Periphs[] PROGMEM =
         R"BEGIN({"CompositePeriphs": [
                 ]})BEGIN";
