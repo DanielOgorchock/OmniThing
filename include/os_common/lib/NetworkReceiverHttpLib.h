@@ -3,6 +3,7 @@
 
 #include "NetworkReceiver.h"
 #include "httplib.h"
+#include "ObjectConfig.h"
 
 #include <thread>
 
@@ -13,7 +14,7 @@ namespace omni
         private:
             httplib::Server m_Server;
             char m_JsonBuffer[2048]; //TODO: make size configurable
-            const char* m_IP;
+            char m_IP[30];
             unsigned short m_nPort;
             std::thread* m_Thread;
             std::mutex m_BufferMutex;
@@ -32,6 +33,10 @@ namespace omni
             virtual void run();
             virtual const char* getJsonString();
 
+            static NetworkReceiver* createFromJson(const char* json);
+
+            static const char* Type;
+            static ObjectConfig<NetworkReceiver> NetworkReceiverConf;
     };
 }
 #endif

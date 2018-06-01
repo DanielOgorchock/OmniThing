@@ -17,6 +17,8 @@ namespace omni
     void registerConfig(ObjectConfig<OutputBool>* conf);
     void registerConfig(ObjectConfig<OutputFloat>* conf);
     void registerConfig(ObjectConfig<OutputString>* conf);
+    void registerConfig(ObjectConfig<NetworkReceiver>* conf);
+    void registerConfig(ObjectConfig<NetworkSender>* conf);
 
     template <class T>
     class ObjectConfig

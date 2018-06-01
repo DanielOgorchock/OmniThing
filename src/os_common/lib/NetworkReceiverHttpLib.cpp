@@ -6,6 +6,8 @@
 
 #include "Logger.h"
 
+#include "frozen.h"
+
 namespace omni
 {
 //private
@@ -39,12 +41,12 @@ namespace omni
 //public
     NetworkReceiverHttpLib::NetworkReceiverHttpLib(const char* ip, unsigned short port):
         m_Server(),
-        m_IP(ip),
         m_nPort(port),
         m_bWipeBuffer(false),
 		m_bUnlockMutex(false)
     {
         m_JsonBuffer[0] = 0; 
+        strncpy(m_IP, ip, 30);
     }
 
     NetworkReceiverHttpLib::~NetworkReceiverHttpLib()
@@ -85,4 +87,24 @@ namespace omni
         m_bWipeBuffer = true;
         return m_JsonBuffer;
     }
+
+    NetworkReceiver* NetworkReceiverHttpLib::createFromJson(const char* json)
+    {
+        unsigned int len = strlen(json);
+
+        char ip[30];
+        unsigned int port;
+
+        if(json_scanf(json, len, "{ip: %s, port: %u}", ip, &port) != 2)
+        {
+            return nullptr;
+        }
+
+        LOG << "ip=" << ip <<" port=" << port << Logger::endl;
+        return new NetworkReceiverHttpLib(ip, port);
+    }
+
+    const char* NetworkReceiverHttpLib::Type = "NetworkReceiverHttpLib";
+    ObjectConfig<NetworkReceiver> NetworkReceiverHttpLib::NetworkReceiverConf(Type, createFromJson);
+
 }

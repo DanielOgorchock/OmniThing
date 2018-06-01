@@ -2,13 +2,14 @@
 #define OMNI_NETWORKSENDERHTTPLIB_H
 
 #include "NetworkSender.h"
+#include "ObjectConfig.h"
 
 namespace omni
 {
     class NetworkSenderHttpLib : public NetworkSender
     {
         private:
-            const char* m_Address;
+            char m_Address[100];
             unsigned int m_nPort;
 
         protected:
@@ -19,6 +20,11 @@ namespace omni
             virtual void init();
             virtual void run();
             virtual void sendJson(const char* json);
+
+            static NetworkSender* createFromJson(const char* json);
+
+            static const char* Type;
+            static ObjectConfig<NetworkSender> NetworkSenderConf;
     };
 }
 #endif

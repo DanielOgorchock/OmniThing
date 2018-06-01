@@ -53,33 +53,36 @@ namespace omni
             }
     };
 
-#define OMNI_MAX_DEVICES                20
+#define OMNI_MAX_DEVICES                40
 
-#define OMNI_MAX_COMPOSITE_PERIPHS      10
+#define OMNI_MAX_COMPOSITE_PERIPHS      20
 
-#define OMNI_MAX_INPUT_BOOLS            10
-#define OMNI_MAX_INPUT_FLOATS           10
-#define OMNI_MAX_INPUT_UINTS            10
+#define OMNI_MAX_INPUT_BOOLS            20
+#define OMNI_MAX_INPUT_FLOATS           20
+#define OMNI_MAX_INPUT_UINTS            20
 
-#define OMNI_MAX_OUTPUT_VOIDS           10
-#define OMNI_MAX_OUTPUT_BOOLS           10
-#define OMNI_MAX_OUTPUT_FLOATS          10
-#define OMNI_MAX_OUTPUT_STRINGS         10
+#define OMNI_MAX_OUTPUT_VOIDS           20
+#define OMNI_MAX_OUTPUT_BOOLS           20
+#define OMNI_MAX_OUTPUT_FLOATS          20
+#define OMNI_MAX_OUTPUT_STRINGS         20
 
-#define OMNI_MAX_TRIGGERS               20
+#define OMNI_MAX_TRIGGERS               80
 
-#define OMNI_MAX_DEVICE_CONFIGS         20
+#define OMNI_MAX_DEVICE_CONFIGS         40
 
-#define OMNI_MAX_COMPOSITE_PERIPH_CONFIGS 10
+#define OMNI_MAX_COMPOSITE_PERIPH_CONFIGS 20
 
-#define OMNI_MAX_INPUT_BOOL_CONFIGS     10
-#define OMNI_MAX_INPUT_FLOAT_CONFIGS    10
-#define OMNI_MAX_INPUT_UINT_CONFIGS     10
+#define OMNI_MAX_INPUT_BOOL_CONFIGS     20
+#define OMNI_MAX_INPUT_FLOAT_CONFIGS    20
+#define OMNI_MAX_INPUT_UINT_CONFIGS     20
 
-#define OMNI_MAX_OUTPUT_VOID_CONFIGS    10
-#define OMNI_MAX_OUTPUT_BOOL_CONFIGS    10
-#define OMNI_MAX_OUTPUT_FLOAT_CONFIGS   10
-#define OMNI_MAX_OUTPUT_STRING_CONFIGS  10
+#define OMNI_MAX_OUTPUT_VOID_CONFIGS    20
+#define OMNI_MAX_OUTPUT_BOOL_CONFIGS    20
+#define OMNI_MAX_OUTPUT_FLOAT_CONFIGS   20
+#define OMNI_MAX_OUTPUT_STRING_CONFIGS  20
+
+#define OMNI_MAX_NETWORK_RECEIVER_CONFIGS   5
+#define OMNI_MAX_NETWORK_SENDER_CONFIGS     5
 
 
 
@@ -131,6 +134,9 @@ namespace omni
             FixedArray<ObjectConfig<OutputFloat>*,  OMNI_MAX_OUTPUT_FLOAT_CONFIGS>      m_OutputFloatConfigs;
             FixedArray<ObjectConfig<OutputString>*, OMNI_MAX_OUTPUT_STRING_CONFIGS>     m_OutputStringConfigs;
 
+            FixedArray<ObjectConfig<NetworkReceiver>*, OMNI_MAX_NETWORK_RECEIVER_CONFIGS> m_NetworkReceiverConfigs;
+            FixedArray<ObjectConfig<NetworkSender>*, OMNI_MAX_NETWORK_SENDER_CONFIGS>     m_NetworkSenderConfigs;
+
             NetworkReceiver* m_pNetworkReceiver;
             NetworkSender* m_pNetworkSender;
             Logger *m_pDefaultLogger; // doesn't do anything but should avoid crashes
@@ -176,6 +182,8 @@ namespace omni
             bool addOutputFloatConfig(ObjectConfig<OutputFloat>* c);
             bool addOutputStringConfig(ObjectConfig<OutputString>* c);
 
+            bool addNetworkReceiverConfig(ObjectConfig<NetworkReceiver>* c);
+            bool addNetworkSenderConfig(ObjectConfig<NetworkSender>* c);
 
             const FixedArray<Device*, OMNI_MAX_DEVICES>& getDevices() {return m_Devices;}
 

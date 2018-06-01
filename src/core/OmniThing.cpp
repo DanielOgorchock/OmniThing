@@ -80,6 +80,18 @@ namespace omni
             LOG << F("\t") << m_OutputStringConfigs[i]->getType() << F("\n");
         }
 
+        LOG << F("\nNetworkReceiver Configurations:\n");
+        for(unsigned int i = 0; i < m_NetworkReceiverConfigs.getCount(); ++i)
+        {
+            LOG << F("\t") << m_NetworkReceiverConfigs[i]->getType() << F("\n");
+        }
+
+        LOG << F("\nNetworkSender Configurations:\n");
+        for(unsigned int i = 0; i < m_NetworkSenderConfigs.getCount(); ++i)
+        {
+            LOG << F("\t") << m_NetworkSenderConfigs[i]->getType() << F("\n");
+        }
+
         LOG << F("\n############# DEVICES ##############\n");
         LOG << F("Devices:\n");
         for(unsigned int i = 0; i < m_Devices.getCount(); ++i)
@@ -487,8 +499,32 @@ namespace omni
         }
     }
 
+    bool OmniThing::addNetworkReceiverConfig(ObjectConfig<NetworkReceiver>* c)
+    {
+        if(m_NetworkReceiverConfigs.addElement(c))
+            return true;
+        else
+        {
+            LOG << F("Failed to add Config (array full) type=") << c->getType() << Logger::endl;
+            return false;
+        }
+    }
+
+    bool OmniThing::addNetworkSenderConfig(ObjectConfig<NetworkSender>* c)
+    {
+        if(m_NetworkSenderConfigs.addElement(c))
+            return true;
+        else
+        {
+            LOG << F("Failed to add Config (array full) type=") << c->getType() << Logger::endl;
+            return false;
+        }
+    }
+
 
     // {
+    //      "NetworkReceiver":  {"type": string, ... },
+    //      "NetworkSender":    {"type": string, ... },
     //      "InputBools":       [ {"type": string, ... } , ... ],
     //      "InputFloats":      [ {"type": string, ... } , ... ],
     //      "InputUInts":       [ {"type": string, ... } , ... ],
@@ -508,6 +544,100 @@ namespace omni
         unsigned int len = strlen(json);
         char buffer[100];
         buffer[0] = 0;
+
+        // scan for NetworkReceiver
+        if(json_scanf(json, len, "{NetworkReceiver: %T}", &t) == 1)
+        {
+            LOG << "Found NetworkReceiver entry\n";
+            if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) == 1)
+            {
+                bool found = false;
+                for(unsigned int i = 0; i < m_NetworkReceiverConfigs.getCount(); ++i)
+                {
+                    auto conf = m_NetworkReceiverConfigs[i];
+                    if(!strcmp(buffer, conf->getType()))
+                    {
+                        found = true;
+                        strncpy(buffer, t.ptr, t.len);
+                        buffer[t.len]=0;
+     
+                        auto obj = conf->createFromJson(buffer);
+                        if(!obj)
+                        {
+                            LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
+                            return false;
+                        }
+                        else
+                        {
+                            setNetworkReceiver(obj); 
+                            strncpy(buffer, t.ptr, t.len);
+                            buffer[t.len]=0;
+
+                            buffer[t.len] = 0;
+                            LOG << F("Successfully created new ") << buffer << Logger::endl;
+                        }
+                        break; 
+                    }
+                }
+                if(!found)
+                {
+                    LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
+                    return false;
+                }
+                     
+            }
+            else
+            {
+                LOG << "NetworkReceiver requires a specified type\n";
+            }
+        }
+
+        // scan for NetworkSender
+        if(json_scanf(json, len, "{NetworkSender: %T}", &t) == 1)
+        {
+            LOG << "Found NetworkSender entry\n";
+            if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) == 1)
+            {
+                bool found = false;
+                for(unsigned int i = 0; i < m_NetworkSenderConfigs.getCount(); ++i)
+                {
+                    auto conf = m_NetworkSenderConfigs[i];
+                    if(!strcmp(buffer, conf->getType()))
+                    {
+                        found = true;
+                        strncpy(buffer, t.ptr, t.len);
+                        buffer[t.len]=0;
+     
+                        auto obj = conf->createFromJson(buffer);
+                        if(!obj)
+                        {
+                            LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
+                            return false;
+                        }
+                        else
+                        {
+                            setNetworkSender(obj); 
+                            strncpy(buffer, t.ptr, t.len);
+                            buffer[t.len]=0;
+
+                            buffer[t.len] = 0;
+                            LOG << F("Successfully created new ") << buffer << Logger::endl;
+                        }
+                        break; 
+                    }
+                }
+                if(!found)
+                {
+                    LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
+                    return false;
+                }
+                     
+            }
+            else
+            {
+                LOG << "NetworkSender requires a specified type\n";
+            }
+        }
 
         // scan for CompositePeripherals
         for(unsigned int i = 0; json_scanf_array_elem(json, len, ".CompositePeriphs", i, &t) > 0; ++i)

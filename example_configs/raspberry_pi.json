@@ -1,4 +1,8 @@
 {
+    "NetworkReceiver": {"type": "NetworkReceiverHttpLib", "ip": "192.168.2.104", "port": 1337},
+
+    "NetworkSender": {"type": "NetworkSenderHttpLib", "ip": "192.168.2.200", "port": 39500},
+
     "CompositePeriphs": [
 
     ],

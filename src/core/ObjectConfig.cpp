@@ -54,4 +54,14 @@ namespace omni
         OmniThing::getInstance().addOutputStringConfig(conf);
     }
 
+    void registerConfig(ObjectConfig<NetworkReceiver>* conf)
+    {
+        OmniThing::getInstance().addNetworkReceiverConfig(conf);
+    }
+
+    void registerConfig(ObjectConfig<NetworkSender>* conf)
+    {
+        OmniThing::getInstance().addNetworkSenderConfig(conf);
+    }
+
 }

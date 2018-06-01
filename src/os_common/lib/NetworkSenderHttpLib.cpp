@@ -2,6 +2,8 @@
 #include "httplib.h"
 #include "Logger.h"
 
+#include <string.h>
+#include "frozen.h"
 
 namespace omni
 {
@@ -9,10 +11,9 @@ namespace omni
 //protected
 //public
     NetworkSenderHttpLib::NetworkSenderHttpLib(const char* address, unsigned int port):
-        m_Address(address),
         m_nPort(port)
     {
-
+        strncpy(m_Address, address, 100);
     }
 
     NetworkSenderHttpLib::~NetworkSenderHttpLib()
@@ -45,4 +46,23 @@ namespace omni
             LOG << "Error: No reply\n";
         }
     }
+
+    NetworkSender* NetworkSenderHttpLib::createFromJson(const char* json)
+    {
+        unsigned int len = strlen(json);
+
+        char ip[20];
+        unsigned int port;
+
+        if(json_scanf(json, len, "{ip: %s, port: %u}", ip, &port) != 2)
+        {
+            return nullptr;
+        }
+
+        LOG << "ip=" << ip <<" port=" << port << Logger::endl;
+        return new NetworkSenderHttpLib(ip, port);
+    }
+
+    const char* NetworkSenderHttpLib::Type = "NetworkSenderHttpLib";
+    ObjectConfig<NetworkSender> NetworkSenderHttpLib::NetworkSenderConf(Type, createFromJson);
 }

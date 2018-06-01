@@ -1,7 +1,7 @@
 {
-    "NetworkReceiver": {},
+    "NetworkReceiver": {"type": "NetworkReceiverHttpLib", "ip": "192.168.2.101", "port": 1337},
 
-    "NetworkSender": {},
+    "NetworkSender": {"type": "NetworkSenderHttpLib", "ip": "192.168.2.200", "port": 39500},
 
     "CompositePeriphs": [
 
@@ -44,3 +44,4 @@
     ]
 
 }
+

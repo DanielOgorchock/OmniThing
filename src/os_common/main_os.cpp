@@ -23,23 +23,15 @@ int main(int argc, char* argv[])
     using namespace omni;
 
     //parse commandline args
-    if(argc != 4)
+    if(argc > 4 || argc < 2)
     {
-        std::cout << "Usage: ./OmniThing [computer_ip] [hub_ip] [config_file]\n\n"; 
+        std::cout << "Usage: ./OmniThing [config_file] [computer_ip <optional>] [hub_ip <optional>]\n\n"; 
         return 1;
     }
 
     OmniThing& omnithing = OmniThing::getInstance();
 
     omnithing.setLogger(new LoggerStdout());
-
-    const char* ip = argv[1];
-    NetworkReceiverHttpLib receiver(ip, 1337);
-    omnithing.setNetworkReceiver(&receiver);
-
-    const char* destIp = argv[2];
-    NetworkSenderHttpLib sender(destIp, 39500);
-    omnithing.setNetworkSender(&sender);
 
 
 #ifdef OMNI_PLAT_RPI
@@ -53,7 +45,7 @@ int main(int argc, char* argv[])
 
     std::cout << "Attempting to open configuration file: " << argv[3] << std::endl;
 
-    std::ifstream f(argv[3]);
+    std::ifstream f(argv[1]);
     if(!f.is_open())
     {
         std::cerr << "Failed to open file\n";
@@ -64,6 +56,20 @@ int main(int argc, char* argv[])
     buffer << f.rdbuf();
 
     omnithing.loadJsonConfig(buffer.str().c_str());
+
+    if(argc >= 3)
+    {
+        const char* ip = argv[2];
+        LOG << "Configuring http server with cli ip: " << ip << Logger::endl;
+        omnithing.setNetworkReceiver(new NetworkReceiverHttpLib(ip, 1337));
+    }
+
+    if(argc >= 4)
+    {
+        const char* destIp = argv[3];
+        LOG << "Configuring http sender with cli ip: " << destIp << Logger::endl;
+        omnithing.setNetworkSender(new NetworkSenderHttpLib(destIp, 39500));
+    }
 
     omnithing.init();
 
