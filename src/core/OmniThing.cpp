@@ -271,7 +271,7 @@ namespace omni
     void OmniThing::run()
     {
         runScheduler();
-    //    checkEvents();
+        checkEvents();
 
         if(m_pNetworkSender)
         {

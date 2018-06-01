@@ -89,8 +89,6 @@ void setup()
 void loop() 
 {
     using namespace omni;
-    LOG << "LOOP\n";
-    printFreeRam();
     omnithing.run();
 }
 
