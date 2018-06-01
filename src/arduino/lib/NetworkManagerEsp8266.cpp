@@ -32,9 +32,16 @@ namespace omni
         if(WiFi.status() == WL_CONNECTED)
             return;
 
+        unsigned long timeout = getMillis();
+
         LOG << F("Waiting to connect to access point\n");
         while(WiFi.status() != WL_CONNECTED)
         {
+            if(getMillis() - timeout > 15000)
+            {
+                LOG << F("Timed out awaiting connection... proceeding\n");
+                break;
+            }
             sleepMillis(500);
             LOG << F(".");
         }
