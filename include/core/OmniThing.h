@@ -114,10 +114,10 @@ namespace omni
 #define OMNI_MAX_OUTPUT_FLOATS          20
 #define OMNI_MAX_OUTPUT_STRINGS         20
 
-#define OMNI_MAX_TRIGGERS               80
+#define OMNI_MAX_TRIGGERS               40
 
 #define OMNI_MAX_EVENTS                 20
-#define OMNI_MAX_SUBSCRIPTIONS          40
+#define OMNI_MAX_SUBSCRIPTIONS          20
 
 #define OMNI_MAX_DEVICE_CONFIGS         40
 

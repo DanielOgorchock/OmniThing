@@ -43,6 +43,10 @@
     "Triggers": [
         {"deviceIndex": 0, "interval": 30000, "command": "poll"},
         {"deviceIndex": 1, "interval": 10000, "command": "poll"}
+    ],
+
+    "Subscriptions": [
+        {"sourceIndex": 1, "event": "changed", "subscriberIndex": 0, "cmd": "toggle"}
     ]
 
 }
