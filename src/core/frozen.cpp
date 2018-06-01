@@ -16,6 +16,9 @@
  * limitations under the License.
  */
 
+#include "Logger.h"
+#include "OmniThing.h"
+
 #define _CRT_SECURE_NO_WARNINGS /* Disable deprecation warning in VS2005+ */
 
 #include "frozen.h"
@@ -978,16 +981,22 @@ static void json_scanf_cb(void *callback_data, const char *name,
 
 int json_vscanf(const char *s, int len, const char *fmt, va_list ap) WEAK;
 int json_vscanf(const char *s, int len, const char *fmt, va_list ap) {
+    using namespace omni;
   char path[JSON_MAX_PATH_LEN] = "", fmtbuf[20];
   int i = 0;
   char *p = NULL;
   struct json_scanf_info info = {0, path, fmtbuf, NULL, NULL, 0};
 
+  //LOG << "json_vscanf s=" << s << " len=" << len << "\nfmt=" << fmt << Logger::endl;
+
   while (fmt[i] != '\0') {
+    //LOG << "i=" << i << " fmt[i]=" << fmt[i] << Logger::endl;
     if (fmt[i] == '{') {
+      //LOG << "In if(fmt[i] == '{')\n";
       strcat(path, ".");
       i++;
     } else if (fmt[i] == '}') {
+      //LOG << "In if(fmt[i] == '}')\n";
       if ((p = strrchr(path, '.')) != NULL) *p = '\0';
       i++;
     } else if (fmt[i] == '%') {
@@ -997,17 +1006,26 @@ int json_vscanf(const char *s, int len, const char *fmt, va_list ap) {
         case 'M':
         case 'V':
         case 'H':
+          //LOG << "CASE H\n";
           info.user_data = va_arg(ap, void *);
         /* FALLTHROUGH */
         case 'B':
         case 'Q':
         case 'T':
+          //LOG << "CASE T\n";
           i += 2;
           break;
         default: {
+          //LOG << "CASE DEFAULT\n";
           const char *delims = ", \t\r\n]}";
           int conv_len = strcspn(fmt + i + 1, delims) + 1;
-          snprintf(fmtbuf, sizeof(fmtbuf), "%.*s", conv_len, fmt + i);
+          //LOG << "conv_len=" << conv_len << Logger::endl;
+          //snprintf(fmtbuf, sizeof(fmtbuf), "%.*s", conv_len, fmt + i);
+          char tmp[20];
+          strncpy(tmp, fmt+i, conv_len);
+          tmp[conv_len] = 0;
+          snprintf(fmtbuf, sizeof(fmtbuf), "%s", tmp);
+          //LOG << "fmtbuf=" << fmtbuf << Logger::endl;
           i += conv_len;
           i += strspn(fmt + i, delims);
           break;
@@ -1015,10 +1033,17 @@ int json_vscanf(const char *s, int len, const char *fmt, va_list ap) {
       }
       json_walk(s, len, json_scanf_cb, &info);
     } else if (is_alpha(fmt[i]) || get_utf8_char_len(fmt[i]) > 1) {
+      //LOG << "in else if(is_alpha(fmt[i]) || ...\n";
       const char *delims = ": \r\n\t";
       int key_len = strcspn(&fmt[i], delims);
+      //LOG << "key_len=" << key_len << Logger::endl;
       if ((p = strrchr(path, '.')) != NULL) p[1] = '\0';
-      sprintf(path + strlen(path), "%.*s", key_len, &fmt[i]);
+      //sprintf(path + strlen(path), "%.*s", key_len, &fmt[i]);
+      char tmp[20];
+      strncpy(tmp, &fmt[i], key_len);
+      tmp[key_len] = 0;
+      sprintf(path + strlen(path), "%s", tmp);
+      //LOG << "path=" << path << Logger::endl;
       i += key_len + strspn(fmt + i + key_len, delims);
     } else {
       i++;

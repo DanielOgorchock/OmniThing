@@ -16,6 +16,8 @@
 #include <sstream>
 #include <iostream>
 
+#include "frozen.h"
+
 int main(int argc, char* argv[])
 {
     using namespace omni;

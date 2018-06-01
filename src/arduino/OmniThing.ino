@@ -8,6 +8,8 @@
 #include "ArduinoJsonConfig.h"
 #include <avr/pgmspace.h>
 
+#include "frozen.h"
+
 auto& omnithing = omni::OmniThing::getInstance();
 
 long freeRam()
@@ -67,7 +69,7 @@ void setup()
     configWithProgmem(Config_Output_Strings);
     configWithProgmem(Config_Devices);
     configWithProgmem(Config_Triggers);
-    
+
     omnithing.init();    
 }
 

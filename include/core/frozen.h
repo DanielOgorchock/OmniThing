@@ -20,7 +20,7 @@
 #define CS_FROZEN_FROZEN_H_
 
 #ifdef __cplusplus
-extern "C" {
+//extern "C" {
 #endif /* __cplusplus */
 
 #include <stdarg.h>
@@ -307,7 +307,7 @@ void *json_next_elem(const char *s, int len, void *handle, const char *path,
                      int *idx, struct json_token *val);
 
 #ifdef __cplusplus
-}
+//}
 #endif /* __cplusplus */
 
 #endif /* CS_FROZEN_FROZEN_H_ */

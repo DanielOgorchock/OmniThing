@@ -961,6 +961,7 @@ namespace omni
             LOG << F("Successfully created new ") << buffer << Logger::endl;
         }
 
+        LOG << Logger::endl;
         return true;
     }
 }

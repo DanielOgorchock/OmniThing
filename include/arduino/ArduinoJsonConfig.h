@@ -50,6 +50,8 @@ namespace omni
 
     const char Config_Triggers[] PROGMEM =
         R"BEGIN({"Triggers": [
+                    {"deviceIndex": 0, "interval": 30000, "command": "poll"},
+                    {"deviceIndex": 1, "interval": 10000, "command": "poll"}
                 ]})BEGIN";
 
 }

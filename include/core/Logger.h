@@ -3,7 +3,7 @@
 
 #include "OmniThing.h"
 
-#define LOG OmniThing::getInstance().getLogger()
+#define LOG omni::OmniThing::getInstance().getLogger()
 
 #ifdef OMNI_FAKE_F_MACRO
 	#define F(x) (x)
