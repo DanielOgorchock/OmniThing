@@ -148,9 +148,9 @@ namespace omni
         for(unsigned int i = 0; i < m_Events.getCount(); ++i)
         {
             auto& e = m_Events[i];
-            for(unsigned int j = 0; j < m_Subscriptions.getCount(); ++i)
+            for(unsigned int j = 0; j < m_Subscriptions.getCount(); ++j)
             {
-                auto& s = m_Subscriptions[i];
+                auto& s = m_Subscriptions[j];
                 if(s.event == e)
                 {
                     LOG << F("event uid=") << e.src->getUid() << F(" type=") << e.src->getType();
