@@ -5,12 +5,13 @@
 
 namespace omni
 {
-    const char Config_Network_Receiver[] PROGMEM =
+    const char Config_Network_Receiver[] PROGMEM =""; /*
         R"BEGIN({"NetworkReceiver": {"type": "NetworkManagerEsp8266", "port": 1337}})BEGIN";
+        */
 
-    const char Config_Network_Sender[] PROGMEM =
+    const char Config_Network_Sender[] PROGMEM ="";/*
         R"BEGIN({"NetworkSender": {"type": "NetworkManagerEsp8266", "ip": "192.168.2.200", "port": 39500}})BEGIN";
-
+*/
     const char Config_Composite_Periphs[] PROGMEM =
         R"BEGIN({"CompositePeriphs": [
                 ]})BEGIN";

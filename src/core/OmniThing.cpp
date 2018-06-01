@@ -107,6 +107,18 @@ namespace omni
             auto& t = m_Triggers[i];
             LOG << F("\tinterval=") << t.interval << Logger::endl;
         }
+
+        LOG << F("\n############# SUBSCRIPTIONS ##############\n");
+        LOG << F("Subscriptions:\n");
+        for(unsigned int i = 0; i < m_Subscriptions.getCount(); ++i)
+        {
+            auto& t = m_Subscriptions[i];
+            LOG << F("\tsrc_uid=") << t.event.src.getUid()
+                << F(" event=")    << t.event.event
+                << F(" sub_uid=")  << t.subscriber.getUid() 
+                << F(" cmd=")      << t.cmd
+                << Logger::endl;
+        }
         LOG << Logger::endl;
     }
 
@@ -259,7 +271,7 @@ namespace omni
     void OmniThing::run()
     {
         runScheduler();
-        checkEvents();
+    //    checkEvents();
 
         if(m_pNetworkSender)
         {
