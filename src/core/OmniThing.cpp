@@ -298,7 +298,7 @@ namespace omni
             return true;
         else
         {
-            LOG << F("Failed to add InputBool (array full)\n");
+            LOG << F("Failed to add CompositePeripheral (array full)\n");
             return false;
         }
     }
