@@ -11,6 +11,10 @@
     #include <avr/pgmspace.h>
 #endif
 
+#if defined(ARDUINO_ARCH_ESP8266)
+    #include <pgmspace.h>
+#endif
+
 #include "frozen.h"
 
 auto& omnithing = omni::OmniThing::getInstance();
@@ -40,15 +44,11 @@ void configWithProgmem(const char* json)
 {
     using namespace omni;
 
-#if defined(ARDUINO_ARCH_AVR)
     char buffer[1500];
     printFreeRam();
 
     strcpy_P(buffer, json);
     omnithing.loadJsonConfig(buffer);
-#else
-    omnithing.loadJsonConfig(json);
-#endif
 }
 
 // the setup function runs once when you press reset or power the board
