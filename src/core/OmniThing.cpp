@@ -258,13 +258,17 @@ namespace omni
 
     void OmniThing::run()
     {
+        LOG << "scheduler\n";
         runScheduler();
+        LOG << "events\n";
         checkEvents();
+        LOG << "sender\n";
 
         if(m_pNetworkSender)
         {
             m_pNetworkSender->run();
         }
+        LOG << "receiver\n";
 
         if(m_pNetworkReceiver)
         {
@@ -277,6 +281,7 @@ namespace omni
                 parseJson(json_rcvd);
             }
         }
+        LOG << "receiver_done\n";
     }
 
     void OmniThing::setNetworkReceiver(NetworkReceiver* nr)

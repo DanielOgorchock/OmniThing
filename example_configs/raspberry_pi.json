@@ -46,7 +46,7 @@
     ],
 
     "Subscriptions": [
-        {"sourceIndex": 1, "event": "changed", "subscriberIndex": 0, "cmd": "toggle"}
+        {"sourceIndex": 1, "event": "changed", "subscriberIndex": 0, "command": "toggle"}
     ]
 
 }
