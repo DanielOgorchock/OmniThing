@@ -44,7 +44,7 @@ void configWithProgmem(const char* json)
 {
     using namespace omni;
 
-    char buffer[1500];
+    char buffer[1000];
     printFreeRam();
 
     strcpy_P(buffer, json);

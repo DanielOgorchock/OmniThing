@@ -9,6 +9,7 @@ namespace omni
     {
         private:
             static AnalogInputPinArduino* createFromJson(const char* json);
+
         protected:
             unsigned int readPin() final;
 

@@ -603,7 +603,7 @@ namespace omni
 
         struct json_token t;
         unsigned int len = strlen(json);
-        char buffer[100];
+        char buffer[250];
         buffer[0] = 0;
 
         // scan for NetworkReceiver
