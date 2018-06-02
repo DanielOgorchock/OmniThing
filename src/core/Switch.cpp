@@ -103,7 +103,7 @@ namespace omni
             return nullptr;
         }
 
-        auto obs = OmniThing::getInstance().getOutputBools();
+        auto& obs = OmniThing::getInstance().getOutputBools();
         if(outputIndex >= obs.getCount())
         {
             LOG << F("ERROR: outputIndex is too large\n");

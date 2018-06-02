@@ -22,8 +22,8 @@ namespace omni
 
             }
 
-            unsigned short getSize() { return S; }
-            unsigned short getCount() { return m_Count; }
+            unsigned short getSize() const { return S; }
+            unsigned short getCount() const { return m_Count; }
 
             const T& operator[] (unsigned int i) const
             {

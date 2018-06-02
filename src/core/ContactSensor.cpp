@@ -102,7 +102,7 @@ namespace omni
             return nullptr;
         }
 
-        auto ibs = OmniThing::getInstance().getInputBools();
+        auto& ibs = OmniThing::getInstance().getInputBools();
         if(inputIndex >= ibs.getCount())
         {
             LOG << F("ContactSensor: InputBool index out of range\n");

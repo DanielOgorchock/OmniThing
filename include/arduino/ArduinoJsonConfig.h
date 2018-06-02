@@ -22,6 +22,7 @@ namespace omni
 
     const char Config_Input_Floats[] PROGMEM =
         R"BEGIN({"InputFloats": [
+                    {"type": "AnalogInputPinArduino", "pin": 17, "minVoltage": 0, "maxVoltage": 3.3}
                 ]})BEGIN";
 
     const char Config_Input_UInts[] PROGMEM =
@@ -56,7 +57,8 @@ namespace omni
     const char Config_Triggers[] PROGMEM =
         R"BEGIN({"Triggers": [
                     {"deviceIndex": 0, "interval": 30000, "command": "poll"},
-                    {"deviceIndex": 1, "interval": 10000, "command": "poll"}
+                    {"deviceIndex": 1, "interval": 10000, "command": "poll"},
+                    {"deviceIndex": 2, "interval": 5000,  "command": "poll"}
                 ]})BEGIN";
 
     const char Config_Subscriptions[] PROGMEM =

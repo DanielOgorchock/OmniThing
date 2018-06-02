@@ -71,7 +71,7 @@ namespace omni
             return nullptr;
         }
 
-        auto ifs = OmniThing::getInstance().getInputFloats();
+        auto& ifs = OmniThing::getInstance().getInputFloats();
         if(inputIndex >= ifs.getCount())
         {
             LOG << F("ERROR: inputIndex is too large\n");
