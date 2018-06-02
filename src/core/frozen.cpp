@@ -638,8 +638,35 @@ int json_vprintf(struct json_out *out, const char *fmt, va_list xap) {
                 n + 1 > (int) sizeof(fmt2) ? sizeof(fmt2) : (size_t) n + 1);
         fmt2[n + 1] = '\0';
 
+        //messy hack for %f support
+        bool skipStuff = false;
+#if defined(ARDUINO_ARCH_AVR)
+        if(fmt[n] == 'f')
+        {
+            skipStuff = true;
+            char tmpF[20];
+            va_list ap_copy2;
+            va_copy(ap_copy2, ap);
+            double fval = va_arg(ap_copy2, double);
+            dtostrf(fval, 10, 3, tmpF);
+
+            char* cleaned = tmpF;
+            for(unsigned int i = 0; i < 20; ++i)
+            {
+                if(*cleaned == ' ')
+                    ++cleaned;
+                else
+                    break;
+            }
+
+            snprintf(pbuf, size, "%s", cleaned);
+            va_end(ap_copy2);
+        }
+#endif
+        //end
+
         va_copy(ap_copy, ap);
-        need_len = vsnprintf(pbuf, size, fmt2, ap_copy);
+        need_len = skipStuff ? 0 : vsnprintf(pbuf, size, fmt2, ap_copy);
         va_end(ap_copy);
 
         if (need_len < 0) {
