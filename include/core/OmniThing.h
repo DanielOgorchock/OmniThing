@@ -102,7 +102,7 @@ namespace omni
             {
             }
     };
-
+#define OMNI_OUTGOING_JSON_BUF_SIZE     400
 #define OMNI_MAX_DEVICES                40
 
 #define OMNI_MAX_COMPOSITE_PERIPHS      20
@@ -154,6 +154,12 @@ namespace omni
             void initScheduler();
             void parseJson(const char* json);
             Device* findDevice(unsigned int uid);
+
+            void initOutgoingJson();
+            void sendOutgoingJson();
+            void addOutgoingJson(const char* json);
+
+            char m_OutgoingJsonBuf[OMNI_OUTGOING_JSON_BUF_SIZE];
 
             // Devices and Inputs/Outputs
             FixedArray<Device*,         OMNI_MAX_DEVICES>           m_Devices;

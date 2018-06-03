@@ -20,7 +20,7 @@ namespace omni
         m_pLogger(m_pDefaultLogger),
         m_nTriggerStringsCount(0)
     {
-
+        initOutgoingJson();
     }
 
     void OmniThing::printContainersDebug()
@@ -250,6 +250,46 @@ namespace omni
         return nullptr;
     }
 
+    void OmniThing::initOutgoingJson()
+    {
+        m_OutgoingJsonBuf[0] = '[';
+        m_OutgoingJsonBuf[1] = 0;
+    }
+
+    void OmniThing::sendOutgoingJson()
+    {
+        m_OutgoingJsonBuf[strlen(m_OutgoingJsonBuf)-1] = 0;
+        strcat(m_OutgoingJsonBuf, "]");
+
+        if(m_pNetworkSender)
+        {
+            m_pNetworkSender->sendJson(m_OutgoingJsonBuf);
+        }
+
+        initOutgoingJson();
+    }
+
+    void OmniThing::addOutgoingJson(const char* json)
+    {
+        if(strlen(m_OutgoingJsonBuf) + strlen(json) + 2 >= OMNI_OUTGOING_JSON_BUF_SIZE)
+        {
+            LOG << F("Adding more json would overflow outgoing buffer; sending now...\n");
+            sendOutgoingJson();
+            if(strlen(m_OutgoingJsonBuf) + strlen(json) + 2 >= OMNI_OUTGOING_JSON_BUF_SIZE)
+            {
+                LOG << F("This json object alone is too big for buffer; sending on its own...\n");
+                if(m_pNetworkSender)
+                {
+                   m_pNetworkSender->sendJson(json);
+                }
+                return;
+            }
+        }
+
+        strcat(m_OutgoingJsonBuf, json); 
+        strcat(m_OutgoingJsonBuf, ",");
+    }
+
 //public
     OmniThing& OmniThing::getInstance()
     {
@@ -300,6 +340,11 @@ namespace omni
                 parseJson(json_rcvd);
             }
         }
+
+        if(strlen(m_OutgoingJsonBuf) > 1)
+        {
+            sendOutgoingJson();
+        }
     }
 
     void OmniThing::setNetworkReceiver(NetworkReceiver* nr)
@@ -324,10 +369,7 @@ namespace omni
 
     void OmniThing::sendJson(const char* json)
     {
-        if(m_pNetworkSender)
-        {
-            m_pNetworkSender->sendJson(json);
-        }
+        addOutgoingJson(json);
     } 
 
     bool OmniThing::addDevice(Device* dev)
