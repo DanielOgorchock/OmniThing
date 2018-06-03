@@ -12,16 +12,16 @@ namespace omni
         unsigned int len = strlen(json);
 
         unsigned short pin;
-        char minVoltageTmp[10];
-        char maxVoltageTmp[10];
+    //    char minVoltageTmp[10];
+    //    char maxVoltageTmp[10];
         float minVoltage;
         float maxVoltage;
 
-        if(json_scanf(json, len, "{pin: %u, minVoltage: %s, maxVoltage: %s}", &pin, &minVoltageTmp, &maxVoltageTmp)!=3)
+        if(json_scanf(json, len, "{pin: %u, minVoltage: %f, maxVoltage: %f}", &pin, &minVoltage, &maxVoltage)!=3)
             return nullptr;
 
-        minVoltage = atof(minVoltageTmp);
-        maxVoltage = atof(maxVoltageTmp);
+        //minVoltage = atof(minVoltageTmp);
+        //maxVoltage = atof(maxVoltageTmp);
 
         LOG << F("minVoltage=") << minVoltage << F(" maxVoltage=") << maxVoltage << Logger::endl;
         return new AnalogInputPinArduino(pin, minVoltage, maxVoltage);

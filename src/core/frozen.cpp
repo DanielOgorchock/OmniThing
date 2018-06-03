@@ -998,9 +998,34 @@ static void json_scanf_cb(void *callback_data, const char *name,
     default:
       /* Before scanf, copy into tmp buffer in order to 0-terminate it */
       if (token->len < (int) sizeof(buf)) {
-        memcpy(buf, token->ptr, token->len);
-        buf[token->len] = '\0';
-        info->num_conversions += sscanf(buf, info->fmt, info->target);
+      bool skip = false;
+      memcpy(buf, token->ptr, token->len);
+      buf[token->len] = '\0';
+#if defined(ARDUINO_ARCH_AVR)
+        // read floats differently with arduino arch
+        if(!strcmp("%f", info->fmt))
+        {
+            skip = true;
+            //LOG << "special float handler!!!\n";
+
+            char tmpBuf[20];
+            int inc = sscanf(buf, "%s", tmpBuf);
+            info->num_conversions += inc;
+            //LOG << "inc=" << inc << " strVal=" << tmpBuf << "\n";
+            if(inc == 1)
+            {
+                float val  = atof(tmpBuf);
+                //LOG << "fVal=" << val << "\n";
+
+                *(static_cast<float*>(info->target)) = val;
+            }
+
+        }
+#endif
+        if(!skip)
+        {
+            info->num_conversions += sscanf(buf, info->fmt, info->target);
+        }
       }
       break;
   }
