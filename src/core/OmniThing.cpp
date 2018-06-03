@@ -105,7 +105,7 @@ namespace omni
         for(unsigned int i = 0; i < m_Triggers.getCount(); ++i)
         {
             auto& t = m_Triggers[i];
-            LOG << F("\tinterval=") << t.interval << Logger::endl;
+            LOG << F("\tinterval=") << t.interval << F(" offset=") << t.offset << Logger::endl;
         }
 
         LOG << F("\n############# SUBSCRIPTIONS ##############\n");
@@ -138,6 +138,17 @@ namespace omni
         for(unsigned short i = 0; i < m_Triggers.getCount(); ++i)
         {
             Trigger& t = m_Triggers[i];
+
+            if(t.offset > 0)
+            {
+                if(time < t.offset + t.triggerTime)
+                    continue;
+                else
+                {
+                    t.triggerTime = time;
+                    t.offset = 0;
+                }
+            }
             
             if(time - t.triggerTime >= t.interval)
             {
@@ -432,9 +443,9 @@ namespace omni
         }
     }
 
-    bool OmniThing::addTrigger(Triggerable* t, unsigned long interval, void* arg, bool repeat)
+    bool OmniThing::addTrigger(Triggerable* t, unsigned long interval, void* arg, bool repeat, unsigned long offset)
     {
-        Trigger tmp(t, interval, arg, repeat);
+        Trigger tmp(t, interval, arg, repeat, offset);
         return addTrigger(tmp);
     }
 
@@ -1135,6 +1146,10 @@ namespace omni
                 return false;
             } 
 
+            unsigned int offset;
+            if(json_scanf(t.ptr, t.len, "{offset: %u}", &offset) != 1)
+                offset = 0;
+
             if(deviceIndex >= m_Devices.getCount())
             {
                 LOG << F("ERROR: trigger's device index=") << deviceIndex << F(" which is too large\n");
@@ -1153,7 +1168,7 @@ namespace omni
             strncpy(m_TriggerStrings[indx], buffer, 10);
             m_TriggerStrings[indx][9] = 0;
 
-            addTrigger(m_Devices[deviceIndex], interval, m_TriggerStrings[indx], true);
+            addTrigger(m_Devices[deviceIndex], interval, m_TriggerStrings[indx], true, offset);
 
             strncpy(buffer, t.ptr, t.len);
             buffer[t.len]=0;

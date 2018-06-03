@@ -83,6 +83,7 @@ namespace omni
             Triggerable* target;
             unsigned long interval;
             unsigned long long triggerTime;
+            unsigned long offset;
             void* arg;
             bool repeating;
 
@@ -92,11 +93,12 @@ namespace omni
 
             }
 
-            Trigger(Triggerable* t, unsigned long inter, void* ar, bool rep = true):
+            Trigger(Triggerable* t, unsigned long inter, void* ar, bool rep = true, unsigned long offs=0):
                 target(t),
                 interval(inter),
                 arg(ar),
-                repeating(rep)
+                repeating(rep),
+                offset(offs)
             {
             }
     };
@@ -227,7 +229,7 @@ namespace omni
             bool addOutputString(OutputString* e);
 
             bool addTrigger(Trigger& t);
-            bool addTrigger(Triggerable* t, unsigned long interval, void* arg, bool repeat = true);
+            bool addTrigger(Triggerable* t, unsigned long interval, void* arg, bool repeat = true, unsigned long offset = 0);
 
             bool addEvent(Device* src, const char* event);
             bool addSubscription(Subscription& sub);
