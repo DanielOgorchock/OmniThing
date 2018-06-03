@@ -51,7 +51,8 @@ namespace omni
         R"BEGIN({"Devices": [
                     {"type": "Switch", "outputIndex": 0, "invert": false, "initial": false},
                     {"type": "ContactSensor", "inputIndex": 0, "invert": false, "constantPoll": true},
-                    {"type": "VoltageMeasurement", "inputIndex": 0}
+                    {"type": "VoltageMeasurement", "inputIndex": 0},
+                    {"type": "Momentary", "outputIndex": 0}
                 ]})BEGIN";
 
     const char Config_Triggers[] PROGMEM =
@@ -64,7 +65,8 @@ namespace omni
     const char Config_Subscriptions[] PROGMEM =
         R"BEGIN({"Subscriptions": [
                     {"sourceIndex": 1, "event": "changed", "subscriberIndex": 0, "command": "toggle"},
-                    {"sourceIndex": 1, "event": "closed", "subscriberIndex": 2, "command": "poll"}
+                    {"sourceIndex": 1, "event": "closed", "subscriberIndex": 2, "command": "poll"},
+                    {"sourceIndex": 1, "event": "changed", "subscriberIndex": 3, "command": "push"}
                 ]})BEGIN";
 
 }
