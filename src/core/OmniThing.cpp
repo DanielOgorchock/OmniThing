@@ -252,30 +252,27 @@ namespace omni
 
     void OmniThing::initOutgoingJson()
     {
-        m_OutgoingJsonBuf[0] = '[';
-        m_OutgoingJsonBuf[1] = 0;
+        m_OutgoingJsonBuf[0] = 0;
+        strcat(m_OutgoingJsonBuf, "{\"updates\": [");
     }
 
     void OmniThing::sendOutgoingJson()
     {
         m_OutgoingJsonBuf[strlen(m_OutgoingJsonBuf)-1] = 0;
-        strcat(m_OutgoingJsonBuf, "]");
+        strcat(m_OutgoingJsonBuf, "]}");
 
-        if(m_pNetworkSender)
-        {
-            m_pNetworkSender->sendJson(m_OutgoingJsonBuf);
-        }
+        sendJsonNow(m_OutgoingJsonBuf);
 
         initOutgoingJson();
     }
 
     void OmniThing::addOutgoingJson(const char* json)
     {
-        if(strlen(m_OutgoingJsonBuf) + strlen(json) + 2 >= OMNI_OUTGOING_JSON_BUF_SIZE)
+        if(strlen(m_OutgoingJsonBuf) + strlen(json) + 3 >= OMNI_OUTGOING_JSON_BUF_SIZE)
         {
             LOG << F("Adding more json would overflow outgoing buffer; sending now...\n");
             sendOutgoingJson();
-            if(strlen(m_OutgoingJsonBuf) + strlen(json) + 2 >= OMNI_OUTGOING_JSON_BUF_SIZE)
+            if(strlen(m_OutgoingJsonBuf) + strlen(json) + 3 >= OMNI_OUTGOING_JSON_BUF_SIZE)
             {
                 LOG << F("This json object alone is too big for buffer; sending on its own...\n");
                 if(m_pNetworkSender)
@@ -341,7 +338,7 @@ namespace omni
             }
         }
 
-        if(strlen(m_OutgoingJsonBuf) > 1)
+        if(strlen(m_OutgoingJsonBuf) > strlen("{\"updates\": ["))
         {
             sendOutgoingJson();
         }
@@ -371,6 +368,12 @@ namespace omni
     {
         addOutgoingJson(json);
     } 
+
+    void OmniThing::sendJsonNow(const char* json)
+    {
+        if(m_pNetworkSender)
+            m_pNetworkSender->sendJson(json);
+    }
 
     bool OmniThing::addDevice(Device* dev)
     {

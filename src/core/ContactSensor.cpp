@@ -15,7 +15,7 @@ namespace omni
         char buffer[100] = "";
         struct json_out out = JSON_OUT_BUF(buffer, sizeof(buffer));
 
-        json_printf(&out, "{uid: %u, type: \"%s\", value: \"%s\"}", getUid(), getType(), (read()?"closed":"open"));
+        json_printf(&out, "{uid: %u, type: \"%s\", contact: \"%s\"}", getUid(), getType(), (read()?"closed":"open"));
 
         LOG << buffer << Logger::endl;
 

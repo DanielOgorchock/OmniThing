@@ -1,5 +1,5 @@
 /**
- *  Child Switch
+ *  Child Contact Sensor
  *
  *  Copyright 2017 Daniel Ogorchock
  *
@@ -18,58 +18,46 @@
  *    ----        ---            ----
  *    2017-04-10  Dan Ogorchock  Original Creation
  *    2017-08-23  Allan (vseven) Added a generateEvent routine that gets info from the parent device.  This routine runs each time the value is updated which can lead to other modifications of the device.
- *
+ *    2018-06-02  Dan Ogorchock  Revised/Simplified for Hubitat Composite Driver Model
+ *    2018-06-04  D.J.O			 OmniThing support
  * 
  */
 metadata {
-	definition (name: "Child Switch", namespace: "ogiewon", author: "Dan Ogorchock") {
-		capability "Switch"
-		capability "Relay Switch"
-		capability "Actuator"
+	definition (name: "child_ContactSensor", namespace: "OmniThing", author: "Dan Ogorchock") {
+		capability "Contact Sensor"
 		capability "Sensor"
 
 		attribute "lastUpdated", "String"
-
-		command "generateEvent", ["string", "string"]
-	}
-
-	simulator {
-
 	}
 
 	tiles(scale: 2) {
-		multiAttributeTile(name:"switch", type: "lighting", width: 3, height: 4, canChangeIcon: true){
-			tileAttribute ("device.switch", key: "PRIMARY_CONTROL") {
-				attributeState "off", label: '${name}', action: "switch.on", icon: "st.switches.switch.off", backgroundColor: "#ffffff", nextState:"turningOn"
-				attributeState "on", label: '${name}', action: "switch.off", icon: "st.switches.switch.on", backgroundColor: "#00A0DC", nextState:"turningOff"
-				attributeState "turningOn", label:'${name}', action:"switch.off", icon:"st.switches.switch.on", backgroundColor:"#00A0DC", nextState:"turningOff"
-				attributeState "turningOff", label:'${name}', action:"switch.on", icon:"st.switches.switch.off", backgroundColor:"#ffffff", nextState:"turningOn"
-			}
+		multiAttributeTile(name:"contact", type: "generic"){
+			tileAttribute ("device.contact", key: "PRIMARY_CONTROL") {
+				attributeState "open", label:'${name}', icon:"st.contact.contact.open", backgroundColor:"#e86d13"
+				attributeState "closed", label:'${name}', icon:"st.contact.contact.closed", backgroundColor:"#00a0dc"
+            }
  			tileAttribute("device.lastUpdated", key: "SECONDARY_CONTROL") {
     				attributeState("default", label:'    Last updated ${currentValue}',icon: "st.Health & Wellness.health9")
             }
-		}
+        }
 	}
+
 }
 
-def on() {
-	parent.childOn(device.deviceNetworkId)
-}
-
-def off() {
-	parent.childOff(device.deviceNetworkId)
-}
-
-def generateEvent(String name, String value) {
-	//log.debug("Passed values to routine generateEvent in device named $device: Name - $name  -  Value - $value")
-	// Update device
-	sendEvent(name: name, value: value)
-   	// Update lastUpdated date and time
+def parse(def update) {
+	log.debug "parsing ${update}"
+	for( e in update)
+    {
+    	if(e.key != "uid" && e.key != "type")
+        {
+        	log.debug "sending event: name=${e.key} value=${e.value}"
+            sendEvent(name: e.key, value: e.value)
+        }
+    }
     def nowDay = new Date().format("MMM dd", location.timeZone)
     def nowTime = new Date().format("h:mm a", location.timeZone)
     sendEvent(name: "lastUpdated", value: nowDay + " at " + nowTime, displayed: false)
 }
 
 def installed() {
-
 }

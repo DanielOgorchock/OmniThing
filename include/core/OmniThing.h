@@ -220,6 +220,7 @@ namespace omni
             Logger& getLogger();
 
             void sendJson(const char* json);
+            void sendJsonNow(const char* json);
 
             bool addDevice(Device* dev); 
 
