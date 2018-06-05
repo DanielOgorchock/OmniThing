@@ -255,6 +255,7 @@ private def getChild(int uid)
     catch(e)
     {
     	log.error "Failed to find child without exception: ${e}";
+        log.debug "NOTE: This might be fixed if you go to the configuration page in the SmartThings app for this OmniThing device and hit save"
         return null;
     }
 }
