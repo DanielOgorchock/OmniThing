@@ -8,6 +8,9 @@ namespace omni
     class DigitalInputPinRaspberryPi : public DigitalInputPin
     {
         private:
+            PinMode m_PinMode;
+
+            void configure();
 
         protected:
             bool readPin() final;

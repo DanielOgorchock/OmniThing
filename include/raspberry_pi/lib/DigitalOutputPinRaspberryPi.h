@@ -10,6 +10,8 @@ namespace omni
         private:
             static DigitalOutputPinRaspberryPi* createFromJson(const char* json);
 
+            void configure();
+
         protected:
             void writePin(bool b) final;
 
