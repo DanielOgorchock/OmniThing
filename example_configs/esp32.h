@@ -6,10 +6,10 @@
 namespace omni
 {
     const char Config_Network_Receiver[] PROGMEM = "";
-//        R"BEGIN({"NetworkReceiver": {"type": "NetworkManagerEsp8266", "port": 1337}})BEGIN";
+//        R"BEGIN({"NetworkReceiver": {"type": "NetworkManagerEsp32", "port": 1337}})BEGIN";
 
-    const char Config_Network_Sender[] PROGMEM = "";
-//        R"BEGIN({"NetworkSender": {"type": "NetworkManagerEsp8266", "ip": "192.168.2.200", "port": 39500}})BEGIN";
+    const char Config_Network_Sender[] PROGMEM = 
+        R"BEGIN({"NetworkSender": {"type": "NetworkManagerEsp32", "ip": "192.168.2.200", "port": 39500, "ssid": "yourSSID", "password": "yourPassword"}})BEGIN";
 
     const char Config_Composite_Periphs[] PROGMEM =
         R"BEGIN({"CompositePeriphs": [

@@ -2,6 +2,7 @@
 #define OMNI_MOMENTARY_H
 
 #include "Device.h"
+#include "ObjectConfig.h"
 
 namespace omni
 {
