@@ -42,7 +42,12 @@ namespace omni
 
     void Momentary::recvJson(const char* cmd, const char* json)
     {
-        if(!strcmp(cmd, Cmd_Push))
+        if(!strcmp(cmd, Cmd_Poll))
+        {
+            LOG << F("Poll triggered for ") << getType() << F(" ") << getUid() << Logger::endl;
+            sendJsonPacket("polled");
+        }
+        else if(!strcmp(cmd, Cmd_Push))
         {
             LOG << F("Push triggered for ") << getType() << F(" ") << getUid() << Logger::endl;
             push();
@@ -83,6 +88,7 @@ namespace omni
 
     
     // commands
+    const char* Momentary::Cmd_Poll = "poll";
     const char* Momentary::Cmd_Push = "push";
 
     // events

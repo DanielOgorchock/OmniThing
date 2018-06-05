@@ -28,6 +28,7 @@ namespace omni
             static Device* createFromJson(const char* json);
 
             // json commands
+            static const char* Cmd_Poll;
             static const char* Cmd_Push;
 
             // events
