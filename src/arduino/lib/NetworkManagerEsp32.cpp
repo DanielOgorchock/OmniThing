@@ -14,6 +14,7 @@ namespace omni
 //private
     NetworkManagerEsp32::NetworkManagerEsp32():
         m_nDestPort(0),
+        m_WebServer(nullptr),
         m_bClearBuffer(false)
     {
         m_JsonBuf[0] = 0;
@@ -56,6 +57,27 @@ namespace omni
             m_bClearBuffer = false;
         }
 
+        if(!m_WebServer)
+            return;
+
+        m_WebServer->handleClient();
+    }
+
+    void NetworkManagerEsp32::handleConnection()
+    {
+        auto& manager = getInstance();  
+
+        auto& server = *(manager.m_WebServer);
+
+        if(!server.hasArg("plain"))
+        {
+            LOG << F("received no body\n");
+            return;
+        }
+
+        strncpy(manager.m_JsonBuf, server.arg("plain").c_str(), OMNI_ESP_JSON_BUF_SIZE);
+
+        server.send(200, "text/plain", "ok\n");
     }
 
     void NetworkManagerEsp32::scanForCredentials(const char* json)
@@ -121,7 +143,13 @@ namespace omni
 
     void NetworkManagerEsp32::setServerPort(unsigned int port)
     {
-        //TODO: THIS FUNCTION
+        if(m_WebServer)
+        {
+            LOG << F("deleting current web server\n");
+            delete m_WebServer;
+        }
+
+        m_WebServer = new ESP32WebServer(port);
     }
 
     const char* NetworkManagerEsp32::getJsonString()

@@ -4,6 +4,7 @@
 #include "NetworkReceiver.h"
 #include "WiFi.h"
 #include "ObjectConfig.h"
+#include "ESP32WebServer.h"
 
 #define OMNI_ESP_JSON_BUF_SIZE 2000
 
@@ -17,12 +18,14 @@ namespace omni
 
             void waitUntilConnected();
             void serverRun();
+            static void handleConnection();
 
             static void scanForCredentials(const char* json);
 
             char m_JsonBuf[OMNI_ESP_JSON_BUF_SIZE];
             char m_DestIp[50];
             unsigned short m_nDestPort;
+            ESP32WebServer* m_WebServer;
             bool m_bClearBuffer;
 
         protected:
