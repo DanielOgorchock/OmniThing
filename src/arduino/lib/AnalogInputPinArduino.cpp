@@ -4,6 +4,12 @@
 #include <string.h>
 #include "frozen.h"
 
+#if defined(ARDUINO_ARCH_ESP32)
+    #define MAX_INTEGER_VAL 4095
+#else
+    #define MAX_INTEGER_VAL 1023
+#endif
+
 namespace omni
 {
 //private
@@ -30,7 +36,7 @@ namespace omni
 
 //public
     AnalogInputPinArduino::AnalogInputPinArduino(unsigned short pin, float minVolt, float maxVolt):
-        AnalogInputPin(pin, 1023, minVolt, maxVolt)
+        AnalogInputPin(pin, MAX_INTEGER_VAL, minVolt, maxVolt)
     {
 
     }
