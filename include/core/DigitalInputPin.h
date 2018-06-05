@@ -23,6 +23,8 @@ namespace omni
             bool isInverted() const {return m_bInvertLogic;}
 
             bool readBool() final; //DigitalInputPin definitions should overwrite readPin, not this
+
+            static DigitalInputPin* create(unsigned short pin, bool invertLogic, bool pullup);
     };
 }
 

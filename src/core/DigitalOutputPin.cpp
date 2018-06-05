@@ -1,5 +1,11 @@
 #include "DigitalOutputPin.h"
 
+#if defined(OMNI_PLAT_RPI)
+    #include "DigitalOutputPinRaspberryPi.h"
+#elif !defined(OMNI_NOT_ARDUINO)
+    #include "DigitalOutputPinArduino.h"
+#endif
+
 namespace omni
 {
 //private
@@ -30,6 +36,18 @@ namespace omni
         m_bValue = b;
 
         writePin(val);
+    }
+
+    DigitalOutputPin* DigitalOutputPin::create(unsigned short pin, bool initialValue, bool invertLogic)
+    {
+    #if defined(OMNI_PLAT_RPI)
+        return new DigitalOutputPinRaspberryPi(pin, initialValue, invertLogic);
+    #elif !defined(OMNI_NOT_ARDUINO)
+        return new DigitalOutputPinArduino(pin, initialValue, invertLogic);
+    #else
+        LOG << F("ERROR: DigitalInputPin not supported on this platform\n");
+        return nullptr;
+    #endif
     }
 }
 

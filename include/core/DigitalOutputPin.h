@@ -17,7 +17,7 @@ namespace omni
             virtual void writePin(bool b) = 0;
 
         public:
-            DigitalOutputPin(unsigned short pin, bool initalValue, bool invertLogic);
+            DigitalOutputPin(unsigned short pin, bool initialValue, bool invertLogic);
 
             virtual ~DigitalOutputPin();
 
@@ -27,6 +27,8 @@ namespace omni
 
             void writeVoid() final; 
             void writeBool(bool b) final;
+
+            static DigitalOutputPin* create(unsigned short pin, bool initialValue, bool invertLogic);
     };
 }
 

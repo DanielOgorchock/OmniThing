@@ -7,6 +7,9 @@ namespace omni
 {
     class DigitalInputPinRaspberryPi : public DigitalInputPin
     {
+        public:
+            enum class PinMode {Normal, Pullup, Pulldown};
+
         private:
             PinMode m_PinMode;
 
@@ -16,7 +19,6 @@ namespace omni
             bool readPin() final;
 
         public:
-            enum class PinMode {Normal, Pullup, Pulldown};
 
             DigitalInputPinRaspberryPi(unsigned short pin, bool invertLogic, PinMode pm);
 

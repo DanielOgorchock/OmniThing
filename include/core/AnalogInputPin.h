@@ -26,6 +26,8 @@ namespace omni
 
             unsigned int readUInt() final; 
             float readFloat() final;
+
+            static AnalogInputPin* create(unsigned short pin, float minVolt, float maxVolt);
     };
 }
 

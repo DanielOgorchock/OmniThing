@@ -14,9 +14,9 @@ namespace omni
         gpioSetMode(getPin(), PI_INPUT);
         
         unsigned short pullupdown = PI_PUD_DOWN;
-        if(pm == PinMode::Normal)
+        if(m_PinMode == PinMode::Normal)
             pullupdown = PI_PUD_OFF;
-        else if(pm == PinMode::Pullup)
+        else if(m_PinMode == PinMode::Pullup)
             pullupdown = PI_PUD_UP;
 
         gpioSetPullUpDown(getPin(), pullupdown);
