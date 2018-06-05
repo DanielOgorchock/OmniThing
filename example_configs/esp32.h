@@ -17,12 +17,12 @@ namespace omni
 
     const char Config_Input_Bools[] PROGMEM =
         R"BEGIN({"InputBools": [
-                    {"type": "DigitalInputPinArduino", "pin": 4, "invert": false, "pullup": true}
+                    {"type": "DigitalInputPinArduino", "pin": 21, "invert": false, "pullup": true}
                 ]})BEGIN";
 
     const char Config_Input_Floats[] PROGMEM =
         R"BEGIN({"InputFloats": [
-                    {"type": "AnalogInputPinArduino", "pin": 17, "minVoltage": 0, "maxVoltage": 3.3}
+                    {"type": "AnalogInputPinArduino", "pin": 34, "minVoltage": 0, "maxVoltage": 3.3}
                 ]})BEGIN";
 
     const char Config_Input_UInts[] PROGMEM =
@@ -31,12 +31,12 @@ namespace omni
 
     const char Config_Output_Voids[] PROGMEM =
         R"BEGIN({"OutputVoids": [
-                    {"type": "DigitalOutputPinArduino", "pin": 5, "initial": true, "invert": false}
+                    {"type": "DigitalOutputPinArduino", "pin": 19, "initial": true, "invert": false}
                 ]})BEGIN";
 
     const char Config_Output_Bools[] PROGMEM =
         R"BEGIN({"OutputBools": [
-                    {"type": "DigitalOutputPinArduino", "pin": 14, "initial": true, "invert": false}
+                    {"type": "DigitalOutputPinArduino", "pin": 18, "initial": true, "invert": false}
                 ]})BEGIN";
 
     const char Config_Output_Floats[] PROGMEM =
