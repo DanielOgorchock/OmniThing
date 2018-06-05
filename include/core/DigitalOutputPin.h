@@ -10,8 +10,8 @@ namespace omni
     {
         private:
             unsigned short m_nPin;
-            bool m_bInvertLogic;
             bool m_bValue;
+            bool m_bInvertLogic;
 
         protected:
             virtual void writePin(bool b) = 0;

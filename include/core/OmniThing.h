@@ -83,9 +83,9 @@ namespace omni
             Triggerable* target;
             unsigned long interval;
             unsigned long long triggerTime;
-            unsigned long offset;
             void* arg;
             bool repeating;
+            unsigned long offset;
 
             Trigger(): // just to allow the array to be built
                 target(nullptr)

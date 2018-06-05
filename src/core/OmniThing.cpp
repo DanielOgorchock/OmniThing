@@ -14,11 +14,11 @@ namespace omni
 {
 //private
     OmniThing::OmniThing():
+        m_nTriggerStringsCount(0),
         m_pNetworkReceiver(nullptr),
         m_pNetworkSender(nullptr),
         m_pDefaultLogger(&Logger::StubbedLogger),
-        m_pLogger(m_pDefaultLogger),
-        m_nTriggerStringsCount(0)
+        m_pLogger(m_pDefaultLogger)
     {
         initOutgoingJson();
     }
