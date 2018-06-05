@@ -37,7 +37,7 @@ metadata {
 	}
     
     preferences {
-    input "ip", "text", title: "IP Address", description: "IP Address in form 192.168.1.226", required: true, displayDuringSetup: true
+        input "ip", "text", title: "IP Address", description: "IP Address in form 192.168.1.226", required: true, displayDuringSetup: true
 		input "port", "text", title: "Port", description: "port in form of 8090", required: true, displayDuringSetup: true
 		input "mac", "text", title: "MAC Address",  description: "MAC Address in form of 02A1B2C3D4E5", required: true, displayDuringSetup: true
     }
@@ -45,12 +45,6 @@ metadata {
 
 // parse events into attributes
 def parse(String description) {
-	if(!state.validMac)
-    {
-    	log.debug "Ignoring message since device not configured fully yet"
-        return 
-    }
-    
 	//log.debug "Parsing '${description}'"
     
     def msg = parseLanMessage(description)
@@ -126,17 +120,6 @@ def parse(String description) {
 def configure() {
 	log.debug "Executing 'configure'"
 	updateDeviceNetworkID()
-    log.debug "Checking mac format"
-    if ( device.deviceNetworkId =~ /^[A-Z0-9]{12}$/)
-    {
-    	log.debug "MAC address is of proper format; enable parsing"
-    	state.validMac = true
-    }
-    else
-    {
-    	state.validMac = false
-        log.debug "Please configure device properly"
-    }
 }
 
 def refresh() {
@@ -145,20 +128,12 @@ def refresh() {
 }
 
 def installed() {
- 	if ( device.deviceNetworkId =~ /^[A-Z0-9]{12}$/)
-    {
-    	log.debug "MAC address is of proper format; enable parsing"
-    	state.validMac = true
-    }
-    else
-    {
-    	state.validMac = false
-        log.debug "Please configure device properly"
-    }
+ 	log.debug "Executing 'intalled'"
 }
 
 def updated() {
 	log.debug "Executing updated()"
+    updateDeviceNetworkID()
 }
 
 def initialize(){
