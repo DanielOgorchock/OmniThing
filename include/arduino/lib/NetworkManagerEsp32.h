@@ -54,7 +54,14 @@ namespace omni
 
                 waitUntilConnected();
 
-                //TODO: init webserver
+                if(m_WebServer)
+                {
+                    LOG << "Starting web server\n";
+                    m_WebServer->on("/", handleConnection);
+                    m_WebServer->begin();
+                }
+                else
+                    LOG << "ERROR: web server not configured\n";
 
                 printDebug();
             }
