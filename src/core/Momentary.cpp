@@ -61,7 +61,7 @@ namespace omni
 
     void Momentary::init()
     {
-
+        sendJsonPacket("polled");
     }
 
     Device* Momentary::createFromJson(const char* json)
