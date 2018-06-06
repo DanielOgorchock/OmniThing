@@ -35,7 +35,7 @@ long freeRam()
 #endif // !
 }
 
-const unsigned int Conversion_Buffer_Size = 1200;
+const unsigned int Conversion_Buffer_Size = 1500;
 
 void printFreeRam()
 {
@@ -46,7 +46,7 @@ void configWithProgmem(const char* json)
 {
     using namespace omni;
 
-    char buffer[Conversion_Buffer_Size];
+    static char buffer[Conversion_Buffer_Size];
     printFreeRam();
 
     strcpy_P(buffer, json);
