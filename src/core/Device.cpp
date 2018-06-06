@@ -92,7 +92,7 @@ namespace omni
         {
             char* src, *ev, *cmd;
 
-            if(json_scanf(t.ptr, t.len, "{source: %Q, event: %Q, command: %Q}", src, ev, cmd) != 3)
+            if(json_scanf(t.ptr, t.len, "{source: %Q, event: %Q, command: %Q}", &src, &ev, &cmd) != 3)
             {
                 LOG << F("ERROR: Failed to parse subscription\n");
                 continue;
