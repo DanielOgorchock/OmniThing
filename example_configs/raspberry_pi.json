@@ -41,6 +41,17 @@
             }, 
             "invert": false, 
             "constantPoll": true
+        },
+
+        {
+            "type": "Momentary",
+            "name": "executerTest",
+            "output": {
+                "type": "CommandExecuter",
+                "command": "echo \"MOMENTARY ACTIVATED!!!\"",
+                "multithread": true
+            }
         }
+
     ]
 }
