@@ -76,8 +76,3 @@ elseif(BUILD_ARDUINO)
     execute_process(COMMAND python jsonToHeader.py ${ARDUINO_CONFIG} arduino_build/OmniThing/ArduinoJsonConfig.h)
 endif()
 
-
-#unset(BUILD_LINUX CACHE)
-#unset(BUILD_WINDOWS CACHE)
-#unset(BUILD_RPI CACHE)
-#unset(BUILD_ARDUINO CACHE)
