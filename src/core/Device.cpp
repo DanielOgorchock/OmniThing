@@ -90,6 +90,8 @@ namespace omni
         // scan for subscriptions
         for(unsigned int i = 0; json_scanf_array_elem(json, len, ".subscriptions", i, &t) > 0; ++i)
         {
+            char* src, *ev, *cmd;
+
             if(json_scanf(t.ptr, t.len, "{source: %Q, event: %Q, command: %Q}", src, ev, cmd) != 3)
             {
                 LOG << F("ERROR: Failed to parse subscription\n");
