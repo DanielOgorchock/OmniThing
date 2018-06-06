@@ -44,7 +44,7 @@ void configWithProgmem(const char* json)
 {
     using namespace omni;
 
-    char buffer[1000];
+    static char buffer[3000];
     printFreeRam();
 
     strcpy_P(buffer, json);
@@ -70,16 +70,7 @@ void setup()
     configWithProgmem(Config_Network_Receiver);
     configWithProgmem(Config_Network_Sender);
     configWithProgmem(Config_Composite_Periphs);
-    configWithProgmem(Config_Input_Bools);
-    configWithProgmem(Config_Input_Floats);
-    configWithProgmem(Config_Input_UInts);
-    configWithProgmem(Config_Output_Voids);
-    configWithProgmem(Config_Output_Bools);
-    configWithProgmem(Config_Output_Floats);
-    configWithProgmem(Config_Output_Strings);
     configWithProgmem(Config_Devices);
-    configWithProgmem(Config_Triggers);
-    configWithProgmem(Config_Subscriptions);
 
     omnithing.init();    
 

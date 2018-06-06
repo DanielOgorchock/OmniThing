@@ -109,7 +109,9 @@ namespace omni
             return nullptr;
         }
 
-        return new ContactSensor(*input, invert, constantPoll); 
+        auto d = new ContactSensor(*input, invert, constantPoll); 
+        d->parseMisc(json);
+        return d;
     }
 
 

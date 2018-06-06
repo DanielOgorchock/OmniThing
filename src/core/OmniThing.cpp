@@ -563,22 +563,15 @@ namespace omni
     
     InputBool* OmniThing::buildInputBool(json_token& t)
     {
+        char tmp = t.ptr[t.len];
+        const_cast<char*>(t.ptr)[t.len] = 0;
         auto& configs = m_InputBoolConfigs;
 
-        char buffer[200];
         char type[30];
-        if(t.len >= sizeof(buffer))
-        {
-            LOG << F("ERROR: buffer cannot hold json to build\n");
-            return nullptr;
-        }
 
-        strncpy(buffer, t.ptr, t.len);
-        buffer[t.len] = 0;
-
-        if(json_scanf(buffer, t.len, "{type: %s}", type) != 1)
+        if(json_scanf(t.ptr, t.len, "{type: %s}", type) != 1)
         {
-            LOG << F("ERROR: Failed to find type in: ") << buffer << Logger::endl;
+            LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
             return nullptr;
         } 
 
@@ -589,27 +582,21 @@ namespace omni
             return nullptr;
         }
 
-        return configs[index]->createFromJson(buffer);
+        return configs[index]->createFromJson(t.ptr);
+        const_cast<char*>(t.ptr)[t.len] = tmp;
     }
 
     InputFloat* OmniThing::buildInputFloat(json_token& t)
     {
+        char tmp = t.ptr[t.len];
+        const_cast<char*>(t.ptr)[t.len] = 0;
         auto& configs = m_InputFloatConfigs;
 
-        char buffer[200];
         char type[30];
-        if(t.len >= sizeof(buffer))
-        {
-            LOG << F("ERROR: buffer cannot hold json to build\n");
-            return nullptr;
-        }
 
-        strncpy(buffer, t.ptr, t.len);
-        buffer[t.len] = 0;
-
-        if(json_scanf(buffer, t.len, "{type: %s}", type) != 1)
+        if(json_scanf(t.ptr, t.len, "{type: %s}", type) != 1)
         {
-            LOG << F("ERROR: Failed to find type in: ") << buffer << Logger::endl;
+            LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
             return nullptr;
         } 
 
@@ -620,27 +607,21 @@ namespace omni
             return nullptr;
         }
 
-        return configs[index]->createFromJson(buffer);
+        return configs[index]->createFromJson(t.ptr);
+        const_cast<char*>(t.ptr)[t.len] = tmp;
     }
 
     InputUInt* OmniThing::buildInputUInt(json_token& t)
     {
+        char tmp = t.ptr[t.len];
+        const_cast<char*>(t.ptr)[t.len] = 0;
         auto& configs = m_InputUIntConfigs;
 
-        char buffer[200];
         char type[30];
-        if(t.len >= sizeof(buffer))
-        {
-            LOG << F("ERROR: buffer cannot hold json to build\n");
-            return nullptr;
-        }
 
-        strncpy(buffer, t.ptr, t.len);
-        buffer[t.len] = 0;
-
-        if(json_scanf(buffer, t.len, "{type: %s}", type) != 1)
+        if(json_scanf(t.ptr, t.len, "{type: %s}", type) != 1)
         {
-            LOG << F("ERROR: Failed to find type in: ") << buffer << Logger::endl;
+            LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
             return nullptr;
         } 
 
@@ -651,27 +632,21 @@ namespace omni
             return nullptr;
         }
 
-        return configs[index]->createFromJson(buffer);
+        return configs[index]->createFromJson(t.ptr);
+        const_cast<char*>(t.ptr)[t.len] = tmp;
     }
 
     OutputVoid* OmniThing::buildOutputVoid(json_token& t)
     {
+        char tmp = t.ptr[t.len];
+        const_cast<char*>(t.ptr)[t.len] = 0;
         auto& configs = m_OutputVoidConfigs;
 
-        char buffer[200];
         char type[30];
-        if(t.len >= sizeof(buffer))
-        {
-            LOG << F("ERROR: buffer cannot hold json to build\n");
-            return nullptr;
-        }
 
-        strncpy(buffer, t.ptr, t.len);
-        buffer[t.len] = 0;
-
-        if(json_scanf(buffer, t.len, "{type: %s}", type) != 1)
+        if(json_scanf(t.ptr, t.len, "{type: %s}", type) != 1)
         {
-            LOG << F("ERROR: Failed to find type in: ") << buffer << Logger::endl;
+            LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
             return nullptr;
         } 
 
@@ -682,27 +657,21 @@ namespace omni
             return nullptr;
         }
 
-        return configs[index]->createFromJson(buffer);
+        return configs[index]->createFromJson(t.ptr);
+        const_cast<char*>(t.ptr)[t.len] = tmp;
     }
 
     OutputBool* OmniThing::buildOutputBool(json_token& t)
     {
+        char tmp = t.ptr[t.len];
+        const_cast<char*>(t.ptr)[t.len] = 0;
         auto& configs = m_OutputBoolConfigs;
 
-        char buffer[200];
         char type[30];
-        if(t.len >= sizeof(buffer))
-        {
-            LOG << F("ERROR: buffer cannot hold json to build\n");
-            return nullptr;
-        }
 
-        strncpy(buffer, t.ptr, t.len);
-        buffer[t.len] = 0;
-
-        if(json_scanf(buffer, t.len, "{type: %s}", type) != 1)
+        if(json_scanf(t.ptr, t.len, "{type: %s}", type) != 1)
         {
-            LOG << F("ERROR: Failed to find type in: ") << buffer << Logger::endl;
+            LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
             return nullptr;
         } 
 
@@ -713,27 +682,21 @@ namespace omni
             return nullptr;
         }
 
-        return configs[index]->createFromJson(buffer);
+        return configs[index]->createFromJson(t.ptr);
+        const_cast<char*>(t.ptr)[t.len] = tmp;
     }
 
     OutputFloat* OmniThing::buildOutputFloat(json_token& t)
     {
+        char tmp = t.ptr[t.len];
+        const_cast<char*>(t.ptr)[t.len] = 0;
         auto& configs = m_OutputFloatConfigs;
 
-        char buffer[200];
         char type[30];
-        if(t.len >= sizeof(buffer))
-        {
-            LOG << F("ERROR: buffer cannot hold json to build\n");
-            return nullptr;
-        }
 
-        strncpy(buffer, t.ptr, t.len);
-        buffer[t.len] = 0;
-
-        if(json_scanf(buffer, t.len, "{type: %s}", type) != 1)
+        if(json_scanf(t.ptr, t.len, "{type: %s}", type) != 1)
         {
-            LOG << F("ERROR: Failed to find type in: ") << buffer << Logger::endl;
+            LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
             return nullptr;
         } 
 
@@ -744,27 +707,21 @@ namespace omni
             return nullptr;
         }
 
-        return configs[index]->createFromJson(buffer);
+        return configs[index]->createFromJson(t.ptr);
+        const_cast<char*>(t.ptr)[t.len] = tmp;
     }
 
     OutputString* OmniThing::buildOutputString(json_token& t)
     {
+        char tmp = t.ptr[t.len];
+        const_cast<char*>(t.ptr)[t.len] = 0;
         auto& configs = m_OutputStringConfigs;
 
-        char buffer[200];
         char type[30];
-        if(t.len >= sizeof(buffer))
-        {
-            LOG << F("ERROR: buffer cannot hold json to build\n");
-            return nullptr;
-        }
 
-        strncpy(buffer, t.ptr, t.len);
-        buffer[t.len] = 0;
-
-        if(json_scanf(buffer, t.len, "{type: %s}", type) != 1)
+        if(json_scanf(t.ptr, t.len, "{type: %s}", type) != 1)
         {
-            LOG << F("ERROR: Failed to find type in: ") << buffer << Logger::endl;
+            LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
             return nullptr;
         } 
 
@@ -775,7 +732,8 @@ namespace omni
             return nullptr;
         }
 
-        return configs[index]->createFromJson(buffer);
+        return configs[index]->createFromJson(t.ptr);
+        const_cast<char*>(t.ptr)[t.len] = tmp;
     }
 
 
@@ -792,7 +750,7 @@ namespace omni
 
         struct json_token t;
         unsigned int len = strlen(json);
-        char buffer[250];
+        char buffer[1000];
         buffer[0] = 0;
 
         // scan for NetworkReceiver

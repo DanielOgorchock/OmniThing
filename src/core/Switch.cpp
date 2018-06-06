@@ -110,7 +110,9 @@ namespace omni
             return nullptr;
         }
 
-        return new Switch(*output, invert, initial);
+        auto d = new Switch(*output, invert, initial);
+        d->parseMisc(json);
+        return d;
     }
 
 

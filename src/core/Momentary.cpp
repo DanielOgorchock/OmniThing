@@ -81,7 +81,9 @@ namespace omni
             return nullptr;
         }
 
-        return new Momentary(*output);
+        auto d = new Momentary(*output);
+        d->parseMisc(json);
+        return d;
     }
 
     

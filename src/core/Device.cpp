@@ -59,7 +59,7 @@ namespace omni
         } 
 
         // scan for triggers
-        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".Triggers", i, &t) > 0; ++i)
+        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".triggers", i, &t) > 0; ++i)
         {
             unsigned long interval;
             char command[20];
@@ -93,7 +93,7 @@ namespace omni
         }
 
         // scan for subscriptions
-        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".Subscriptions", i, &t) > 0; ++i)
+        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".subscriptions", i, &t) > 0; ++i)
         {
             char event[20];
             char source[30];

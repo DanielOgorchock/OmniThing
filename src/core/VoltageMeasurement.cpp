@@ -77,8 +77,9 @@ namespace omni
             return nullptr;
         }
 
-        return new VoltageMeasurement(*input);
-
+        auto d = new VoltageMeasurement(*input);
+        d->parseMisc(json);
+        return d;
     }
 
     // commands
