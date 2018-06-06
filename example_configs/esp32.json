@@ -1,0 +1,90 @@
+{
+    "NetworkReceiver": {
+        "type": "NetworkManagerEsp32", 
+        "port": 1337
+    },
+
+    "NetworkSender": {
+        "type": "NetworkManagerEsp32", 
+        "ip": "192.168.2.200", 
+        "port": 39500, 
+        "ssid": "yourSSID", 
+        "password": "yourPassword"
+    },
+
+    "CompositePeriphs": [
+
+    ],
+
+    "Devices": [
+        {   
+            "type": "Switch", 
+            "name": "testSwitch",
+            "triggers": [
+                {"interval": 12000, "command": "poll"}
+            ],
+            "subscriptions": [
+                {"source": "testContact", "event": "changed", "command": "toggle"}
+            ],
+            "output": {
+                "type":     "DigitalOutputPinArduino",
+                "pin":      18,
+                "initial":  true,
+                "invert":   false
+             }, 
+            "invert":   false, 
+            "initial":  false
+        },
+
+        {   
+            "type": "ContactSensor", 
+            "name": "testContact",
+            "triggers": [
+                {"interval": 12000, "command": "poll", "offset": 3000}
+            ],
+            "input": {
+                "type":     "DigitalInputPinArduino",
+                "pin":      21,
+                "invert":   false,
+                "pullup":   true
+            }, 
+            "invert": false, 
+            "constantPoll": true
+        },
+
+        {
+            "type": "VoltageMeasurement", 
+            "name": "testVoltage",
+            "triggers": [
+                {"interval": 12000, "command": "poll", "offset": 6000}
+            ],
+            "subscriptions": [
+                {"source": "testContact", "event": "closed", "command": "poll"}
+            ],
+            "input": {
+                "type":         "AnalogInputPinArduino",
+                "pin":          34,
+                "minVoltage":   0,
+                "maxVoltage":   3.3
+            }
+        },
+
+        {
+            "type": "Momentary", 
+            "name": "testMomentary",
+            "triggers": [
+                {"interval": 12000, "command": "poll", "offset": 9000}
+            ],
+            "subscriptions": [
+                {"source": "testContact", "event": "changed", "command": "push"}
+            ],
+            "output": {
+                "type":     "DigitalOutputPinArduino",
+                "pin":      19,
+                "initial":  true,
+                "invert":   false
+            }
+        }
+    ]
+}
+
