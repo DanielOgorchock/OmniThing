@@ -107,15 +107,6 @@ namespace omni
 
 #define OMNI_MAX_COMPOSITE_PERIPHS      20
 
-#define OMNI_MAX_INPUT_BOOLS            20
-#define OMNI_MAX_INPUT_FLOATS           20
-#define OMNI_MAX_INPUT_UINTS            20
-
-#define OMNI_MAX_OUTPUT_VOIDS           20
-#define OMNI_MAX_OUTPUT_BOOLS           20
-#define OMNI_MAX_OUTPUT_FLOATS          20
-#define OMNI_MAX_OUTPUT_STRINGS         20
-
 #define OMNI_MAX_TRIGGERS               40
 
 #define OMNI_MAX_EVENTS                 20
@@ -165,15 +156,6 @@ namespace omni
             FixedArray<Device*,         OMNI_MAX_DEVICES>           m_Devices;
 
             FixedArray<CompositePeripheral*, OMNI_MAX_COMPOSITE_PERIPHS> m_CompositePeriphs;
-
-            FixedArray<InputBool*,      OMNI_MAX_INPUT_BOOLS>       m_InputBools;
-            FixedArray<InputFloat*,     OMNI_MAX_INPUT_FLOATS>      m_InputFloats;
-            FixedArray<InputUInt*,      OMNI_MAX_INPUT_UINTS>       m_InputUInts;
-
-            FixedArray<OutputVoid*,     OMNI_MAX_OUTPUT_VOIDS>      m_OutputVoids;
-            FixedArray<OutputBool*,     OMNI_MAX_OUTPUT_BOOLS>      m_OutputBools;
-            FixedArray<OutputFloat*,    OMNI_MAX_OUTPUT_FLOATS>     m_OutputFloats;
-            FixedArray<OutputString*,   OMNI_MAX_OUTPUT_STRINGS>    m_OutputStrings;
 
             // Triggers
             FixedArray<Trigger, OMNI_MAX_TRIGGERS> m_Triggers;
@@ -226,15 +208,6 @@ namespace omni
 
             bool addCompositePeriph(CompositePeripheral* e);
 
-            bool addInputBool(InputBool* e);
-            bool addInputFloat(InputFloat* e);
-            bool addInputUInt(InputUInt* e);
-            
-            bool addOutputVoid(OutputVoid* e);
-            bool addOutputBool(OutputBool* e);
-            bool addOutputFloat(OutputFloat* e);
-            bool addOutputString(OutputString* e);
-
             bool addTrigger(Trigger& t);
             bool addTrigger(Triggerable* t, unsigned long interval, void* arg, bool repeat = true, unsigned long offset = 0);
 
@@ -258,14 +231,25 @@ namespace omni
 
             const FixedArray<CompositePeripheral*, OMNI_MAX_COMPOSITE_PERIPHS>& getCompositePeriphs() {return m_CompositePeriphs;}
 
-            const FixedArray<InputBool*, OMNI_MAX_INPUT_BOOLS>& getInputBools() {return m_InputBools;}
-            const FixedArray<InputFloat*, OMNI_MAX_INPUT_FLOATS>& getInputFloats() {return m_InputFloats;}
-            const FixedArray<InputUInt*, OMNI_MAX_INPUT_UINTS>& getInputUInts() {return m_InputUInts;}
+            template<class T> int getConfigIndex(T& configs, const char* type)
+            {
+                for(unsigned int i = 0; i < configs.getCount(); ++i)
+                {
+                    if(!strcmp(type, configs[i]->getType()))
+                        return i;
+                } 
 
-            const FixedArray<OutputVoid*, OMNI_MAX_OUTPUT_VOIDS>& getOutputVoids() {return m_OutputVoids;}
-            const FixedArray<OutputBool*, OMNI_MAX_OUTPUT_BOOLS>& getOutputBools() {return m_OutputBools;}
-            const FixedArray<OutputFloat*, OMNI_MAX_OUTPUT_FLOATS>& getOutputFloats() {return m_OutputFloats;}
-            const FixedArray<OutputString*, OMNI_MAX_OUTPUT_STRINGS>& getOutputStrings() {return m_OutputStrings;}
+                LOG << F("ERROR: Failed to find config of type=") << type << Logger::endl;
+                return -1;
+            }
+
+            InputBool*      buildInputBool(json_token& t);
+            InputFloat*     buildInputFloat(json_token& t);
+            InputUInt*      buildInputUInt(json_token& t);
+            OutputVoid*     buildOutputVoid(json_token& t);
+            OutputBool*     buildOutputBool(json_token& t);
+            OutputFloat*    buildOutputFloat(json_token& t);
+            OutputString*   buildOutputVoid(json_token& t);
 
             bool loadJsonConfig(const char* json);
 

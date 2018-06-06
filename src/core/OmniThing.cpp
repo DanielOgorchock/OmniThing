@@ -397,83 +397,6 @@ namespace omni
         }
     }
 
-    bool OmniThing::addInputBool(InputBool* e)
-    {
-        if(m_InputBools.addElement(e))
-            return true;
-        else
-        {
-            LOG << F("Failed to add InputBool (array full)\n");
-            return false;
-        }
-    }
-
-    bool OmniThing::addInputFloat(InputFloat* e)
-    {
-        if(m_InputFloats.addElement(e))
-            return true;
-        else
-        {
-            LOG << F("Failed to add InputFloat (array full)\n");
-            return false;
-        }
-    }
-
-    bool OmniThing::addInputUInt(InputUInt* e)
-    {
-        if(m_InputUInts.addElement(e))
-            return true;
-        else
-        {
-            LOG << F("Failed to add InputUInt (array full)\n");
-            return false;
-        }
-    }
-
-    bool OmniThing::addOutputVoid(OutputVoid* e)
-    {
-        if(m_OutputVoids.addElement(e))
-            return true;
-        else
-        {
-            LOG << F("Failed to add OutputVoid (array full)\n");
-            return false;
-        }
-    }
-
-    bool OmniThing::addOutputBool(OutputBool* e)
-    {
-        if(m_OutputBools.addElement(e))
-            return true;
-        else
-        {
-            LOG << F("Failed to add OutputBool (array full)\n");
-            return false;
-        }
-    }
-
-    bool OmniThing::addOutputFloat(OutputFloat* e)
-    {
-        if(m_OutputFloats.addElement(e))
-            return true;
-        else
-        {
-            LOG << F("Failed to add OutputFloat (array full)\n");
-            return false;
-        }
-    }
-
-    bool OmniThing::addOutputString(OutputString* e)
-    {
-        if(m_OutputStrings.addElement(e))
-            return true;
-        else
-        {
-            LOG << F("Failed to add OutputString (array full)\n");
-            return false;
-        }
-    }
-
     bool OmniThing::addTrigger(Trigger& t)
     {
         if(m_Triggers.addElement(t))
@@ -636,21 +559,230 @@ namespace omni
             return false;
         }
     }
+    
+    InputBool* OmniThing::buildInputBool(json_token& t);
+    {
+        auto& configs = m_InputBoolConfigs;
+
+        char buffer[200];
+        char type[30];
+        if(t.len >= sizeof(buffer))
+        {
+            LOG << F("ERROR: buffer cannot hold json to build\n");
+            return nullptr;
+        }
+
+        strncpy(buffer, t.ptr, t.len);
+        buffer[t.len] = 0;
+
+        if(json_scanf(buffer, t.len, "{type: %s}", type) != 1)
+        {
+            LOG << F("ERROR: Failed to find type in: ") << buffer << Logger::endl;
+            return nullptr;
+        } 
+
+        int index = getConfigIndex(configs, type);
+        if(index < 0)
+        {
+            LOG << F("ERROR: no config found of type=") << type << Logger::endl;
+            return nullptr;
+        }
+
+        return configs[index]->createFromJson(buffer);
+    }
+
+    InputFloat* OmniThing::buildInputFloat(json_token& t);
+    {
+        auto& configs = m_InputFloatConfigs;
+
+        char buffer[200];
+        char type[30];
+        if(t.len >= sizeof(buffer))
+        {
+            LOG << F("ERROR: buffer cannot hold json to build\n");
+            return nullptr;
+        }
+
+        strncpy(buffer, t.ptr, t.len);
+        buffer[t.len] = 0;
+
+        if(json_scanf(buffer, t.len, "{type: %s}", type) != 1)
+        {
+            LOG << F("ERROR: Failed to find type in: ") << buffer << Logger::endl;
+            return nullptr;
+        } 
+
+        int index = getConfigIndex(configs, type);
+        if(index < 0)
+        {
+            LOG << F("ERROR: no config found of type=") << type << Logger::endl;
+            return nullptr;
+        }
+
+        return configs[index]->createFromJson(buffer);
+    }
+
+    InputUInt* OmniThing::buildInputUInt(json_token& t);
+    {
+        auto& configs = m_InputUIntConfigs;
+
+        char buffer[200];
+        char type[30];
+        if(t.len >= sizeof(buffer))
+        {
+            LOG << F("ERROR: buffer cannot hold json to build\n");
+            return nullptr;
+        }
+
+        strncpy(buffer, t.ptr, t.len);
+        buffer[t.len] = 0;
+
+        if(json_scanf(buffer, t.len, "{type: %s}", type) != 1)
+        {
+            LOG << F("ERROR: Failed to find type in: ") << buffer << Logger::endl;
+            return nullptr;
+        } 
+
+        int index = getConfigIndex(configs, type);
+        if(index < 0)
+        {
+            LOG << F("ERROR: no config found of type=") << type << Logger::endl;
+            return nullptr;
+        }
+
+        return configs[index]->createFromJson(buffer);
+    }
+
+    OutputVoid* OmniThing::buildOutputVoid(json_token& t);
+    {
+        auto& configs = m_OutputVoidConfigs;
+
+        char buffer[200];
+        char type[30];
+        if(t.len >= sizeof(buffer))
+        {
+            LOG << F("ERROR: buffer cannot hold json to build\n");
+            return nullptr;
+        }
+
+        strncpy(buffer, t.ptr, t.len);
+        buffer[t.len] = 0;
+
+        if(json_scanf(buffer, t.len, "{type: %s}", type) != 1)
+        {
+            LOG << F("ERROR: Failed to find type in: ") << buffer << Logger::endl;
+            return nullptr;
+        } 
+
+        int index = getConfigIndex(configs, type);
+        if(index < 0)
+        {
+            LOG << F("ERROR: no config found of type=") << type << Logger::endl;
+            return nullptr;
+        }
+
+        return configs[index]->createFromJson(buffer);
+    }
+
+    OutputBool* OmniThing::buildOutputBool(json_token& t);
+    {
+        auto& configs = m_OutputBoolConfigs;
+
+        char buffer[200];
+        char type[30];
+        if(t.len >= sizeof(buffer))
+        {
+            LOG << F("ERROR: buffer cannot hold json to build\n");
+            return nullptr;
+        }
+
+        strncpy(buffer, t.ptr, t.len);
+        buffer[t.len] = 0;
+
+        if(json_scanf(buffer, t.len, "{type: %s}", type) != 1)
+        {
+            LOG << F("ERROR: Failed to find type in: ") << buffer << Logger::endl;
+            return nullptr;
+        } 
+
+        int index = getConfigIndex(configs, type);
+        if(index < 0)
+        {
+            LOG << F("ERROR: no config found of type=") << type << Logger::endl;
+            return nullptr;
+        }
+
+        return configs[index]->createFromJson(buffer);
+    }
+
+    OutputFloat* OmniThing::buildOutputFloat(json_token& t);
+    {
+        auto& configs = m_OutputFloatConfigs;
+
+        char buffer[200];
+        char type[30];
+        if(t.len >= sizeof(buffer))
+        {
+            LOG << F("ERROR: buffer cannot hold json to build\n");
+            return nullptr;
+        }
+
+        strncpy(buffer, t.ptr, t.len);
+        buffer[t.len] = 0;
+
+        if(json_scanf(buffer, t.len, "{type: %s}", type) != 1)
+        {
+            LOG << F("ERROR: Failed to find type in: ") << buffer << Logger::endl;
+            return nullptr;
+        } 
+
+        int index = getConfigIndex(configs, type);
+        if(index < 0)
+        {
+            LOG << F("ERROR: no config found of type=") << type << Logger::endl;
+            return nullptr;
+        }
+
+        return configs[index]->createFromJson(buffer);
+    }
+
+    OutputString* OmniThing::buildOutputString(json_token& t);
+    {
+        auto& configs = m_OutputStringConfigs;
+
+        char buffer[200];
+        char type[30];
+        if(t.len >= sizeof(buffer))
+        {
+            LOG << F("ERROR: buffer cannot hold json to build\n");
+            return nullptr;
+        }
+
+        strncpy(buffer, t.ptr, t.len);
+        buffer[t.len] = 0;
+
+        if(json_scanf(buffer, t.len, "{type: %s}", type) != 1)
+        {
+            LOG << F("ERROR: Failed to find type in: ") << buffer << Logger::endl;
+            return nullptr;
+        } 
+
+        int index = getConfigIndex(configs, type);
+        if(index < 0)
+        {
+            LOG << F("ERROR: no config found of type=") << type << Logger::endl;
+            return nullptr;
+        }
+
+        return configs[index]->createFromJson(buffer);
+    }
 
 
     // {
     //      "NetworkReceiver":  {"type": string, ... },
     //      "NetworkSender":    {"type": string, ... },
-    //      "InputBools":       [ {"type": string, ... } , ... ],
-    //      "InputFloats":      [ {"type": string, ... } , ... ],
-    //      "InputUInts":       [ {"type": string, ... } , ... ],
-    //      "OutputVoids":      [ {"type": string, ... } , ... ],
-    //      "OutputBools":      [ {"type": string, ... } , ... ],
-    //      "OutputFloats":     [ {"type": string, ... } , ... ],
-    //      "OutputStrings":    [ {"type": string, ... } , ... ],
+    //      "CompositePeriphs": [ {"type": string, ... } , ... ],
     //      "Devices":          [ {"type": string, ... } , ... ],
-    //      "Triggers":         [ {"deviceIndex": int, "interval": int, "command": string}, ... ]
-    //      "Subscriptions": [{"sourceIndex": int, "event": string, "subscriberIndex": int, "command": string}]
     // }
     //      
     bool OmniThing::loadJsonConfig(const char* json)
@@ -807,329 +939,6 @@ namespace omni
             }
         }
 
-        // scan for InputBools
-        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".InputBools", i, &t) > 0; ++i)
-        {
-            if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
-            {
-                strncpy(buffer, t.ptr, t.len);
-                buffer[t.len]=0;
- 
-                LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
-                return false;
-            } 
-
-            bool found = false;
-            for(unsigned int i = 0; i < m_InputBoolConfigs.getCount(); ++i)
-            {
-                auto conf = m_InputBoolConfigs[i];
-                if(!strcmp(buffer, conf->getType()))
-                {
-                    found = true;
-                    strncpy(buffer, t.ptr, t.len);
-                    buffer[t.len]=0;
- 
-                    auto obj = conf->createFromJson(buffer);
-                    if(!obj)
-                    {
-                        LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
-                        return false;
-                    }
-                    else
-                    {
-                        addInputBool(obj); 
-                        strncpy(buffer, t.ptr, t.len);
-                        buffer[t.len]=0;
-
-                        buffer[t.len] = 0;
-                        LOG << F("Successfully created new ") << buffer << Logger::endl;
-                    }
-                    break; 
-                }
-            }
-            if(!found)
-            {
-                LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
-                return false;
-            }
-        }
-
-        // scan for InputFloats
-        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".InputFloats", i, &t) > 0; ++i)
-        {
-            if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
-            {
-                strncpy(buffer, t.ptr, t.len);
-                buffer[t.len]=0;
- 
-                LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
-                return false;
-            } 
-
-            bool found = false;
-            for(unsigned int i = 0; i < m_InputFloatConfigs.getCount(); ++i)
-            {
-                auto conf = m_InputFloatConfigs[i];
-                if(!strcmp(buffer, conf->getType()))
-                {
-                    found = true;
-                    strncpy(buffer, t.ptr, t.len);
-                    buffer[t.len]=0;
- 
-                    auto obj = conf->createFromJson(buffer);
-                    if(!obj)
-                    {
-                        LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
-                        return false;
-                    }
-                    else
-                    {
-                        addInputFloat(obj); 
-                        strncpy(buffer, t.ptr, t.len);
-                        buffer[t.len]=0;
-
-                        LOG << F("Successfully created new ") << buffer << Logger::endl;
-                    }
-                    break; 
-                }
-            }
-            if(!found)
-            {
-                LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
-                return false;
-            }
-        }
-
-        // scan for InputUInts
-        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".InputUInts", i, &t) > 0; ++i)
-        {
-            if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
-            {
-                strncpy(buffer, t.ptr, t.len);
-                buffer[t.len]=0;
- 
-                LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
-                return false;
-            } 
-
-            bool found = false;
-            for(unsigned int i = 0; i < m_InputUIntConfigs.getCount(); ++i)
-            {
-                auto conf = m_InputUIntConfigs[i];
-                if(!strcmp(buffer, conf->getType()))
-                {
-                    found = true;
-                    strncpy(buffer, t.ptr, t.len);
-                    buffer[t.len]=0;
- 
-                    auto obj = conf->createFromJson(buffer);
-                    if(!obj)
-                    {
-                        LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
-                        return false;
-                    }
-                    else
-                    {
-                        addInputUInt(obj); 
-                        strncpy(buffer, t.ptr, t.len);
-                        buffer[t.len]=0;
-
-                        LOG << F("Successfully created new ") << buffer << Logger::endl;
-                    }
-                    break; 
-                }
-            }
-            if(!found)
-            {
-                LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
-                return false;
-            }
-        }
-
-        // scan for OutputVoids
-        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".OutputVoids", i, &t) > 0; ++i)
-        {
-            if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
-            {
-                strncpy(buffer, t.ptr, t.len);
-                buffer[t.len]=0;
- 
-                LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
-                return false;
-            } 
-
-            bool found = false;
-            for(unsigned int i = 0; i < m_OutputVoidConfigs.getCount(); ++i)
-            {
-                auto conf = m_OutputVoidConfigs[i];
-                if(!strcmp(buffer, conf->getType()))
-                {
-                    found = true;
-                    strncpy(buffer, t.ptr, t.len);
-                    buffer[t.len]=0;
- 
-                    auto obj = conf->createFromJson(buffer);
-                    if(!obj)
-                    {
-                        LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
-                        return false;
-                    }
-                    else
-                    {
-                        addOutputVoid(obj); 
-                        strncpy(buffer, t.ptr, t.len);
-                        buffer[t.len]=0;
-
-                        LOG << F("Successfully created new ") << buffer << Logger::endl;
-                    }
-                    break; 
-                }
-            }
-            if(!found)
-            {
-                LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
-                return false;
-            }
-        }
-
-        // scan for OutputBools
-        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".OutputBools", i, &t) > 0; ++i)
-        {
-            if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
-            {
-                strncpy(buffer, t.ptr, t.len);
-                buffer[t.len]=0;
- 
-                LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
-                return false;
-            } 
-
-            bool found = false;
-            for(unsigned int i = 0; i < m_OutputBoolConfigs.getCount(); ++i)
-            {
-                auto conf = m_OutputBoolConfigs[i];
-                if(!strcmp(buffer, conf->getType()))
-                {
-                    found = true;
-                    strncpy(buffer, t.ptr, t.len);
-                    buffer[t.len]=0;
- 
-                    auto obj = conf->createFromJson(buffer);
-                    if(!obj)
-                    {
-                        LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
-                        return false;
-                    }
-                    else
-                    {
-                        addOutputBool(obj); 
-                        strncpy(buffer, t.ptr, t.len);
-                        buffer[t.len]=0;
-
-                        LOG << F("Successfully created new ") << buffer << Logger::endl;
-                    }
-                    break; 
-                }
-            }
-            if(!found)
-            {
-                LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
-                return false;
-            }
-        }
-
-        // scan for OutputFloats
-        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".OutputFloats", i, &t) > 0; ++i)
-        {
-            if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
-            {
-                strncpy(buffer, t.ptr, t.len);
-                buffer[t.len]=0;
- 
-                LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
-                return false;
-            } 
-
-            bool found = false;
-            for(unsigned int i = 0; i < m_OutputFloatConfigs.getCount(); ++i)
-            {
-                auto conf = m_OutputFloatConfigs[i];
-                if(!strcmp(buffer, conf->getType()))
-                {
-                    found = true;
-                    strncpy(buffer, t.ptr, t.len);
-                    buffer[t.len]=0;
- 
-                    auto obj = conf->createFromJson(buffer);
-                    if(!obj)
-                    {
-                        LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
-                        return false;
-                    }
-                    else
-                    {
-                        addOutputFloat(obj); 
-                        strncpy(buffer, t.ptr, t.len);
-                        buffer[t.len]=0;
-
-                        LOG << F("Successfully created new ") << buffer << Logger::endl;
-                    }
-                    break; 
-                }
-            }
-            if(!found)
-            {
-                LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
-                return false;
-            }
-        }
-
-        // scan for OutputStrings
-        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".OutputStrings", i, &t) > 0; ++i)
-        {
-            if(json_scanf(t.ptr, t.len, "{type: %s}", buffer) <= 0)
-            {
-                strncpy(buffer, t.ptr, t.len);
-                buffer[t.len]=0;
- 
-                LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
-                return false;
-            } 
-
-            bool found = false;
-            for(unsigned int i = 0; i < m_OutputStringConfigs.getCount(); ++i)
-            {
-                auto conf = m_OutputStringConfigs[i];
-                if(!strcmp(buffer, conf->getType()))
-                {
-                    found = true;
-                    strncpy(buffer, t.ptr, t.len);
-                    buffer[t.len]=0;
- 
-                    auto obj = conf->createFromJson(buffer);
-                    if(!obj)
-                    {
-                        LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
-                        return false;
-                    }
-                    else
-                    {
-                        addOutputString(obj); 
-                        strncpy(buffer, t.ptr, t.len);
-                        buffer[t.len]=0;
-
-                        LOG << F("Successfully created new ") << buffer << Logger::endl;
-                    }
-                    break; 
-                }
-            }
-            if(!found)
-            {
-                LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
-                return false;
-            }
-        }
-
         // scan for Devices
         for(unsigned int i = 0; json_scanf_array_elem(json, len, ".Devices", i, &t) > 0; ++i)
         {
@@ -1175,93 +984,6 @@ namespace omni
                 return false;
             }
         }
-
-        // scan for Triggers
-        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".Triggers", i, &t) > 0; ++i)
-        {
-            unsigned int deviceIndex;
-            unsigned long interval;
-
-            if(json_scanf(t.ptr, t.len, "{deviceIndex: %u, interval: %lu, command: %s}", &deviceIndex, &interval, buffer) != 3)
-            {
-                strncpy(buffer, t.ptr, t.len);
-                buffer[t.len]=0;
- 
-                LOG << F("ERROR: failed to parse trigger: ") << buffer << Logger::endl;
-                return false;
-            } 
-
-            unsigned int offset;
-            if(json_scanf(t.ptr, t.len, "{offset: %u}", &offset) != 1)
-                offset = 0;
-
-            if(deviceIndex >= m_Devices.getCount())
-            {
-                LOG << F("ERROR: trigger's device index=") << deviceIndex << F(" which is too large\n");
-                return false;
-            }
-
-            unsigned int indx = m_nTriggerStringsCount;
-            if(indx >= OMNI_MAX_TRIGGERS)
-            {
-                LOG << F("ERROR: Cannot add new trigger (array full)\n");
-                return false;
-            }
-
-            ++m_nTriggerStringsCount;
-
-            strncpy(m_TriggerStrings[indx], buffer, 10);
-            m_TriggerStrings[indx][9] = 0;
-
-            addTrigger(m_Devices[deviceIndex], interval, m_TriggerStrings[indx], true, offset);
-
-            strncpy(buffer, t.ptr, t.len);
-            buffer[t.len]=0;
-            LOG << F("Successfully created new ") << buffer << Logger::endl;
-        }
-
-// "Subscriptions": [{"sourceIndex": int, "event": string, "subscriberIndex": int, "command": string}]
-        // scan for Subscriptions
-        for(unsigned int i = 0; json_scanf_array_elem(json, len, ".Subscriptions", i, &t) > 0; ++i)
-        {
-            unsigned int srcI;
-            char event[20]; 
-            unsigned int subI;
-            char cmd[10];
-
-            if(json_scanf(t.ptr, t.len, "{sourceIndex: %u, event: %s, subscriberIndex: %u, command: %s}",
-                        &srcI, event, &subI, cmd) != 4)
-            {
-                    strncpy(buffer, t.ptr, t.len);
-                    buffer[t.len]=0;
-     
-                    LOG << F("ERROR: failed to parse subscription: ") << buffer << Logger::endl;
-                    return false;
-            }
-
-            if(srcI >= m_Devices.getCount())
-            {
-                LOG << F("ERROR: source device index too large\n");
-                return false;
-            }
-            if(subI >= m_Devices.getCount())
-            {
-                LOG << F("ERROR: subscriber device index too large\n");
-                return false;
-            }
-
-            Device* src = m_Devices[srcI];
-            Device* sub = m_Devices[subI];
-
-            Event e(src, event);
-            Subscription s(e, sub, cmd);
-            addSubscription(s);
-
-            strncpy(buffer, t.ptr, t.len);
-            buffer[t.len]=0;
-            LOG << F("Successfully created new ") << buffer << Logger::endl;
-        }
-
         LOG << Logger::endl;
         return true;
     }
