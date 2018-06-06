@@ -62,19 +62,14 @@ namespace omni
         for(unsigned int i = 0; json_scanf_array_elem(json, len, ".triggers", i, &t) > 0; ++i)
         {
             unsigned long interval;
-            char command[20];
+            char* cmd;
 
             // interval and command are required params
-            if(json_scanf(t.ptr, t.len, "{interval: %lu, command: %s}", &interval, command) != 2)
+            if(json_scanf(t.ptr, t.len, "{interval: %lu, command: %Q}", &interval, &cmd) != 2)
             {
                 LOG << F("ERROR: Failed to parse trigger\n");
                 continue;
             }
-            command[19] = 0; //just in case
-
-            // copy command onto heap
-            char* cmd = new char[strlen(command)+1];
-            strcpy(cmd, command);
 
             // check for optional offset
             unsigned int offset;
@@ -95,27 +90,11 @@ namespace omni
         // scan for subscriptions
         for(unsigned int i = 0; json_scanf_array_elem(json, len, ".subscriptions", i, &t) > 0; ++i)
         {
-            char event[20];
-            char source[30];
-            char command[20];
-
-            if(json_scanf(t.ptr, t.len, "{source: %s, event: %s, command: %s}", source, event, command) != 3)
+            if(json_scanf(t.ptr, t.len, "{source: %Q, event: %Q, command: %Q}", src, ev, cmd) != 3)
             {
                 LOG << F("ERROR: Failed to parse subscription\n");
                 continue;
             }
-            event[19]   = 0; //just in case
-            source[29]  = 0;
-            command[19] = 0;
-
-            char* ev = new char[strlen(event)+1];
-            strcpy(ev, event);
-
-            char* src = new char[strlen(source)+1];
-            strcpy(src, source);
-
-            char* cmd = new char[strlen(command)+1];
-            strcpy(cmd, command);
 
             Event e(src, ev);
             if(!omnithing.addSubscription(Subscription(e, this, cmd)))
