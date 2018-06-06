@@ -59,9 +59,10 @@ elseif(BUILD_ARDUINO)
     file(GLOB_RECURSE old_files arduino_build/*)
     file(REMOVE ${old_files})
     file(COPY include/arduino/ArduinoJsonConfig.h src/arduino/OmniThing.ino ${sources_core} ${sources_arduino} ${includes_core} ${includes_arduino} ${sources_ESP32WebServer} DESTINATION arduino_build/OmniThing)
-    file(COPY ${ARDUINO_CONFIG} DESTINATION arduino_build/OmniThing)
-    get_filename_component(configname ${ARDUINO_CONFIG} NAME)
-    file(RENAME arduino_build/OmniThing/${configname} arduino_build/OmniThing/ArduinoJsonConfig.h)
+    execute_process(COMMAND python jsonToHeader.py ${ARDUINO_CONFIG} arduino_build/OmniThing/ArduinoJsonConfig.h)
+    #file(COPY ${ARDUINO_CONFIG} DESTINATION arduino_build/OmniThing)
+    #get_filename_component(configname ${ARDUINO_CONFIG} NAME)
+    #file(RENAME arduino_build/OmniThing/${configname} arduino_build/OmniThing/ArduinoJsonConfig.h)
 endif()
 
 

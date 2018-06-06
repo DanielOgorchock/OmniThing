@@ -67,10 +67,10 @@ void setup()
     LOG << F("Running arduino setup() function\n");
     LOG << F("A0 = ") << A0 << Logger::endl;
 
-    configWithProgmem(Config_Network_Receiver);
-    configWithProgmem(Config_Network_Sender);
-    configWithProgmem(Config_Composite_Periphs);
-    configWithProgmem(Config_Devices);
+    for(unsigned int i = 0; i < Num_Json_Strings; ++i)
+    {
+        configWithProgmem(Config_Json_Strings[i]);
+    }
 
     omnithing.init();    
 
