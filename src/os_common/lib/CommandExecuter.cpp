@@ -5,7 +5,7 @@
 
 #include <string.h>
 #include "frozen.h"
-#include <thread.h>
+#include <thread>
 
 #include <stdio.h>
 #include <stdlib.h>
