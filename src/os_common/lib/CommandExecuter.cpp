@@ -16,9 +16,10 @@ namespace omni
     void CommandExecuter::executeCommand()
     {
         LOG << F("Executing: ") << m_CommandStr << Logger::endl;
-        if(system(nullptr))
+        if(!system(nullptr))
         {
             LOG << F("ERROR: This platform does not support the system() function\n");
+            return;
         }
 
         system(m_CommandStr);
