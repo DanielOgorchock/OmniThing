@@ -19,6 +19,8 @@ if len(sys.argv) != 3:
 input_filename = sys.argv[1]
 output_filename = sys.argv[2]
 
+print("\nExecuting jsonToHeader.py...\n")
+
 print("input_file  = "+ input_filename)
 print("output_file = "+ output_filename)
 print("\nParsing the json...\n")
