@@ -6,7 +6,7 @@ option(BUILD_LINUX "Build for a generic linux target" OFF)
 option(BUILD_WINDOWS "Build for a windows target" OFF)
 option(BUILD_RPI "Build for a raspberry pi linux target" OFF)
 option(BUILD_ARDUINO "Create directory structure for Arduino IDE" OFF)
-set(ARDUINO_CONFIG "arduino_config.json" CACHE STRING "Which header file to use for config")
+set(ARDUINO_CONFIG "arduino_config.json" CACHE STRING "Which json file to use for config")
 
 file(GLOB_RECURSE sources_core src/core/*.cpp src/core/*.c)
 file(GLOB_RECURSE sources_os_common src/os_common/lib/*.cpp)
