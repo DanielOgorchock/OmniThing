@@ -7,6 +7,7 @@
 
 #include "FixedArray.h"
 #include <string.h>
+#include "frozen.h"
 
 namespace omni
 {
@@ -239,7 +240,6 @@ namespace omni
                         return i;
                 } 
 
-                LOG << F("ERROR: Failed to find config of type=") << type << Logger::endl;
                 return -1;
             }
 
@@ -249,7 +249,7 @@ namespace omni
             OutputVoid*     buildOutputVoid(json_token& t);
             OutputBool*     buildOutputBool(json_token& t);
             OutputFloat*    buildOutputFloat(json_token& t);
-            OutputString*   buildOutputVoid(json_token& t);
+            OutputString*   buildOutputString(json_token& t);
 
             bool loadJsonConfig(const char* json);
 

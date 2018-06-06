@@ -560,7 +560,7 @@ namespace omni
         }
     }
     
-    InputBool* OmniThing::buildInputBool(json_token& t);
+    InputBool* OmniThing::buildInputBool(json_token& t)
     {
         auto& configs = m_InputBoolConfigs;
 
@@ -591,7 +591,7 @@ namespace omni
         return configs[index]->createFromJson(buffer);
     }
 
-    InputFloat* OmniThing::buildInputFloat(json_token& t);
+    InputFloat* OmniThing::buildInputFloat(json_token& t)
     {
         auto& configs = m_InputFloatConfigs;
 
@@ -622,7 +622,7 @@ namespace omni
         return configs[index]->createFromJson(buffer);
     }
 
-    InputUInt* OmniThing::buildInputUInt(json_token& t);
+    InputUInt* OmniThing::buildInputUInt(json_token& t)
     {
         auto& configs = m_InputUIntConfigs;
 
@@ -653,7 +653,7 @@ namespace omni
         return configs[index]->createFromJson(buffer);
     }
 
-    OutputVoid* OmniThing::buildOutputVoid(json_token& t);
+    OutputVoid* OmniThing::buildOutputVoid(json_token& t)
     {
         auto& configs = m_OutputVoidConfigs;
 
@@ -684,7 +684,7 @@ namespace omni
         return configs[index]->createFromJson(buffer);
     }
 
-    OutputBool* OmniThing::buildOutputBool(json_token& t);
+    OutputBool* OmniThing::buildOutputBool(json_token& t)
     {
         auto& configs = m_OutputBoolConfigs;
 
@@ -715,7 +715,7 @@ namespace omni
         return configs[index]->createFromJson(buffer);
     }
 
-    OutputFloat* OmniThing::buildOutputFloat(json_token& t);
+    OutputFloat* OmniThing::buildOutputFloat(json_token& t)
     {
         auto& configs = m_OutputFloatConfigs;
 
@@ -746,7 +746,7 @@ namespace omni
         return configs[index]->createFromJson(buffer);
     }
 
-    OutputString* OmniThing::buildOutputString(json_token& t);
+    OutputString* OmniThing::buildOutputString(json_token& t)
     {
         auto& configs = m_OutputStringConfigs;
 

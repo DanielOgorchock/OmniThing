@@ -74,7 +74,7 @@ namespace omni
             return nullptr;
         }
 
-        auto output = OmniThing::getInstance().buildOutputBool(t);
+        auto output = OmniThing::getInstance().buildOutputVoid(t);
         if(!output)
         {
             LOG << F("ERROR: Failed to create output\n");
