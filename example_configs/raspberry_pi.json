@@ -49,7 +49,7 @@
             "output": {
                 "type": "CommandExecuter",
                 "command": "echo \"MOMENTARY ACTIVATED!!!\"",
-                "multithread": true
+                "multithread": false
             }
         }
 
