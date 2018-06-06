@@ -66,24 +66,22 @@ namespace omni
 
     Device* Momentary::createFromJson(const char* json)
     {
-        unsigned int outputIndex;
-
         unsigned int len = strlen(json);
+        json_token t;
 
-        if(json_scanf(json, len, "{outputIndex: %u}", &outputIndex) != 1)
+        if(json_scanf(json, len, "{output: %T}", &t) != 1)
         {
             return nullptr;
         }
 
-        auto& ovs = OmniThing::getInstance().getOutputVoids();
-        if(outputIndex >= ovs.getCount())
+        auto output = OmniThing::getInstance().buildOutputBool(t);
+        if(!output)
         {
-            LOG << F("ERROR: outputIndex is too large\n");
+            LOG << F("ERROR: Failed to create output\n");
             return nullptr;
         }
 
-        return new Momentary(*(ovs[outputIndex]));
-
+        return new Momentary(*output);
     }
 
     

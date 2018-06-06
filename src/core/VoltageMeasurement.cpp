@@ -62,23 +62,22 @@ namespace omni
 
     Device* VoltageMeasurement::createFromJson(const char* json)
     {
-        unsigned int inputIndex;
-
         unsigned int len = strlen(json);
+        json_token t;
 
-        if(json_scanf(json, len, "{inputIndex: %u}", &inputIndex) != 1)
+        if(json_scanf(json, len, "{input: %T}", &t) != 1)
         {
             return nullptr;
         }
 
-        auto& ifs = OmniThing::getInstance().getInputFloats();
-        if(inputIndex >= ifs.getCount())
+        auto input = OmniThing::getInstance().buildInputFloat(t);
+        if(!input)
         {
-            LOG << F("ERROR: inputIndex is too large\n");
+            LOG << F("ERROR: Failed to create input\n");
             return nullptr;
         }
 
-        return new VoltageMeasurement(*(ifs[inputIndex]));
+        return new VoltageMeasurement(*input);
 
     }
 
