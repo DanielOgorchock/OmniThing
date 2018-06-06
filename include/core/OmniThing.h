@@ -32,20 +32,22 @@ namespace omni
 
     class Event
     {
+        private:
+
         public:
-            Device* src;
-            char event[20];
+            const char* src;
+            const char* event;
 
             Event():
-                src(nullptr)
+                src(nullptr),
+                event(nullptr)
             {
-                event[0] = 0;
             }
 
-            Event(Device* s, const char* e):
-                src(s)
+            Event(const char* s, const char* e):
+                src(s),
+                event(e)
             {
-                strncpy(event, e, 20);
             }
 
     };
@@ -56,25 +58,26 @@ namespace omni
         public:
             Event event;
             Device* subscriber;
-            char cmd[10];
+            char* cmd;
 
             Subscription():
-                subscriber(0)
+                subscriber(nullptr),
+                cmd(nullptr)
             {
-                cmd[0] = 0;
             }
 
-            Subscription(const Event& e, Device* s, const char* c):
+            Subscription(const Event& e, Device* s, char* c):
                 event(e),
-                subscriber(s)
+                subscriber(s),
+                cmd(c)
             {
-                strncpy(cmd, c, 10);
             }
 
             Subscription(const Subscription& s):
-                event(s.event)
+                event(s.event),
+                subscriber(s.subscriber),
+                cmd(s.cmd)
             {   
-                strncpy(cmd, s.cmd, 10);
             }
     };
 
@@ -165,9 +168,6 @@ namespace omni
             FixedArray<Event,           OMNI_MAX_EVENTS>        m_Events;
             FixedArray<Subscription,    OMNI_MAX_SUBSCRIPTIONS> m_Subscriptions;
 
-            unsigned int m_nTriggerStringsCount;
-            char m_TriggerStrings [OMNI_MAX_TRIGGERS] [10];
-
             //Configs
             FixedArray<ObjectConfig<Device>*,       OMNI_MAX_DEVICE_CONFIGS>            m_DeviceConfigs;
 
@@ -212,8 +212,8 @@ namespace omni
             bool addTrigger(Trigger& t);
             bool addTrigger(Triggerable* t, unsigned long interval, void* arg, bool repeat = true, unsigned long offset = 0);
 
-            bool addEvent(Device* src, const char* event);
-            bool addSubscription(Subscription& sub);
+            bool addEvent(const char* src, const char* event);
+            bool addSubscription(const Subscription& sub);
 
             bool addDeviceConfig(ObjectConfig<Device>* dc);
             bool addCompositePeriphConfig(ObjectConfig<CompositePeripheral>* c);

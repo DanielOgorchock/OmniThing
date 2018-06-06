@@ -14,7 +14,6 @@ namespace omni
 {
 //private
     OmniThing::OmniThing():
-        m_nTriggerStringsCount(0),
         m_pNetworkReceiver(nullptr),
         m_pNetworkSender(nullptr),
         m_pDefaultLogger(&Logger::StubbedLogger),
@@ -113,9 +112,10 @@ namespace omni
         for(unsigned int i = 0; i < m_Subscriptions.getCount(); ++i)
         {
             auto& t = m_Subscriptions[i];
-            LOG << F("\tsrc_uid=") << t.event.src->getUid()
+            LOG << F("\tsource=")  << t.event.src
                 << F(" event=")    << t.event.event
                 << F(" sub_uid=")  << t.subscriber->getUid() 
+                << F(" sub_name=") << t.subscriber->getName()
                 << F(" cmd=")      << t.cmd
                 << Logger::endl;
         }
@@ -176,9 +176,10 @@ namespace omni
                 auto& s = m_Subscriptions[j];
                 if(s.event == e)
                 {
-                    LOG << F("event uid=") << e.src->getUid() << F(" type=") << e.src->getType();
-                    LOG << F(" triggered subscription: uid=") << s.subscriber->getUid();
-                    LOG << F(" type=") << s.subscriber->getType() << F(" cmd=") << s.cmd << Logger::endl;
+                    LOG << F("event source=") << e.src << F(" type=") << e.event;
+                    LOG << F(" triggered subscription: sub_uid=") << s.subscriber->getUid();
+                    LOG << F(" sub_type=") << s.subscriber->getType() << 
+                           F(" sub_name=") << s.subscriber->getName() << F(" cmd=") << s.cmd << Logger::endl;
 
                     s.subscriber->trigger(s.cmd);
                 }
@@ -417,7 +418,7 @@ namespace omni
         return addTrigger(tmp);
     }
 
-    bool OmniThing::addEvent(Device* src, const char* event)
+    bool OmniThing::addEvent(const char* src, const char* event)
     {
         if(m_Events.addElement(Event(src, event)))
             return true;
@@ -428,7 +429,7 @@ namespace omni
         }
     }
 
-    bool OmniThing::addSubscription(Subscription& sub)
+    bool OmniThing::addSubscription(const Subscription& sub)
     {
         if(m_Subscriptions.addElement(sub))
             return true;
@@ -990,7 +991,9 @@ namespace omni
 
     bool operator==(const Event& l, const Event&r)
     {
-        return l.src == r.src && (!strcmp(l.event, r.event));
+        if(!l.src || !r.src || !l.event || !r.event)
+            return false;
+        return (!strcmp(l.src, r.src)) && (!strcmp(l.event, r.event));
     }
 
 }

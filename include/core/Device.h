@@ -10,7 +10,9 @@ namespace omni
         private:
             unsigned short m_nUid;
             bool m_bRun; 
+            const char* m_Name;
 
+            static const char EmptyString[];
         protected:
 
         public:
@@ -22,6 +24,7 @@ namespace omni
             virtual void init() {}
 
             unsigned short getUid() const {return m_nUid;}
+            const char* getName() const {return m_Name;}
             bool isRunning() const {return m_bRun;}
             virtual const char* getType() const = 0;
 
@@ -29,6 +32,9 @@ namespace omni
 
             virtual void trigger(void* arg);
             void emit(const char* event);
+
+            void parseMisc(const char* json);
+
     };
 }
 
