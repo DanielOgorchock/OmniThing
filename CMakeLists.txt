@@ -74,9 +74,6 @@ elseif(BUILD_ARDUINO)
                                         ${include_embedded_common}
                                         DESTINATION arduino_build/OmniThing)
     execute_process(COMMAND python jsonToHeader.py ${ARDUINO_CONFIG} arduino_build/OmniThing/ArduinoJsonConfig.h)
-    #file(COPY ${ARDUINO_CONFIG} DESTINATION arduino_build/OmniThing)
-    #get_filename_component(configname ${ARDUINO_CONFIG} NAME)
-    #file(RENAME arduino_build/OmniThing/${configname} arduino_build/OmniThing/ArduinoJsonConfig.h)
 endif()
 
 
