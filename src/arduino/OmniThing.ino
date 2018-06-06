@@ -35,6 +35,8 @@ long freeRam()
 #endif // !
 }
 
+const unsigned int Conversion_Buffer_Size = 1200;
+
 void printFreeRam()
 {
     omnithing.getLogger() << F("Free ram: ") << freeRam() << F(" bytes\n");
@@ -44,7 +46,7 @@ void configWithProgmem(const char* json)
 {
     using namespace omni;
 
-    static char buffer[3000];
+    char buffer[Conversion_Buffer_Size];
     printFreeRam();
 
     strcpy_P(buffer, json);
@@ -69,7 +71,14 @@ void setup()
 
     for(unsigned int i = 0; i < Num_Json_Strings; ++i)
     {
-        configWithProgmem(Config_Json_Strings[i]);
+        if(strlen_P(Config_Json_Strings[i]) >= Conversion_Buffer_Size)
+        {
+            LOG << F("This json string is too large for conversion buffer; increase its size in the sketch\n");
+        }
+        else
+        {
+            configWithProgmem(Config_Json_Strings[i]);
+        }
     }
 
     omnithing.init();    
