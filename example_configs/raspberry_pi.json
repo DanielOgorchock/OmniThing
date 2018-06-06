@@ -51,6 +51,19 @@
                 "command": "echo \"MOMENTARY ACTIVATED!!!\"",
                 "multithread": false
             }
+        },
+
+        {
+            "type": "Switch",
+            "name": "executerSwitch",
+            "invert": false,
+            "initial": false,
+            "output": {
+                "type": "CommandExecuterSwitch",
+                "commandOn": "echo \"CommandExecuter switched ON!!!!\"",
+                "commandOff": "echo \"CommandExecuter switched OFF!!!!\"",
+                "multithread": false
+            }
         }
 
     ]
