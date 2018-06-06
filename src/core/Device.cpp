@@ -50,7 +50,7 @@ namespace omni
         if(json_scanf(json, len, "{name: %s}", &buf) == 1)
         {
             buf[29] = 0; //just in case
-            char* name = new char[strlen(buf)];
+            char* name = new char[strlen(buf)+1];
 
             strcpy(name, buf);
 
@@ -73,7 +73,7 @@ namespace omni
             command[19] = 0; //just in case
 
             // copy command onto heap
-            char* cmd = new char[strlen(command)];
+            char* cmd = new char[strlen(command)+1];
             strcpy(cmd, command);
 
             // check for optional offset
@@ -108,13 +108,13 @@ namespace omni
             source[29]  = 0;
             command[19] = 0;
 
-            char* ev = new char[strlen(event)];
+            char* ev = new char[strlen(event)+1];
             strcpy(ev, event);
 
-            char* src = new char[strlen(source)];
+            char* src = new char[strlen(source)+1];
             strcpy(src, source);
 
-            char* cmd = new char[strlen(command)];
+            char* cmd = new char[strlen(command)+1];
             strcpy(cmd, command);
 
             Event e(src, ev);
