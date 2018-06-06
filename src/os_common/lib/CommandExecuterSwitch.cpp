@@ -80,7 +80,7 @@ namespace omni
         }
     }
 
-    OutputVoid* CommandExecuterSwitch::createFromJson(const char* json)
+    OutputBool* CommandExecuterSwitch::createFromJson(const char* json)
     {
         unsigned int len = strlen(json);
         char* commandOn;
