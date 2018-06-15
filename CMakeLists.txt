@@ -64,7 +64,9 @@ elseif(BUILD_WINDOWS)
 elseif(BUILD_ARDUINO)
     message("Creating Arduino Build Configuration")
     file(GLOB_RECURSE old_files arduino_build/*)
-    file(REMOVE ${old_files})
+    if(EXISTS arduino_build)
+        file(REMOVE ${old_files})
+    endif()
     file(COPY src/arduino/OmniThing.ino ${sources_core} 
                                         ${sources_arduino} 
                                         ${includes_core} 
