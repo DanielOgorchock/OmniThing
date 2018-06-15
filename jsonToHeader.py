@@ -4,12 +4,18 @@ import sys
 import json
 
 names = []
+maxLength = 0
 
 def writeObject(name, obj, objName):
     global output
+    global maxLength
     string = json.dumps(obj, indent=4)
     output += "const char " + name + "[] PROGMEM =\n"
-    output += "R\"RAWSTR({\"" + objName + "\":\n" + string + "})RAWSTR\";\n\n"
+
+    tmpStr = objName + "\":\n" + string 
+
+    output += "R\"RAWSTR({\"" + tmpStr + "})RAWSTR\";\n\n"
+    maxLength = max(maxLength, len(tmpStr) + 1)
     names.append(name)
 
 if len(sys.argv) != 3:
@@ -63,7 +69,12 @@ output += "};\n\n"
 
 output += "const unsigned int Num_Json_Strings = " + str(num_strings) + ";\n\n"
 
+output += "const unsigned int Max_Json_String_Length = " + str(maxLength) + ";\n\n"
+
 output += "}\n\n#endif\n"
+
+print("Max string length: " + str(maxLength))
+
 
 print("\nWriting output to header file...\n")
 open(output_filename, "w").write(output)
