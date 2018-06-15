@@ -35,7 +35,7 @@ long freeRam()
 #endif // !
 }
 
-const unsigned int Conversion_Buffer_Size = Max_Json_String_Length;
+const unsigned int Conversion_Buffer_Size = omni::Max_Json_String_Length;
 
 void printFreeRam()
 {

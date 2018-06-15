@@ -73,7 +73,7 @@ elseif(BUILD_ARDUINO)
                                         ${includes_arduino} 
                                         ${sources_ESP32WebServer} 
                                         ${sources_embedded_common}
-                                        ${include_embedded_common}
+                                        ${includes_embedded_common}
                                         DESTINATION arduino_build/OmniThing)
     execute_process(COMMAND python jsonToHeader.py ${ARDUINO_CONFIG} arduino_build/OmniThing/ArduinoJsonConfig.h)
 endif()
