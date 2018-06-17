@@ -23,6 +23,7 @@ metadata {
 	definition (name: "child_Momentary", namespace: "OmniThing", author: "Daniel Ogorchock") {
 		capability "Actuator"
 		capability "Momentary"
+        capability "Switch"
         capability "Sensor"
 	}
 
@@ -35,6 +36,14 @@ metadata {
 			state "default", label: "push", backgroundColor: "#ffffff", action: "push"
 		}
 	}
+}
+
+def on() {
+    push()
+}
+
+def off() {
+    push
 }
 
 def push() {
