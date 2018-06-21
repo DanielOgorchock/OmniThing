@@ -12,10 +12,10 @@ def writeObject(name, obj, objName):
     string = json.dumps(obj, indent=4)
     output += "const char " + name + "[] PROGMEM =\n"
 
-    tmpStr = objName + "\":\n" + string 
+    tmpStr = "{\"" + objName + "\":\n" + string + "}"
 
-    output += "R\"RAWSTR({\"" + tmpStr + "})RAWSTR\";\n\n"
-    maxLength = max(maxLength, len(tmpStr) + 1)
+    output += "R\"RAWSTR(" + tmpStr + ")RAWSTR\";\n\n"
+    maxLength = max(maxLength, len(tmpStr) + 2)
     names.append(name)
 
 if len(sys.argv) != 3:

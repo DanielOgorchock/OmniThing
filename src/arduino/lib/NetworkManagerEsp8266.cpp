@@ -8,6 +8,8 @@
 #include <string.h>
 #include "frozen.h"
 
+#include <ArduinoOTA.h>
+
 namespace omni
 {
 //private
@@ -25,6 +27,44 @@ namespace omni
         // register trigger for printing debug info
         TriggerableFunction* tf = new TriggerableFunction(printDebug);
         OmniThing::getInstance().addTrigger(tf, 20000, nullptr, true);
+    }
+
+    void NetworkManagerEsp8266::enableOTA()
+    {
+        char* hostname = new char[40];
+        hostname[0] = 0;
+
+        LOG << F("Enabling ArduinoOTA...\n");
+
+        strcpy(hostname, "ESP8266_");
+        String strMAC = WiFi.macAddress();
+        strMAC.replace(":", "");
+        strcat(hostname, strMAC.c_str());
+
+        ArduinoOTA.setHostname(hostname);
+
+        ArduinoOTA.onStart([](){
+            LOG << F("ArduinoOTA started...\n");
+        });
+
+        ArduinoOTA.onEnd([](){
+            LOG << F("ArduinoOTA ended...\n");
+        });
+
+        ArduinoOTA.onProgress([](unsigned int progress, unsigned int total){
+            LOG << F("ArduinoOTA Progress: ") << (progress/(total/100)) << Logger::endl;
+        });
+
+        ArduinoOTA.onError([](ota_error_t error) {
+            LOG << F("ArduinoOTA Error: ") << error << Logger::endl;
+            if (error == OTA_AUTH_ERROR)            LOG << F("Auth Failed\n");
+			else if (error == OTA_BEGIN_ERROR)      LOG << F("Begin Failed\n");
+			else if (error == OTA_CONNECT_ERROR)    LOG << F("Connect Failed\n");
+			else if (error == OTA_RECEIVE_ERROR)    LOG << F("Receive Failed\n");
+			else if (error == OTA_END_ERROR)        LOG << F("End Failed\n");
+        });
+                
+        ArduinoOTA.begin();
     }
 
     void NetworkManagerEsp8266::waitUntilConnected()
@@ -50,6 +90,8 @@ namespace omni
 
     void NetworkManagerEsp8266::serverRun()
     {
+        ArduinoOTA.handle();
+
         if(m_bClearBuffer)
         {
             m_JsonBuf[0] = 0;

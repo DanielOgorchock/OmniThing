@@ -20,6 +20,7 @@ namespace omni
             NetworkManagerEsp8266();
             NetworkManagerEsp8266(const NetworkManagerEsp8266& m);
 
+            void enableOTA();
             void waitUntilConnected();
             void serverRun();
             static void handleConnection();
@@ -66,6 +67,7 @@ namespace omni
                 else
                     LOG << "ERROR: web server not configured\n";
 
+                enableOTA();
                 printDebug();
             }
 

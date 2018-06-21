@@ -74,6 +74,7 @@ void setup()
         if(strlen_P(Config_Json_Strings[i]) >= Conversion_Buffer_Size)
         {
             LOG << F("This json string is too large for conversion buffer; increase its size in the sketch\n");
+            LOG << strlen_P(Config_Json_Strings[i]) << F(" >= ") << Conversion_Buffer_Size << Logger::endl;
         }
         else
         {
