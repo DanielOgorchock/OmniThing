@@ -162,6 +162,12 @@ namespace omni
                     m_Triggers.removeElement(i);
                     --i;
                 }
+                else if(time - t.triggerTime >= t.interval) // prevent windup
+                {
+                    unsigned long difference = time - t.triggerTime;
+                    unsigned long intervalsBehind = difference / t.interval;
+                    t.triggerTime += intervalsBehind * t.interval;
+                }
             }
         }
     }
