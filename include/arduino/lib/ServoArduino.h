@@ -11,13 +11,20 @@ namespace omni
     {
         private:        
             Servo m_Servo;
+            float m_fInitial;
+            bool m_bRevert;
+            unsigned long m_nRevertTime;
+
+            void writeFloatNoRevert(float percent);
 
         protected:
         public:
-            ServoArduino(unsigned short pin, float initialPercent = 90.f);
+            ServoArduino(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime);
             virtual ~ServoArduino();
 
             virtual void writeFloat(float percent);
+
+            virtual void trigger(void* arg);
 
             static OutputFloat* createFromJson(const char* json);
 
