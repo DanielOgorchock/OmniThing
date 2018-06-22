@@ -27,8 +27,9 @@ namespace omni
         if(percent > 100.f)
             percent = 100;
 
-        int angle = percent*180;
+        int angle = percent*180/100.f;
         m_Servo.write(angle);
+        LOG << F("Setting Servo to angle: ") << angle << Logger::endl;
     }
 
     OutputFloat* ServoArduino::createFromJson(const char* json)
