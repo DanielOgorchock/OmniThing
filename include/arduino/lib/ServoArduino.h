@@ -11,12 +11,15 @@ namespace omni
     {
         private:        
             Servo m_Servo;
+            unsigned short m_nPin;
             float m_fInitial;
             bool m_bRevert;
             unsigned long m_nRevertTime;
 
             void writeFloatNoRevert(float percent);
 
+            static char* Cmd_Detach;
+            static char* Cmd_Revert;
         protected:
         public:
             ServoArduino(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime);

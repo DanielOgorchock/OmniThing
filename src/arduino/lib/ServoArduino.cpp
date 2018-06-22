@@ -9,6 +9,7 @@ namespace omni
 //private
     void ServoArduino::writeFloatNoRevert(float percent)
     {
+        m_Servo.attach(m_nPin);
         if(percent < 0.f)
             percent = 0;
         if(percent > 100.f)
@@ -17,12 +18,17 @@ namespace omni
         int angle = percent*180/100.f;
         m_Servo.write(angle);
         LOG << F("Setting Servo to angle: ") << angle << Logger::endl;
+
+        OmniThing::getInstance().addTrigger(this, 200, Cmd_Detach, false);
     }
 
+    char* ServoArduino::Cmd_Detach = "detach";
+    char* ServoArduino::Cmd_Revert = "revert";
 //protected
 //public
     ServoArduino::ServoArduino(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime) :
         m_Servo(),
+        m_nPin(pin),
         m_fInitial(initialPercent),
         m_bRevert(revert),
         m_nRevertTime(revertTime)
@@ -42,13 +48,22 @@ namespace omni
 
         if(m_bRevert) // set up revert trigger
         {
-            OmniThing::getInstance().addTrigger(this, m_nRevertTime, nullptr, false);
+            OmniThing::getInstance().addTrigger(this, m_nRevertTime, Cmd_Revert, false);
         }
     }
 
     void ServoArduino::trigger(void* arg)
     {
-        writeFloatNoRevert(m_fInitial);     
+        char* cmd = static_cast<char*>(arg);
+        
+        if(!strcmp(cmd, Cmd_Detach))
+        {
+            m_Servo.detach();
+        }
+        else if(!strcmp(cmd, Cmd_Revert))
+        {
+            writeFloatNoRevert(m_fInitial);     
+        }
     }
 
     OutputFloat* ServoArduino::createFromJson(const char* json)
@@ -76,4 +91,5 @@ namespace omni
 
     const char* ServoArduino::Type = "ServoArduino";
     ObjectConfig<OutputFloat> ServoArduino::OutputFloatConf(Type, createFromJson);
+
 }
