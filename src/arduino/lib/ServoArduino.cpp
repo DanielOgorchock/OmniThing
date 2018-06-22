@@ -19,7 +19,7 @@ namespace omni
         m_Servo.write(angle);
         LOG << F("Setting Servo to angle: ") << angle << Logger::endl;
 
-        OmniThing::getInstance().addTrigger(this, 200, Cmd_Detach, false);
+        OmniThing::getInstance().addTrigger(this, 350, Cmd_Detach, false);
     }
 
     char* ServoArduino::Cmd_Detach = "detach";
