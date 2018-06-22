@@ -141,10 +141,13 @@ def initialize(){
 }
 
 def updateDeviceNetworkID() {
+	def formattedMac = mac.toUpperCase()
+    formattedMac.replaceAll(":", "")
+    mac = formattedMac
 	log.debug "Executing 'updateDeviceNetworkID'"
-    if(device.deviceNetworkId!=mac) {
-    	log.debug "setting deviceNetworkID = ${mac}"
-        device.setDeviceNetworkId("${mac}")
+    if(device.deviceNetworkId!=formattedMac) {
+    	log.debug "setting deviceNetworkID = ${formattedMac}"
+        device.setDeviceNetworkId("${formattedMac}")
 	}
     //Need deviceNetworkID updated BEFORE we can create Child Devices
 	//Have the OmniThing send an updated value for every device attached.  This will auto-created child devices!
