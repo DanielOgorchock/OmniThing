@@ -142,9 +142,8 @@ def initialize(){
 
 def updateDeviceNetworkID() {
 	def formattedMac = mac.toUpperCase()
-    formattedMac.replaceAll(":", "")
-    mac = formattedMac
-	log.debug "Executing 'updateDeviceNetworkID'"
+    formattedMac = formattedMac.replaceAll(":", "")
+	log.debug "Executing 'updateDeviceNetworkID' formattedMac == " + formattedMac
     if(device.deviceNetworkId!=formattedMac) {
     	log.debug "setting deviceNetworkID = ${formattedMac}"
         device.setDeviceNetworkId("${formattedMac}")
