@@ -19,19 +19,24 @@ namespace omni
         m_Servo.write(angle);
         LOG << F("Setting Servo to angle: ") << angle << Logger::endl;
 
-        OmniThing::getInstance().addTrigger(this, 350, Cmd_Detach, false);
+        if(m_bShutoff)
+        {
+            OmniThing::getInstance().addTrigger(this, m_nShutoffTime, Cmd_Detach, false);
+        }
     }
 
     char* ServoArduino::Cmd_Detach = "detach";
     char* ServoArduino::Cmd_Revert = "revert";
 //protected
 //public
-    ServoArduino::ServoArduino(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime) :
+    ServoArduino::ServoArduino(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime, bool shutoff, unsigned long shutoffTime) :
         m_Servo(),
         m_nPin(pin),
         m_fInitial(initialPercent),
         m_bRevert(revert),
-        m_nRevertTime(revertTime)
+        m_nRevertTime(revertTime),
+        m_bShutoff(shutoff),
+        m_nShutoffTime(shutoffTime)
     {
         m_Servo.attach(pin);
         writeFloat(initialPercent);
@@ -72,21 +77,28 @@ namespace omni
         unsigned short pin;
         float initialPercent = 50.f;
         bool revert = false;
-        unsigned long revertTime;
+        unsigned long revertTime = 0;
+        bool shutoff = false;
+        unsigned long shutoffTime = 0;
 
         if(json_scanf(json, len, "{pin: %u}", &pin) != 1)
         {
             return nullptr;
         }
                 
-        if(json_scanf(json, len, "{revertTime: %lu}", &revertTime) == 1)
+        if(json_scanf(json, len, "{revertTime: %lu}", &revertTime) == 1) // optional param
         {
             revert = true;
         }
 
+        if(json_scanf(json, len, "{shutoffTime: %lu}", &shutoffTime) == 1) // optional param
+        {
+            shutoff = true;
+        }
+
         json_scanf(json, len, "{initialPercent: %f}", &initialPercent); // optional param
 
-        return new ServoArduino(pin, initialPercent, revert, revertTime);
+        return new ServoArduino(pin, initialPercent, revert, revertTime, shutoff, shutoffTime);
     }
 
     const char* ServoArduino::Type = "ServoArduino";

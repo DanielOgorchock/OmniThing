@@ -15,6 +15,8 @@ namespace omni
             float m_fInitial;
             bool m_bRevert;
             unsigned long m_nRevertTime;
+            bool m_bShutoff;
+            unsigned long m_nShutoffTime;
 
             void writeFloatNoRevert(float percent);
 
@@ -22,7 +24,7 @@ namespace omni
             static char* Cmd_Revert;
         protected:
         public:
-            ServoArduino(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime);
+            ServoArduino(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime, bool shutoff, unsigned long shutoffTime);
             virtual ~ServoArduino();
 
             virtual void writeFloat(float percent);
