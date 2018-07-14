@@ -30,6 +30,9 @@ namespace omni
             float humidity;
             float temperature;
 
+            float last_humidity;
+            float last_temperature;
+
             unsigned long long poll_timer;
 
             unsigned short pin;

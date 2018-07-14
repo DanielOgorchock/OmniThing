@@ -149,7 +149,14 @@ namespace omni
 
         if(ret != DHTLIB_OK)
         {
+            humidity = last_humidity;
+            temperature = last_temperature;
             LOG << F("ERROR: error reading temp/humidity (") << ret << F(")\n");
+        }
+        else
+        {
+            last_humidity = humidity;
+            last_temperature = temperature;
         }
 
         return ret;
