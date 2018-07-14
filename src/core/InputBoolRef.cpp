@@ -23,7 +23,14 @@ namespace omni
 
     bool InputBoolRef::readBool()
     {
-        return m_Periph.getBool(m_Name);
+        bool b;
+
+        if(!m_Periph.getBool(m_Name, b))
+        {
+            LOG << F("ERROR: Failed to get bool=") << m_Name << F(" from ") << m_Periph.getName() << F("\n");
+        }
+
+        return b;
     }
 
     InputBool* InputBoolRef::createFromJson(const char* json)

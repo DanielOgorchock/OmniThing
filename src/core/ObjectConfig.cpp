@@ -64,4 +64,8 @@ namespace omni
         OmniThing::getInstance().addNetworkSenderConfig(conf);
     }
 
+    void registerConfig(ObjectConfig<CompositePeripheral>* conf)
+    {
+        OmniThing::getInstance().addCompositePeriphConfig(conf);
+    }
 }

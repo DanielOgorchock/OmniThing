@@ -7,6 +7,8 @@ namespace omni
     unsigned long long getMillis();
     void sleepMillis(unsigned long long ms);
 
+    unsigned long long getMicros();
+    void sleepMicros(unsigned long long us);
 }
 
 

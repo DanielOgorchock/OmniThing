@@ -9,7 +9,7 @@ namespace omni
             const char* m_Name;
 
         protected:
-            const char* parseName(const char* json);
+            static const char* parseName(const char* json);
 
         public:
             CompositePeripheral(const char* name);
@@ -17,9 +17,9 @@ namespace omni
 
             const char* getName() {return m_Name;}
 
-            virtual bool getBool(const char*) = 0;
-            virtual float getFloat(const char*) = 0;
-            virtual unsigned int getUInt(const char*) = 0;
+            virtual bool getBool(const char* name, bool& b) {return false;}
+            virtual bool getFloat(const char* name, float& f) {return false;}
+            virtual bool getUInt(const char* name, unsigned int& ui) {return false;}
     };
 }
 #endif

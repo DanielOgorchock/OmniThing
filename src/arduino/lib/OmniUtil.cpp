@@ -13,5 +13,14 @@ namespace omni
         delay(ms);
     }
 
+    unsigned long long getMicros()
+    {
+        return micros();
+    }
+
+    void sleepMicros(unsigned long long us)
+    {
+        delayMicroseconds(us); 
+    }
 }
 

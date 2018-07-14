@@ -22,7 +22,14 @@ namespace omni
 
     float InputFloatRef::readFloat()
     {
-        return m_Periph.getBool(m_Name);
+        float f;
+
+        if(!m_Periph.getFloat(m_Name, f))
+        {
+            LOG << F("ERROR: Failed to get float=") << m_Name << F(" from ") << m_Periph.getName() << F("\n");
+        }
+
+        return f;
     }
 
     InputFloat* InputFloatRef::createFromJson(const char* json)

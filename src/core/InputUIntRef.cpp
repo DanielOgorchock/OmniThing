@@ -22,7 +22,14 @@ namespace omni
 
     unsigned int InputUIntRef::readUInt()
     {
-        return m_Periph.getUInt(m_Name);
+        unsigned int ui;
+
+        if(!m_Periph.getUInt(m_Name, ui))
+        {
+            LOG << F("ERROR: Failed to get uint=") << m_Name << F(" from ") << m_Periph.getName() << F("\n");
+        }
+
+        return ui;
     }
 
     InputUInt* InputUIntRef::createFromJson(const char* json)

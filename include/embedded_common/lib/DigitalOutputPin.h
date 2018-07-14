@@ -25,7 +25,7 @@ namespace omni
             bool isInverted() const {return m_bInvertLogic;}
             bool getValue() const {return m_bValue;}
 
-            void writeVoid() final; 
+            void writeVoid() final;
             void writeBool(bool b) final;
 
             static DigitalOutputPin* create(unsigned short pin, bool initialValue, bool invertLogic);
