@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "Logger.h"
+#include "OmniUtil.h"
 
 #include "frozen.h"
 
@@ -17,7 +18,7 @@ namespace omni
 
         m_Server.Post("/", [this](const auto& req, auto& res)
         {
-            std::string body(req.body); 
+            std::string body(req.body);
 
             m_BufferMutex.lock();
 
@@ -29,12 +30,17 @@ namespace omni
             m_BufferMutex.unlock();
         });
 
-        LOG << "Starting http server...\n";
-		if (!m_Server.listen(m_IP, m_nPort))
-		{
-			LOG << "Failed to bind socket\n";
-		}
-        LOG << "Server Failed\n";
+        while(true)
+        {
+            LOG << "Starting http server...\n";
+            if (!m_Server.listen(m_IP, m_nPort))
+            {
+                LOG << "Failed to bind socket\n";
+            }
+            LOG << "Server Failed\n";
+
+            sleepMillis(10000);
+        }
     }
 
 //protected
@@ -45,7 +51,7 @@ namespace omni
         m_bWipeBuffer(false),
 		m_bUnlockMutex(false)
     {
-        m_JsonBuffer[0] = 0; 
+        m_JsonBuffer[0] = 0;
         strncpy(m_IP, ip, 30);
     }
 
