@@ -44,19 +44,11 @@ namespace omni
 
         json_token t;
 
-        char buf[30]; 
-
         // scanning for optional name
-        if(json_scanf(json, len, "{name: %s}", &buf) == 1)
+        if(json_scanf(json, len, "{name: %M}", &m_Name) == 1)
         {
-            buf[29] = 0; //just in case
-            char* name = new char[strlen(buf)+1];
-
-            strcpy(name, buf);
-
-            LOG << F("Naming device: ") << name << Logger::endl;
-            m_Name = name;
-        } 
+            LOG << F("Naming device: ") << m_Name << Logger::endl;
+        }
 
         // scan for triggers
         for(unsigned int i = 0; json_scanf_array_elem(json, len, ".triggers", i, &t) > 0; ++i)

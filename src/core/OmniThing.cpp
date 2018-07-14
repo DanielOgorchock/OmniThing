@@ -2,6 +2,7 @@
 #include "OmniUtil.h"
 
 #include "Device.h"
+#include "CompositePeripheral.h"
 #include "ObjectConfig.h"
 #include "NetworkReceiver.h"
 #include "NetworkSender.h"
@@ -114,7 +115,7 @@ namespace omni
             auto& t = m_Subscriptions[i];
             LOG << F("\tsource=")  << t.event.src
                 << F(" event=")    << t.event.event
-                << F(" sub_uid=")  << t.subscriber->getUid() 
+                << F(" sub_uid=")  << t.subscriber->getUid()
                 << F(" sub_name=") << t.subscriber->getName()
                 << F(" cmd=")      << t.cmd
                 << Logger::endl;
@@ -149,7 +150,7 @@ namespace omni
                     t.offset = 0;
                 }
             }
-            
+
             if(time - t.triggerTime >= t.interval)
             {
                 t.triggerTime += t.interval;
@@ -184,7 +185,7 @@ namespace omni
                 {
                     LOG << F("event source=") << e.src << F(" type=") << e.event;
                     LOG << F(" triggered subscription: sub_uid=") << s.subscriber->getUid();
-                    LOG << F(" sub_type=") << s.subscriber->getType() << 
+                    LOG << F(" sub_type=") << s.subscriber->getType() <<
                            F(" sub_name=") << s.subscriber->getName() << F(" cmd=") << s.cmd << Logger::endl;
 
                     s.subscriber->trigger(s.cmd);
@@ -216,7 +217,7 @@ namespace omni
         for(unsigned short i = 0; i < m_Triggers.getCount(); ++i)
         {
             Trigger& t = m_Triggers[i];
-            
+
             t.triggerTime = time;
         }
 
@@ -225,8 +226,8 @@ namespace omni
     void OmniThing::parseJson(const char* json)
     {
         unsigned int uid;
-        char cmd[24]; 
-        
+        char cmd[24];
+
         int res = json_scanf(json, strlen(json), "{uid:%u, cmd:%s}", &uid, cmd);
         if(res != 2)
         {
@@ -290,7 +291,7 @@ namespace omni
             }
         }
 
-        strcat(m_OutgoingJsonBuf, json); 
+        strcat(m_OutgoingJsonBuf, json);
         strcat(m_OutgoingJsonBuf, ",");
     }
 
@@ -318,7 +319,7 @@ namespace omni
         else
             LOG << F("WARNING: no NetworkReceiver configured\n");
 
-        initDevices(); 
+        initDevices();
         m_Events.resetCount();
         initScheduler();
     }
@@ -374,7 +375,7 @@ namespace omni
     void OmniThing::sendJson(const char* json)
     {
         addOutgoingJson(json);
-    } 
+    }
 
     void OmniThing::sendJsonNow(const char* json)
     {
@@ -566,7 +567,21 @@ namespace omni
             return false;
         }
     }
-    
+
+    CompositePeripheral* OmniThing::getCompositePeriph(const char* name)
+    {
+        CompositePeripheral* periph = nullptr;
+        for(unsigned int i = 0; i < m_CompositePeriphs.getCount(); ++i)
+        {
+            if(!strcmp(name, m_CompositePeriphs[i]->getName()))
+            {
+                periph = m_CompositePeriphs[i];
+            }
+        }
+
+        return periph;
+    }
+
     InputBool* OmniThing::buildInputBool(json_token& t)
     {
         char tmp = t.ptr[t.len];
@@ -579,7 +594,7 @@ namespace omni
         {
             LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
             return nullptr;
-        } 
+        }
 
         int index = getConfigIndex(configs, type);
         if(index < 0)
@@ -604,7 +619,7 @@ namespace omni
         {
             LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
             return nullptr;
-        } 
+        }
 
         int index = getConfigIndex(configs, type);
         if(index < 0)
@@ -629,7 +644,7 @@ namespace omni
         {
             LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
             return nullptr;
-        } 
+        }
 
         int index = getConfigIndex(configs, type);
         if(index < 0)
@@ -654,7 +669,7 @@ namespace omni
         {
             LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
             return nullptr;
-        } 
+        }
 
         int index = getConfigIndex(configs, type);
         if(index < 0)
@@ -679,7 +694,7 @@ namespace omni
         {
             LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
             return nullptr;
-        } 
+        }
 
         int index = getConfigIndex(configs, type);
         if(index < 0)
@@ -704,7 +719,7 @@ namespace omni
         {
             LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
             return nullptr;
-        } 
+        }
 
         int index = getConfigIndex(configs, type);
         if(index < 0)
@@ -729,7 +744,7 @@ namespace omni
         {
             LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
             return nullptr;
-        } 
+        }
 
         int index = getConfigIndex(configs, type);
         if(index < 0)
@@ -749,7 +764,7 @@ namespace omni
     //      "CompositePeriphs": [ {"type": string, ... } , ... ],
     //      "Devices":          [ {"type": string, ... } , ... ],
     // }
-    //      
+    //
     bool OmniThing::loadJsonConfig(const char* json)
     {
         LOG << F("Parsing Json Config:\n") << json << Logger::endl;
@@ -776,7 +791,7 @@ namespace omni
                         buffer[t.len]=0;
 
                         LOG << F("Found configuration\n");
-     
+
                         auto obj = conf->createFromJson(buffer);
                         if(!obj)
                         {
@@ -785,14 +800,14 @@ namespace omni
                         }
                         else
                         {
-                            setNetworkReceiver(obj); 
+                            setNetworkReceiver(obj);
                             strncpy(buffer, t.ptr, t.len);
                             buffer[t.len]=0;
 
                             buffer[t.len] = 0;
                             LOG << F("Successfully created new ") << buffer << Logger::endl;
                         }
-                        break; 
+                        break;
                     }
                 }
                 if(!found)
@@ -800,7 +815,7 @@ namespace omni
                     LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
                     return false;
                 }
-                     
+
             }
             else
             {
@@ -825,7 +840,7 @@ namespace omni
                         buffer[t.len]=0;
 
                         LOG << F("Found configuration\n");
-     
+
                         auto obj = conf->createFromJson(buffer);
                         if(!obj)
                         {
@@ -834,14 +849,14 @@ namespace omni
                         }
                         else
                         {
-                            setNetworkSender(obj); 
+                            setNetworkSender(obj);
                             strncpy(buffer, t.ptr, t.len);
                             buffer[t.len]=0;
 
                             buffer[t.len] = 0;
                             LOG << F("Successfully created new ") << buffer << Logger::endl;
                         }
-                        break; 
+                        break;
                     }
                 }
                 if(!found)
@@ -849,7 +864,7 @@ namespace omni
                     LOG << F("ERROR: No config found for type: ") << buffer << Logger::endl;
                     return false;
                 }
-                     
+
             }
             else
             {
@@ -864,10 +879,10 @@ namespace omni
             {
                 strncpy(buffer, t.ptr, t.len);
                 buffer[t.len]=0;
- 
+
                 LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
                 return false;
-            } 
+            }
 
             bool found = false;
             for(unsigned int i = 0; i < m_CompositePeriphConfigs.getCount(); ++i)
@@ -878,7 +893,7 @@ namespace omni
                     found = true;
                     strncpy(buffer, t.ptr, t.len);
                     buffer[t.len]=0;
- 
+
                     auto obj = conf->createFromJson(buffer);
                     if(!obj)
                     {
@@ -887,14 +902,14 @@ namespace omni
                     }
                     else
                     {
-                        addCompositePeriph(obj); 
+                        addCompositePeriph(obj);
                         strncpy(buffer, t.ptr, t.len);
                         buffer[t.len]=0;
 
                         buffer[t.len] = 0;
                         LOG << F("Successfully created new ") << buffer << Logger::endl;
                     }
-                    break; 
+                    break;
                 }
             }
             if(!found)
@@ -911,10 +926,10 @@ namespace omni
             {
                 strncpy(buffer, t.ptr, t.len);
                 buffer[t.len]=0;
- 
+
                 LOG << F("ERROR: failed to find \"type\" key/value pair: ") << buffer << Logger::endl;
                 return false;
-            } 
+            }
 
             bool found = false;
             for(unsigned int i = 0; i < m_DeviceConfigs.getCount(); ++i)
@@ -925,7 +940,7 @@ namespace omni
                     found = true;
                     strncpy(buffer, t.ptr, t.len);
                     buffer[t.len]=0;
- 
+
                     auto obj = conf->createFromJson(buffer);
                     if(!obj)
                     {
@@ -934,13 +949,13 @@ namespace omni
                     }
                     else
                     {
-                        addDevice(obj); 
+                        addDevice(obj);
                         strncpy(buffer, t.ptr, t.len);
                         buffer[t.len]=0;
 
                         LOG << F("Successfully created new ") << buffer << Logger::endl;
                     }
-                    break; 
+                    break;
                 }
             }
             if(!found)

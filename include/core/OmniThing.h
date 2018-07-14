@@ -77,7 +77,7 @@ namespace omni
                 event(s.event),
                 subscriber(s.subscriber),
                 cmd(s.cmd)
-            {   
+            {
             }
     };
 
@@ -156,9 +156,10 @@ namespace omni
 
             char m_OutgoingJsonBuf[OMNI_OUTGOING_JSON_BUF_SIZE];
 
-            // Devices and Inputs/Outputs
+            // Devices
             FixedArray<Device*,         OMNI_MAX_DEVICES>           m_Devices;
 
+            // Composite Peripherals
             FixedArray<CompositePeripheral*, OMNI_MAX_COMPOSITE_PERIPHS> m_CompositePeriphs;
 
             // Triggers
@@ -205,7 +206,7 @@ namespace omni
             void sendJson(const char* json);
             void sendJsonNow(const char* json);
 
-            bool addDevice(Device* dev); 
+            bool addDevice(Device* dev);
 
             bool addCompositePeriph(CompositePeripheral* e);
 
@@ -228,6 +229,8 @@ namespace omni
             bool addNetworkReceiverConfig(ObjectConfig<NetworkReceiver>* c);
             bool addNetworkSenderConfig(ObjectConfig<NetworkSender>* c);
 
+            CompositePeripheral* getCompositePeriph(const char* name);
+
             const FixedArray<Device*, OMNI_MAX_DEVICES>& getDevices() {return m_Devices;}
 
             const FixedArray<CompositePeripheral*, OMNI_MAX_COMPOSITE_PERIPHS>& getCompositePeriphs() {return m_CompositePeriphs;}
@@ -238,7 +241,7 @@ namespace omni
                 {
                     if(!strcmp(type, configs[i]->getType()))
                         return i;
-                } 
+                }
 
                 return -1;
             }

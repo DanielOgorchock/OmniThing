@@ -9,7 +9,7 @@ namespace omni
     class InputFloatRef : public InputFloat
     {
         private:
-            char m_Name[20];
+            const char* m_Name;
             CompositePeripheral& m_Periph;
 
         protected:

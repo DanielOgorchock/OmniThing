@@ -9,7 +9,7 @@ namespace omni
     {
         private:
             unsigned short m_nUid;
-            bool m_bRun; 
+            bool m_bRun;
             const char* m_Name;
 
             static const char EmptyString[];
