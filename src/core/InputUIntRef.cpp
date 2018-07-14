@@ -36,7 +36,7 @@ namespace omni
     {
         const char* compositeName;
         const char* paramName;
-        if(json_scanf(json, strlen(json), "{compositeName: %M, paramName: %M}", compositeName, &paramName) != 2)
+        if(json_scanf(json, strlen(json), "{compositeName: %Q, paramName: %Q}", &compositeName, &paramName) != 2)
             return nullptr;
 
         CompositePeripheral* periph = OmniThing::getInstance().getCompositePeriph(compositeName);

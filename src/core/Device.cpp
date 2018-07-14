@@ -45,7 +45,7 @@ namespace omni
         json_token t;
 
         // scanning for optional name
-        if(json_scanf(json, len, "{name: %M}", &m_Name) == 1)
+        if(json_scanf(json, len, "{name: %Q}", &m_Name) == 1)
         {
             LOG << F("Naming device: ") << m_Name << Logger::endl;
         }

@@ -33,7 +33,6 @@ namespace omni
         sleepMicros(40);
 
         unsigned long long timer;
-
         // GET ACKNOWLEDGE or TIMEOUT
         timer = getMicros();
         while(inputPin->readBool() == false)
@@ -50,7 +49,7 @@ namespace omni
         // READ THE OUTPUT - 40 BITS => 5 BYTES
         for (uint8_t i = 40; i != 0; i--)
         {
-            timer = DHTLIB_TIMEOUT;
+            timer = getMicros();
             while(inputPin->readBool() == false)
             {
                 if (getMicros() - timer >= DHTLIB_TIMEOUT) return DHTLIB_ERROR_TIMEOUT;
@@ -58,7 +57,7 @@ namespace omni
 
             uint32_t t = getMicros();
 
-            timer = DHTLIB_TIMEOUT;
+            timer = getMicros();
             while(inputPin->readBool() == true)
             {
                 if (getMicros() - timer >= DHTLIB_TIMEOUT) return DHTLIB_ERROR_TIMEOUT;
@@ -133,6 +132,15 @@ namespace omni
 
     int DhtReader::getVals()
     {
+        if(getMillis() - poll_timer >= MIN_DHT_POLL_MS)
+        {
+            poll_timer = getMillis();
+        }
+        else
+        {
+            return DHTLIB_OK;
+        }
+
         int ret;
         if(is_dht11)
             ret = read11();
@@ -150,9 +158,10 @@ namespace omni
 //public
     DhtReader::DhtReader(const char* name, unsigned short pinNum, bool dht11):
         CompositePeripheral(name),
+        poll_timer(getMillis() - MIN_DHT_POLL_MS),
         pin(pinNum),
         is_dht11(dht11),
-        inputPin(DigitalInputPin::create(pin, false, false)),
+        inputPin(DigitalInputPin::create(pin, false, true)),
         outputPin(DigitalOutputPin::create(pin, true, false))
     {
 
@@ -169,25 +178,19 @@ namespace omni
         if(!strcmp(name, Param_Temperature))
         {
             ret = (getVals() == DHTLIB_OK);
-            if(ret)
-                f = temperature;
-            else
-                f = -3333;
+            f = temperature;
             return ret;
         }
         else if(!strcmp(name, Param_Humidity))
         {
             ret = (getVals() == DHTLIB_OK);
-            if(ret)
-                f = humidity;
-            else
-                f = -3333;
+            f = humidity;
             return ret;
         }
         else
         {
             LOG << F("ERROR: ") << name << F(" is not a param of ") << Type << F("\n");
-            f = -3333;
+            f = DHTLIB_INVALID_VALUE;
             return false;
         }
     }

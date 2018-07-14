@@ -29,9 +29,8 @@ namespace omni
 
         const char* name = nullptr;
 
-
         // scanning for optional name
-        if(json_scanf(json, len, "{name: %M}", name) != 1)
+        if(json_scanf(json, len, "{name: %Q}", &name) != 1)
         {
             LOG << F("ERROR: CompositePeriph name not found\n");
         }

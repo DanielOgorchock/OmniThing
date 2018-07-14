@@ -21,6 +21,7 @@ file(GLOB_RECURSE includes_arduino include/arduino/lib/*.h)
 file(GLOB_RECURSE includes_embedded_common include/embedded_common/lib/*.h)
 
 file(GLOB sources_ESP32WebServer src/ESP32WebServer/*)
+file(GLOB sources_ESP32Servo src/ESP32Servo/*)
 
 if(BUILD_LINUX)
     message("Creating Linux Build Configuration")
@@ -72,6 +73,7 @@ elseif(BUILD_ARDUINO)
                                         ${includes_core} 
                                         ${includes_arduino} 
                                         ${sources_ESP32WebServer} 
+                                        ${sources_ESP32Servo} 
                                         ${sources_embedded_common}
                                         ${includes_embedded_common}
                                         DESTINATION arduino_build/OmniThing)

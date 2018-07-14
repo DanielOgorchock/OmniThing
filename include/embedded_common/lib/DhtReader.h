@@ -19,6 +19,8 @@
 
 #define DHTLIB_TIMEOUT          100 // (microseconds)
 
+#define MIN_DHT_POLL_MS         2000
+
 namespace omni
 {
     class DhtReader : public CompositePeripheral
@@ -27,6 +29,8 @@ namespace omni
             unsigned char bits[5]; //buffer to receive data
             float humidity;
             float temperature;
+
+            unsigned long long poll_timer;
 
             unsigned short pin;
             bool is_dht11;

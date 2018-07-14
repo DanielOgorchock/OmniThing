@@ -3,7 +3,12 @@
 
 #include "OutputFloat.h"
 #include "ObjectConfig.h"
-#include <Servo.h>
+
+#ifndef ARDUINO_ARCH_ESP32
+    #include <Servo.h>
+#else
+    #include "ESP32_Servo.h"
+#endif
 
 namespace omni
 {
