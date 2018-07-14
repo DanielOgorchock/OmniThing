@@ -37,6 +37,7 @@ namespace omni
 
             unsigned short pin;
             bool is_dht11;
+            bool internal_pullup;
             DigitalInputPin* inputPin;
             DigitalOutputPin* outputPin;
 
@@ -55,7 +56,7 @@ namespace omni
             int getVals();
 
         public:
-            DhtReader(const char* name, unsigned short pinNum, bool dht11);
+            DhtReader(const char* name, unsigned short pinNum, bool dht11, bool pullup);
             virtual ~DhtReader();
 
             virtual bool getFloat(const char* name, float& f);

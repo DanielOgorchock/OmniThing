@@ -163,12 +163,13 @@ namespace omni
     }
 
 //public
-    DhtReader::DhtReader(const char* name, unsigned short pinNum, bool dht11):
+    DhtReader::DhtReader(const char* name, unsigned short pinNum, bool dht11, bool pullup):
         CompositePeripheral(name),
         poll_timer(getMillis() - MIN_DHT_POLL_MS),
         pin(pinNum),
         is_dht11(dht11),
-        inputPin(DigitalInputPin::create(pin, false, true)),
+        internal_pullup(pullup),
+        inputPin(DigitalInputPin::create(pin, false, internal_pullup)),
         outputPin(DigitalOutputPin::create(pin, true, false))
     {
 
@@ -211,6 +212,7 @@ namespace omni
         unsigned int len = strlen(json);
         unsigned short pin;
         bool dht11 = false;
+        bool pullup = false;
 
         if(json_scanf(json, len, "{pin: %u}", &pin) != 1)
         {
@@ -219,8 +221,9 @@ namespace omni
         }
 
         json_scanf(json, len, "{dht22: %B}", &dht11);
+        json_scanf(json, len, "{pullup: %B}", &pullup);
 
-        return new DhtReader(name, pin, dht11);
+        return new DhtReader(name, pin, dht11, pullup);
     }
 
     //statics
