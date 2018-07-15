@@ -55,7 +55,7 @@ namespace omni
                 if (getMicros() - timer >= DHTLIB_TIMEOUT) return DHTLIB_ERROR_TIMEOUT;
             }
 
-            uint32_t t = getMicros();
+            unsigned long long t = getMicros();
 
             timer = getMicros();
             while(inputPin->readBool() == true)
