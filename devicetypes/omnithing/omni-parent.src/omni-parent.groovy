@@ -75,10 +75,10 @@ def parse(String description) {
     {
     	log.debug "parsing updates array"
     	bodyObj.updates.each{ //iterate over all the updates in array
-        	//make sure we were given uid and type
-            if(!it.containsKey('uid'))
+        	//make sure we were given name and type
+            if(!it.containsKey('name'))
             {
-            	log.error("uid was not supplied")
+            	log.error("name was not supplied")
                 return
             }
             if(!it.containsKey('type'))
@@ -87,16 +87,16 @@ def parse(String description) {
                 return
             }
         
-        	def child = getChild(it.uid)
+        	def child = getChild(it.name)
             if(child == null)
             {
-            	log.debug "child with uid=${it.uid} does not exist."
-                createChildDevice(it.uid, it.type)
-                child = getChild(it.uid)
+            	log.debug "child with name=${it.name} does not exist."
+                createChildDevice(it.name, it.type)
+                child = getChild(it.name)
             }
             else
             {
-            	log.debug "child with uid=${it.uid} exists already."
+            	log.debug "child with name=${it.name} exists already."
             }
             
             if(child != null) // update the child
@@ -181,14 +181,14 @@ def sendEthernet(message){
     }
 }
 
-private void createChildDevice(int uid, String type) {
-	log.debug "Attempting to create child with uid=" + uid + " type=" + type;
+private void createChildDevice(String name, String type) {
+	log.debug "Attempting to create child with name=" + name + " type=" + type;
     
     try{
-    	addChildDevice("child_${type}", "${device.deviceNetworkId}_${uid}", null,
-        	[completedSetup: true, label: "${device.displayName} (${type}_${uid})",
-            isComponent: false, componentName: "${type}_${uid}", componentLabel: "${type}_${uid}"]);
-        log.debug "Created child device with network id: ${device.deviceNetworkId}_${uid}"
+    	addChildDevice("child_${type}", "${device.deviceNetworkId}_${name}", null,
+        	[completedSetup: true, label: "${device.displayName} (${name})",
+            isComponent: false, componentName: "${name}", componentLabel: "${name}"]);
+        log.debug "Created child device with network id: ${device.deviceNetworkId}_${name}"
     }
     catch(e)
     {
@@ -196,12 +196,12 @@ private void createChildDevice(int uid, String type) {
     }
 }
 
-private boolean containsChild(int uid)
+private boolean containsChild(String name)
 {
 	try{
     	def result = false
         childDevices.each{
-			if(it.deviceNetworkId == "${device.deviceNetworkId}_${uid}")
+			if(it.deviceNetworkId == "${device.deviceNetworkId}_${name}")
             {
             	result = true;
             }
@@ -215,14 +215,14 @@ private boolean containsChild(int uid)
     }
 }
 
-private def getChild(int uid)
+private def getChild(String name)
 {
-	log.debug "Searching for child device with network id: ${device.deviceNetworkId}_${uid}"
+	log.debug "Searching for child device with network id: ${device.deviceNetworkId}_${name}"
     def result = null
 	try{
         childDevices.each{
         	//log.debug "child: ${it.deviceNetworkId}"
-			if(it.deviceNetworkId == "${device.deviceNetworkId}_${uid}")
+			if(it.deviceNetworkId == "${device.deviceNetworkId}_${name}")
             {
             	result = it;
             }

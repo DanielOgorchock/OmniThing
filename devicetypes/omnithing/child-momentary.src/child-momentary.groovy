@@ -51,8 +51,8 @@ def push() {
 }
 
 def sendData(def value) {
-    def child_uid 	= device.deviceNetworkId.split("_")[-1]
-    def payload 	= [uid: child_uid, cmd:value]  
+    def child_name 	= device.deviceNetworkId.split("_")[-1]
+    def payload 	= [name: child_name, cmd:value]  
     parent.sendData(new groovy.json.JsonBuilder(payload).toString())  
 }
 
@@ -60,7 +60,7 @@ def parse(def update) {
 	log.debug "parsing ${update}"
 	for( e in update)
     {
-    	if(e.key != "uid" && e.key != "type")
+    	if(e.key != "name" && e.key != "type")
         {
         	log.debug "sending event: name=${e.key} value=${e.value}"
             sendEvent(name: e.key, value: e.value)

@@ -46,7 +46,7 @@ def parse(def update) {
 	log.debug "parsing ${update}"
 	for( e in update)
     {
-    	if(e.key != "uid" && e.key != "type")
+    	if(e.key != "name" && e.key != "type")
         {
         	log.debug "sending event: name=${e.key} value=${e.value}"
             sendEvent(name: e.key, value: e.value)
