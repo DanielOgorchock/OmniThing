@@ -15,7 +15,7 @@ namespace omni
         char buffer[100] = "";
         struct json_out out = JSON_OUT_BUF(buffer, sizeof(buffer));
 
-        json_printf(&out, "{uid: %u, type: \"%s\", contact: \"%s\"}", getUid(), getType(), (read()?"closed":"open"));
+        json_printf(&out, "{name: \"%s\", type: \"%s\", contact: \"%s\"}", getName(), getType(), (read()?"closed":"open"));
 
         LOG << buffer << Logger::endl;
 
@@ -29,7 +29,7 @@ namespace omni
         m_rInput(input),
         m_bInvert(invert)
     {
-         
+
     }
 
     ContactSensor::~ContactSensor()
@@ -41,8 +41,8 @@ namespace omni
     {
         if(!strcmp(cmd, Cmd_Poll))
         {
-            LOG << F("Poll triggered for ") << getType() << F(" ") << getUid() << Logger::endl;
-            bool val = read(); 
+            LOG << F("Poll triggered for ") << getType() << F(" ") << getName() << Logger::endl;
+            bool val = read();
             if(val != m_bLastVal)
             {
                 emit(Event_Changed);
@@ -52,7 +52,7 @@ namespace omni
                 else
                     emit(Event_Closed);
             }
-            m_bLastVal = val; 
+            m_bLastVal = val;
             sendJsonPacket();
         }
 
@@ -60,7 +60,7 @@ namespace omni
 
     void ContactSensor::run()
     {
-        bool val = read(); 
+        bool val = read();
         if(val != m_bLastVal)
         {
             emit(Event_Changed);
@@ -72,12 +72,12 @@ namespace omni
 
             sendJsonPacket();
         }
-        m_bLastVal = val; 
+        m_bLastVal = val;
     }
 
     void ContactSensor::init()
     {
-        m_bLastVal = read(); 
+        m_bLastVal = read();
         sendJsonPacket();
     }
 
@@ -109,8 +109,9 @@ namespace omni
             return nullptr;
         }
 
-        auto d = new ContactSensor(*input, invert, constantPoll); 
-        d->parseMisc(json);
+        auto d = new ContactSensor(*input, invert, constantPoll);
+        if(!d->parseMisc(json))
+            return nullptr;
         return d;
     }
 
@@ -124,5 +125,5 @@ namespace omni
     const char* ContactSensor::Event_Changed    = "changed";
 
     const char* ContactSensor::Type     = "ContactSensor";
-    ObjectConfig<Device> ContactSensor::DevConf(Type, createFromJson); 
+    ObjectConfig<Device> ContactSensor::DevConf(Type, createFromJson);
 }

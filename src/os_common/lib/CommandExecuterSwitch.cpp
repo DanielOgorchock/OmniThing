@@ -24,7 +24,7 @@ namespace omni
 
         system(m_CommandStrOn);
     }
-    
+
     void CommandExecuterSwitch::executeCommandOff()
     {
         LOG << F("Executing: ") << m_CommandStrOff << Logger::endl;
@@ -36,7 +36,7 @@ namespace omni
 
         system(m_CommandStrOff);
     }
-    
+
 //protected
 //public
     CommandExecuterSwitch::CommandExecuterSwitch(const char* commandOn, const char* commandOff, bool multithread):

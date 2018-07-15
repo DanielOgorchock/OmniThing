@@ -8,7 +8,6 @@ namespace omni
     class Device : public virtual Triggerable
     {
         private:
-            unsigned short m_nUid;
             bool m_bRun;
             const char* m_Name;
 
@@ -23,7 +22,6 @@ namespace omni
             virtual void run() {}
             virtual void init() {}
 
-            unsigned short getUid() const {return m_nUid;}
             const char* getName() const {return m_Name;}
             bool isRunning() const {return m_bRun;}
             virtual const char* getType() const = 0;
@@ -33,7 +31,7 @@ namespace omni
             virtual void trigger(void* arg);
             void emit(const char* event);
 
-            void parseMisc(const char* json);
+            bool parseMisc(const char* json);
 
     };
 }

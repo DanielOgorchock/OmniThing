@@ -24,7 +24,7 @@ namespace omni
 
         system(m_CommandStr);
     }
-    
+
 //protected
 //public
     CommandExecuter::CommandExecuter(const char* command, bool multithread):

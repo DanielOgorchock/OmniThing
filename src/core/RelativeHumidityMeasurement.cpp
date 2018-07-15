@@ -26,7 +26,8 @@ namespace omni
 
         auto d = new RelativeHumidityMeasurement(*fm);
         delete fm;
-        d->parseMisc(json);
+        if(!d->parseMisc(json))
+            return nullptr;
         return d;
     }
 

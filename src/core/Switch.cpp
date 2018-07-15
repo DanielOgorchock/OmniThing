@@ -15,7 +15,7 @@ namespace omni
         char buffer[100] = "";
         struct json_out out = JSON_OUT_BUF(buffer, sizeof(buffer));
 
-        json_printf(&out, "{uid: %u, type: \"%s\", switch: \"%s\"}", getUid(), getType(), (read()?"on":"off"));
+        json_printf(&out, "{name: \"%s\", type: \"%s\", switch: \"%s\"}", getName(), getType(), (read()?"on":"off"));
 
         LOG << buffer << Logger::endl;
         OmniThing::getInstance().sendJson(buffer);
@@ -58,22 +58,22 @@ namespace omni
     {
         if(!strcmp(cmd, Cmd_Poll))
         {
-            LOG << F("Poll triggered for ") << getType() << F(" ") << getUid() << Logger::endl;
+            LOG << F("Poll triggered for ") << getType() << F(" ") << getName() << Logger::endl;
             sendJsonPacket();
         }
         else if(!strcmp(cmd, Cmd_On))
         {
-            LOG << F("On triggered for ") << getType() << F(" ") << getUid() << Logger::endl;
+            LOG << F("On triggered for ") << getType() << F(" ") << getName() << Logger::endl;
             on();
         }
         else if(!strcmp(cmd, Cmd_Off))
         {
-            LOG << F("Off triggered for ") << getType() << F(" ") << getUid() << Logger::endl;
+            LOG << F("Off triggered for ") << getType() << F(" ") << getName() << Logger::endl;
             off();
         }
         else if(!strcmp(cmd, Cmd_Toggle))
         {
-            LOG << F("Toggle triggered for ") << getType() << F(" ") << getUid() << Logger::endl;
+            LOG << F("Toggle triggered for ") << getType() << F(" ") << getName() << Logger::endl;
             toggle();
         }
 
@@ -111,7 +111,8 @@ namespace omni
         }
 
         auto d = new Switch(*output, invert, initial);
-        d->parseMisc(json);
+        if(!d->parseMisc(json))
+            return nullptr;
         return d;
     }
 

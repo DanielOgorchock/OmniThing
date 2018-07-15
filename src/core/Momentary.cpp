@@ -14,7 +14,7 @@ namespace omni
         char buffer[100] = "";
         struct json_out out = JSON_OUT_BUF(buffer, sizeof(buffer));
 
-        json_printf(&out, "{uid: %u, type: \"%s\", value: \"%s\"}", getUid(), getType(), event);
+        json_printf(&out, "{name: \"%s\", type: \"%s\", value: \"%s\"}", getName(), getType(), event);
 
         LOG << buffer << Logger::endl;
         OmniThing::getInstance().sendJson(buffer);
@@ -44,12 +44,12 @@ namespace omni
     {
         if(!strcmp(cmd, Cmd_Poll))
         {
-            LOG << F("Poll triggered for ") << getType() << F(" ") << getUid() << Logger::endl;
+            LOG << F("Poll triggered for ") << getType() << F(" ") << getName() << Logger::endl;
             sendJsonPacket("polled");
         }
         else if(!strcmp(cmd, Cmd_Push))
         {
-            LOG << F("Push triggered for ") << getType() << F(" ") << getUid() << Logger::endl;
+            LOG << F("Push triggered for ") << getType() << F(" ") << getName() << Logger::endl;
             push();
         }
     }
@@ -86,7 +86,6 @@ namespace omni
         return d;
     }
 
-    
     // commands
     const char* Momentary::Cmd_Poll = "poll";
     const char* Momentary::Cmd_Push = "push";

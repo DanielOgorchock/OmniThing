@@ -13,12 +13,9 @@ namespace omni
 //protected
 //public
     Device::Device(bool run):
-        m_nUid(0),
         m_bRun(run),
         m_Name(EmptyString)
     {
-        static unsigned short nextUid = 0;
-        m_nUid = nextUid++;
     }
 
     Device::~Device()
@@ -33,21 +30,33 @@ namespace omni
 
     void Device::emit(const char* event)
     {
-        LOG << F("emitting event=") << event << F(" deviceUID=") << getUid() << Logger::endl;
+        LOG << F("emitting event=") << event << F(" deviceName=") << getName() << Logger::endl;
         OmniThing::getInstance().addEvent(getName(), event);
     }
 
-    void Device::parseMisc(const char* json)
+    bool Device::parseMisc(const char* json)
     {
         auto& omnithing = OmniThing::getInstance();
         unsigned int len = strlen(json);
 
         json_token t;
 
-        // scanning for optional name
+        // scanning for required name
         if(json_scanf(json, len, "{name: %Q}", &m_Name) == 1)
         {
+            if(strlen(m_Name) > OMNI_MAX_NAME_LENGTH)
+            {
+                LOG << F("ERROR: name=") << m_Name << F(" exceeds max length of ")
+                    << OMNI_MAX_NAME_LENGTH << Logger::endl;
+                delete m_Name;
+                return false;
+            }
             LOG << F("Naming device: ") << m_Name << Logger::endl;
+        }
+        else
+        {
+            LOG << F("ERROR: name is required for device\n");
+            return false;
         }
 
         // scan for triggers
@@ -101,5 +110,7 @@ namespace omni
 
             LOG << F("Successfully added subscription");
         }
+
+        return true;
     }
 }

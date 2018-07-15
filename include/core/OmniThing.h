@@ -106,6 +106,8 @@ namespace omni
             {
             }
     };
+#define OMNI_MAX_NAME_LENGTH            40
+
 #define OMNI_OUTGOING_JSON_BUF_SIZE     400
 #define OMNI_MAX_DEVICES                40
 
@@ -148,7 +150,7 @@ namespace omni
             void initDevices();
             void initScheduler();
             void parseJson(const char* json);
-            Device* findDevice(unsigned int uid);
+            Device* findDevice(const char* name);
 
             void initOutgoingJson();
             void sendOutgoingJson();
@@ -255,7 +257,6 @@ namespace omni
             OutputString*   buildOutputString(json_token& t);
 
             bool loadJsonConfig(const char* json);
-
 
     };
 }

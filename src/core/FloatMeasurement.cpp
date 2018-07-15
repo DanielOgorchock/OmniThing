@@ -15,7 +15,7 @@ namespace omni
         char buffer[100] = "";
         struct json_out out = JSON_OUT_BUF(buffer, sizeof(buffer));
 
-        json_printf(&out, "{uid: %u, type: \"%s\", \"%s\": \"%f\"}", getUid(), getType(), m_Attribute, getFloat());
+        json_printf(&out, "{name: \"%s\", type: \"%s\", \"%s\": \"%f\"}", getName(), getType(), m_Attribute, getFloat());
 
         LOG << buffer << Logger::endl;
         OmniThing::getInstance().sendJson(buffer);
@@ -44,7 +44,7 @@ namespace omni
     {
         if(!strcmp(cmd, Cmd_Poll))
         {
-            LOG << F("Poll triggered for ") << getType() << F(" ") << getUid() << Logger::endl;
+            LOG << F("Poll triggered for ") << getType() << F(" ") << getName() << Logger::endl;
             read();
             sendJsonPacket();
         }

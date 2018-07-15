@@ -11,6 +11,10 @@
 #include "Triggerable.h"
 #include <string.h>
 
+//preprocessor magic for string literal stuff
+#define S_(x) #x
+#define S(x) S_(x)
+
 namespace omni
 {
 //private
@@ -97,7 +101,7 @@ namespace omni
         for(unsigned int i = 0; i < m_Devices.getCount(); ++i)
         {
             auto d = m_Devices[i];
-            LOG << F("\tuid=") << d->getUid() << F(" type=") << d->getType() << F("\n");
+            LOG << F("\tname=") << d->getName() << F(" type=") << d->getType() << F("\n");
         }
 
         LOG << F("\n############# TRIGGERS ##############\n");
@@ -115,7 +119,6 @@ namespace omni
             auto& t = m_Subscriptions[i];
             LOG << F("\tsource=")  << t.event.src
                 << F(" event=")    << t.event.event
-                << F(" sub_uid=")  << t.subscriber->getUid()
                 << F(" sub_name=") << t.subscriber->getName()
                 << F(" cmd=")      << t.cmd
                 << Logger::endl;
@@ -184,7 +187,7 @@ namespace omni
                 if(s.event == e)
                 {
                     LOG << F("event source=") << e.src << F(" type=") << e.event;
-                    LOG << F(" triggered subscription: sub_uid=") << s.subscriber->getUid();
+                    LOG << F(" triggered subscription:");
                     LOG << F(" sub_type=") << s.subscriber->getType() <<
                            F(" sub_name=") << s.subscriber->getName() << F(" cmd=") << s.cmd << Logger::endl;
 
@@ -225,20 +228,22 @@ namespace omni
 
     void OmniThing::parseJson(const char* json)
     {
-        unsigned int uid;
+        char name[OMNI_MAX_NAME_LENGTH + 1];
+        name[0] = '\0';
         char cmd[24];
 
-        int res = json_scanf(json, strlen(json), "{uid:%u, cmd:%s}", &uid, cmd);
+        int res = json_scanf(json, strlen(json), "{name:%" S(OMNI_MAX_NAME_LENGTH) "s, cmd:%s}", name, cmd);
         if(res != 2)
         {
             LOG << F("problem scanning err=") << res << F(" : ") << json << Logger::endl;
             return;
         }
+        name[OMNI_MAX_NAME_LENGTH] = 0; //just in case
 
-        Device* d = findDevice(uid);
+        Device* d = findDevice(name);
         if(!d)
         {
-            LOG << F("No device found with uid=") << uid << Logger::endl;
+            LOG << F("No device found with name=") << name << Logger::endl;
         }
         else
         {
@@ -246,12 +251,12 @@ namespace omni
         }
     }
 
-    Device* OmniThing::findDevice(unsigned int uid)
+    Device* OmniThing::findDevice(const char* name)
     {
         for(unsigned int i = 0; i < m_Devices.getCount(); ++i)
         {
             Device* d = m_Devices[i];
-            if(d->getUid() == uid)
+            if(!strcmp(d->getName(), name))
                 return d;
         }
 
@@ -389,7 +394,7 @@ namespace omni
             return true;
         else
         {
-            LOG << F("Failed to add device uid=") << dev->getUid() << F(" type=") << dev->getType() << F("\n");
+            LOG << F("Failed to add device name=") << dev->getName() << F(" type=") << dev->getType() << F("\n");
             return false;
         }
     }
@@ -974,5 +979,4 @@ namespace omni
             return false;
         return (!strcmp(l.src, r.src)) && (!strcmp(l.event, r.event));
     }
-
 }
