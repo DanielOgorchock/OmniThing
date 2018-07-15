@@ -17,14 +17,14 @@ namespace omni
         return ( ( (int) h ) << 8 ) | l;
     }
 
-    int DhtReader::_readSensor(uint8_t wakeupDelay)
+    int DhtReader::_readSensor(unsigned char wakeupDelay)
     {
         // INIT BUFFERVAR TO RECEIVE DATA
-        uint8_t mask = 128;
-        uint8_t idx = 0;
+        unsigned char mask = 128;
+        unsigned char idx = 0;
 
         // EMPTY BUFFER
-        for (uint8_t i = 0; i < 5; i++) bits[i] = 0;
+        for (unsigned char i = 0; i < 5; i++) bits[i] = 0;
 
         // REQUEST SAMPLE
         outputPin->writeBool(false);
@@ -47,7 +47,7 @@ namespace omni
         }
 
         // READ THE OUTPUT - 40 BITS => 5 BYTES
-        for (uint8_t i = 40; i != 0; i--)
+        for (unsigned char i = 40; i != 0; i--)
         {
             timer = getMicros();
             while(inputPin->readBool() == false)
@@ -94,7 +94,7 @@ namespace omni
         temperature = bits[2];  // bits[3] == 0;
 
         // TEST CHECKSUM
-        uint8_t sum = bits[0] + bits[1] + bits[2] + bits[3];
+        unsigned char sum = bits[0] + bits[1] + bits[2] + bits[3];
         if (bits[4] != sum)
         {
           return DHTLIB_ERROR_CHECKSUM;
@@ -122,7 +122,7 @@ namespace omni
         }
 
         // TEST CHECKSUM
-        uint8_t sum = bits[0] + bits[1] + bits[2] + bits[3];
+        unsigned char sum = bits[0] + bits[1] + bits[2] + bits[3];
         if (bits[4] != sum)
         {
             return DHTLIB_ERROR_CHECKSUM;
