@@ -14,7 +14,7 @@ namespace omni
 {
     class ServoArduino : public OutputFloat
     {
-        private:        
+        private:
             Servo m_Servo;
             unsigned short m_nPin;
             float m_fInitial;
@@ -22,14 +22,16 @@ namespace omni
             unsigned long m_nRevertTime;
             bool m_bShutoff;
             unsigned long m_nShutoffTime;
+            bool m_bNoStartup;
 
             void writeFloatNoRevert(float percent);
 
             static char* Cmd_Detach;
             static char* Cmd_Revert;
+            static char* Cmd_Startup;
         protected:
         public:
-            ServoArduino(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime, bool shutoff, unsigned long shutoffTime);
+            ServoArduino(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime, bool shutoff, unsigned long shutoffTime, bool noStartup);
             virtual ~ServoArduino();
 
             virtual void writeFloat(float percent);

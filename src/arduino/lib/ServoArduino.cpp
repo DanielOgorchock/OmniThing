@@ -9,6 +9,9 @@ namespace omni
 //private
     void ServoArduino::writeFloatNoRevert(float percent)
     {
+        if(m_bNoStartup)
+            return;
+
         m_Servo.attach(m_nPin);
         if(percent < 0.f)
             percent = 0;
@@ -25,21 +28,23 @@ namespace omni
         }
     }
 
-    char* ServoArduino::Cmd_Detach = "detach";
-    char* ServoArduino::Cmd_Revert = "revert";
+    char* ServoArduino::Cmd_Detach  = "detach";
+    char* ServoArduino::Cmd_Revert  = "revert";
+    char* ServoArduino::Cmd_Startup = "startup";
 //protected
 //public
-    ServoArduino::ServoArduino(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime, bool shutoff, unsigned long shutoffTime) :
+    ServoArduino::ServoArduino(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime, bool shutoff, unsigned long shutoffTime, bool noStartup) :
         m_Servo(),
         m_nPin(pin),
         m_fInitial(initialPercent),
         m_bRevert(revert),
         m_nRevertTime(revertTime),
         m_bShutoff(shutoff),
-        m_nShutoffTime(shutoffTime)
+        m_nShutoffTime(shutoffTime),
+        m_bNoStartup(noStartup)
     {
-        m_Servo.attach(pin);
         writeFloat(initialPercent);
+        OmniThing::getInstance().addTrigger(this, 0, Cmd_Startup, false);
     }
 
     ServoArduino::~ServoArduino()
@@ -49,6 +54,8 @@ namespace omni
 
     void ServoArduino::writeFloat(float percent)
     {
+        if(m_bNoStartup)
+            return;
         writeFloatNoRevert(percent);
 
         if(m_bRevert) // set up revert trigger
@@ -60,14 +67,18 @@ namespace omni
     void ServoArduino::trigger(void* arg)
     {
         char* cmd = static_cast<char*>(arg);
-        
+
         if(!strcmp(cmd, Cmd_Detach))
         {
             m_Servo.detach();
         }
         else if(!strcmp(cmd, Cmd_Revert))
         {
-            writeFloatNoRevert(m_fInitial);     
+            writeFloatNoRevert(m_fInitial);
+        }
+        else if(!strcmp(cmd, Cmd_Startup))
+        {
+            m_bNoStartup = false;
         }
     }
 
@@ -80,12 +91,13 @@ namespace omni
         unsigned long revertTime = 0;
         bool shutoff = false;
         unsigned long shutoffTime = 0;
+        bool noStartup = false;
 
         if(json_scanf(json, len, "{pin: %u}", &pin) != 1)
         {
             return nullptr;
         }
-                
+
         if(json_scanf(json, len, "{revertTime: %lu}", &revertTime) == 1) // optional param
         {
             revert = true;
@@ -97,8 +109,9 @@ namespace omni
         }
 
         json_scanf(json, len, "{initialPercent: %f}", &initialPercent); // optional param
+        json_scanf(json, len, "{noStartup: %B}", &noStartup);
 
-        return new ServoArduino(pin, initialPercent, revert, revertTime, shutoff, shutoffTime);
+        return new ServoArduino(pin, initialPercent, revert, revertTime, shutoff, shutoffTime, noStartup);
     }
 
     const char* ServoArduino::Type = "ServoArduino";
