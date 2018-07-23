@@ -29,7 +29,7 @@
                     "noStartup": true,
                     "minPulse": 1000,
                     "maxPulse": 2000,
-                    "shutoffTime": 350
+                    "shutoffTime": 1000
                 }
              }, 
             "invert":   false, 
