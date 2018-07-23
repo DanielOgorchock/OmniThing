@@ -50,11 +50,7 @@ namespace omni
     void ServoMotor::writePulse(unsigned long pulseWidth)
     {
     #ifndef OMNI_NOT_ARDUINO
-        /* This seems really stupid to convert to an angle instead of using a Servo.writeMicroseconds() call,
-         * but for some reason Servo.write() appears to result in considerably more torque.
-         */
-        unsigned int angle = (pulseWidth - m_nMinPulse) / (float)(m_nMaxPulse - m_nMinPulse) * 180;
-        m_Servo.write(angle);
+        m_Servo.writeMicroseconds(pulseWidth);
     #elif defined(OMNI_PLAT_RPI)
         int ret = gpioServo(m_nPin, pulseWidth);
         if(ret)
@@ -78,7 +74,9 @@ namespace omni
         m_nMinPulse(minPulse),
         m_nMaxPulse(maxPulse),
         m_nShutoffId(0),
-        m_nRevertId(0)
+        m_nShutoffIdTriggers(0),
+        m_nRevertId(0),
+        m_nRevertIdTriggers(0)
     {
         writeFloat(initialPercent);
         OmniThing::getInstance().addTrigger(this, 0, Cmd_Startup, false);
@@ -108,8 +106,7 @@ namespace omni
 
         if(!strcmp(cmd, Cmd_Detach))
         {
-            static unsigned int shutoffId = 0;
-            if(++shutoffId == m_nShutoffId)
+            if(++m_nShutoffIdTriggers == m_nShutoffId)
             {
                 LOG << F("Servo shutoff triggered\n");
                 detach();
@@ -119,8 +116,7 @@ namespace omni
         }
         else if(!strcmp(cmd, Cmd_Revert))
         {
-            static unsigned int revertId = 0;
-            if(++revertId == m_nRevertId)
+            if(++m_nRevertIdTriggers == m_nRevertId)
             {
                 LOG << F("Servo revert triggered\n");
                 writeFloatNoRevert(m_fInitial);
@@ -145,8 +141,8 @@ namespace omni
         unsigned long shutoffTime = 0;
         bool noStartup = false;
 
-        unsigned long minPulse = 1000;
-        unsigned long maxPulse = 2000;
+        unsigned long minPulse = 544;
+        unsigned long maxPulse = 2400;
 
         if(json_scanf(json, len, "{pin: %u}", &pin) != 1)
         {

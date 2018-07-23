@@ -27,8 +27,6 @@
                     "revertTime": 500,
                     "initialPercent": 50,
                     "noStartup": true,
-                    "minPulse": 1000,
-                    "maxPulse": 2000,
                     "shutoffTime": 1000
                 }
              }, 

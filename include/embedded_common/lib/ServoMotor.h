@@ -32,7 +32,9 @@ namespace omni
             unsigned long m_nMinPulse;
             unsigned long m_nMaxPulse;
             unsigned int m_nShutoffId;
+            unsigned int m_nShutoffIdTriggers;
             unsigned int m_nRevertId;
+            unsigned int m_nRevertIdTriggers;
 
             void writeFloatNoRevert(float percent);
             void attach();
