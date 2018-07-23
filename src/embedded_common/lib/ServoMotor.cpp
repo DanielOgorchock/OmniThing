@@ -77,7 +77,8 @@ namespace omni
         m_bNoStartup(noStartup),
         m_nMinPulse(minPulse),
         m_nMaxPulse(maxPulse),
-        m_nShutoffId(0)
+        m_nShutoffId(0),
+        m_nRevertId(0)
     {
         writeFloat(initialPercent);
         OmniThing::getInstance().addTrigger(this, 0, Cmd_Startup, false);
@@ -96,6 +97,7 @@ namespace omni
 
         if(m_bRevert) // set up revert trigger
         {
+            ++m_nRevertId;
             OmniThing::getInstance().addTrigger(this, m_nRevertTime, Cmd_Revert, false);
         }
     }
@@ -117,7 +119,14 @@ namespace omni
         }
         else if(!strcmp(cmd, Cmd_Revert))
         {
-            writeFloatNoRevert(m_fInitial);
+            static unsigned int revertId = 0;
+            if(++revertId == m_nRevertId)
+            {
+                LOG << F("Servo revert triggered\n");
+                writeFloatNoRevert(m_fInitial);
+            }
+            else
+                LOG << F("Other revert events in progress\n");
         }
         else if(!strcmp(cmd, Cmd_Startup))
         {
