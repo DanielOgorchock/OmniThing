@@ -1,21 +1,25 @@
-#ifndef OMNI_SERVOARDUINO_H
-#define OMNI_SERVOARDUINO_H
+#ifndef OMNI_SERVOMOTOR_H
+#define OMNI_SERVOMOTOR_H
 
 #include "OutputFloat.h"
 #include "ObjectConfig.h"
 
 #ifndef ARDUINO_ARCH_ESP32
     #include <Servo.h>
+#elif defined(OMNI_PLAT_RPI)
+    #include <pigpio.h>
 #else
     #include "ESP32_Servo.h"
 #endif
 
 namespace omni
 {
-    class ServoArduino : public OutputFloat
+    class ServoMotor : public OutputFloat
     {
         private:
+        #ifndef OMNI_NOT_ARDUINO
             Servo m_Servo;
+        #endif
             unsigned short m_nPin;
             float m_fInitial;
             bool m_bRevert;
@@ -23,16 +27,21 @@ namespace omni
             bool m_bShutoff;
             unsigned long m_nShutoffTime;
             bool m_bNoStartup;
+            unsigned long m_nMinPulse;
+            unsigned long m_nMaxPulse;
 
             void writeFloatNoRevert(float percent);
+            void attach();
+            void detach();
+            void writePulse(unsigned long pulseWidth);
 
             static char* Cmd_Detach;
             static char* Cmd_Revert;
             static char* Cmd_Startup;
         protected:
         public:
-            ServoArduino(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime, bool shutoff, unsigned long shutoffTime, bool noStartup);
-            virtual ~ServoArduino();
+            ServoMotor(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime, bool shutoff, unsigned long shutoffTime, bool noStartup, unsigned long minPulse, unsigned long maxPulse);
+            virtual ~ServoMotor();
 
             virtual void writeFloat(float percent);
 
