@@ -41,7 +41,9 @@ namespace omni
     #ifndef OMNI_NOT_ARDUINO
         m_Servo.detach();
     #elif defined(OMNI_PLAT_RPI)
-        gpioServo(m_nPin, 0);
+        int ret = gpioServo(m_nPin, 0);
+        if(ret)
+            LOG << F("ERROR detaching servo\n");
     #endif
     }
 
@@ -54,7 +56,9 @@ namespace omni
         unsigned int angle = (pulseWidth - m_nMinPulse) / (float)(m_nMaxPulse - m_nMinPulse) * 180;
         m_Servo.write(angle);
     #elif defined(OMNI_PLAT_RPI)
-        gpioServo(m_nPin, pulseWidth);
+        int ret = gpioServo(m_nPin, pulseWidth);
+        if(ret)
+            LOG << F("ERROR writing to servo\n");
     #endif
     }
 
