@@ -31,6 +31,7 @@ namespace omni
             bool m_bNoStartup;
             unsigned long m_nMinPulse;
             unsigned long m_nMaxPulse;
+            unsigned int m_nShutoffId;
 
             void writeFloatNoRevert(float percent);
             void attach();

@@ -24,6 +24,7 @@ namespace omni
 
         if(m_bShutoff)
         {
+            ++m_nShutoffId;
             OmniThing::getInstance().addTrigger(this, m_nShutoffTime, Cmd_Detach, false);
         }
     }
@@ -71,7 +72,8 @@ namespace omni
         m_nShutoffTime(shutoffTime),
         m_bNoStartup(noStartup),
         m_nMinPulse(minPulse),
-        m_nMaxPulse(maxPulse)
+        m_nMaxPulse(maxPulse),
+        m_nShutoffId(0)
     {
         writeFloat(initialPercent);
         OmniThing::getInstance().addTrigger(this, 0, Cmd_Startup, false);
@@ -100,7 +102,9 @@ namespace omni
 
         if(!strcmp(cmd, Cmd_Detach))
         {
-            detach();
+            static unsigned int shutoffId = 0;
+            if(++shutoffId == m_nShutoffId)
+                detach();
         }
         else if(!strcmp(cmd, Cmd_Revert))
         {
