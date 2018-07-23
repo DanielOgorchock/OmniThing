@@ -10,6 +10,33 @@
     "Devices": [
         {   
             "type": "Switch", 
+            "name": "testServo",
+            "triggers": [
+                {"interval": 12000, "command": "poll"}
+            ],
+            "subscriptions": [
+                {"source": "testContact", "event": "changed", "command": "toggle"}
+            ],
+            "output": {
+                "type":     "OutputBoolToFloat",
+                "trueVal":  100,
+                "falseVal": 0,
+                "output": {
+                    "type": "ServoMotor",
+                    "pin": 27,
+                    "revertTime": 500,
+                    "initialPercent": 50,
+                    "noStartup": true,
+                    "minPulse": 1000,
+                    "maxPulse": 2000,
+                    "shutoffTime": 350
+                }
+             }, 
+            "invert":   false, 
+            "initial":  true
+        },
+        {   
+            "type": "Switch", 
             "name": "testSwitch",
             "triggers": [
                 {"interval": 12000, "command": "poll"}
