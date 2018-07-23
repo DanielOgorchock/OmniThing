@@ -108,6 +108,8 @@ namespace omni
         {
             static unsigned int shutoffId = 0;
             if(++shutoffId == m_nShutoffId)
+            {
+                LOG << F("Servo: ") << getName() << F(" shutoff triggered\n");
                 detach();
         }
         else if(!strcmp(cmd, Cmd_Revert))
