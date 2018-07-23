@@ -112,6 +112,8 @@ namespace omni
                 LOG << F("Servo shutoff triggered\n");
                 detach();
             }
+            else
+                LOG << F("Other shutoff events in progress\n");
         }
         else if(!strcmp(cmd, Cmd_Revert))
         {
