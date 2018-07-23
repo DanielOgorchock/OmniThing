@@ -4,12 +4,14 @@
 #include "OutputFloat.h"
 #include "ObjectConfig.h"
 
-#ifndef ARDUINO_ARCH_ESP32
-    #include <Servo.h>
-#elif defined(OMNI_PLAT_RPI)
+#if defined(OMNI_PLAT_RPI)
     #include <pigpio.h>
-#else
-    #include "ESP32_Servo.h"
+#elif !defined(OMNI_NOT_ARDUINO)
+    #ifndef ARDUINO_ARCH_ESP32
+        #include <Servo.h>
+    #else
+        #include "ESP32_Servo.h"
+    #endif
 #endif
 
 namespace omni
