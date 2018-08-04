@@ -50,6 +50,6 @@ The following list shows the current planned output value types.
   ![alt text](https://user-images.githubusercontent.com/5153370/43681164-0e28798e-9812-11e8-87da-94005a30af2f.png "ESP32")
   
   ### Raspberry Pi
-  Be sure to pay attention to whether you have a raspberry pi with 24 or 40 pins.
+  Be sure to pay attention to whether you have a raspberry pi with 26 or 40 pins.
   ![alt text](https://user-images.githubusercontent.com/5153370/43681179-a30f6328-9812-11e8-978a-ce2b810afd14.png "Raspberry Pi")
   ![alt text](https://user-images.githubusercontent.com/5153370/43681196-e757ed66-9812-11e8-9253-eab34e639ede.png "Raspberry Pi")
