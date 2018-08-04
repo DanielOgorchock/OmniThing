@@ -40,6 +40,33 @@ The following list shows the current output value types.
   * Example: Run a bash command on Linux computer
   * Class: OutputString
   
+### Devices
+The following list shows the current device types. Each of these correspond to a SmartThings child device.
+The supported parameters for the devices are listed here.
+Also listed are the events the device emits and its supported commands.
+* ContactSensor
+  * Parameters
+    * input
+      * description = How the device determines contact (i.e. a gpio input pin)
+      * type = InputBool
+      * required = true
+    * invert
+      * description = Whether to invert open/closed
+      * type = bool
+      * required = true
+    * constantPoll
+      * description = Whether to constantly poll the input source (usually should be true)
+      * type = bool
+      * required = true
+  * Events
+    * open
+    * closed
+    * changed
+  * Commands
+    * poll
+  * Supported Platforms
+    * All
+  
 ## Board Pinouts
   Reference the images below to determine which pin numbers to use for your board.
   
