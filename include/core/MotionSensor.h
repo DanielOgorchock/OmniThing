@@ -1,5 +1,5 @@
-#ifndef OMNI_CONTACTSENSOR_H
-#define OMNI_CONTACTSENSOR_H
+#ifndef OMNI_MOTIONSENSOR_H
+#define OMNI_MOTIONSENSOR_H
 
 #include "Device.h"
 
@@ -7,7 +7,7 @@ namespace omni
 {
     class InputBool;
 
-    class ContactSensor : public Device
+    class MotionSensor : public Device
     {
         private:
             InputBool& m_rInput;
@@ -18,8 +18,8 @@ namespace omni
 
         protected:
         public:
-            ContactSensor(InputBool& input, bool invert = false, bool constantPoll = true);
-            virtual ~ContactSensor();
+            MotionSensor(InputBool& input, bool invert = false, bool constantPoll = true);
+            virtual ~MotionSensor();
 
             virtual void recvJson(const char* cmd, const char* json);
             virtual void run();
@@ -38,8 +38,8 @@ namespace omni
             static const char* Cmd_Poll;
 
             //events
-            static const char* Event_Open;
-            static const char* Event_Closed;
+            static const char* Event_Active;
+            static const char* Event_Inactive;
             static const char* Event_Changed;
 
 

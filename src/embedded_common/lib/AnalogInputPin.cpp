@@ -17,7 +17,7 @@ namespace omni
         m_fMaxVoltage(maxVolt)
     {
 
-    }       
+    }
 
     AnalogInputPin::~AnalogInputPin()
     {
@@ -48,7 +48,7 @@ namespace omni
         LOG << F("ERROR: AnalogInputPin not supported on this platform\n");
         return nullptr;
     #endif
-        
+
     }
 }
 
