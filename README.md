@@ -30,7 +30,8 @@ Goals for Beta:
 * Support for buttons
 * ~~PWM support~~
 * New Devices
-  * SwitchLevel - (dimmable switch)
+  * SwitchLevel
+  * DimmerSwitch
   * DoorControl
 * Provide installable package for raspberry pi, rather than making everyone build from source (can be slow on older pis)
 * Google Home TTS
