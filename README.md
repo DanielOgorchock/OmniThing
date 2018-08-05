@@ -840,7 +840,7 @@ OmniThing uses very little platform-dependent code, so there are only a handful 
 #### Linux-based
 This should be pretty easy. All that really needs to be implemented is the GPIO related stuff (digital input, digital output, analog input, pwm output, servo, etc.), which is nicely abstracted for the most part. Take a look in the raspberry_pi code to see how to add support for GPIO.
 
-### Other
+#### Other
 * Network Receiver
 * Network Sender
 * GPIO Stuff
