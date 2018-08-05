@@ -133,7 +133,7 @@ Now, clone this repository and follow the proper instructions below for your tar
 * Open a terminal and navigate to the cloned repository
 * Run: cmake . -DBUILD_TARGET=rpi
 * Run: make
-* To run OmniThing: ./OmniThing ./path/to/your/config.json
+* To run OmniThing: sudo ./OmniThing ./path/to/your/config.json
 
 ### Linux Computer
 * Open a terminal and navigate to the cloned repository
