@@ -116,8 +116,10 @@ Now, clone this repository and follow the proper instructions below for your tar
 
 ### Arduino (ESP8266/ESP32)
 * Open a terminal and navigate to the cloned repository.
+  * On windows run cmd to open a terminal.
+  * CMake also has a GUI you can use. I haven't used it myself, but it may prove more user friendly to those who don't like messing around in terminals.
 * Run: cmake . -DBUILD_TARGET=arduino -DARDUINO_CONFIG="path/to/your/config.json"
-* NOTE: If you have not yet created a configuration file, look at the Json Configuration documentation lower in the README.
+* NOTE: If you have not yet created a configuration file, look at the Json Configuration documentation lower in the README. Also, take a look at the examples in the example_configs directory.
 * NOTE: Python is required for the above command to work correctly. The json file is converted to a c++ header by a python script.
 * Now, the arduino_build directory should have an OmniThing sketch in it (if everything worked correctly).
 * Open the sketch in the Arduino IDE and build as normal.
