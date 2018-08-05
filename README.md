@@ -40,6 +40,7 @@ The following list shows the current output value types.
   * Example: Run a bash command on Linux computer
   * Class: OutputString
   
+Generating documentation from json
 ### Devices
 * ContactSensor
   * Parameters
