@@ -1,0 +1,49 @@
+[
+    {
+        "type": "InputFloatRef",
+        "parameters": [
+            {
+                "name": "compositeName",
+                "type": "string",
+                "required": true,
+                "description": "Name of the composite peripheral being referenced"
+            },
+            {
+                "name": "paramName",
+                "type": "string",
+                "required": true,
+                "description": "Name of the composite peripheral's float attribute being referenced"
+            }
+        ],
+        "supported_platforms": [
+            "all"
+        ]
+    },
+    {
+        "type": "AnalogInputPinArduino",
+        "parameters": [
+            {
+                "name": "pin",
+                "type": "uint",
+                "required": true,
+                "description": "Which analog input pin to use"
+            },
+            {
+                "name": "minVoltage",
+                "type": "float",
+                "required": true,
+                "description": "Minimum voltage to map to"
+            },
+            {
+                "name": "maxVoltage",
+                "type": "float",
+                "required": true,
+                "description": "Maximum voltage to map to"
+            }
+        ],
+        "supported_platforms": [
+            "arduino"
+        ]
+    }
+]
+

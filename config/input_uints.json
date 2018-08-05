@@ -1,0 +1,24 @@
+[
+    {
+        "type": "InputUIntRef",
+        "parameters": [
+            {
+                "name": "compositeName",
+                "type": "string",
+                "required": true,
+                "description": "Name of the composite peripheral being referenced"
+            },
+            {
+                "name": "paramName",
+                "type": "string",
+                "required": true,
+                "description": "Name of the composite peripheral's uint attribute being referenced"
+            }
+        ],
+        "supported_platforms": [
+            "all"
+        ]
+    }
+]
+
+

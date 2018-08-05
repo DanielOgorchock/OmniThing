@@ -1,0 +1,96 @@
+[
+    {
+        "type": "TimedOutputBool",
+        "parameters": [
+            {
+                "name": "output",
+                "type": "OutputBool",
+                "required": true,
+                "description": "The output bool to turn on for a timed duration"
+            },
+            {
+                "name": "duration",
+                "type": "uint",
+                "required": true,
+                "description": "How long to leave output on before turning back off"
+            }
+        ],
+        "supported_platforms": [
+            "all"
+        ]
+    },
+    {
+        "type": "DigitalOutputPinArduino",
+        "parameters": [
+            {
+                "name": "pin",
+                "type": "uint",
+                "required": "true",
+                "description": "Which pin to use for output"
+            },
+            {
+                "name": "initial",
+                "type": "bool",
+                "required": true,
+                "description": "Initial output value on startup"
+            },
+            {
+                "name": "invert",
+                "type": "bool",
+                "required": true,
+                "description": "Whether or not to invert the pin output"
+            }
+        ],
+        "supported_platforms": [
+            "arduino"
+        ]
+    },
+    {
+        "type": "DigitalOutputPinRaspberryPi",
+        "parameters": [
+            {
+                "name": "pin",
+                "type": "uint",
+                "required": "true",
+                "description": "Which pin to use for output"
+            },
+            {
+                "name": "initial",
+                "type": "bool",
+                "required": true,
+                "description": "Initial output value on startup"
+            },
+            {
+                "name": "invert",
+                "type": "bool",
+                "required": true,
+                "description": "Whether or not to invert the pin output"
+            }
+        ],
+        "supported_platforms": [
+            "rpi"
+        ]
+    },
+    {
+        "type": "CommandExecuter",
+        "parameters": [
+            {
+                "name": "command",
+                "type": "string",
+                "required": true,
+                "description": "The command to run in the shell (i.e. \"echo Hello\")"
+            },
+            {
+                "name": "mulithread",
+                "type": "bool",
+                "required": false,
+                "description": "Set true to run the command in a new thread (NOTE: this is buggy right now)"
+            }
+        ],
+        "supported_platforms": [
+            "linux",
+            "windows",
+            "rpi"
+        ]
+    }
+]

@@ -1,0 +1,79 @@
+[
+    {
+        "type": "InputBoolRef",
+        "parameters": [
+            {
+                "name": "compositeName",
+                "type": "string",
+                "required": true,
+                "description": "Name of the composite peripheral being referenced"
+            },
+            {
+                "name": "paramName",
+                "type": "string",
+                "required": true,
+                "description": "Name of the composite peripheral's bool attribute being referenced"
+            }
+        ],
+        "supported_platforms": [
+            "all"
+        ]
+    },
+    {
+        "type": "DigitalInputPinArduino",
+        "parameters": [
+            {
+                "name": "pin",
+                "type": "uint",
+                "required": true,
+                "description": "Which input pin to use"
+            },
+            {
+                "name": "invert",
+                "type": "bool",
+                "required": true,
+                "description": "Whether or not to invert the pin value"
+            },
+            {
+                "name": "pullup",
+                "type": "bool",
+                "required": true,
+                "description": "Whether or not to enable internal pullup"
+            }
+        ],
+        "supported_platforms": [
+            "arduino"
+        ]
+    },
+    {
+        "type": "DigitalInputPinRaspberryPi",
+        "parameters": [
+            {
+                "name": "pin",
+                "type": "uint",
+                "required": true,
+                "description": "Which input pin to use"
+            },
+            {
+                "name": "invert",
+                "type": "bool",
+                "required": true,
+                "description": "Whether or not to invert the pin value"
+            },
+            {
+                "name": "pinMode",
+                "type": "enum",
+                "enum": [
+                    "Normal",
+                    "Pullup",
+                    "Pulldown"
+                ],
+                "required": true,
+                "description": "Whether or not to enable internal pullup/pulldown"
+            }
+        ],
+        "supported_platforms": [
+            "rpi"
+        ]
+    }
+]

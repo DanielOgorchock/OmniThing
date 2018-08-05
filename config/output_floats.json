@@ -1,0 +1,57 @@
+[
+    {
+        "type": "ServoMotor",
+        "parameters": [
+            {
+                "name": "pin",
+                "type": "uint",
+                "required": true,
+                "description": "Servo control pin"
+            },
+            {
+                "name": "revertTime",
+                "type": "uint",
+                "required": false,
+                "description": "If set, the servo will revert to initial value after given milliseconds"
+            },
+            {
+                "name": "shutoffTime",
+                "type": "uint",
+                "required": false,
+                "description": "If set, the servo will be detached given milliseconds after being set to a new percent"
+            },
+            {
+                "name": "initialPercent",
+                "type": "float",
+                "required": false,
+                "default": "50.0",
+                "description": "Initial percentage at startup"
+            },
+            {
+                "name": "noStartup",
+                "type": "bool",
+                "required": false,
+                "default": false,
+                "description": "If true, the servo will not be initialized at startup"
+            },
+            {
+                "name": "minPulse",
+                "type": "uint",
+                "required": false,
+                "default": 544,
+                "description": "Servo pulse length associated with 0 percent"
+            },
+            {
+                "name": "maxPulse",
+                "type": "uint",
+                "required": false,
+                "default": 2400,
+                "description": "Servo pulse length associated with 100 percent"
+            }
+        ],
+        "supported_platforms": [
+            "rpi",
+            "arduino"
+        ]
+    }
+]
