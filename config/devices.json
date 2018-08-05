@@ -181,6 +181,33 @@
         "supported_platforms": [
             "all"
         ]
+    },
+    {
+        "type": "SwitchLevel",
+        "parameters": [
+            {
+                "name": "output",
+                "type": "OutputFloat",
+                "required": true,
+                "description": "The output device"
+            },
+            {
+                "name": "initial",
+                "type": "float",
+                "required": true,
+                "description": "Initial percent level value (0, 100)"
+            }
+        ],
+        "events": [
+            "changed"
+        ],
+        "commands": [
+            "poll",
+            "setLevel"
+        ],
+        "supported_platforms": [
+            "all"
+        ]
     }
 ]
 

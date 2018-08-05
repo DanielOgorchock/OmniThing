@@ -117,6 +117,23 @@ See below for a list of all parameters for everything in the config file
 * poll
 #### Supported Platforms
 * all
+### SwitchLevel
+#### Parameters
+* output
+  * type: OutputFloat
+  * required: True
+  * description: The output device
+* initial
+  * type: float
+  * required: True
+  * description: Initial percent level value (0, 100)
+#### Events
+* changed
+#### Commands
+* poll
+* setLevel
+#### Supported Platforms
+* all
 ## Composite Peripherals
 ### DhtReader
 #### Parameters
