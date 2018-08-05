@@ -1,7 +1,9 @@
 # OmniThing
-A cross-platform successor to ST_Anything
+**A cross-platform successor to ST_Anything**
 
-ESP8266, ESP32, Raspberry Pi, Linux, Windows
+**ESP8266, ESP32, Raspberry Pi, Linux, Windows**
+
+OmniThing allows you to integrate your computer or microcontroller with SmartThings. Changing functionality is as simple as editing a json configuration file. Take a look at this README to learn how to get started.
 
 ## State of the Project
 OmniThing is currently in Alpha. Please keep in mind that at the time of writing this it has only been used by one person, so any bug reports are appreciated.
