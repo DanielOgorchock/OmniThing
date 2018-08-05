@@ -23,6 +23,7 @@ Goals for Beta:
   * For example: an output type that elegantly controls daemons running on a linux system.
   * Pretty much all functionality is possible right now through the CommandExecuter, but that is not an elegant way to achieve certain tasks.
 * SPI (maybe?)
+* Support for buttons
 * Google Home TTS
   * Could be nice to integrate this directly with OmniThing
 * Open to further suggestions
