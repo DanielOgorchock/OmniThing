@@ -1,7 +1,9 @@
-Generating documentation from json
-### Devices
-* ContactSensor
-  * Parameters
+# Parameter Documentation
+See below for a list of all parameters for everything in the config file
+
+## Devices
+### ContactSensor
+#### Parameters
     * input
       * type: InputBool
       * required: True
@@ -14,29 +16,29 @@ Generating documentation from json
       * type: bool
       * required: True
       * description: Whether to constantly poll the input source (usually should be true)
-  * Events
+#### Events
     * open
     * closed
     * changed
-  * Commands
+#### Commands
     * poll
-  * Supported Platforms
+#### Supported Platforms
     * all
-* Momentary
-  * Parameters
+### Momentary
+#### Parameters
     * output
       * type: OutputVoid
       * required: True
       * description: What the device actuates (i.e. a gpio toggler)
-  * Events
+#### Events
     * pushed
-  * Commands
+#### Commands
     * poll
     * push
-  * Supported Platforms
+#### Supported Platforms
     * all
-* MotionSensor
-  * Parameters
+### MotionSensor
+#### Parameters
     * input
       * type: InputBool
       * required: True
@@ -49,27 +51,27 @@ Generating documentation from json
       * type: bool
       * required: True
       * description: Whether to constantly poll the input source (usually should be true)
-  * Events
+#### Events
     * active
     * inactive
     * changed
-  * Commands
+#### Commands
     * poll
-  * Supported Platforms
+#### Supported Platforms
     * all
-* RelativeHumidityMeasurement
-  * Parameters
+### RelativeHumidityMeasurement
+#### Parameters
     * input
       * type: InputFloat
       * required: True
       * description: How the device determines humidity (i.e. analog input pin)
-  * Events
-  * Commands
+#### Events
+#### Commands
     * poll
-  * Supported Platforms
+#### Supported Platforms
     * all
-* Switch
-  * Parameters
+### Switch
+#### Parameters
     * output
       * type: OutputBool
       * required: True
@@ -82,42 +84,42 @@ Generating documentation from json
       * type: bool
       * required: True
       * description: Initial value to set the switch to at startup
-  * Events
+#### Events
     * on
     * off
     * changed
-  * Commands
+#### Commands
     * poll
     * on
     * off
     * toggle
-  * Supported Platforms
+#### Supported Platforms
     * all
-* TemperatureMeasurement
-  * Parameters
+### TemperatureMeasurement
+#### Parameters
     * input
       * type: InputFloat
       * required: True
       * description: How the device determines temperature (i.e. analog input pin)
-  * Events
-  * Commands
+#### Events
+#### Commands
     * poll
-  * Supported Platforms
+#### Supported Platforms
     * all
-* VoltageMeasurement
-  * Parameters
+### VoltageMeasurement
+#### Parameters
     * input
       * type: InputFloat
       * required: True
       * description: How the device determines voltage (i.e. analog input pin)
-  * Events
-  * Commands
+#### Events
+#### Commands
     * poll
-  * Supported Platforms
+#### Supported Platforms
     * all
-### Composite Peripherals
-* DhtReader
-  * Parameters
+## Composite Peripherals
+### DhtReader
+#### Parameters
     * pin
       * type: uint
       * required: True
@@ -132,12 +134,17 @@ Generating documentation from json
       * required: False
       * default: False
       * description: If you are using a dht11, set this to true
-  * Supported Platforms
+#### Bool Attributes
+#### Float Attributes
+    * temperature
+    * humidity
+#### UInt Attributes
+#### Supported Platforms
     * rpi
     * arduino
-### Network Receivers
-* NetworkManagerEsp32
-  * Parameters
+## Network Receivers
+### NetworkManagerEsp32
+#### Parameters
     * port
       * type: uint
       * required: True
@@ -150,10 +157,10 @@ Generating documentation from json
       * type: string
       * required: False
       * description: Access point password, if not given here, specify for NetworkSender
-  * Supported Platforms
+#### Supported Platforms
     * esp32
-* NetworkManagerEsp8266
-  * Parameters
+### NetworkManagerEsp8266
+#### Parameters
     * port
       * type: uint
       * required: True
@@ -166,10 +173,10 @@ Generating documentation from json
       * type: string
       * required: False
       * description: Access point password, if not given here, specify for NetworkSender
-  * Supported Platforms
+#### Supported Platforms
     * esp8266
-* NetworkReceiverHttpLib
-  * Parameters
+### NetworkReceiverHttpLib
+#### Parameters
     * port
       * type: uint
       * required: True
@@ -178,13 +185,13 @@ Generating documentation from json
       * type: string
       * required: True
       * description: IP for server to listen on (should be this computer's IP)
-  * Supported Platforms
+#### Supported Platforms
     * linux
     * windows
     * rpi
-### Network Senders
-* NetworkManagerEsp32
-  * Parameters
+## Network Senders
+### NetworkManagerEsp32
+#### Parameters
     * port
       * type: uint
       * required: True
@@ -201,10 +208,10 @@ Generating documentation from json
       * type: string
       * required: False
       * description: Access point password, if not given here, specify for NetworkReceiver
-  * Supported Platforms
+#### Supported Platforms
     * esp32
-* NetworkManagerEsp8266
-  * Parameters
+### NetworkManagerEsp8266
+#### Parameters
     * port
       * type: uint
       * required: True
@@ -221,10 +228,10 @@ Generating documentation from json
       * type: string
       * required: False
       * description: Access point password, if not given here, specify for NetworkReceiver
-  * Supported Platforms
+#### Supported Platforms
     * esp8266
-* NetworkSenderHttpLib
-  * Parameters
+### NetworkSenderHttpLib
+#### Parameters
     * ip
       * type: string
       * required: True
@@ -233,13 +240,13 @@ Generating documentation from json
       * type: uint
       * required: True
       * description: Hub's port
-  * Supported Platforms
+#### Supported Platforms
     * linux
     * windows
     * rpi
-### InputBools
-* InputBoolRef
-  * Parameters
+## InputBools
+### InputBoolRef
+#### Parameters
     * compositeName
       * type: string
       * required: True
@@ -248,10 +255,10 @@ Generating documentation from json
       * type: string
       * required: True
       * description: Name of the composite peripheral's bool attribute being referenced
-  * Supported Platforms
+#### Supported Platforms
     * all
-* DigitalInputPinArduino
-  * Parameters
+### DigitalInputPinArduino
+#### Parameters
     * pin
       * type: uint
       * required: True
@@ -264,10 +271,10 @@ Generating documentation from json
       * type: bool
       * required: True
       * description: Whether or not to enable internal pullup
-  * Supported Platforms
+#### Supported Platforms
     * arduino
-* DigitalInputPinRaspberryPi
-  * Parameters
+### DigitalInputPinRaspberryPi
+#### Parameters
     * pin
       * type: uint
       * required: True
@@ -280,11 +287,11 @@ Generating documentation from json
       * type: enum
       * required: True
       * description: Whether or not to enable internal pullup/pulldown
-  * Supported Platforms
+#### Supported Platforms
     * rpi
-### InputFloats
-* InputFloatRef
-  * Parameters
+## InputFloats
+### InputFloatRef
+#### Parameters
     * compositeName
       * type: string
       * required: True
@@ -293,10 +300,10 @@ Generating documentation from json
       * type: string
       * required: True
       * description: Name of the composite peripheral's float attribute being referenced
-  * Supported Platforms
+#### Supported Platforms
     * all
-* AnalogInputPinArduino
-  * Parameters
+### AnalogInputPinArduino
+#### Parameters
     * pin
       * type: uint
       * required: True
@@ -309,11 +316,11 @@ Generating documentation from json
       * type: float
       * required: True
       * description: Maximum voltage to map to
-  * Supported Platforms
+#### Supported Platforms
     * arduino
-### InputUInts
-* InputUIntRef
-  * Parameters
+## InputUInts
+### InputUIntRef
+#### Parameters
     * compositeName
       * type: string
       * required: True
@@ -322,11 +329,11 @@ Generating documentation from json
       * type: string
       * required: True
       * description: Name of the composite peripheral's uint attribute being referenced
-  * Supported Platforms
+#### Supported Platforms
     * all
-### OutputVoids
-* TimedOutputBool
-  * Parameters
+## OutputVoids
+### TimedOutputBool
+#### Parameters
     * output
       * type: OutputBool
       * required: True
@@ -335,10 +342,10 @@ Generating documentation from json
       * type: uint
       * required: True
       * description: How long to leave output on before turning back off
-  * Supported Platforms
+#### Supported Platforms
     * all
-* DigitalOutputPinArduino
-  * Parameters
+### DigitalOutputPinArduino
+#### Parameters
     * pin
       * type: uint
       * required: true
@@ -351,10 +358,10 @@ Generating documentation from json
       * type: bool
       * required: True
       * description: Whether or not to invert the pin output
-  * Supported Platforms
+#### Supported Platforms
     * arduino
-* DigitalOutputPinRaspberryPi
-  * Parameters
+### DigitalOutputPinRaspberryPi
+#### Parameters
     * pin
       * type: uint
       * required: true
@@ -367,10 +374,10 @@ Generating documentation from json
       * type: bool
       * required: True
       * description: Whether or not to invert the pin output
-  * Supported Platforms
+#### Supported Platforms
     * rpi
-* CommandExecuter
-  * Parameters
+### CommandExecuter
+#### Parameters
     * command
       * type: string
       * required: True
@@ -379,13 +386,13 @@ Generating documentation from json
       * type: bool
       * required: False
       * description: Set true to run the command in a new thread (NOTE: this is buggy right now)
-  * Supported Platforms
+#### Supported Platforms
     * linux
     * windows
     * rpi
-### OutputBools
-* OutputBoolToFloat
-  * Parameters
+## OutputBools
+### OutputBoolToFloat
+#### Parameters
     * output
       * type: OutputFloat
       * required: True
@@ -398,10 +405,10 @@ Generating documentation from json
       * type: float
       * required: True
       * description: The float value mapped to false
-  * Supported Platforms
+#### Supported Platforms
     * all
-* DigitalOutputPinArduino
-  * Parameters
+### DigitalOutputPinArduino
+#### Parameters
     * pin
       * type: uint
       * required: true
@@ -414,10 +421,10 @@ Generating documentation from json
       * type: bool
       * required: True
       * description: Whether or not to invert the pin output
-  * Supported Platforms
+#### Supported Platforms
     * arduino
-* DigitalOutputPinRaspberryPi
-  * Parameters
+### DigitalOutputPinRaspberryPi
+#### Parameters
     * pin
       * type: uint
       * required: true
@@ -430,10 +437,10 @@ Generating documentation from json
       * type: bool
       * required: True
       * description: Whether or not to invert the pin output
-  * Supported Platforms
+#### Supported Platforms
     * rpi
-* CommandExecuterSwitch
-  * Parameters
+### CommandExecuterSwitch
+#### Parameters
     * commandOn
       * type: string
       * required: True
@@ -446,13 +453,13 @@ Generating documentation from json
       * type: bool
       * required: False
       * description: Set true to run the command in a new thread (NOTE: this is buggy right now)
-  * Supported Platforms
+#### Supported Platforms
     * linux
     * windows
     * rpi
-### OutputFloats
-* ServoMotor
-  * Parameters
+## OutputFloats
+### ServoMotor
+#### Parameters
     * pin
       * type: uint
       * required: True
@@ -485,8 +492,8 @@ Generating documentation from json
       * required: False
       * default: 2400
       * description: Servo pulse length associated with 100 percent
-  * Supported Platforms
+#### Supported Platforms
     * rpi
     * arduino
-### OutputStrings
+## OutputStrings
 

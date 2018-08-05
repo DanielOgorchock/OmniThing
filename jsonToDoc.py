@@ -9,9 +9,9 @@ def writeElement(element):
         print("ERROR: no type found in element")
         return
 
-    output += "* " + element['type'] + "\n"
+    output += "### " + element['type'] + "\n"
     if "parameters" in element:
-        output += "  * Parameters\n"
+        output += "#### Parameters\n"
         for param in element['parameters']:
             output += "    * " + param['name'] + "\n"
             output += "      * type: " + param['type'] + "\n"
@@ -21,16 +21,31 @@ def writeElement(element):
             output += "      * description: " + param['description'] + "\n"
     
     if "events" in element:
-        output += "  * Events\n"
+        output += "#### Events\n"
         for event in element['events']:
             output += "    * " + event + "\n"
 
     if "commands" in element:
-        output += "  * Commands\n"
+        output += "#### Commands\n"
         for cmd in element['commands']:
             output += "    * " + cmd + "\n"
 
-    output += "  * Supported Platforms\n"
+    if "bools" in element:
+        output += "#### Bool Attributes\n"
+        for attr in element['bools']:
+            output+= "    * " + attr + "\n"
+
+    if "floats" in element:
+        output += "#### Float Attributes\n"
+        for attr in element['floats']:
+            output+= "    * " + attr + "\n"
+
+    if "uints" in element:
+        output += "#### UInt Attributes\n"
+        for attr in element['uints']:
+            output+= "    * " + attr + "\n"
+
+    output += "#### Supported Platforms\n"
     for plat in element['supported_platforms']:
         output += "    * " + plat + "\n"
 
@@ -43,7 +58,9 @@ def writeElements(elements):
 
 output = ""
 
-print("Generating documentation from json")
+
+output += "# Parameter Documentation\n"
+output += "See below for a list of all parameters for everything in the config file\n\n";
 
 json_raw = open('config/devices.json', 'r').read()
 devices = json.loads(json_raw)
@@ -78,37 +95,37 @@ outputFloats = json.loads(json_raw)
 json_raw = open('config/output_strings.json', 'r').read()
 outputStrings = json.loads(json_raw)
 
-output += "### Devices\n"
+output += "## Devices\n"
 writeElements(devices)
 
-output += "### Composite Peripherals\n"
+output += "## Composite Peripherals\n"
 writeElements(compositePeriphs)
 
-output += "### Network Receivers\n"
+output += "## Network Receivers\n"
 writeElements(networkReceivers)
 
-output += "### Network Senders\n"
+output += "## Network Senders\n"
 writeElements(networkSenders)
 
-output += "### InputBools\n"
+output += "## InputBools\n"
 writeElements(inputBools)
 
-output += "### InputFloats\n"
+output += "## InputFloats\n"
 writeElements(inputFloats)
 
-output += "### InputUInts\n"
+output += "## InputUInts\n"
 writeElements(inputUInts)
 
-output += "### OutputVoids\n"
+output += "## OutputVoids\n"
 writeElements(outputVoids)
 
-output += "### OutputBools\n"
+output += "## OutputBools\n"
 writeElements(outputBools)
 
-output += "### OutputFloats\n"
+output += "## OutputFloats\n"
 writeElements(outputFloats)
 
-output += "### OutputStrings\n"
+output += "## OutputStrings\n"
 writeElements(outputStrings)
 
 print(output)
