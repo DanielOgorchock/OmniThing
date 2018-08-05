@@ -779,6 +779,8 @@ Every Device (NOTE: just the devices, not the various inputs/outputs, composites
 NONE YET
 
 ## Contributing to OmniThing
+NOTE: Before you read further, I apologize to the current state of documentation within the project's source files (as in, there basically is none). Hopefully it will be improved in the future. At least the directory structure is fairly straight-forward.
+
 OmniThing's modularity makes it pretty easy to add funcionality. If you intend to add something to OmniThing, it is important to keep a few things in mind:
 
 ### Only Add Devices if Required
@@ -800,9 +802,27 @@ Try to avoid using platform specific code. OmniThing has many abstractions to ai
 * If you need to use GPIOs, use the ones found in embedded_common if possible. This will work on both arduino and raspberry pi.
   * The DhtReader class is a good example for abstracted GPIO usage.
 
+Also, try not to use String classes unless your code is only ever intended to work on a particular platform. If you want it to run on everything, use good old c strings.
+
 ### Update Config
 Add your new Device/CompositePeriph/Input/Output/etc to the appropriate json file in the config directory.
 
 ### Follow Device Naming Scheme
 If your are adding a device (Note: Device, not input/output/compositePeriph) that pretty directly corresponds to a capability in the SmartThings [documentation](https://docs.smartthings.com/en/latest/capabilities-reference.html), please name it after its name there (just like the rest of the current devices).
   
+### Avoid Dynamic Memory Allocation
+Since OmniThing runs on embedded systems, limit dynamic memory allocation to initialization only if possible (for example: when parsing json configuration). This makes OmniThing stable and less prone to memory leaks and heap fragmentation.
+  
+### Adding Support for a New Platform
+The following is a general checklist for adding a new platform to OmniThing.
+
+OmniThing uses very little platform-dependent code, so there are only a handful of things that need to be implemented for a new platform.
+
+#### Linux-based
+This should be pretty easy. All that really needs to be implemented is the GPIO related stuff (digital input, digital output, analog input, pwm output, servo, etc.), which is nicely abstracted for the most part. Take a look in the raspberry_pi code to see how to add support for GPIO.
+
+### Other
+* Network Receiver
+* Network Sender
+* GPIO Stuff
+* Good luck
