@@ -7,6 +7,18 @@ One of the biggest limitations of the ST_Anything library is that its devices ar
 
 An example of the potential benefits of using a capability-based architecture can be seen in the following hypothetical device: an auto-irrigation controller. Such a device would need to collect soil moisture readings and react accordingly by opening a water valve when the soil is too dry. There are myriad moisture sensors, and likely even more ways to control the flow of water. With *capabilities*, the auto-irrigation controller could simply be composed of a numerical value reader (to get moisture levels) and an actuator (to provide water flow). The specifics of what components are being used are abstracted, making the irrigation device far more flexible out of the box.
 
+### Devices
+Devices correspond to actual SmartThings devices (they will show up in the phone app).
+
+### Composite Peripherals
+Composite Peripherals provide interfaces to sensors/actuators that are composed of multiple attributes. A perfect example is a DHT22, which provides both temperature and humidity. A TemperatureMeasurement device can reference the temperature attribute of a DHT22 Composite Peripheral. A RelativeHumidityMeasurement can do likewise with humidity.
+
+### Network Receivers
+Network Receivers are how OmniThing receives HTTP messages from the hub.
+
+### Network Senders
+Network Senders are how OmniThing sends HTTP messages to a home automation platform (i.e. SmartThings, Hubitat).
+
 ### Input Value Types
 The following list shows the current input value types.
 * Bool
@@ -40,6 +52,51 @@ The following list shows the current output value types.
   * Example: Run a bash command on Linux computer
   * Class: OutputString
   
+## Build Instructions
+### Prerequisites
+* CMake is required to build OmniThing.
+  * Windows: [Download Here](https://cmake.org/download/)
+  * Raspberry Pi: sudo apt-get install cmake
+* If you are building for a Raspberry Pi, OmniThing is dependent on the [pigpio library](http://abyz.me.uk/rpi/pigpio/download.html)
+* If you are building for Arduino (ESP8266/ESP32), the OmniThing build process requires Python to be installed.
+* Arduino also obviously requires the Arduino IDE.
+* If you are building for Linux, gcc is required.
+* If you are building for Windows (to actually run on windows, not to build for Arduino), download [Visual Studio](https://visualstudio.microsoft.com/vs/community/)
+  * Note: Be sure to select the CMake integration when installing.
+
+Now, clone this repository and follow the proper instructions below for your target platform.
+
+### Arduino (ESP8266/ESP32)
+* Open a terminal and navigate to the cloned repository.
+* Run: cmake . -DBUILD_TARGET=arduino -DARDUINO_CONFIG="path/to/your/config.json"
+* NOTE: If you have not yet created a configuration file, look at the Json Configuration documentation lower in the README.
+* NOTE: Python is required for the above command to work correctly. The json file is converted to a c++ header by a python script.
+* Now, the arduino_build directory should have an OmniThing sketch in it (if everything worked correctly).
+* Open the sketch in the Arduino IDE and build as normal.
+
+### Raspberry Pi
+* Open a terminal and navigate to the cloned repository
+* Run: cmake . -DBUILD_TARGET=rpi
+* Run: make
+* To run OmniThing: ./OmniThing ./path/to/your/config.json
+
+### Linux Computer
+* Open a terminal and navigate to the cloned repository
+* Run: cmake . -DBUILD_TARGET=linux
+* Run: make
+* To run OmniThing: ./OmniThing ./path/to/your/config.json
+
+### Windows Computer
+* Open Visual Studio.
+* Select open folder, and select this repository's folder.
+* You should be able to build using Visual Studio's built-in CMake integration.
+
+## SmartThings Setup
+TODO: Add this. Basically identical to the ST_Anything steps though, so look at those for now.
+
+## Hubitat Setup
+TODO: Actually make the parent device handler support Hubitat
+  
 ## Board Pinouts
   Reference the images below to determine which pin numbers to use for your board.
   Note: Use the numbers following the "GPIO" labels for the ESPs, not the absolute pin position.
@@ -55,11 +112,14 @@ The following list shows the current output value types.
   ![alt text](https://user-images.githubusercontent.com/5153370/43681179-a30f6328-9812-11e8-978a-ce2b810afd14.png "Raspberry Pi")
   ![alt text](https://user-images.githubusercontent.com/5153370/43681196-e757ed66-9812-11e8-9253-eab34e639ede.png "Raspberry Pi")
 
+
 ## Json Parameter Documentation
 Below is the documentation for everything configured in the json file.
 
 ### Empty Json File
 This is the barebones framework for the config file.
+
+Example configuration files can be found in the example_configs directory.
 ```json
 {
     "NetworkReceiver": {
