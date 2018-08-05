@@ -220,7 +220,7 @@ namespace omni
             return nullptr;
         }
 
-        json_scanf(json, len, "{dht22: %B}", &dht11);
+        json_scanf(json, len, "{dht11: %B}", &dht11);
         json_scanf(json, len, "{pullup: %B}", &pullup);
 
         return new DhtReader(name, pin, dht11, pullup);
