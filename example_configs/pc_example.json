@@ -7,41 +7,8 @@
 
     ],
 
-    "InputBools": [
-
-    ],
-
-    "InputFloats": [
-
-    ],
-
-    "InputUInts": [
-
-    ],
-
-    "OutputVoids": [
-
-    ],
-
-    "OutputBools": [
-
-    ],
-
-    "OutputFloats": [
-
-    ],
-
-    "OutputStrings": [
-
-    ],
-
     "Devices": [
 
-    ],
-
-    "Triggers": [
-
     ]
-
 }
 
