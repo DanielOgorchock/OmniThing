@@ -24,6 +24,7 @@ Goals for Beta:
   * Pretty much all functionality is possible right now through the CommandExecuter, but that is not an elegant way to achieve certain tasks.
 * SPI (maybe?)
 * Support for buttons
+* Provide installable package for raspberry pi, rather than making everyone build from source (can be slow on older pis)
 * Google Home TTS
   * Could be nice to integrate this directly with OmniThing
 * Open to further suggestions
@@ -90,6 +91,7 @@ The following list shows the current output value types.
   * Windows: [Download Here](https://cmake.org/download/)
   * Raspberry Pi: sudo apt-get install cmake
 * If you are building for a Raspberry Pi, OmniThing is dependent on the [pigpio library](http://abyz.me.uk/rpi/pigpio/download.html)
+  * If running raspbian, I think you can just 'sudo apt-get install pigpio', but I'm not running raspbian so I don't know for sure.
 * If you are building for Arduino (ESP8266/ESP32), the OmniThing build process requires Python to be installed.
 * Arduino also obviously requires the Arduino IDE.
 * If you are building for Linux, gcc is required.
