@@ -1,0 +1,185 @@
+[
+    {
+        "type": "ContactSensor",
+        "parameters": [
+            {
+                "name": "input",
+                "type": "InputBool",
+                "required": true,
+                "description": "How the device determines contact (i.e. a gpio input pin)"
+            },
+            {
+                "name": "invert",
+                "type": "bool",
+                "required": true,
+                "description": "Whether to invert open/closed"
+            },
+            {
+                "name": "constantPoll",
+                "type": "bool",
+                "required": true,
+                "description": "Whether to constantly poll the input source (usually should be true)"
+            }
+        ],
+        "events": [
+            "open",
+            "closed",
+            "changed"
+        ],
+        "commands": [
+            "poll"
+        ],
+        "supported_platforms": [
+            "all"
+        ]
+    },
+    {
+        "type": "Momentary",
+        "parameters": [
+            {
+                "name": "output",
+                "type": "OutputVoid",
+                "required": true,
+                "description": "What the device actuates (i.e. a gpio toggler)"
+            }        
+        ],
+        "events": [
+            "pushed"
+        ],
+        "commands": [
+            "poll",
+            "push"
+        ],
+        "supported_platforms": [
+            "all"
+        ]
+    },
+    {
+        "type": "MotionSensor",
+        "parameters": [
+            {
+                "name": "input",
+                "type": "InputBool",
+                "required": true,
+                "description": "How the device determines motion (i.e. a gpio input pin)"
+            },
+            {
+                "name": "invert",
+                "type": "bool",
+                "required": true,
+                "description": "Whether to invert active/inactive"
+            },
+            {
+                "name": "constantPoll",
+                "type": "bool",
+                "required": true,
+                "description": "Whether to constantly poll the input source (usually should be true)"
+            }
+        ],
+        "events": [
+            "active",
+            "inactive",
+            "changed"
+        ],
+        "commands": [
+            "poll"
+        ],
+        "supported_platforms": [
+            "all"
+        ]
+    },
+    {
+        "type": "RelativeHumidityMeasurement",
+        "parameters": [
+            {
+                "name": "input",
+                "type": "InputFloat",
+                "required": true,
+                "description": "How the device determines humidity (i.e. analog input pin)"
+            }
+        ],
+        "events": [
+        ],
+        "commands": [
+            "poll"
+        ],
+        "supported_platforms": [
+            "all"
+        ]
+    },
+    {
+        "type": "Switch",
+        "parameters": [
+            {
+                "name": "output",
+                "type": "OutputBool",
+                "required": true,
+                "description": "What the device sets to true/false (i.e. digital output pin)"
+            },
+            {
+                "name": "invert",
+                "type": "bool",
+                "required": true,
+                "description": "Whether or not to invert output"
+            },
+            {
+                "name": "initial",
+                "type": "bool",
+                "required": true,
+                "description": "Initial value to set the switch to at startup"
+            }
+        ],
+        "events": [
+            "on",
+            "off",
+            "changed"
+        ],
+        "commands": [
+            "poll",
+            "on",
+            "off",
+            "toggle"
+        ]
+    },
+    {
+        "type": "TemperatureMeasurement",
+        "parameters": [
+            {
+                "name": "input",
+                "type": "InputFloat",
+                "required": true,
+                "description": "How the device determines temperature (i.e. analog input pin)"
+            }
+        ],
+        "events": [
+        ],
+        "commands": [
+            "poll"
+        ],
+        "supported_platforms": [
+            "all"
+        ]
+    },
+    {
+        "type": "VoltageMeasurement",
+        "parameters": [
+            {
+                "name": "input",
+                "type": "InputFloat",
+                "required": true,
+                "description": "How the device determines voltage (i.e. analog input pin)"
+            }
+        ],
+        "events": [
+        ],
+        "commands": [
+            "poll"
+        ],
+        "supported_platforms": [
+            "all"
+        ]
+    }
+]
+
+
+

@@ -1,0 +1,89 @@
+[
+    {
+        "type": "NetworkManagerEsp32",
+        "parameters": [
+            {
+                "name": "port",
+                "type": "uint",
+                "required": true,
+                "description": "Port on which to send messages to hub"
+            },
+            {
+                "name": "ip",
+                "type": "string",
+                "required": true,
+                "description": "IP of the hub"
+            },
+            {
+                "name": "ssid",
+                "type": "string",
+                "required": false,
+                "description": "Access point ssid, if not given here, specify for NetworkReceiver"
+            },
+            {
+                "name": "password",
+                "type": "string",
+                "required": false,
+                "description": "Access point password, if not given here, specify for NetworkReceiver"
+            }
+        ],
+        "supported_platforms": [
+            "esp32"
+        ]
+    },
+    {
+        "type": "NetworkManagerEsp8266",
+        "parameters": [
+            {
+                "name": "port",
+                "type": "uint",
+                "required": true,
+                "description": "Port on which to send messages to hub"
+            },
+            {
+                "name": "ip",
+                "type": "string",
+                "required": true,
+                "description": "IP of the hub"
+            },
+            {
+                "name": "ssid",
+                "type": "string",
+                "required": false,
+                "description": "Access point ssid, if not given here, specify for NetworkReceiver"
+            },
+            {
+                "name": "password",
+                "type": "string",
+                "required": false,
+                "description": "Access point password, if not given here, specify for NetworkReceiver"
+            }
+        ],
+        "supported_platforms": [
+            "esp8266"
+        ]
+    },
+    {
+        "type": "NetworkSenderHttpLib",
+        "parameters": [
+            {
+                "name": "ip",
+                "type": "string",
+                "required": true,
+                "description": "Hub's IP address"
+            },
+            {
+                "name": "port",
+                "type": "uint",
+                "required": true,
+                "description": "Hub's port"
+            }
+        ],
+        "supported_platforms": [
+            "linux",
+            "windows",
+            "rpi"
+        ]
+    }
+]
+

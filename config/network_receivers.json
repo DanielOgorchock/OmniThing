@@ -1,0 +1,76 @@
+[
+    {
+        "type": "NetworkManagerEsp32",
+        "parameters": [
+            {
+                "name": "port",
+                "type": "uint",
+                "required": true,
+                "description": "Port on which to have http server listen"
+            },
+            {
+                "name": "ssid",
+                "type": "string",
+                "required": false,
+                "description": "Access point ssid, if not given here, specify for NetworkSender"
+            },
+            {
+                "name": "password",
+                "type": "string",
+                "required": false,
+                "description": "Access point password, if not given here, specify for NetworkSender"
+            }
+        ],
+        "supported_platforms": [
+            "esp32"
+        ]
+    },
+    {
+        "type": "NetworkManagerEsp8266",
+        "parameters": [
+            {
+                "name": "port",
+                "type": "uint",
+                "required": true,
+                "description": "Port on which to have http server listen"
+            },
+            {
+                "name": "ssid",
+                "type": "string",
+                "required": false,
+                "description": "Access point ssid, if not given here, specify for NetworkSender"
+            },
+            {
+                "name": "password",
+                "type": "string",
+                "required": false,
+                "description": "Access point password, if not given here, specify for NetworkSender"
+            }
+        ],
+        "supported_platforms": [
+            "esp8266"
+        ]
+    },
+    {
+        "type": "NetworkReceiverHttpLib",
+        "parameters": [
+            {
+                "name": "port",
+                "type": "uint",
+                "required": true,
+                "description": "Port on which to have http server listen"
+            },
+            {
+                "name": "ip",
+                "type": "string",
+                "required": true,
+                "description": "IP for server to listen on (should be this computer's IP)"
+            }
+        ],
+        "supported_platforms": [
+            "linux",
+            "windows",
+            "rpi"
+        ]
+    }
+]

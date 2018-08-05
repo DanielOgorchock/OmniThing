@@ -1,0 +1,39 @@
+[
+    {
+        "type": "DhtReader",
+        "parameters": [
+            {
+                "name": "pin",
+                "type": "uint",
+                "required": true,
+                "description": "Which pin the dht is connected to"
+            },
+            {
+                "name": "pullup",
+                "type": "bool",
+                "required": false,
+                "default": false,
+                "description": "Whether to enable internal pullup on pin"
+            },
+            {
+                "name": "dht11",
+                "type": "bool",
+                "required": false,
+                "default": false,
+                "description": "If you are using a dht11, set this to true"
+            }
+        ],
+        "bools": [
+        ],
+        "floats": [
+            "temperature",
+            "humidity"
+        ],
+        "uints": [
+        ],
+        "supported_platforms": [
+            "rpi",
+            "arduino"
+        ]
+    }
+]
