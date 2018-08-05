@@ -10,6 +10,8 @@ An example of the potential benefits of using a capability-based architecture ca
 ### Devices
 Devices correspond to actual SmartThings devices (they will show up in the phone app).
 
+OmniThing is designed to make the Devices as generic as possible. A Switch device knows nothing about GPIO pins. Instead, its configuration requires it be given an OutputBool. It doesn't care if that OutputBool is a GPIO output or something that runs a shell script to turn off a web server. In this way, the framework is very flexible to the specific needs of the user.
+
 ### Composite Peripherals
 Composite Peripherals provide interfaces to sensors/actuators that are composed of multiple attributes. A perfect example is a DHT22, which provides both temperature and humidity. A TemperatureMeasurement device can reference the temperature attribute of a DHT22 Composite Peripheral. A RelativeHumidityMeasurement can do likewise with humidity.
 
@@ -690,5 +692,6 @@ Every Device (NOTE: just the devices, not the various inputs/outputs, composites
     * rpi
     * arduino
 ### OutputStrings
+NONE YET
 
   
