@@ -28,7 +28,7 @@ Goals for Beta:
   * Pretty much all functionality is possible right now through the CommandExecuter, but that is not an elegant way to achieve certain tasks.
 * SPI (maybe?)
 * Support for buttons
-* PWM support
+* ~~PWM support~~
 * New Devices
   * SwitchLevel - (dimmable switch)
   * DoorControl
