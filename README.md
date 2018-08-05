@@ -35,6 +35,7 @@ Goals for Beta:
 * Provide installable package for raspberry pi, rather than making everyone build from source (can be slow on older pis)
 * Google Home TTS
   * Could be nice to integrate this directly with OmniThing
+  * Might not really be necessary though, since Google Assistant Relay can already do this. Maybe the way to go is to have OmniThing use Google Assistant Relay.
 * Hubitat support
   * I think only the parent device handler needs to be updated. Since I don't have a hubitat, this sounds likes a job for Ogiewon.
 * Open to further suggestions
