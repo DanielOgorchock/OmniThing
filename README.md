@@ -124,6 +124,9 @@ The following list shows the current output value types.
   * Note: Be sure to select the CMake integration when installing.
 
 Now, clone this repository and follow the proper instructions below for your target platform.
+```bash
+git clone https://github.com/DanielOgorchock/OmniThing.git
+```
 
 ### Arduino (ESP8266/ESP32)
 * Open a terminal and navigate to the cloned repository.
