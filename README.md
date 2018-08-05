@@ -24,6 +24,10 @@ Goals for Beta:
   * Pretty much all functionality is possible right now through the CommandExecuter, but that is not an elegant way to achieve certain tasks.
 * SPI (maybe?)
 * Support for buttons
+* PWM support
+* New Devices
+  * SwitchLevel - (dimmable switch)
+  * DoorControl
 * Provide installable package for raspberry pi, rather than making everyone build from source (can be slow on older pis)
 * Google Home TTS
   * Could be nice to integrate this directly with OmniThing
