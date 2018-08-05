@@ -89,6 +89,16 @@
                 "commandOff": "echo \"CommandExecuter switched OFF!!!!\"",
                 "multithread": false
             }
+        },
+
+        {
+            "type": "SwitchLevel",
+            "name": "pwmTest",
+            "initial": "50",
+            "output": {
+                "type": "PwmOutput",
+                "pin": 18
+            }
         }
 
     ]
