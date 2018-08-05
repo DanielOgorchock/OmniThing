@@ -216,6 +216,8 @@ TODO: Actually make the parent device handler support Hubitat
 ## Json Parameter Documentation
 Below is the documentation for everything configured in the json file.
 
+If you have never used json before, don't worry. It's pretty simple. Take a look [here](https://www.json.org/) to see how the format works.
+
 ### Empty Json File
 This is the barebones framework for the config file.
 
