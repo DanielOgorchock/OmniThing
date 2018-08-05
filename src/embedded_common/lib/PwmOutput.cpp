@@ -18,7 +18,11 @@ namespace omni
         unsigned int ds = (f/100.f) * 255;
 
     #ifndef OMNI_NOT_ARDUINO
-        analogWrite(m_nPin, ds);
+        #if defined(ARDUINO_ARCH_ESP32)
+            LOG << F("ERROR: PWM support has not yet been added for ESP32\n");
+        #else
+            analogWrite(m_nPin, ds);
+        #endif
     #elif defined(OMNI_PLAT_RPI)
         if(gpioPWM(m_nPin, ds))
             LOG << F("ERROR: Failed to set pwm on pin=") << m_nPin << F(" ds=") << ds << Logger::endl;
