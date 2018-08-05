@@ -139,6 +139,9 @@
             "on",
             "off",
             "toggle"
+        ],
+        "supported_platforms": [
+            "all"
         ]
     },
     {
