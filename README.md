@@ -55,6 +55,91 @@ The following list shows the current output value types.
   ![alt text](https://user-images.githubusercontent.com/5153370/43681179-a30f6328-9812-11e8-978a-ce2b810afd14.png "Raspberry Pi")
   ![alt text](https://user-images.githubusercontent.com/5153370/43681196-e757ed66-9812-11e8-9253-eab34e639ede.png "Raspberry Pi")
 
+## Json Parameter Documentation
+Below is the documentation for everything configured in the json file.
+
+### Empty Json File
+This is the barebones framework for the config file.
+```json
+{
+    "NetworkReceiver": {
+
+    },
+
+    "NetworkSender": {
+
+    },
+
+    "CompositePeriphs": [
+       
+    ],
+
+    "Devices": [
+        
+    ]
+}
+```
+
+### Shared Device Parameters
+Every Device (NOTE: just the devices, not the various inputs/outputs, composites, etc) below also have the following parameters.
+
+#### Name
+* A unique identifier for the device
+* This is required
+```json
+{ "name": "thisIsAUniqueName"}
+```
+
+#### Triggers
+* Every device can have an optional array called "triggers". 
+* Triggers will fire periodically based on the provided "interval" of milliseconds. 
+* Triggers also require a "command". The device will be given the specified command every time it triggers. The supported commands for each device are listed in their descriptions.
+* Additionally, a trigger can have an optional "offset" in milliseconds. This will delay the first time the trigger activates by that many ms.
+```json
+{
+    "triggers": [
+        {
+            "interval": 10000,
+            "command": "poll",
+            "offset": 5000
+        },
+        {
+            "interval": 10000,
+            "command": "toggle"
+        }
+    ]
+}
+```
+
+#### Subscriptions
+* Every device can also have an optional array called "subscriptions"
+* Subscriptions are similar to triggers, except that they fire based on events from other devices rather than a time interval.
+* Requires a "source", which is the name of the device to subscribe to.
+* Also requires an "event", which is the name of the emitted event from the "source" we want to react to.
+* Finally, requires a "command", which will be executed for this device when the event has been emitted.
+* The events each device type emits is documented below.
+```json
+{
+    "subscriptions": [
+        {
+            "source": "name1",
+            "event": "changed",
+            "command": "toggle"
+        },
+        {
+            "source": "name2",
+            "event": "on",
+            "command": "poll"
+        }
+    ]
+}
+```
+
+#### The "poll" command
+* Pretty much every device should implement the poll command.
+* When received, the device will read its current state and send it to the hub.
+* Any devices you would like to poll at a set interval should be given a trigger with "command": "poll"
+
 ### Devices
 * ContactSensor
   * Parameters
