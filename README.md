@@ -800,5 +800,9 @@ Try to avoid using platform specific code. OmniThing has many abstractions to ai
 * If you need to use GPIOs, use the ones found in embedded_common if possible. This will work on both arduino and raspberry pi.
   * The DhtReader class is a good example for abstracted GPIO usage.
 
+### Update Config
+Add your new Device/CompositePeriph/Input/Output/etc to the appropriate json file in the config directory.
 
+### Follow Device Naming Scheme
+If your are adding a device (Note: Device, not input/output/compositePeriph) that pretty directly corresponds to a capability in the SmartThings [documentation](https://docs.smartthings.com/en/latest/capabilities-reference.html), please name it after its name there (just like the rest of the current devices).
   
