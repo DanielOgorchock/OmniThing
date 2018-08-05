@@ -2,8 +2,6 @@
     #include <pigpio.h>
 #endif
 
-#include <unistd.h>
-
 #include "OmniThing.h"
 #include "OmniUtil.h"
 
