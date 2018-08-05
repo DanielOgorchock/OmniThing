@@ -4,496 +4,496 @@ See below for a list of all parameters for everything in the config file
 ## Devices
 ### ContactSensor
 #### Parameters
-    * input
-      * type: InputBool
-      * required: True
-      * description: How the device determines contact (i.e. a gpio input pin)
-    * invert
-      * type: bool
-      * required: True
-      * description: Whether to invert open/closed
-    * constantPoll
-      * type: bool
-      * required: True
-      * description: Whether to constantly poll the input source (usually should be true)
+* input
+* type: InputBool
+* required: True
+* description: How the device determines contact (i.e. a gpio input pin)
+* invert
+* type: bool
+* required: True
+* description: Whether to invert open/closed
+* constantPoll
+* type: bool
+* required: True
+* description: Whether to constantly poll the input source (usually should be true)
 #### Events
-    * open
-    * closed
-    * changed
+* open
+* closed
+* changed
 #### Commands
-    * poll
+* poll
 #### Supported Platforms
-    * all
+* all
 ### Momentary
 #### Parameters
-    * output
-      * type: OutputVoid
-      * required: True
-      * description: What the device actuates (i.e. a gpio toggler)
+* output
+* type: OutputVoid
+* required: True
+* description: What the device actuates (i.e. a gpio toggler)
 #### Events
-    * pushed
+* pushed
 #### Commands
-    * poll
-    * push
+* poll
+* push
 #### Supported Platforms
-    * all
+* all
 ### MotionSensor
 #### Parameters
-    * input
-      * type: InputBool
-      * required: True
-      * description: How the device determines motion (i.e. a gpio input pin)
-    * invert
-      * type: bool
-      * required: True
-      * description: Whether to invert active/inactive
-    * constantPoll
-      * type: bool
-      * required: True
-      * description: Whether to constantly poll the input source (usually should be true)
+* input
+* type: InputBool
+* required: True
+* description: How the device determines motion (i.e. a gpio input pin)
+* invert
+* type: bool
+* required: True
+* description: Whether to invert active/inactive
+* constantPoll
+* type: bool
+* required: True
+* description: Whether to constantly poll the input source (usually should be true)
 #### Events
-    * active
-    * inactive
-    * changed
+* active
+* inactive
+* changed
 #### Commands
-    * poll
+* poll
 #### Supported Platforms
-    * all
+* all
 ### RelativeHumidityMeasurement
 #### Parameters
-    * input
-      * type: InputFloat
-      * required: True
-      * description: How the device determines humidity (i.e. analog input pin)
+* input
+* type: InputFloat
+* required: True
+* description: How the device determines humidity (i.e. analog input pin)
 #### Events
 #### Commands
-    * poll
+* poll
 #### Supported Platforms
-    * all
+* all
 ### Switch
 #### Parameters
-    * output
-      * type: OutputBool
-      * required: True
-      * description: What the device sets to true/false (i.e. digital output pin)
-    * invert
-      * type: bool
-      * required: True
-      * description: Whether or not to invert output
-    * initial
-      * type: bool
-      * required: True
-      * description: Initial value to set the switch to at startup
+* output
+* type: OutputBool
+* required: True
+* description: What the device sets to true/false (i.e. digital output pin)
+* invert
+* type: bool
+* required: True
+* description: Whether or not to invert output
+* initial
+* type: bool
+* required: True
+* description: Initial value to set the switch to at startup
 #### Events
-    * on
-    * off
-    * changed
+* on
+* off
+* changed
 #### Commands
-    * poll
-    * on
-    * off
-    * toggle
+* poll
+* on
+* off
+* toggle
 #### Supported Platforms
-    * all
+* all
 ### TemperatureMeasurement
 #### Parameters
-    * input
-      * type: InputFloat
-      * required: True
-      * description: How the device determines temperature (i.e. analog input pin)
+* input
+* type: InputFloat
+* required: True
+* description: How the device determines temperature (i.e. analog input pin)
 #### Events
 #### Commands
-    * poll
+* poll
 #### Supported Platforms
-    * all
+* all
 ### VoltageMeasurement
 #### Parameters
-    * input
-      * type: InputFloat
-      * required: True
-      * description: How the device determines voltage (i.e. analog input pin)
+* input
+* type: InputFloat
+* required: True
+* description: How the device determines voltage (i.e. analog input pin)
 #### Events
 #### Commands
-    * poll
+* poll
 #### Supported Platforms
-    * all
+* all
 ## Composite Peripherals
 ### DhtReader
 #### Parameters
-    * pin
-      * type: uint
-      * required: True
-      * description: Which pin the dht is connected to
-    * pullup
-      * type: bool
-      * required: False
-      * default: False
-      * description: Whether to enable internal pullup on pin
-    * dht11
-      * type: bool
-      * required: False
-      * default: False
-      * description: If you are using a dht11, set this to true
+* pin
+* type: uint
+* required: True
+* description: Which pin the dht is connected to
+* pullup
+* type: bool
+* required: False
+* default: False
+* description: Whether to enable internal pullup on pin
+* dht11
+* type: bool
+* required: False
+* default: False
+* description: If you are using a dht11, set this to true
 #### Bool Attributes
 #### Float Attributes
-    * temperature
-    * humidity
+* temperature
+* humidity
 #### UInt Attributes
 #### Supported Platforms
-    * rpi
-    * arduino
+* rpi
+* arduino
 ## Network Receivers
 ### NetworkManagerEsp32
 #### Parameters
-    * port
-      * type: uint
-      * required: True
-      * description: Port on which to have http server listen
-    * ssid
-      * type: string
-      * required: False
-      * description: Access point ssid, if not given here, specify for NetworkSender
-    * password
-      * type: string
-      * required: False
-      * description: Access point password, if not given here, specify for NetworkSender
+* port
+* type: uint
+* required: True
+* description: Port on which to have http server listen
+* ssid
+* type: string
+* required: False
+* description: Access point ssid, if not given here, specify for NetworkSender
+* password
+* type: string
+* required: False
+* description: Access point password, if not given here, specify for NetworkSender
 #### Supported Platforms
-    * esp32
+* esp32
 ### NetworkManagerEsp8266
 #### Parameters
-    * port
-      * type: uint
-      * required: True
-      * description: Port on which to have http server listen
-    * ssid
-      * type: string
-      * required: False
-      * description: Access point ssid, if not given here, specify for NetworkSender
-    * password
-      * type: string
-      * required: False
-      * description: Access point password, if not given here, specify for NetworkSender
+* port
+* type: uint
+* required: True
+* description: Port on which to have http server listen
+* ssid
+* type: string
+* required: False
+* description: Access point ssid, if not given here, specify for NetworkSender
+* password
+* type: string
+* required: False
+* description: Access point password, if not given here, specify for NetworkSender
 #### Supported Platforms
-    * esp8266
+* esp8266
 ### NetworkReceiverHttpLib
 #### Parameters
-    * port
-      * type: uint
-      * required: True
-      * description: Port on which to have http server listen
-    * ip
-      * type: string
-      * required: True
-      * description: IP for server to listen on (should be this computer's IP)
+* port
+* type: uint
+* required: True
+* description: Port on which to have http server listen
+* ip
+* type: string
+* required: True
+* description: IP for server to listen on (should be this computer's IP)
 #### Supported Platforms
-    * linux
-    * windows
-    * rpi
+* linux
+* windows
+* rpi
 ## Network Senders
 ### NetworkManagerEsp32
 #### Parameters
-    * port
-      * type: uint
-      * required: True
-      * description: Port on which to send messages to hub
-    * ip
-      * type: string
-      * required: True
-      * description: IP of the hub
-    * ssid
-      * type: string
-      * required: False
-      * description: Access point ssid, if not given here, specify for NetworkReceiver
-    * password
-      * type: string
-      * required: False
-      * description: Access point password, if not given here, specify for NetworkReceiver
+* port
+* type: uint
+* required: True
+* description: Port on which to send messages to hub
+* ip
+* type: string
+* required: True
+* description: IP of the hub
+* ssid
+* type: string
+* required: False
+* description: Access point ssid, if not given here, specify for NetworkReceiver
+* password
+* type: string
+* required: False
+* description: Access point password, if not given here, specify for NetworkReceiver
 #### Supported Platforms
-    * esp32
+* esp32
 ### NetworkManagerEsp8266
 #### Parameters
-    * port
-      * type: uint
-      * required: True
-      * description: Port on which to send messages to hub
-    * ip
-      * type: string
-      * required: True
-      * description: IP of the hub
-    * ssid
-      * type: string
-      * required: False
-      * description: Access point ssid, if not given here, specify for NetworkReceiver
-    * password
-      * type: string
-      * required: False
-      * description: Access point password, if not given here, specify for NetworkReceiver
+* port
+* type: uint
+* required: True
+* description: Port on which to send messages to hub
+* ip
+* type: string
+* required: True
+* description: IP of the hub
+* ssid
+* type: string
+* required: False
+* description: Access point ssid, if not given here, specify for NetworkReceiver
+* password
+* type: string
+* required: False
+* description: Access point password, if not given here, specify for NetworkReceiver
 #### Supported Platforms
-    * esp8266
+* esp8266
 ### NetworkSenderHttpLib
 #### Parameters
-    * ip
-      * type: string
-      * required: True
-      * description: Hub's IP address
-    * port
-      * type: uint
-      * required: True
-      * description: Hub's port
+* ip
+* type: string
+* required: True
+* description: Hub's IP address
+* port
+* type: uint
+* required: True
+* description: Hub's port
 #### Supported Platforms
-    * linux
-    * windows
-    * rpi
+* linux
+* windows
+* rpi
 ## InputBools
 ### InputBoolRef
 #### Parameters
-    * compositeName
-      * type: string
-      * required: True
-      * description: Name of the composite peripheral being referenced
-    * paramName
-      * type: string
-      * required: True
-      * description: Name of the composite peripheral's bool attribute being referenced
+* compositeName
+* type: string
+* required: True
+* description: Name of the composite peripheral being referenced
+* paramName
+* type: string
+* required: True
+* description: Name of the composite peripheral's bool attribute being referenced
 #### Supported Platforms
-    * all
+* all
 ### DigitalInputPinArduino
 #### Parameters
-    * pin
-      * type: uint
-      * required: True
-      * description: Which input pin to use
-    * invert
-      * type: bool
-      * required: True
-      * description: Whether or not to invert the pin value
-    * pullup
-      * type: bool
-      * required: True
-      * description: Whether or not to enable internal pullup
+* pin
+* type: uint
+* required: True
+* description: Which input pin to use
+* invert
+* type: bool
+* required: True
+* description: Whether or not to invert the pin value
+* pullup
+* type: bool
+* required: True
+* description: Whether or not to enable internal pullup
 #### Supported Platforms
-    * arduino
+* arduino
 ### DigitalInputPinRaspberryPi
 #### Parameters
-    * pin
-      * type: uint
-      * required: True
-      * description: Which input pin to use
-    * invert
-      * type: bool
-      * required: True
-      * description: Whether or not to invert the pin value
-    * pinMode
-      * type: enum
-      * required: True
-      * description: Whether or not to enable internal pullup/pulldown
+* pin
+* type: uint
+* required: True
+* description: Which input pin to use
+* invert
+* type: bool
+* required: True
+* description: Whether or not to invert the pin value
+* pinMode
+* type: enum
+* required: True
+* description: Whether or not to enable internal pullup/pulldown
 #### Supported Platforms
-    * rpi
+* rpi
 ## InputFloats
 ### InputFloatRef
 #### Parameters
-    * compositeName
-      * type: string
-      * required: True
-      * description: Name of the composite peripheral being referenced
-    * paramName
-      * type: string
-      * required: True
-      * description: Name of the composite peripheral's float attribute being referenced
+* compositeName
+* type: string
+* required: True
+* description: Name of the composite peripheral being referenced
+* paramName
+* type: string
+* required: True
+* description: Name of the composite peripheral's float attribute being referenced
 #### Supported Platforms
-    * all
+* all
 ### AnalogInputPinArduino
 #### Parameters
-    * pin
-      * type: uint
-      * required: True
-      * description: Which analog input pin to use
-    * minVoltage
-      * type: float
-      * required: True
-      * description: Minimum voltage to map to
-    * maxVoltage
-      * type: float
-      * required: True
-      * description: Maximum voltage to map to
+* pin
+* type: uint
+* required: True
+* description: Which analog input pin to use
+* minVoltage
+* type: float
+* required: True
+* description: Minimum voltage to map to
+* maxVoltage
+* type: float
+* required: True
+* description: Maximum voltage to map to
 #### Supported Platforms
-    * arduino
+* arduino
 ## InputUInts
 ### InputUIntRef
 #### Parameters
-    * compositeName
-      * type: string
-      * required: True
-      * description: Name of the composite peripheral being referenced
-    * paramName
-      * type: string
-      * required: True
-      * description: Name of the composite peripheral's uint attribute being referenced
+* compositeName
+* type: string
+* required: True
+* description: Name of the composite peripheral being referenced
+* paramName
+* type: string
+* required: True
+* description: Name of the composite peripheral's uint attribute being referenced
 #### Supported Platforms
-    * all
+* all
 ## OutputVoids
 ### TimedOutputBool
 #### Parameters
-    * output
-      * type: OutputBool
-      * required: True
-      * description: The output bool to turn on for a timed duration
-    * duration
-      * type: uint
-      * required: True
-      * description: How long to leave output on before turning back off
+* output
+* type: OutputBool
+* required: True
+* description: The output bool to turn on for a timed duration
+* duration
+* type: uint
+* required: True
+* description: How long to leave output on before turning back off
 #### Supported Platforms
-    * all
+* all
 ### DigitalOutputPinArduino
 #### Parameters
-    * pin
-      * type: uint
-      * required: true
-      * description: Which pin to use for output
-    * initial
-      * type: bool
-      * required: True
-      * description: Initial output value on startup
-    * invert
-      * type: bool
-      * required: True
-      * description: Whether or not to invert the pin output
+* pin
+* type: uint
+* required: true
+* description: Which pin to use for output
+* initial
+* type: bool
+* required: True
+* description: Initial output value on startup
+* invert
+* type: bool
+* required: True
+* description: Whether or not to invert the pin output
 #### Supported Platforms
-    * arduino
+* arduino
 ### DigitalOutputPinRaspberryPi
 #### Parameters
-    * pin
-      * type: uint
-      * required: true
-      * description: Which pin to use for output
-    * initial
-      * type: bool
-      * required: True
-      * description: Initial output value on startup
-    * invert
-      * type: bool
-      * required: True
-      * description: Whether or not to invert the pin output
+* pin
+* type: uint
+* required: true
+* description: Which pin to use for output
+* initial
+* type: bool
+* required: True
+* description: Initial output value on startup
+* invert
+* type: bool
+* required: True
+* description: Whether or not to invert the pin output
 #### Supported Platforms
-    * rpi
+* rpi
 ### CommandExecuter
 #### Parameters
-    * command
-      * type: string
-      * required: True
-      * description: The command to run in the shell (i.e. "echo Hello")
-    * mulithread
-      * type: bool
-      * required: False
-      * description: Set true to run the command in a new thread (NOTE: this is buggy right now)
+* command
+* type: string
+* required: True
+* description: The command to run in the shell (i.e. "echo Hello")
+* mulithread
+* type: bool
+* required: False
+* description: Set true to run the command in a new thread (NOTE: this is buggy right now)
 #### Supported Platforms
-    * linux
-    * windows
-    * rpi
+* linux
+* windows
+* rpi
 ## OutputBools
 ### OutputBoolToFloat
 #### Parameters
-    * output
-      * type: OutputFloat
-      * required: True
-      * description: The output float to map this bool to
-    * trueVal
-      * type: float
-      * required: True
-      * description: The float value mapped to true
-    * falseVal
-      * type: float
-      * required: True
-      * description: The float value mapped to false
+* output
+* type: OutputFloat
+* required: True
+* description: The output float to map this bool to
+* trueVal
+* type: float
+* required: True
+* description: The float value mapped to true
+* falseVal
+* type: float
+* required: True
+* description: The float value mapped to false
 #### Supported Platforms
-    * all
+* all
 ### DigitalOutputPinArduino
 #### Parameters
-    * pin
-      * type: uint
-      * required: true
-      * description: Which pin to use for output
-    * initial
-      * type: bool
-      * required: True
-      * description: Initial output value on startup
-    * invert
-      * type: bool
-      * required: True
-      * description: Whether or not to invert the pin output
+* pin
+* type: uint
+* required: true
+* description: Which pin to use for output
+* initial
+* type: bool
+* required: True
+* description: Initial output value on startup
+* invert
+* type: bool
+* required: True
+* description: Whether or not to invert the pin output
 #### Supported Platforms
-    * arduino
+* arduino
 ### DigitalOutputPinRaspberryPi
 #### Parameters
-    * pin
-      * type: uint
-      * required: true
-      * description: Which pin to use for output
-    * initial
-      * type: bool
-      * required: True
-      * description: Initial output value on startup
-    * invert
-      * type: bool
-      * required: True
-      * description: Whether or not to invert the pin output
+* pin
+* type: uint
+* required: true
+* description: Which pin to use for output
+* initial
+* type: bool
+* required: True
+* description: Initial output value on startup
+* invert
+* type: bool
+* required: True
+* description: Whether or not to invert the pin output
 #### Supported Platforms
-    * rpi
+* rpi
 ### CommandExecuterSwitch
 #### Parameters
-    * commandOn
-      * type: string
-      * required: True
-      * description: The command to run in the for true shell (i.e. "echo On")
-    * commandOff
-      * type: string
-      * required: True
-      * description: The command to run in the shell for false (i.e. "echo Off")
-    * mulithread
-      * type: bool
-      * required: False
-      * description: Set true to run the command in a new thread (NOTE: this is buggy right now)
+* commandOn
+* type: string
+* required: True
+* description: The command to run in the for true shell (i.e. "echo On")
+* commandOff
+* type: string
+* required: True
+* description: The command to run in the shell for false (i.e. "echo Off")
+* mulithread
+* type: bool
+* required: False
+* description: Set true to run the command in a new thread (NOTE: this is buggy right now)
 #### Supported Platforms
-    * linux
-    * windows
-    * rpi
+* linux
+* windows
+* rpi
 ## OutputFloats
 ### ServoMotor
 #### Parameters
-    * pin
-      * type: uint
-      * required: True
-      * description: Servo control pin
-    * revertTime
-      * type: uint
-      * required: False
-      * description: If set, the servo will revert to initial value after given milliseconds
-    * shutoffTime
-      * type: uint
-      * required: False
-      * description: If set, the servo will be detached given milliseconds after being set to a new percent
-    * initialPercent
-      * type: float
-      * required: False
-      * default: 50.0
-      * description: Initial percentage at startup
-    * noStartup
-      * type: bool
-      * required: False
-      * default: False
-      * description: If true, the servo will not be initialized at startup
-    * minPulse
-      * type: uint
-      * required: False
-      * default: 544
-      * description: Servo pulse length associated with 0 percent
-    * maxPulse
-      * type: uint
-      * required: False
-      * default: 2400
-      * description: Servo pulse length associated with 100 percent
+* pin
+* type: uint
+* required: True
+* description: Servo control pin
+* revertTime
+* type: uint
+* required: False
+* description: If set, the servo will revert to initial value after given milliseconds
+* shutoffTime
+* type: uint
+* required: False
+* description: If set, the servo will be detached given milliseconds after being set to a new percent
+* initialPercent
+* type: float
+* required: False
+* default: 50.0
+* description: Initial percentage at startup
+* noStartup
+* type: bool
+* required: False
+* default: False
+* description: If true, the servo will not be initialized at startup
+* minPulse
+* type: uint
+* required: False
+* default: 544
+* description: Servo pulse length associated with 0 percent
+* maxPulse
+* type: uint
+* required: False
+* default: 2400
+* description: Servo pulse length associated with 100 percent
 #### Supported Platforms
-    * rpi
-    * arduino
+* rpi
+* arduino
 ## OutputStrings
 

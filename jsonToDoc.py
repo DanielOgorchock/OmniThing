@@ -13,41 +13,41 @@ def writeElement(element):
     if "parameters" in element:
         output += "#### Parameters\n"
         for param in element['parameters']:
-            output += "    * " + param['name'] + "\n"
-            output += "      * type: " + param['type'] + "\n"
-            output += "      * required: " + str(param['required']) + "\n"
+            output += "* " + param['name'] + "\n"
+            output += "* type: " + param['type'] + "\n"
+            output += "* required: " + str(param['required']) + "\n"
             if "default" in param:
-                output += "      * default: " + str(param['default']) + "\n"
-            output += "      * description: " + param['description'] + "\n"
+                output += "* default: " + str(param['default']) + "\n"
+            output += "* description: " + param['description'] + "\n"
     
     if "events" in element:
         output += "#### Events\n"
         for event in element['events']:
-            output += "    * " + event + "\n"
+            output += "* " + event + "\n"
 
     if "commands" in element:
         output += "#### Commands\n"
         for cmd in element['commands']:
-            output += "    * " + cmd + "\n"
+            output += "* " + cmd + "\n"
 
     if "bools" in element:
         output += "#### Bool Attributes\n"
         for attr in element['bools']:
-            output+= "    * " + attr + "\n"
+            output+= "* " + attr + "\n"
 
     if "floats" in element:
         output += "#### Float Attributes\n"
         for attr in element['floats']:
-            output+= "    * " + attr + "\n"
+            output+= "* " + attr + "\n"
 
     if "uints" in element:
         output += "#### UInt Attributes\n"
         for attr in element['uints']:
-            output+= "    * " + attr + "\n"
+            output+= "* " + attr + "\n"
 
     output += "#### Supported Platforms\n"
     for plat in element['supported_platforms']:
-        output += "    * " + plat + "\n"
+        output += "* " + plat + "\n"
 
 def writeElements(elements):
     for e in elements:
