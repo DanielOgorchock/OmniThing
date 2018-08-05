@@ -6,6 +6,10 @@ OmniThing is currently in Alpha. Please keep in mind that at the time of writing
 
 Contributions to the project are encouraged. A guide to contributing can be found toward the bottom of this README.
 
+People trying out OmniThing coming from ST_Anything may note that fewer Arduino devices are supported. This is due to memory restraints. OmniThing uses much more RAM than ST_Anything due to it using a json configuration. Due to this, OmniThing is not a total replacement of ST_Anything functionality, so people using Arduino Unos and Megas won't have much luck with OmniThing (Mega support could potentially come in the future, but Uno has no chance).
+
+Additionally, OmniThing is still in early development, so it may be less stable than ST_Anything in addition to missing some of the ST_Anything device types at this time.[
+
 Goals for Beta:
 * Web-based configuration interface so users don't have to manually edit json
   * If anyone loves web development and has a bunch of spare time, feel free to give this a shot. I've been putting it off.
@@ -117,7 +121,55 @@ Now, clone this repository and follow the proper instructions below for your tar
 * You should be able to build using Visual Studio's built-in CMake integration.
 
 ## SmartThings Setup
-TODO: Add this. Basically identical to the ST_Anything steps though, so look at those for now.
+NOTE: Right now these instructions are basically ripped directly from ST_Anything, so the pictures are slightly wrong.
+
+- Create an account and/or log into the SmartThings Developers Web IDE.
+- Click on "My Device Handlers" from the navigation menu.
+- Click on "Settings" from the menu and add my GitHub Repository to your account
+  - Owner:  DanielOgorchock
+  - Name:   OmniThing
+  - Branch: master
+- Click on "Update From Repo" from the menu
+- Select "ST_Anything (master)" from the list
+- Select all of the Parent and Child Device Handlers
+- Check the "Publish" check box and click "Execute Update"
+- You should now have all of the necessary Device Handlers added to your account
+
+Note: If desired, you can still create all of the Device Handlers manually by copying and pasting code from the GitHub repository files into your ST IDE.  Trust me, the Github integration in SmartThings is so much easier!  And, you will know when new versions of the DHs are available based on the color of each DH in your list of Device Handlers in the IDE.
+
+### Adding a New OmniThing Device
+- Click on My Devices from navigation menu
+- Click the "+ New Device" button from the menu
+- Enter in the following REQUIRED fields
+    - Name: anything you want (tip: keep it short)
+    - Label: anything you want (tip: keep it short)
+    - Device Network ID: any unique name (this will be overwritten with your device's MAC address automatically)
+    - Type: "omni_parent"
+    - Version: "Self Published"
+    - Location: your location (required!)
+    - Hub: your hub (required!)
+
+Your screen should look like the following image (but with omni_parent, not PARENT_ST_ANYTHING_ETHERNET):
+
+![screenshot](https://cloud.githubusercontent.com/assets/5206084/25320377/883e2d54-2874-11e7-9d7a-26774894f2c3.PNG)
+
+- Click the Create button at the bottom of the screen
+- On your phone's SmartThings app, select Things view, find and select your New Device
+  - You may receive a "Device not fully configured" pop-up with the ST app.  We're about to take care of that!
+- In the Arduino Device, click the "Gear Icon" in the top right of the screen
+- Enter the folowing data from your device
+  - IP Address:  must match what you put in your configuration file
+  - Port: must match what you put in your configuration file
+  - MAC Address: must match your device's mac address
+Note:  If you visit the "Recently" page of your Parent Device in your ST App on your phone, you may get an annoying warning that the setup is not complete.  If you've entered all of the required data above, you can safely ignore this message.  Once it scrolls off the 'Recently' list, the pop-ups will stop.
+
+Your screen should look like the following image:
+
+![screenshot](https://cloud.githubusercontent.com/assets/5206084/25320424/f0a8f84c-2874-11e7-820e-98e2cd0ef9d2.PNG)
+
+- Click "Done" at the top right
+- Wait a few seconds (you can watch Live Logging in the ST IDE if you'd like) while all of the Child Devices are being automagically created, assuming your device is powered up, running OmniThing,  and connected to your home network 
+- Pull/Drag down on the screen to refresh the page which should now have all of your child devices created!
 
 ## Hubitat Setup
 TODO: Actually make the parent device handler support Hubitat
@@ -718,6 +770,26 @@ Every Device (NOTE: just the devices, not the various inputs/outputs, composites
 NONE YET
 
 ## Contributing to OmniThing
-TODO: Add stuff here (sorry if you were looking to read this based on what the top of the README says).
+OmniThing's modularity makes it pretty easy to add funcionality. If you intend to add something to OmniThing, it is important to keep a few things in mind:
+
+### Only Add Devices if Required
+Say you are intending to add support for a new temperature sensor. It may be tempting to create a new Device. This is a bad idea. Devices are meant to be very generic. Instead, a temperature sensor could be implemented as an InputFloat, which would allow the existing TemperatureMeasurement device to utilize it.
+
+### Put the Code in the Proper Folder
+OmniThing's directory layout is organized based on platform.
+* core - Included for every platform
+* arduino - Only used for ESP32/ESP8266
+* raspberry_pi - Only used for rpi
+* embedded_common - Used by rpi and arduino
+* os_common - Used by windows, linux, and rpi
+
+### Use Abstractions when Possible
+Try to avoid using platform specific code. OmniThing has many abstractions to aid with this.
+
+* LOG << F("Print output with the LOG macro. It works on all platforms!") << Logger::endl;
+  * Try to remember to use the F() macro with LOG. It reduces memory usage on Arduino platforms.
+* If you need to use GPIOs, use the ones found in embedded_common if possible. This will work on both arduino and raspberry pi.
+  * The DhtReader class is a good example for abstracted GPIO usage.
+
 
   
