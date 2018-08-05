@@ -1,11 +1,34 @@
 # OmniThing
 A cross-platform successor to ST_Anything
+
+## State of the Project
+OmniThing is currently in Alpha. Please keep in mind that at the time of writing this it has only been used by one person, so any bug reports are appreciated.
+
+Contributions to the project are encouraged. A guide to contributing can be found toward the bottom of this README.
+
+Goals for Beta:
+* Web-based configuration interface so users don't have to manually edit json
+  * If anyone loves web development and has a bunch of spare time, feel free to give this a shot. I've been putting it off.
+  * Note: The config directory has json files describing all the json parameters for the various types. The plan is to use these files as input for both documentation and the web configuration page. They are already being used for the documentation in this README.
+  * I intend to make the web application have the option of auto-generating the arduino sketch, so people targeting ESP32/ESP8266 don't have to bother with installing CMake and Python.
+* I2C support
+  * I'd like to have an elegant solution for supporting I2C devices. Not much thought has been put into this yet, but right now I'm thinking it will be somewhat similar to the existing CompositePeripheral framework.
+* Better operating system integration
+  * For example: an output type that elegantly controls daemons running on a linux system.
+  * Pretty much all functionality is possible right now through the CommandExecuter, but that is not an elegant way to achieve certain tasks.
+* SPI (maybe?)
+* Google Home TTS
+  * Could be nice to integrate this directly with OmniThing
+* Open to further suggestions
+
 ## Design
 The goal of OmniThing to to create a modular home automation device solution for several platforms. OmniThing currently supports ESP8266, ESP32, Raspberry Pi, Linux computers, and Windows computers. It is possible that other embedded Linux platforms will be supported in the future (i.e. Beaglebone).
 
 One of the biggest limitations of the ST_Anything library is that its devices are rather rigid, not giving users a simple way to combine capabilities without needing to create custom classes. Furthermore, it has little to no concept of sensors with the same *capability*. *Capabilities* are to be a major focus of the OmniThing library. 
 
 An example of the potential benefits of using a capability-based architecture can be seen in the following hypothetical device: an auto-irrigation controller. Such a device would need to collect soil moisture readings and react accordingly by opening a water valve when the soil is too dry. There are myriad moisture sensors, and likely even more ways to control the flow of water. With *capabilities*, the auto-irrigation controller could simply be composed of a numerical value reader (to get moisture levels) and an actuator (to provide water flow). The specifics of what components are being used are abstracted, making the irrigation device far more flexible out of the box.
+
+OmniThing is configured entirely through editing a json file. Example configurations can be found in the example_configs directory of this repository. This README includes documentation on all the possible parameters for the config file.
 
 ### Devices
 Devices correspond to actual SmartThings devices (they will show up in the phone app).
@@ -693,5 +716,8 @@ Every Device (NOTE: just the devices, not the various inputs/outputs, composites
     * arduino
 ### OutputStrings
 NONE YET
+
+## Contributing to OmniThing
+TODO: Add stuff here (sorry if you were looking to read this based on what the top of the README says).
 
   
