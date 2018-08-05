@@ -31,7 +31,13 @@ Goals for Beta:
 * Provide installable package for raspberry pi, rather than making everyone build from source (can be slow on older pis)
 * Google Home TTS
   * Could be nice to integrate this directly with OmniThing
+* Hubitat support
+  * I think only the parent device handler needs to be updated. Since I don't have a hubitat, this sounds likes a job for Ogiewon.
 * Open to further suggestions
+
+### Version History
+- Alpha 0.1
+  - Initial release to the public
 
 ## Design
 The goal of OmniThing to to create a modular home automation device solution for several platforms. OmniThing currently supports ESP8266, ESP32, Raspberry Pi, Linux computers, and Windows computers. It is possible that other embedded Linux platforms will be supported in the future (i.e. Beaglebone).
@@ -51,10 +57,14 @@ OmniThing is designed to make the Devices as generic as possible. A Switch devic
 Composite Peripherals provide interfaces to sensors/actuators that are composed of multiple attributes. A perfect example is a DHT22, which provides both temperature and humidity. A TemperatureMeasurement device can reference the temperature attribute of a DHT22 Composite Peripheral. A RelativeHumidityMeasurement can do likewise with humidity.
 
 ### Network Receivers
-Network Receivers are how OmniThing receives HTTP messages from the hub.
+Network Receivers are how OmniThing receives HTTP messages from the hub. Typically this is where you specify things like the port and ip to have the HTTP server listen on.
+
+NOTE: Make sure that the OmniThing device's IP is static. You can typically do this in your router's DHCP server configuration.
 
 ### Network Senders
-Network Senders are how OmniThing sends HTTP messages to a home automation platform (i.e. SmartThings, Hubitat).
+Network Senders are how OmniThing sends HTTP messages to a home automation platform (i.e. SmartThings, Hubitat). Typically this will require you to specify an ip address and port for the hub.
+
+NOTE: Make sure that your hub's IP is static. You can typically do this in your router's DHCP server configuration.
 
 ### Input Value Types
 The following list shows the current input value types.
