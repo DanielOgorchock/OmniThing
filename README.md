@@ -1,6 +1,8 @@
 # OmniThing
 A cross-platform successor to ST_Anything
 
+ESP8266, ESP32, Raspberry Pi, Linux, Windows
+
 ## State of the Project
 OmniThing is currently in Alpha. Please keep in mind that at the time of writing this it has only been used by one person, so any bug reports are appreciated.
 
