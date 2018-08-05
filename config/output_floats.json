@@ -53,5 +53,20 @@
             "rpi",
             "arduino"
         ]
+    },
+    {
+        "type": "PwmOutput",
+        "parameters": [
+            {
+                "name": "pin",
+                "type": "uint",
+                "required": true,
+                "description": "PWM pin"
+            }
+        ],
+        "supported_platforms": [
+            "rpi",
+            "arduino"
+        ]
     }
 ]

@@ -495,5 +495,14 @@ See below for a list of all parameters for everything in the config file
 #### Supported Platforms
 * rpi
 * arduino
+### PwmOutput
+#### Parameters
+* pin
+  * type: uint
+  * required: True
+  * description: PWM pin
+#### Supported Platforms
+* rpi
+* arduino
 ## OutputStrings
 
