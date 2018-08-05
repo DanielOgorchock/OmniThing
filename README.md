@@ -156,7 +156,7 @@ NOTE: Right now these instructions are basically ripped directly from ST_Anythin
   - Name:   OmniThing
   - Branch: master
 - Click on "Update From Repo" from the menu
-- Select "ST_Anything (master)" from the list
+- Select "OmniThing (master)" from the list
 - Select all of the Parent and Child Device Handlers
 - Check the "Publish" check box and click "Execute Update"
 - You should now have all of the necessary Device Handlers added to your account
