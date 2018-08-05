@@ -12,7 +12,9 @@ Contributions to the project are encouraged. A guide to contributing can be foun
 
 People trying out OmniThing coming from ST_Anything may note that fewer Arduino devices are supported. This is due to memory restraints. OmniThing uses much more RAM than ST_Anything due to it using a json configuration. Due to this, OmniThing is not a total replacement of ST_Anything functionality, so people using Arduino Unos and Megas won't have much luck with OmniThing (Mega support could potentially come in the future, but Uno has no chance).
 
-Additionally, OmniThing is still in early development, so it may be less stable than ST_Anything in addition to missing some of the ST_Anything device types at this time.[
+Additionally, OmniThing is still in early development, so it may be less stable than ST_Anything in addition to missing some of the ST_Anything device types at this time.
+
+Finally, unlike ST_Anything, OmniThing does not require the end user to edit actual source code. Instead of adding stuff to an Arduino sketch, everything is done through the OmniThing json configuration file. OmniThing parses this file and dynamically creates the desired devices at startup.
 
 Goals for Beta:
 * Web-based configuration interface so users don't have to manually edit json
