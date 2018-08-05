@@ -40,7 +40,21 @@ The following list shows the current output value types.
   * Example: Run a bash command on Linux computer
   * Class: OutputString
   
-Generating documentation from json
+## Board Pinouts
+  Reference the images below to determine which pin numbers to use for your board.
+  Note: Use the numbers following the "GPIO" labels for the ESPs, not the absolute pin position.
+  
+  ### ESP8266
+  ![alt text](https://user-images.githubusercontent.com/5153370/43681147-b835fdf8-9811-11e8-81de-7de1de9099e2.png "ESP8266")
+  
+  ### ESP32
+  ![alt text](https://user-images.githubusercontent.com/5153370/43681164-0e28798e-9812-11e8-87da-94005a30af2f.png "ESP32")
+  
+  ### Raspberry Pi
+  Be sure to pay attention to whether you have a raspberry pi with 26 or 40 pins.
+  ![alt text](https://user-images.githubusercontent.com/5153370/43681179-a30f6328-9812-11e8-978a-ce2b810afd14.png "Raspberry Pi")
+  ![alt text](https://user-images.githubusercontent.com/5153370/43681196-e757ed66-9812-11e8-9253-eab34e639ede.png "Raspberry Pi")
+
 ### Devices
 * ContactSensor
   * Parameters
@@ -533,16 +547,3 @@ Generating documentation from json
 ### OutputStrings
 
   
-## Board Pinouts
-  Reference the images below to determine which pin numbers to use for your board.
-  
-  ### ESP8266
-  ![alt text](https://user-images.githubusercontent.com/5153370/43681147-b835fdf8-9811-11e8-81de-7de1de9099e2.png "ESP8266")
-  
-  ### ESP32
-  ![alt text](https://user-images.githubusercontent.com/5153370/43681164-0e28798e-9812-11e8-87da-94005a30af2f.png "ESP32")
-  
-  ### Raspberry Pi
-  Be sure to pay attention to whether you have a raspberry pi with 26 or 40 pins.
-  ![alt text](https://user-images.githubusercontent.com/5153370/43681179-a30f6328-9812-11e8-978a-ce2b810afd14.png "Raspberry Pi")
-  ![alt text](https://user-images.githubusercontent.com/5153370/43681196-e757ed66-9812-11e8-9253-eab34e639ede.png "Raspberry Pi")
