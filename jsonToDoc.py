@@ -13,12 +13,12 @@ def writeElement(element):
     if "parameters" in element:
         output += "  * Parameters\n"
         for param in element['parameters']:
-            output += "    * name: " + param['name'] + "\n"
-            output += "    * type: " + param['type'] + "\n"
-            output += "    * required: " + str(param['required']) + "\n"
+            output += "    * " + param['name'] + "\n"
+            output += "      * type: " + param['type'] + "\n"
+            output += "      * required: " + str(param['required']) + "\n"
             if "default" in param:
-                output += "    * default: " + str(param['default']) + "\n"
-            output += "    * description: " + param['description'] + "\n"
+                output += "      * default: " + str(param['default']) + "\n"
+            output += "      * description: " + param['description'] + "\n"
     
     if "events" in element:
         output += "  * Events\n"
