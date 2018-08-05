@@ -38,7 +38,7 @@ namespace omni
         m_rOutput(output),
         m_fLevel(initialLevel)
     {
-        write(initialLevel);
+        writeNoUpdate(initialLevel);
     }
 
     SwitchLevel::~SwitchLevel()
