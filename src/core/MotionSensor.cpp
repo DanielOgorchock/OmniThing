@@ -121,7 +121,7 @@ namespace omni
 
     //events
     const char* MotionSensor::Event_Active     = "active";
-    const char* MotionSensor::Event_Inactive   = "closed";
+    const char* MotionSensor::Event_Inactive   = "inactive";
     const char* MotionSensor::Event_Changed    = "changed";
 
     const char* MotionSensor::Type = "MotionSensor";
