@@ -154,12 +154,14 @@ namespace omni
 
         if(json_scanf(json, len, "{revertTime: %lu}", &revertTime) == 1) // optional param
         {
+            LOG << F("Servo - enabling revertTime=") << revertTime << Logger::endl;
             revert = true;
         }
 
         if(json_scanf(json, len, "{shutoffTime: %lu}", &shutoffTime) == 1) // optional param
         {
             shutoff = true;
+            LOG << F("Servo - enabling shutoffTime=") << shutoffTime << Logger::endl;
         }
 
         json_scanf(json, len, "{initialPercent: %f}", &initialPercent); // optional param
