@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.7)
 project(OmniThing)
 message("Running OmniThing's CMakeLists.txt")
 
