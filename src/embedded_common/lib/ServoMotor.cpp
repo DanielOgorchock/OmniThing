@@ -26,6 +26,7 @@ namespace omni
         {
             ++m_nShutoffId;
             OmniThing::getInstance().addTrigger(this, m_nShutoffTime, Cmd_Detach, false);
+            LOG << F("Setting up shutoff trigger timed=") << m_nShutoffTime << F("\n");
         }
     }
 
@@ -97,12 +98,14 @@ namespace omni
         {
             ++m_nRevertId;
             OmniThing::getInstance().addTrigger(this, m_nRevertTime, Cmd_Revert, false);
+            LOG << F("Setting up revert trigger time=") << m_nRevertTime << F("\n");
         }
     }
 
     void ServoMotor::trigger(void* arg)
     {
         char* cmd = static_cast<char*>(arg);
+        LOG << F("Servo trigger cmd=") << cmd << Logger::endl;
 
         if(!strcmp(cmd, Cmd_Detach))
         {
