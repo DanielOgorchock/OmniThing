@@ -608,8 +608,8 @@ namespace omni
             return nullptr;
         }
 
-        return configs[index]->createFromJson(t.ptr);
         const_cast<char*>(t.ptr)[t.len] = tmp;
+        return configs[index]->createFromJson(t.ptr);
     }
 
     InputFloat* OmniThing::buildInputFloat(json_token& t)
@@ -633,8 +633,8 @@ namespace omni
             return nullptr;
         }
 
-        return configs[index]->createFromJson(t.ptr);
         const_cast<char*>(t.ptr)[t.len] = tmp;
+        return configs[index]->createFromJson(t.ptr);
     }
 
     InputUInt* OmniThing::buildInputUInt(json_token& t)
@@ -658,8 +658,8 @@ namespace omni
             return nullptr;
         }
 
-        return configs[index]->createFromJson(t.ptr);
         const_cast<char*>(t.ptr)[t.len] = tmp;
+        return configs[index]->createFromJson(t.ptr);
     }
 
     OutputVoid* OmniThing::buildOutputVoid(json_token& t)
@@ -683,8 +683,8 @@ namespace omni
             return nullptr;
         }
 
-        return configs[index]->createFromJson(t.ptr);
         const_cast<char*>(t.ptr)[t.len] = tmp;
+        return configs[index]->createFromJson(t.ptr);
     }
 
     OutputBool* OmniThing::buildOutputBool(json_token& t)
@@ -708,8 +708,8 @@ namespace omni
             return nullptr;
         }
 
-        return configs[index]->createFromJson(t.ptr);
         const_cast<char*>(t.ptr)[t.len] = tmp;
+        return configs[index]->createFromJson(t.ptr);
     }
 
     OutputFloat* OmniThing::buildOutputFloat(json_token& t)
@@ -733,8 +733,8 @@ namespace omni
             return nullptr;
         }
 
-        return configs[index]->createFromJson(t.ptr);
         const_cast<char*>(t.ptr)[t.len] = tmp;
+        return configs[index]->createFromJson(t.ptr);
     }
 
     OutputString* OmniThing::buildOutputString(json_token& t)
@@ -758,8 +758,8 @@ namespace omni
             return nullptr;
         }
 
-        return configs[index]->createFromJson(t.ptr);
         const_cast<char*>(t.ptr)[t.len] = tmp;
+        return configs[index]->createFromJson(t.ptr);
     }
 
 
