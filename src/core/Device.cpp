@@ -108,7 +108,7 @@ namespace omni
                 delete[] cmd;
             }
 
-            LOG << F("Successfully added subscription");
+            LOG << F("Successfully added subscription\n");
         }
 
         return true;
