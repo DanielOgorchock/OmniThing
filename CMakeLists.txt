@@ -30,6 +30,8 @@ if(BUILD_TARGET STREQUAL "linux")
     add_definitions("-DOMNI_FAKE_F_MACRO")
     add_definitions("-DOMNI_PLAT_LINUX")
     add_definitions("-DOMNI_NOT_ARDUINO")
+
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 elseif(BUILD_TARGET STREQUAL "rpi")
     message("Creating Raspberry Pi Build Configuration")
     add_executable(OmniThing src/os_common/main_os.cpp  ${sources_core} 
@@ -46,6 +48,8 @@ elseif(BUILD_TARGET STREQUAL "rpi")
     add_definitions("-DOMNI_FAKE_F_MACRO")
     add_definitions("-DOMNI_PLAT_RPI")
     add_definitions("-DOMNI_NOT_ARDUINO")
+
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 elseif(BUILD_TARGET STREQUAL "windows")
 	message("Creating Windows Build Configuration")
 	add_executable(OmniThing src/os_common/main_os.cpp ${sources_core} ${sources_os_common})
