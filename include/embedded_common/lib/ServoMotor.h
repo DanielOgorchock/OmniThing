@@ -41,9 +41,9 @@ namespace omni
             void detach();
             void writePulse(unsigned long pulseWidth);
 
-            static char* Cmd_Detach;
-            static char* Cmd_Revert;
-            static char* Cmd_Startup;
+            static char Cmd_Detach[];
+            static char Cmd_Revert[];
+            static char Cmd_Startup[];
         protected:
         public:
             ServoMotor(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime, bool shutoff, unsigned long shutoffTime, bool noStartup, unsigned long minPulse, unsigned long maxPulse);

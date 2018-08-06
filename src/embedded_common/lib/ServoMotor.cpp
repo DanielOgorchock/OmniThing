@@ -58,9 +58,9 @@ namespace omni
     #endif
     }
 
-    char* ServoMotor::Cmd_Detach  = "detach";
-    char* ServoMotor::Cmd_Revert  = "revert";
-    char* ServoMotor::Cmd_Startup = "startup";
+    char ServoMotor::Cmd_Detach[]  = "detach";
+    char ServoMotor::Cmd_Revert[]  = "revert";
+    char ServoMotor::Cmd_Startup[] = "startup";
 //protected
 //public
     ServoMotor::ServoMotor(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime, bool shutoff, unsigned long shutoffTime, bool noStartup, unsigned long minPulse, unsigned long maxPulse) :
