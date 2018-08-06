@@ -34,6 +34,8 @@ metadata {
 		standardTile("configure", "device.configure", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
 			state "configure", label:'Configure', action:"configuration.configure", icon:"st.secondary.tools"
 		}
+        
+        childDeviceTiles("all")
 	}
     
     preferences {
