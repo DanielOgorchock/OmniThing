@@ -17,9 +17,6 @@ namespace omni
 
     Device* TemperatureMeasurement::createFromJson(const char* json)
     {
-        unsigned int len = strlen(json);
-        json_token t;
-
         FloatMeasurement* fm = FloatMeasurement::createFromJson(json, Attribute);
         if(!fm)
             return nullptr;

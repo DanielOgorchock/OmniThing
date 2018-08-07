@@ -48,8 +48,8 @@ namespace omni
     NetworkReceiverHttpLib::NetworkReceiverHttpLib(const char* ip, unsigned short port):
         m_Server(),
         m_nPort(port),
-        m_bWipeBuffer(false),
-		m_bUnlockMutex(false)
+		m_bUnlockMutex(false),
+        m_bWipeBuffer(false)
     {
         m_JsonBuffer[0] = 0;
         strncpy(m_IP, ip, 30);

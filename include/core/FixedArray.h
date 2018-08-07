@@ -49,7 +49,7 @@ namespace omni
                 if(index >= S)
                     return false;
 
-                for(unsigned int i = index; i < getCount()-1; ++i)
+                for(unsigned short i = index; i < getCount()-1; ++i)
                 {
                     m_Array[i] = m_Array[i+1];
                 }

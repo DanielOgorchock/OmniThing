@@ -24,7 +24,6 @@ namespace omni
 
     const char* CompositePeripheral::parseName(const char* json)
     {
-        auto& omnithing = OmniThing::getInstance();
         unsigned int len = strlen(json);
 
         const char* name = nullptr;
