@@ -18,7 +18,7 @@ namespace omni
 
     OutputBoolToFloat::~OutputBoolToFloat()
     {
-        
+
     }
 
     void OutputBoolToFloat::writeBool(bool b)
@@ -37,9 +37,9 @@ namespace omni
     {
         float trueVal;
         float falseVal;
-         
+
         unsigned int len = strlen(json);
-        json_token t; 
+        json_token t;
 
         if(json_scanf(json, len, "{output: %T, trueVal: %f, falseVal: %f}", &t, &trueVal, &falseVal) != 3)
         {
