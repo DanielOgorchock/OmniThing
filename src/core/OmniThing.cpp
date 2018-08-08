@@ -608,8 +608,10 @@ namespace omni
             return nullptr;
         }
 
+        auto ret = configs[index]->createFromJson(t.ptr);
+
         const_cast<char*>(t.ptr)[t.len] = tmp;
-        return configs[index]->createFromJson(t.ptr);
+        return ret;
     }
 
     InputFloat* OmniThing::buildInputFloat(json_token& t)
@@ -633,8 +635,10 @@ namespace omni
             return nullptr;
         }
 
+        auto ret = configs[index]->createFromJson(t.ptr);
+
         const_cast<char*>(t.ptr)[t.len] = tmp;
-        return configs[index]->createFromJson(t.ptr);
+        return ret;
     }
 
     InputUInt* OmniThing::buildInputUInt(json_token& t)
@@ -658,8 +662,10 @@ namespace omni
             return nullptr;
         }
 
+        auto ret = configs[index]->createFromJson(t.ptr);
+
         const_cast<char*>(t.ptr)[t.len] = tmp;
-        return configs[index]->createFromJson(t.ptr);
+        return ret;
     }
 
     OutputVoid* OmniThing::buildOutputVoid(json_token& t)
@@ -683,8 +689,10 @@ namespace omni
             return nullptr;
         }
 
+        auto ret = configs[index]->createFromJson(t.ptr);
+
         const_cast<char*>(t.ptr)[t.len] = tmp;
-        return configs[index]->createFromJson(t.ptr);
+        return ret;
     }
 
     OutputBool* OmniThing::buildOutputBool(json_token& t)
@@ -708,8 +716,10 @@ namespace omni
             return nullptr;
         }
 
+        auto ret = configs[index]->createFromJson(t.ptr);
+
         const_cast<char*>(t.ptr)[t.len] = tmp;
-        return configs[index]->createFromJson(t.ptr);
+        return ret;
     }
 
     OutputFloat* OmniThing::buildOutputFloat(json_token& t)
@@ -733,8 +743,10 @@ namespace omni
             return nullptr;
         }
 
+        auto ret = configs[index]->createFromJson(t.ptr);
+
         const_cast<char*>(t.ptr)[t.len] = tmp;
-        return configs[index]->createFromJson(t.ptr);
+        return ret;
     }
 
     OutputString* OmniThing::buildOutputString(json_token& t)
@@ -758,8 +770,10 @@ namespace omni
             return nullptr;
         }
 
+        auto ret = configs[index]->createFromJson(t.ptr);
+
         const_cast<char*>(t.ptr)[t.len] = tmp;
-        return configs[index]->createFromJson(t.ptr);
+        return ret;
     }
 
 
