@@ -101,7 +101,8 @@ namespace omni
         for(unsigned int i = 0; i < m_Devices.getCount(); ++i)
         {
             auto d = m_Devices[i];
-            LOG << F("\tname=") << d->getName() << F(" type=") << d->getType() << F("\n");
+            LOG << F("\tname=") << d->getName() << F(" type=") << d->getType()
+                << F(" constantRun=") << d->isRunning() << F("\n");
         }
 
         LOG << F("\n############# TRIGGERS ##############\n");
