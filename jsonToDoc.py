@@ -11,7 +11,7 @@ def writeElement(element):
 
     output += "### " + element['type'] + "\n"
     if "parameters" in element:
-        output += "#### Parameters\n"
+        output += "##### Parameters\n"
         for param in element['parameters']:
             output += "* " + param['name'] + "\n"
             output += "  * type: " + param['type'] + "\n"
@@ -21,31 +21,31 @@ def writeElement(element):
             output += "  * description: " + param['description'] + "\n"
     
     if "events" in element:
-        output += "#### Events\n"
+        output += "##### Events\n"
         for event in element['events']:
             output += "* " + event + "\n"
 
     if "commands" in element:
-        output += "#### Commands\n"
+        output += "##### Commands\n"
         for cmd in element['commands']:
             output += "* " + cmd + "\n"
 
     if "bools" in element:
-        output += "#### Bool Attributes\n"
+        output += "##### Bool Attributes\n"
         for attr in element['bools']:
             output+= "* " + attr + "\n"
 
     if "floats" in element:
-        output += "#### Float Attributes\n"
+        output += "##### Float Attributes\n"
         for attr in element['floats']:
             output+= "* " + attr + "\n"
 
     if "uints" in element:
-        output += "#### UInt Attributes\n"
+        output += "##### UInt Attributes\n"
         for attr in element['uints']:
             output+= "* " + attr + "\n"
 
-    output += "#### Supported Platforms\n"
+    output += "##### Supported Platforms\n"
     for plat in element['supported_platforms']:
         output += "* " + plat + "\n"
 

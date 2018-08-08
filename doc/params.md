@@ -3,7 +3,7 @@ See below for a list of all parameters for everything in the config file
 
 ## Devices
 ### ContactSensor
-#### Parameters
+##### Parameters
 * input
   * type: InputBool
   * required: True
@@ -16,29 +16,29 @@ See below for a list of all parameters for everything in the config file
   * type: bool
   * required: True
   * description: Whether to constantly poll the input source (usually should be true)
-#### Events
+##### Events
 * open
 * closed
 * changed
-#### Commands
+##### Commands
 * poll
-#### Supported Platforms
+##### Supported Platforms
 * all
 ### Momentary
-#### Parameters
+##### Parameters
 * output
   * type: OutputVoid
   * required: True
   * description: What the device actuates (i.e. a gpio toggler)
-#### Events
+##### Events
 * pushed
-#### Commands
+##### Commands
 * poll
 * push
-#### Supported Platforms
+##### Supported Platforms
 * all
 ### MotionSensor
-#### Parameters
+##### Parameters
 * input
   * type: InputBool
   * required: True
@@ -51,27 +51,27 @@ See below for a list of all parameters for everything in the config file
   * type: bool
   * required: True
   * description: Whether to constantly poll the input source (usually should be true)
-#### Events
+##### Events
 * active
 * inactive
 * changed
-#### Commands
+##### Commands
 * poll
-#### Supported Platforms
+##### Supported Platforms
 * all
 ### RelativeHumidityMeasurement
-#### Parameters
+##### Parameters
 * input
   * type: InputFloat
   * required: True
   * description: How the device determines humidity (i.e. analog input pin)
-#### Events
-#### Commands
+##### Events
+##### Commands
 * poll
-#### Supported Platforms
+##### Supported Platforms
 * all
 ### Switch
-#### Parameters
+##### Parameters
 * output
   * type: OutputBool
   * required: True
@@ -84,41 +84,41 @@ See below for a list of all parameters for everything in the config file
   * type: bool
   * required: True
   * description: Initial value to set the switch to at startup
-#### Events
+##### Events
 * on
 * off
 * changed
-#### Commands
+##### Commands
 * poll
 * on
 * off
 * toggle
-#### Supported Platforms
+##### Supported Platforms
 * all
 ### TemperatureMeasurement
-#### Parameters
+##### Parameters
 * input
   * type: InputFloat
   * required: True
   * description: How the device determines temperature (i.e. analog input pin)
-#### Events
-#### Commands
+##### Events
+##### Commands
 * poll
-#### Supported Platforms
+##### Supported Platforms
 * all
 ### VoltageMeasurement
-#### Parameters
+##### Parameters
 * input
   * type: InputFloat
   * required: True
   * description: How the device determines voltage (i.e. analog input pin)
-#### Events
-#### Commands
+##### Events
+##### Commands
 * poll
-#### Supported Platforms
+##### Supported Platforms
 * all
 ### SwitchLevel
-#### Parameters
+##### Parameters
 * output
   * type: OutputFloat
   * required: True
@@ -127,16 +127,16 @@ See below for a list of all parameters for everything in the config file
   * type: float
   * required: True
   * description: Initial percent level value (0, 100)
-#### Events
+##### Events
 * changed
-#### Commands
+##### Commands
 * poll
 * setLevel
-#### Supported Platforms
+##### Supported Platforms
 * all
 ## Composite Peripherals
 ### DhtReader
-#### Parameters
+##### Parameters
 * pin
   * type: uint
   * required: True
@@ -151,17 +151,17 @@ See below for a list of all parameters for everything in the config file
   * required: False
   * default: False
   * description: If you are using a dht11, set this to true
-#### Bool Attributes
-#### Float Attributes
+##### Bool Attributes
+##### Float Attributes
 * temperature
 * humidity
-#### UInt Attributes
-#### Supported Platforms
+##### UInt Attributes
+##### Supported Platforms
 * rpi
 * arduino
 ## Network Receivers
 ### NetworkManagerEsp32
-#### Parameters
+##### Parameters
 * port
   * type: uint
   * required: True
@@ -174,10 +174,10 @@ See below for a list of all parameters for everything in the config file
   * type: string
   * required: False
   * description: Access point password, if not given here, specify for NetworkSender
-#### Supported Platforms
+##### Supported Platforms
 * esp32
 ### NetworkManagerEsp8266
-#### Parameters
+##### Parameters
 * port
   * type: uint
   * required: True
@@ -190,10 +190,10 @@ See below for a list of all parameters for everything in the config file
   * type: string
   * required: False
   * description: Access point password, if not given here, specify for NetworkSender
-#### Supported Platforms
+##### Supported Platforms
 * esp8266
 ### NetworkReceiverHttpLib
-#### Parameters
+##### Parameters
 * port
   * type: uint
   * required: True
@@ -202,13 +202,13 @@ See below for a list of all parameters for everything in the config file
   * type: string
   * required: True
   * description: IP for server to listen on (should be this computer's IP)
-#### Supported Platforms
+##### Supported Platforms
 * linux
 * windows
 * rpi
 ## Network Senders
 ### NetworkManagerEsp32
-#### Parameters
+##### Parameters
 * port
   * type: uint
   * required: True
@@ -225,10 +225,10 @@ See below for a list of all parameters for everything in the config file
   * type: string
   * required: False
   * description: Access point password, if not given here, specify for NetworkReceiver
-#### Supported Platforms
+##### Supported Platforms
 * esp32
 ### NetworkManagerEsp8266
-#### Parameters
+##### Parameters
 * port
   * type: uint
   * required: True
@@ -245,10 +245,10 @@ See below for a list of all parameters for everything in the config file
   * type: string
   * required: False
   * description: Access point password, if not given here, specify for NetworkReceiver
-#### Supported Platforms
+##### Supported Platforms
 * esp8266
 ### NetworkSenderHttpLib
-#### Parameters
+##### Parameters
 * ip
   * type: string
   * required: True
@@ -257,13 +257,13 @@ See below for a list of all parameters for everything in the config file
   * type: uint
   * required: True
   * description: Hub's port
-#### Supported Platforms
+##### Supported Platforms
 * linux
 * windows
 * rpi
 ## InputBools
 ### InputBoolRef
-#### Parameters
+##### Parameters
 * compositeName
   * type: string
   * required: True
@@ -272,10 +272,10 @@ See below for a list of all parameters for everything in the config file
   * type: string
   * required: True
   * description: Name of the composite peripheral's bool attribute being referenced
-#### Supported Platforms
+##### Supported Platforms
 * all
 ### DigitalInputPinArduino
-#### Parameters
+##### Parameters
 * pin
   * type: uint
   * required: True
@@ -288,10 +288,10 @@ See below for a list of all parameters for everything in the config file
   * type: bool
   * required: True
   * description: Whether or not to enable internal pullup
-#### Supported Platforms
+##### Supported Platforms
 * arduino
 ### DigitalInputPinRaspberryPi
-#### Parameters
+##### Parameters
 * pin
   * type: uint
   * required: True
@@ -304,11 +304,11 @@ See below for a list of all parameters for everything in the config file
   * type: enum
   * required: True
   * description: Whether or not to enable internal pullup/pulldown
-#### Supported Platforms
+##### Supported Platforms
 * rpi
 ## InputFloats
 ### InputFloatRef
-#### Parameters
+##### Parameters
 * compositeName
   * type: string
   * required: True
@@ -317,10 +317,10 @@ See below for a list of all parameters for everything in the config file
   * type: string
   * required: True
   * description: Name of the composite peripheral's float attribute being referenced
-#### Supported Platforms
+##### Supported Platforms
 * all
 ### AnalogInputPinArduino
-#### Parameters
+##### Parameters
 * pin
   * type: uint
   * required: True
@@ -333,11 +333,11 @@ See below for a list of all parameters for everything in the config file
   * type: float
   * required: True
   * description: Maximum voltage to map to
-#### Supported Platforms
+##### Supported Platforms
 * arduino
 ## InputUInts
 ### InputUIntRef
-#### Parameters
+##### Parameters
 * compositeName
   * type: string
   * required: True
@@ -346,11 +346,11 @@ See below for a list of all parameters for everything in the config file
   * type: string
   * required: True
   * description: Name of the composite peripheral's uint attribute being referenced
-#### Supported Platforms
+##### Supported Platforms
 * all
 ## OutputVoids
 ### TimedOutputBool
-#### Parameters
+##### Parameters
 * output
   * type: OutputBool
   * required: True
@@ -359,10 +359,10 @@ See below for a list of all parameters for everything in the config file
   * type: uint
   * required: True
   * description: How long to leave output on before turning back off
-#### Supported Platforms
+##### Supported Platforms
 * all
 ### DigitalOutputPinArduino
-#### Parameters
+##### Parameters
 * pin
   * type: uint
   * required: true
@@ -375,10 +375,10 @@ See below for a list of all parameters for everything in the config file
   * type: bool
   * required: True
   * description: Whether or not to invert the pin output
-#### Supported Platforms
+##### Supported Platforms
 * arduino
 ### DigitalOutputPinRaspberryPi
-#### Parameters
+##### Parameters
 * pin
   * type: uint
   * required: true
@@ -391,10 +391,10 @@ See below for a list of all parameters for everything in the config file
   * type: bool
   * required: True
   * description: Whether or not to invert the pin output
-#### Supported Platforms
+##### Supported Platforms
 * rpi
 ### CommandExecuter
-#### Parameters
+##### Parameters
 * command
   * type: string
   * required: True
@@ -403,13 +403,13 @@ See below for a list of all parameters for everything in the config file
   * type: bool
   * required: False
   * description: Set true to run the command in a new thread (NOTE: this is buggy right now)
-#### Supported Platforms
+##### Supported Platforms
 * linux
 * windows
 * rpi
 ## OutputBools
 ### OutputBoolToFloat
-#### Parameters
+##### Parameters
 * output
   * type: OutputFloat
   * required: True
@@ -422,10 +422,10 @@ See below for a list of all parameters for everything in the config file
   * type: float
   * required: True
   * description: The float value mapped to false
-#### Supported Platforms
+##### Supported Platforms
 * all
 ### DigitalOutputPinArduino
-#### Parameters
+##### Parameters
 * pin
   * type: uint
   * required: true
@@ -438,10 +438,10 @@ See below for a list of all parameters for everything in the config file
   * type: bool
   * required: True
   * description: Whether or not to invert the pin output
-#### Supported Platforms
+##### Supported Platforms
 * arduino
 ### DigitalOutputPinRaspberryPi
-#### Parameters
+##### Parameters
 * pin
   * type: uint
   * required: true
@@ -454,10 +454,10 @@ See below for a list of all parameters for everything in the config file
   * type: bool
   * required: True
   * description: Whether or not to invert the pin output
-#### Supported Platforms
+##### Supported Platforms
 * rpi
 ### CommandExecuterSwitch
-#### Parameters
+##### Parameters
 * commandOn
   * type: string
   * required: True
@@ -470,13 +470,13 @@ See below for a list of all parameters for everything in the config file
   * type: bool
   * required: False
   * description: Set true to run the command in a new thread (NOTE: this is buggy right now)
-#### Supported Platforms
+##### Supported Platforms
 * linux
 * windows
 * rpi
 ## OutputFloats
 ### ServoMotor
-#### Parameters
+##### Parameters
 * pin
   * type: uint
   * required: True
@@ -509,16 +509,16 @@ See below for a list of all parameters for everything in the config file
   * required: False
   * default: 2400
   * description: Servo pulse length associated with 100 percent
-#### Supported Platforms
+##### Supported Platforms
 * rpi
 * arduino
 ### PwmOutput
-#### Parameters
+##### Parameters
 * pin
   * type: uint
   * required: True
   * description: PWM pin
-#### Supported Platforms
+##### Supported Platforms
 * rpi
 * arduino
 ## OutputStrings
