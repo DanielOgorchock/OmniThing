@@ -54,7 +54,7 @@ namespace omni
 
         unsigned short pin;
 
-        if(json_scanf(json, len, "{pin: %u}", &pin) != 1)
+        if(json_scanf(json, len, "{pin: %hu}", &pin) != 1)
         {
             return nullptr;
         }

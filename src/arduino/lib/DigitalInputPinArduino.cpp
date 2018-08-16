@@ -39,11 +39,11 @@ namespace omni
     {
         unsigned int len = strlen(json);
 
-        unsigned int pin;
+        unsigned short pin;
         bool invert;
         bool pullup;
 
-        if(json_scanf(json, len, "{pin: %u, invert: %B, pullup: %B}", &pin, &invert, &pullup) != 3)
+        if(json_scanf(json, len, "{pin: %hu, invert: %B, pullup: %B}", &pin, &invert, &pullup) != 3)
             return nullptr;
 
         return new DigitalInputPinArduino(pin, invert, pullup);

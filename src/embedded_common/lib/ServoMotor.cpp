@@ -147,7 +147,7 @@ namespace omni
         unsigned long minPulse = 544;
         unsigned long maxPulse = 2400;
 
-        if(json_scanf(json, len, "{pin: %u}", &pin) != 1)
+        if(json_scanf(json, len, "{pin: %hu}", &pin) != 1)
         {
             return nullptr;
         }

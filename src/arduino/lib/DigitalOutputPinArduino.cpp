@@ -11,11 +11,11 @@ namespace omni
     {
         unsigned int len = strlen(json);
 
-        unsigned int pin;
+        unsigned short pin;
         bool initial;
         bool invert;
 
-        if(json_scanf(json, len, "{pin: %u, initial: %B, invert: %B}", &pin, &initial, &invert) != 3)
+        if(json_scanf(json, len, "{pin: %hu, initial: %B, invert: %B}", &pin, &initial, &invert) != 3)
         {
             return nullptr;
         }

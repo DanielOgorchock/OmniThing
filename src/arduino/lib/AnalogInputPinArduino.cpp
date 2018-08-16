@@ -21,7 +21,7 @@ namespace omni
         float minVoltage;
         float maxVoltage;
 
-        if(json_scanf(json, len, "{pin: %u, minVoltage: %f, maxVoltage: %f}", &pin, &minVoltage, &maxVoltage)!=3)
+        if(json_scanf(json, len, "{pin: %hu, minVoltage: %f, maxVoltage: %f}", &pin, &minVoltage, &maxVoltage)!=3)
             return nullptr;
 
         LOG << F("minVoltage=") << minVoltage << F(" maxVoltage=") << maxVoltage << Logger::endl;

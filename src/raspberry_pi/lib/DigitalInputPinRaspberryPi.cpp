@@ -56,11 +56,11 @@ namespace omni
     {
         unsigned int len = strlen(json);
 
-        unsigned int pin;
+        unsigned short pin;
         bool invert;
         char pinmodeBuf[20];
 
-        if(json_scanf(json, len, "{pin: %u, invert: %B, pinMode: %s}", &pin, &invert, pinmodeBuf) != 3)
+        if(json_scanf(json, len, "{pin: %hu, invert: %B, pinMode: %s}", &pin, &invert, pinmodeBuf) != 3)
             return nullptr;
 
         PinMode pm = PinMode::Normal;

@@ -214,7 +214,7 @@ namespace omni
         bool dht11 = false;
         bool pullup = false;
 
-        if(json_scanf(json, len, "{pin: %u}", &pin) != 1)
+        if(json_scanf(json, len, "{pin: %hu}", &pin) != 1)
         {
             LOG << F("ERROR: pin number required\n");
             return nullptr;
