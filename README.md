@@ -29,6 +29,7 @@ Goals for Beta:
 * SPI (maybe?)
 * Support for buttons
 * ~~PWM support~~
+  * ESP32 PWM support
 * New Devices
   * ~~SwitchLevel~~
   * DimmerSwitch
