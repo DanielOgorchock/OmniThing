@@ -3,10 +3,10 @@ const app = express()
 
 
 app.get('/', function(req, res){
-    res.send("OmniThing")
+    res.sendFile("index.html", {root: __dirname+'/files'})
 })
 
-
+app.use(express.static('files'))
 
 
 
