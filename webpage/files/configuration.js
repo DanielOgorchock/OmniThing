@@ -3,6 +3,8 @@ var configuration = {};
 
 var rawJson = "";
 
+var saveChangesFuncs = [];
+
 
 configObjects = {};
 
@@ -26,6 +28,10 @@ $(window).on('load', function(){
     $("#buttonResetJson").click(resetConfig);
 
     $("#buttonImportJson").click(loadConfig);
+
+    $("#buttonDiscardChanges").click(discardChanges);
+
+    $("#buttonSaveChanges").click(saveChanges);
 
     $(window).bind('beforeunload', function(){
         if(configAltered)
@@ -73,7 +79,24 @@ var updateRawConfig = function(){
     rawJson = JSON.stringify(configuration, null, 4);
     $("#raw_json").text(rawJson);
 
+    saveChangesFuncs = [];
     renderAll();
+}
+
+var discardChanges = function(){
+    updateRawConfig();
+}
+
+var saveChanges = function(){
+    console.log("saveChanges()");
+
+    var len = saveChangesFuncs.length;
+    for(var i = 0; i < len; ++i)
+    {
+        saveChangesFuncs[i]();
+    }
+
+    updateRawConfig();
 }
 
 var renderParam = function(param, thing, uid, renderDepth){
@@ -184,6 +207,18 @@ var renderParam = function(param, thing, uid, renderDepth){
         formGroup.append(modalElementTrue);
         formGroup.append(modalElementFalse);
 
+        saveChangesFuncs.push(function(){
+            var val = $("input:radio[name=" + uid+"-param-"+param.name+"-bool-name]:checked").val();
+            var bVal = false;
+
+            if(val == "true")
+            {
+                bVal = true;
+            }
+
+            thing[param.name] = bVal;
+        });
+
         return formGroup;
     }
 
@@ -199,6 +234,10 @@ var renderParam = function(param, thing, uid, renderDepth){
 
         formGroup.append(label);
         formGroup.append(input);
+
+        saveChangesFuncs.push(function(){
+            thing[param.name] = input.val();
+        });
         return formGroup;
     }
 
@@ -215,6 +254,9 @@ var renderParam = function(param, thing, uid, renderDepth){
         formGroup.append(label);
         formGroup.append(input);
 
+        saveChangesFuncs.push(function(){
+            thing[param.name] = input.val();
+        });
         return formGroup;
     }
 
@@ -263,6 +305,11 @@ var renderParam = function(param, thing, uid, renderDepth){
         }
 
 
+        saveChangesFuncs.push(function(){
+            var val = $("input:radio[name=" + uid+"-param-"+param.name+"-enum-name]:checked").val();
+
+            thing[param.name] = val;
+        });
         return formGroup;
     }
 }
@@ -306,9 +353,22 @@ var renderOmni = function(thing, configObject, uid, renderDepth, prepend){
     {
         var nameId = uid+"-name";
         var formGroupName = $("<div/>", {
-            "class": "form-group",
+            "class": "input-group",
             "id": nameId
         });
+
+        var prependElement = $("<div/>", {
+            "class": "input-group-prepend"
+        });
+        var buttonElement = $("<button/>", {
+            "class": "btn btn-primary",
+            "type": "button"
+        });
+
+        buttonElement.append("Change Name");
+
+        prependElement.append(buttonElement);
+        formGroupName.append(prependElement);
 
         var nameInputId = uid+"-name-input";
         var inputNameElement = $("<input/>", {
@@ -317,17 +377,52 @@ var renderOmni = function(thing, configObject, uid, renderDepth, prepend){
             "type": "text"
         });
 
-        inputNameElement.val(thing.name);
+        buttonElement.click(function(){
+            var name = thing.name;
+            var newName = inputNameElement.val();
+            var things = configuration.Devices;
+            var numThings = things.length;
+            var found = false;
 
-        var nameLabelElement = $("<label/>", {
-            "for": nameInputId
+            if(newName == name)
+            {
+                console.log("No name change");
+                return;
+            }
+
+            for(var i = 0; i < numThings; ++i)
+            {
+                var tmp = things[i];
+                if(tmp.name == name)
+                {
+                    found = true;
+                    tmp.name = newName;
+                    break;
+                }
+            }
+
+            if(!found)
+            {
+                var things = configuration.CompositePeriphs;
+                var numThings = things.length;
+
+                for(var i = 0; i < numThings; ++i)
+                {
+                    var tmp = things[i];
+                    if(tmp.name == name)
+                    {
+                        found = true;
+                        tmp.name = newName;
+                        break;
+                    }
+                }
+            }
+
+            saveChanges();
         });
 
-        nameLabelElement.append("<strong>name</strong> (type=string &ensp; required=true):");
-        nameLabelElement.append("<br/>");
-        nameLabelElement.append("<i>This must be a unique name.</i>");
+        inputNameElement.val(thing.name);
 
-        formGroupName.append(nameLabelElement);
         formGroupName.append(inputNameElement);
 
         formElement.append(formGroupName);
