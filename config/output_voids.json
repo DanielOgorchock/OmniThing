@@ -81,7 +81,7 @@
                 "description": "The command to run in the shell (i.e. \"echo Hello\")"
             },
             {
-                "name": "mulithread",
+                "name": "multithread",
                 "type": "bool",
                 "required": false,
                 "description": "Set true to run the command in a new thread (NOTE: this is buggy right now)"

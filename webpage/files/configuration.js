@@ -139,6 +139,11 @@ var renderParam = function(param, thing, uid, renderDepth){
         });
         labelElementTrue.append("true");
 
+        if(thing[param.name] == true)
+        {
+            inputElementTrue.attr("checked", "true");
+        }
+
         modalElementTrue.append(inputElementTrue);
         modalElementTrue.append(labelElementTrue);
 
@@ -163,6 +168,11 @@ var renderParam = function(param, thing, uid, renderDepth){
         });
         labelElementFalse.append("false");
 
+        if(thing[param.name] == false)
+        {
+            inputElementFalse.attr("checked", "true");
+        }
+
         modalElementFalse.append(inputElementFalse);
         modalElementFalse.append(labelElementFalse);
 
@@ -185,6 +195,8 @@ var renderParam = function(param, thing, uid, renderDepth){
             "type": "number"
         });
 
+        input.val(thing[param.name]);
+
         formGroup.append(label);
         formGroup.append(input);
         return formGroup;
@@ -197,6 +209,8 @@ var renderParam = function(param, thing, uid, renderDepth){
             "class": "form-control",
             "type": "text"
         });
+
+        input.val(thing[param.name]);
 
         formGroup.append(label);
         formGroup.append(input);
@@ -236,6 +250,11 @@ var renderParam = function(param, thing, uid, renderDepth){
                 "for": modalId
             });
             labelElement.append(enumVal);
+
+            if(thing[param.name] == enumVal)
+            {
+                inputElement.attr("checked", "true");
+            }
 
             modalElement.append(inputElement);
             modalElement.append(labelElement);
