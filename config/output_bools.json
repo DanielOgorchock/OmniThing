@@ -84,7 +84,7 @@
                 "name": "commandOn",
                 "type": "string",
                 "required": true,
-                "description": "The command to run in the for true shell (i.e. \"echo On\")"
+                "description": "The command to run in the shell for true (i.e. \"echo On\")"
             },
             {
                 "name": "commandOff",
