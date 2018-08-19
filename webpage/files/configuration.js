@@ -302,6 +302,38 @@ var renderOmni = function(thing, configObject, uid, renderDepth, prepend){
 
     var formElement = $("<form/>");
 
+    if(thing.name != null && thing.name != undefined)
+    {
+        var nameId = uid+"-name";
+        var formGroupName = $("<div/>", {
+            "class": "form-group",
+            "id": nameId
+        });
+
+        var nameInputId = uid+"-name-input";
+        var inputNameElement = $("<input/>", {
+            "id": nameInputId,
+            "class": "form-control",
+            "type": "text"
+        });
+
+        inputNameElement.val(thing.name);
+
+        var nameLabelElement = $("<label/>", {
+            "for": nameInputId
+        });
+
+        nameLabelElement.append("<strong>name</strong> (type=string &ensp; required=true):");
+        nameLabelElement.append("<br/>");
+        nameLabelElement.append("<i>This must be a unique name.</i>");
+
+        formGroupName.append(nameLabelElement);
+        formGroupName.append(inputNameElement);
+
+        formElement.append(formGroupName);
+    }
+
+
     for(var i = 0; i < paramsLength; i++)
     {
         var param = parameters[i];
@@ -349,7 +381,7 @@ var renderDevices = function(){
 
         var listItem = $("<a/>", {
             "id": selectorId,
-            "class": "list-group-item list-group-item-action",
+            "class": "list-group-item list-group-item-action bg-secondary border-light",
             "data-toggle": "list",
             "href": "#" + contentId, 
             "role": "tab",
@@ -395,7 +427,7 @@ var renderComposites = function(){
 
         var listItem = $("<a/>", {
             "id": selectorId,
-            "class": "list-group-item list-group-item-action",
+            "class": "list-group-item list-group-item-action bg-secondary border-light",
             "data-toggle": "list",
             "href": "#" + contentId, 
             "role": "tab",
