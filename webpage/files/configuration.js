@@ -3,17 +3,9 @@ var configuration = {};
 
 var rawJson = "";
 
-var compositePeriphs_All = {};
-var inputFloats_All = {};
-var networkSenders_All = {};
-var outputStrings_All = {};
-var devices_All = {};
-var inputUInts_All = {};
-var outputBools_All = {};
-var outputVoids_All = {};
-var inputBools_All = {};
-var networkReceivers_All = {};
-var outputFloats_All = {};
+
+configObjects = {};
+
 
 var configAltered = false;
 
@@ -24,17 +16,17 @@ $(window).on('load', function(){
         configAltered = false;
     });
 
-    objectFromFile("compositePeriphs_All",  "config/composite_peripherals.json");
-    objectFromFile("inputFloats_All",       "config/input_floats.json");
-    objectFromFile("networkSenders_All",    "config/network_senders.json");
-    objectFromFile("outputStrings_All",     "config/output_strings.json");
-    objectFromFile("devices_All",           "config/devices.json");
-    objectFromFile("inputUInts_All",        "config/input_uints.json");
-    objectFromFile("outputBools_All",       "config/output_bools.json");
-    objectFromFile("outputVoids_All",       "config/output_voids.json");
-    objectFromFile("inputBools_All",        "config/input_bools.json");
-    objectFromFile("networkReceivers_All",  "config/network_receivers.json");
-    objectFromFile("outputFloats_All",      "config/output_floats.json");
+    objectFromFile("CompositePeriph",  "config/composite_peripherals.json");
+    objectFromFile("InputFloat",       "config/input_floats.json");
+    objectFromFile("NetworkSender",    "config/network_senders.json");
+    objectFromFile("OutputString",     "config/output_strings.json");
+    objectFromFile("Device",           "config/devices.json");
+    objectFromFile("InputUInt",        "config/input_uints.json");
+    objectFromFile("OutputBool",       "config/output_bools.json");
+    objectFromFile("OutputVoid",       "config/output_voids.json");
+    objectFromFile("InputBool",        "config/input_bools.json");
+    objectFromFile("NetworkReceiver",  "config/network_receivers.json");
+    objectFromFile("OutputFloat",      "config/output_floats.json");
 
     $("#buttonResetJson").click(resetConfig);
 
@@ -51,7 +43,7 @@ $(window).on('load', function(){
 
 var objectFromFile = function(objectName, filename){
     $.getJSON(filename, function(data){
-        window[objectName] = data;
+        configObjects[objectName] = data;
     });
 }
 
@@ -66,6 +58,91 @@ var updateRawConfig = function(){
     $("#raw_json").text(rawJson);
 
     renderAll();
+}
+
+var renderParam = function(param, thing, uid, renderDepth){
+    var pType = param.type;
+
+    if(   pType == "InputBool" || pType == "InputFloat" || pType == "InputUInt"
+       || pType == "OutputVoid" || pType == "OutputBool" || pType == "OutputFloat"
+       || pType == "OutputString" || pType == "Device")
+    {
+        return renderOmni(thing[param.name], configObjects[pType], uid, renderDepth+1, param.name+": ");
+    }
+
+    var formGroup = $("<div/>", {
+        "class": "form-group"
+    });
+
+    var inputId = uid+"-param-"+param.name;
+
+    var label = $("<label/>", {
+        "for": inputId
+    });
+    label.append(param.name);
+
+    var input = $("<input/>", {
+        "id": inputId,
+        "class": "form-control",
+        "type": "text"
+    });
+
+    formGroup.append(label);
+    formGroup.append(input);
+
+    return formGroup;
+}
+
+var renderOmni = function(thing, configObject, uid, renderDepth, prepend){
+    var type = getType(configObject, thing.type);
+    var parameters = type.parameters;
+    var paramsLength = parameters.length;
+
+    var cardClass = "card border-secondary"
+    if(renderDepth % 2 == 0)
+    {
+        cardClass += " bg-secondary";
+    }
+
+    var cardElement = $("<div/>", {
+        "class": cardClass
+    });
+
+    var cardHeaderElement = $("<div/>", {
+        "class": "card-header bg-primary"
+    });
+
+    var headerText = "";
+    if(prepend != null && prepend != undefined)
+    {
+        headerText += prepend;
+    }
+    headerText += thing.type;
+
+    cardHeaderElement.append(headerText);
+    cardElement.append(cardHeaderElement);
+
+    var cardBodyElement = $("<div/>", {
+        "class": "card-body"
+    });
+
+    var formElement = $("<form/>");
+
+    for(var i = 0; i < paramsLength; i++)
+    {
+        var param = parameters[i];
+        
+        var paramElement = renderParam(param, thing, uid, renderDepth);
+
+        formElement.append(paramElement);
+    }
+
+
+    cardBodyElement.append(formElement);
+    cardElement.append(cardBodyElement);
+
+    return cardElement;
+
 }
 
 var renderAll = function(){
@@ -93,7 +170,6 @@ var renderDevices = function(){
         var selectorText = device.name;
 
         var contentId = "contentDevice-" + device.name;
-        var contentText = device.type; //TODO: change this
 
         console.log("Adding device named " + device.name);
 
@@ -117,7 +193,7 @@ var renderDevices = function(){
             "aria-labelledby": selectorId
         });
 
-        contentItem.append(contentText);
+        contentItem.append(renderOmni(device, configObjects["Device"], device.name, 0));
         contentDiv.append(contentItem);
     }
 }
@@ -134,8 +210,8 @@ var renderNetworkSender = function(){
 
 }
 
-var getType = function(objectName, type){
-    var collection = window[objectName];
+var getType = function(configObject, type){
+    var collection = configObject;
     var length = collection.length;
 
     for(var i = 0; i < length; i++)
