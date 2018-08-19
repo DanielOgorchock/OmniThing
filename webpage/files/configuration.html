@@ -67,7 +67,7 @@
 
     <div class="tab-content" id="myTabContent">
 
-        <div class="tab-pane fade show active" id="config-content" role="tabpanel" aria-labelledby="config-tab">
+        <div class="tab-pane show active" id="config-content" role="tabpanel" aria-labelledby="config-tab">
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -86,7 +86,7 @@
             </div>
         </div>
 
-        <div class="tab-pane fade show" id="devices-content" role="tabpanel" aria-labelledby="devices-tab">
+        <div class="tab-pane show" id="devices-content" role="tabpanel" aria-labelledby="devices-tab">
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -116,7 +116,7 @@
             </div>
         </div>
 
-        <div class="tab-pane fade show" id="composite-content" role="tabpanel" aria-labelledby="composite-tab">
+        <div class="tab-pane show" id="composite-content" role="tabpanel" aria-labelledby="composite-tab">
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -125,6 +125,20 @@
                             <div class="card-header">Composite Peripherals</div>
                             <div class="card-body">
                                 <button type="button" class="btn btn-primary">Add Composite Peripheral</button>
+                                <br/> <br/>
+                                <div class="row">
+
+                                    <div class="col-4">
+                                        <div class="list-group" id="list-composites" role="tablist">
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="tab-content bg-secondary" id="content-list-composites">
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -132,14 +146,14 @@
             </div>
         </div>
 
-        <div class="tab-pane fade show" id="nreceiver-content" role="tabpanel" aria-labelledby="nreceiver-tab">
+        <div class="tab-pane show" id="nreceiver-content" role="tabpanel" aria-labelledby="nreceiver-tab">
             <div class="container">
                 <div class="row">
                     <div class="col">
                         </br>
                         <div class="card border-secondary mb-3">
                             <div class="card-header">Network Receiver</div>
-                            <div class="card-body">
+                            <div class="card-body" id="card-body-nreceiver">
                             </div>
                         </div>
                     </div>
@@ -147,14 +161,14 @@
             </div>
         </div>
 
-        <div class="tab-pane fade show" id="nsender-content" role="tabpanel" aria-labelledby="nsender-tab">
+        <div class="tab-pane show" id="nsender-content" role="tabpanel" aria-labelledby="nsender-tab">
             <div class="container">
                 <div class="row">
                     <div class="col">
                         </br>
                         <div class="card border-secondary mb-3">
                             <div class="card-header">Network Sender</div>
-                            <div class="card-body">
+                            <div class="card-body" id="card-body-nsender">
                             </div>
                         </div>
                     </div>
