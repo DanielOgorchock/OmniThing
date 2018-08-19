@@ -381,7 +381,7 @@ var renderDevices = function(){
 
         var listItem = $("<a/>", {
             "id": selectorId,
-            "class": "list-group-item list-group-item-action bg-secondary border-light",
+            "class": "list-group-item list-group-item-action",
             "data-toggle": "list",
             "href": "#" + contentId, 
             "role": "tab",
@@ -427,7 +427,7 @@ var renderComposites = function(){
 
         var listItem = $("<a/>", {
             "id": selectorId,
-            "class": "list-group-item list-group-item-action bg-secondary border-light",
+            "class": "list-group-item list-group-item-action",
             "data-toggle": "list",
             "href": "#" + contentId, 
             "role": "tab",
