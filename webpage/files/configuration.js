@@ -6,6 +6,10 @@ var rawJson = "";
 var saveChangesFuncs = [];
 
 
+var focusedDeviceId;
+var focusedCompositeId;
+
+
 configObjects = {};
 
 var configObjectsReceived = 0;
@@ -677,6 +681,21 @@ var renderAll = function(){
     renderComposites();
     renderNetworkReceiver();
     renderNetworkSender();
+
+
+    try{
+        $("#"+focusedDeviceId).click();
+    }
+    catch(e){
+        console.log("Failed to focus: " + focusedDeviceId);
+    }
+
+    try{
+        $("#"+focusedCompositeId).click();
+    }
+    catch(e){
+        console.log("Failed to focus: " + focusedCompositeId);
+    }
 }
 
 var renderDevices = function(){
@@ -707,6 +726,11 @@ var renderDevices = function(){
             "href": "#" + contentId, 
             "role": "tab",
             "aria-control": contentId
+        });
+
+        listItem.click(function(){
+            var tmpId = $(this).attr('id');
+            focusedDeviceId = tmpId;
         });
 
         listItem.append(selectorText);
@@ -753,6 +777,11 @@ var renderComposites = function(){
             "href": "#" + contentId, 
             "role": "tab",
             "aria-control": contentId
+        });
+
+        listItem.click(function(){
+            var tmpId = $(this).attr('id');
+            focusedCompositeId = tmpId;
         });
 
         listItem.append(selectorText);
