@@ -33,6 +33,20 @@ $(window).on('load', function(){
 
     $("#buttonSaveChanges").click(saveChanges);
 
+    $("#buttonAddDevice").click(function(){
+        var devices = configuration.Devices;
+        var device = {};
+        devices.push(device);
+        createNewThingModal("Device", device);
+    });
+
+    $("#buttonAddComposite").click(function(){
+        var composites = configuration.CompositePeriphs;
+        var composite = {};
+        composites.push(composite);
+        createNewThingModal("CompositePeriph", composite);
+    });
+
     $(window).bind('beforeunload', function(){
         if(configAltered)
         {
@@ -41,7 +55,11 @@ $(window).on('load', function(){
         return undefined;
     });
 });
-
+function remove(array, index) {
+    if (index !== -1) {
+        array.splice(index, 1);
+    }
+}
 var configInitialization = function(){
     if(configObjectsReceived >= 11)
     {
@@ -52,10 +70,6 @@ var configInitialization = function(){
             configAltered = false;
         });
     }
-}
-
-var sleep = function(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 var objectFromFile = function(objectName, filename, callback){
@@ -99,7 +113,114 @@ var saveChanges = function(){
     updateRawConfig();
 }
 
-var renderParam = function(param, thing, uid, renderDepth){
+var createNewThing = function(paramType, thing, thingType, name){
+    console.log("createNewThing paramType=" + paramType + "  thingType=" + thingType);
+    var configs = configObjects[paramType];
+    var config = getType(configs, thingType);
+
+    for(var member in thing) delete thing[member];
+
+    var len = config.parameters.length;
+    thing.type = config.type;
+
+    if(name != null && name != undefined)
+    {
+        thing.name = name;
+    }
+
+    for(var i = 0; i < len; i++)
+    {
+        var param = config.parameters[i];
+        var pType = param.type;
+        if(param.required == true)
+        {
+            if(   pType == "InputBool" || pType == "InputFloat" || pType == "InputUInt"
+               || pType == "OutputVoid" || pType == "OutputBool" || pType == "OutputFloat"
+               || pType == "OutputString" || pType == "Device")
+            {
+                thing[param.name] = {};
+            }
+            else
+            {
+                thing[param.name] = null;
+            }
+        }
+    }
+
+    saveChanges();
+}
+
+var createNewThingModal = function(paramType, thing){
+    var modal = $("#modalCreateNewThing");
+    var modalTitle = $("#modalCreateNewThingTitle");
+    var modalBody = $("#modalCreateNewThingBody");
+    var modalFooter = $("#modalCreateNewThingFooter");
+
+    modalTitle.text("Create new " + paramType);
+
+    var selectLabel = $("<label/>", {
+        "for": "createNewThingSelect"
+    });
+    selectLabel.text("Type");
+
+    var select = $("<select/>", {
+        "class": "form-control",
+        "id": "createNewThingSelect"
+    });
+
+    var configs = configObjects[paramType];
+    var len = configs.length;
+    for(var i = 0; i < len; ++i)
+    {
+        var option = $("<option/>");
+        option.text(configs[i].type);
+        select.append(option);
+    }
+
+
+    modalBody.empty();
+    modalBody.append(selectLabel);
+    modalBody.append(select);
+
+    var nameInput = null;
+    if(paramType == "Device" || paramType == "CompositePeriph")
+    {
+        var nameFormGroup = $("<div/>", {
+            "class": "form-group"
+        });
+
+        var nameLabel = $("<label/>", {
+            "for": "newThingName"
+        });
+        nameLabel.text("Name");
+
+        nameInput = $("<input/>", {
+            "class": "form-control",
+            "type": "text",
+            "id": "newThingName"
+        });
+
+
+        nameFormGroup.append(nameLabel);
+        nameFormGroup.append(nameInput);
+        modalBody.append(nameFormGroup);
+    }
+
+    var buttonCreate = $("#buttonCreateNewThing");
+    buttonCreate.off("click");
+    buttonCreate.click(function(){
+        var name = null;
+        if(paramType == "Device" || paramType == "CompositePeriph")
+        {
+            name = nameInput.val();
+        }
+        createNewThing(paramType, thing, select.val(), name);
+    });
+
+    modal.modal();
+}
+
+var renderParam = function(mainContainer, param, thing, uid, renderDepth){
     var pType = param.type;
 
     var paramId = uid+"-param-"+param.name;
@@ -122,12 +243,39 @@ var renderParam = function(param, thing, uid, renderDepth){
        || pType == "OutputVoid" || pType == "OutputBool" || pType == "OutputFloat"
        || pType == "OutputString" || pType == "Device")
     {
-        var thingCard = renderOmni(thing[param.name], configObjects[pType], uid+"_"+param.name, renderDepth+1, param.type+": ");
+        var tmpThing = thing[param.name];
+        var thingCard = null;
+        var addThingButton = null;
+        if(tmpThing.type == undefined)
+        {
+            addThingButton = $("<button/>", {
+                "class": "btn btn-primary",
+                "type": "button"
+            });
+            addThingButton.append("Create");
+
+            addThingButton.click(function(){
+                createNewThingModal(param.type, tmpThing);
+            });
+        }
+        else
+        {
+            thingCard = renderOmni(mainContainer, tmpThing, configObjects[pType], uid+"_"+param.name, renderDepth+1, param.type+": ");
+        }
+
+
         formGroup.append(labelString);
         formGroup.append("<br/>");
         formGroup.append(descriptionString);
         formGroup.append("<br/>");
-        formGroup.append(thingCard);
+        if(thingCard != null)
+        {
+            formGroup.append(thingCard);
+        }
+        else
+        {
+            formGroup.append(addThingButton);
+        }
         return formGroup;
     }
 
@@ -209,11 +357,15 @@ var renderParam = function(param, thing, uid, renderDepth){
 
         saveChangesFuncs.push(function(){
             var val = $("input:radio[name=" + uid+"-param-"+param.name+"-bool-name]:checked").val();
-            var bVal = false;
+            var bVal = null;
 
             if(val == "true")
             {
                 bVal = true;
+            }
+            else if(val == "false")
+            {
+                bVal = false;
             }
 
             thing[param.name] = bVal;
@@ -236,7 +388,36 @@ var renderParam = function(param, thing, uid, renderDepth){
         formGroup.append(input);
 
         saveChangesFuncs.push(function(){
-            thing[param.name] = input.val();
+            try{
+                thing[param.name] = parseInt(input.val());
+            }
+            catch(e){
+                alert("Failed to parse uint: " + e);
+            }
+        });
+        return formGroup;
+    }
+
+    if(pType == "float")
+    {
+        var input = $("<input/>", {
+            "id": inputId,
+            "class": "form-control",
+            "type": "number"
+        });
+
+        input.val(thing[param.name]);
+
+        formGroup.append(label);
+        formGroup.append(input);
+
+        saveChangesFuncs.push(function(){
+            try{
+                thing[param.name] = parseFloat(input.val());
+            }
+            catch(e){
+                alert("Failed to parse float: " + e);
+            }
         });
         return formGroup;
     }
@@ -314,7 +495,7 @@ var renderParam = function(param, thing, uid, renderDepth){
     }
 }
 
-var renderOmni = function(thing, configObject, uid, renderDepth, prepend){
+var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, prepend){
     var type = getType(configObject, thing.type);
     var parameters = type.parameters;
     var paramsLength = parameters.length;
@@ -341,6 +522,43 @@ var renderOmni = function(thing, configObject, uid, renderDepth, prepend){
     headerText += thing.type;
 
     cardHeaderElement.append(headerText);
+
+
+    var deleteButtonElement = $("<button/>", {
+        "class": "btn btn-danger",
+        "type": "button",
+        "style": "float: right;"
+    });
+    deleteButtonElement.append("Delete");
+
+    deleteButtonElement.click(function(){
+        if(mainContainer != null && renderDepth == 0)
+        {
+            console.log("Removing " + thing.name);
+            saveChanges();
+            var len = mainContainer.length;
+            for(var i = 0; i < len; ++i)
+            {
+                if(mainContainer[i].name == thing.name)
+                {
+                    console.log("Found " + thing.name + " for deletion");
+                    remove(mainContainer, i);
+                    break;
+                }
+            }
+            updateRawConfig();
+        }
+        else
+        {
+            thing.type = undefined; 
+            saveChanges();
+            for(var member in thing) delete thing[member];
+            updateRawConfig();
+        }
+    });
+
+    cardHeaderElement.append(deleteButtonElement);
+
     cardElement.append(cardHeaderElement);
 
     var cardBodyElement = $("<div/>", {
@@ -433,7 +651,7 @@ var renderOmni = function(thing, configObject, uid, renderDepth, prepend){
     {
         var param = parameters[i];
         
-        var paramElement = renderParam(param, thing, uid, renderDepth);
+        var paramElement = renderParam(mainContainer, param, thing, uid, renderDepth);
 
         formElement.append(paramElement);
     }
@@ -494,7 +712,7 @@ var renderDevices = function(){
             "aria-labelledby": selectorId
         });
 
-        contentItem.append(renderOmni(device, configObjects["Device"], device.name, 0, device.name+": "));
+        contentItem.append(renderOmni(configuration.Devices, device, configObjects["Device"], device.name, 0, device.name+": "));
         contentDiv.append(contentItem);
     }
 }
@@ -540,7 +758,7 @@ var renderComposites = function(){
             "aria-labelledby": selectorId
         });
 
-        contentItem.append(renderOmni(composite, configObjects["CompositePeriph"], composite.name, 0, composite.name+": "));
+        contentItem.append(renderOmni(configuration.CompositePeriphs, composite, configObjects["CompositePeriph"], composite.name, 0, composite.name+": "));
         contentDiv.append(contentItem);
     }
 
@@ -552,16 +770,7 @@ var renderNetworkReceiver = function(){
 
     if(configuration.NetworkReceiver.type != undefined && configuration.NetworkReceiver.type != null)
     {
-        var deleteButton = $("<button/>", {
-            "id": "button-delete-nreceiver",
-            "class": "btn btn-danger"
-        });
-        deleteButton.append("Delete Network Receiver");
-
-        cardBody.append(deleteButton);
-
-        cardBody.append("<br/><br/>");
-        cardBody.append(renderOmni(configuration.NetworkReceiver, configObjects["NetworkReceiver"], "nreceiver", 0));
+        cardBody.append(renderOmni(null, configuration.NetworkReceiver, configObjects["NetworkReceiver"], "nreceiver", 0));
     }
     else
     {
@@ -570,6 +779,9 @@ var renderNetworkReceiver = function(){
             "class": "btn btn-primary"
         });
         addButton.append("Add Network Receiver");
+        addButton.click(function(){
+            createNewThingModal("NetworkReceiver", configuration.NetworkReceiver);        
+        });
 
         cardBody.append(addButton);
     }
@@ -580,16 +792,7 @@ var renderNetworkSender = function(){
     cardBody.empty();
     if(configuration.NetworkSender.type != undefined && configuration.NetworkSender.type != null)
     {
-        var deleteButton = $("<button/>", {
-            "id": "button-delete-nsender",
-            "class": "btn btn-danger"
-        });
-        deleteButton.append("Delete Network Sender");
-
-        cardBody.append(deleteButton);
-
-        cardBody.append("<br/><br/>");
-        cardBody.append(renderOmni(configuration.NetworkSender, configObjects["NetworkSender"], "nsender", 0));
+        cardBody.append(renderOmni(null, configuration.NetworkSender, configObjects["NetworkSender"], "nsender", 0));
     }
     else
     {
@@ -598,6 +801,9 @@ var renderNetworkSender = function(){
             "class": "btn btn-primary"
         });
         addButton.append("Add Network Sender");
+        addButton.click(function(){
+            createNewThingModal("NetworkSender", configuration.NetworkSender);        
+        });
 
         cardBody.append(addButton);
     }

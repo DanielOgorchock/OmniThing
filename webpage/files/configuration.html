@@ -68,7 +68,9 @@
     <div class="card">
         <div class="card-body">
             <button type="button" class="btn btn-primary" id="buttonSaveChanges">Save Changes</button>
+            <!--
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDiscardChanges">Discard Changes</button>
+            -->
         </div>
     </div>
 
@@ -102,7 +104,7 @@
                         <div class="card border-secondary mb-3">
                             <div class="card-header">Devices</div>
                             <div class="card-body">
-                                <button type="button" class="btn btn-primary">Add Device</button>
+                                <button type="button" class="btn btn-primary" id="buttonAddDevice">Add Device</button>
                                 <br/> <br/>
                                 <div class="row">
 
@@ -132,7 +134,7 @@
                         <div class="card border-secondary mb-3">
                             <div class="card-header">Composite Peripherals</div>
                             <div class="card-body">
-                                <button type="button" class="btn btn-primary">Add Composite Peripheral</button>
+                                <button type="button" class="btn btn-primary" id="buttonAddComposite">Add Composite Peripheral</button>
                                 <br/> <br/>
                                 <div class="row">
 
@@ -246,6 +248,28 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal" id="buttonDiscardChanges">Discard Changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalCreateNewThing" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalCreateNewThingTitle"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <p>Select the type of thing you would like to create:</p>
+              <div class="form-group" id="modalCreateNewThingBody">
+              </div>
+          </div>
+          <div class="modal-footer" id="modalCreateNewThingFooter">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="buttonCreateNewThing">Create</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
           </div>
         </div>
