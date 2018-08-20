@@ -623,6 +623,39 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
             for(var i = 0; i < numThings; ++i)
             {
                 var tmp = things[i];
+                if(tmp.name == newName)
+                {
+                    found = true;
+                    alert("This new name is already in use. Please choose a unique name.");
+                    return;
+                }
+            }
+
+            if(!found)
+            {
+                things = configuration.CompositePeriphs;
+                numThings = things.length;
+
+                for(var i = 0; i < numThings; ++i)
+                {
+                    var tmp = things[i];
+                    if(tmp.name == newName)
+                    {
+                        found = true;
+                        alert("This new name is already in use. Please choose a unique name.");
+                        return;
+                    }
+                }
+            }
+
+
+
+            found = false;
+            things = configuration.Devices;
+            numThings = things.length;
+            for(var i = 0; i < numThings; ++i)
+            {
+                var tmp = things[i];
                 if(tmp.name == name)
                 {
                     found = true;
@@ -633,8 +666,8 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
 
             if(!found)
             {
-                var things = configuration.CompositePeriphs;
-                var numThings = things.length;
+                things = configuration.CompositePeriphs;
+                numThings = things.length;
 
                 for(var i = 0; i < numThings; ++i)
                 {
@@ -646,6 +679,12 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
                         break;
                     }
                 }
+            }
+
+            if(!found)
+            {
+                alert("Couldn't find the name to change. This shouldn't be possible.");
+                return;
             }
 
             var selectorIdDev = "selectorDevice-" + name;
@@ -669,6 +708,7 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
         formGroupName.append(inputNameElement);
 
         formElement.append(formGroupName);
+        formElement.append("<br/>");
     }
 
 
