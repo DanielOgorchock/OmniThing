@@ -51,6 +51,10 @@ $(window).on('load', function(){
         createNewThingModal("CompositePeriph", composite);
     });
 
+    $("#buttonDownloadJson").click(function(){
+        downloadJsonConfig("config.json", $("#raw_json").text());
+    });
+
     $(window).bind('beforeunload', function(){
         if(configAltered)
         {
@@ -115,6 +119,19 @@ var saveChanges = function(){
     }
 
     updateRawConfig();
+}
+
+function downloadJsonConfig(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
 }
 
 var getThingByName = function(name){
