@@ -648,6 +648,19 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
                 }
             }
 
+            var selectorIdDev = "selectorDevice-" + name;
+            if(focusedDeviceId == selectorIdDev)
+            {
+                console.log("Changing focused device to new name");
+                focusedDeviceId = "selectorDevice-" + newName;
+            }
+            var selectorIdCom = "selectorComposite-" + name;
+            if(focusedCompositeId == selectorIdCom)
+            {
+                console.log("Changing focused composite to new name");
+                focusedCompositeId = "selectorComposite-" + newName;
+            }
+
             saveChanges();
         });
 
