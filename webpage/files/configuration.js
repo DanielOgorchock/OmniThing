@@ -63,11 +63,13 @@ $(window).on('load', function(){
         return undefined;
     });
 });
+
 function remove(array, index) {
     if (index !== -1) {
         array.splice(index, 1);
     }
 }
+
 var configInitialization = function(){
     if(configObjectsReceived >= 11)
     {
@@ -119,6 +121,10 @@ var saveChanges = function(){
     }
 
     updateRawConfig();
+}
+
+var escapeName = function(name){
+    return name.replace(/ /g, "_");
 }
 
 function downloadJsonConfig(filename, text) {
@@ -285,7 +291,7 @@ var createNewThingModal = function(paramType, thing){
 var renderParam = function(mainContainer, param, thing, uid, renderDepth){
     var pType = param.type;
 
-    var paramId = uid+"-param-"+param.name;
+    var paramId = escapeName(uid)+"-param-"+escapeName(param.name);
 
     var formGroup = $("<div/>", {
         "class": "form-group",
@@ -322,7 +328,7 @@ var renderParam = function(mainContainer, param, thing, uid, renderDepth){
         }
         else
         {
-            thingCard = renderOmni(mainContainer, tmpThing, configObjects[pType], uid+"_"+param.name, renderDepth+1, param.type+": ");
+            thingCard = renderOmni(mainContainer, tmpThing, configObjects[pType], escapeName(uid)+"_"+escapeName(param.name), renderDepth+1, param.type+": ");
         }
 
 
@@ -341,7 +347,7 @@ var renderParam = function(mainContainer, param, thing, uid, renderDepth){
         return formGroup;
     }
 
-    var inputId = uid+"-param-input-"+param.name;
+    var inputId = escapeName(uid)+"-param-input-"+escapeName(param.name);
 
     var label = $("<label/>", {
         "for": inputId
@@ -357,11 +363,11 @@ var renderParam = function(mainContainer, param, thing, uid, renderDepth){
             "class": "form-check form-check-inline"
         });
 
-        var trueId = uid+"-param-"+param.name+"-bool-true";
+        var trueId = escapeName(uid)+"-param-"+escapeName(param.name)+"-bool-true";
         var inputElementTrue = $("<input/>", {
             "class": "form-check-input",
             "type": "radio",
-            "name": uid+"-param-"+param.name+"-bool-name",
+            "name": escapeName(uid)+"-param-"+escapeName(param.name)+"-bool-name",
             "id": trueId,
             "value": "true" 
         });
@@ -386,11 +392,11 @@ var renderParam = function(mainContainer, param, thing, uid, renderDepth){
             "class": "form-check form-check-inline"
         });
 
-        var falseId = uid+"-param-"+param.name+"-bool-false";
+        var falseId = escapeName(uid)+"-param-"+escapeName(param.name)+"-bool-false";
         var inputElementFalse = $("<input/>", {
             "class": "form-check-input",
             "type": "radio",
-            "name": uid+"-param-"+param.name+"-bool-name",
+            "name": escapeName(uid)+"-param-"+escapeName(param.name)+"-bool-name",
             "id": falseId,
             "value": "false" 
         });
@@ -418,7 +424,7 @@ var renderParam = function(mainContainer, param, thing, uid, renderDepth){
         formGroup.append(modalElementFalse);
 
         saveChangesFuncs.push(function(){
-            var val = $("input:radio[name=" + uid+"-param-"+param.name+"-bool-name]:checked").val();
+            var val = $("input:radio[name=" + escapeName(uid)+"-param-"+escapeName(param.name)+"-bool-name]:checked").val();
             var bVal = null;
 
             if(val == "true")
@@ -529,11 +535,11 @@ var renderParam = function(mainContainer, param, thing, uid, renderDepth){
                 "class": "form-check form-check-inline"
             });
 
-            var modalId = uid+"-param-"+param.name+"-enum-"+enumVal;
+            var modalId = escapeName(uid)+"-param-"+escapeName(param.name)+"-enum-"+enumVal;
             var inputElement = $("<input/>", {
                 "class": "form-check-input",
                 "type": "radio",
-                "name": uid+"-param-"+param.name+"-enum-name",
+                "name": escapeName(uid)+"-param-"+escapeName(param.name)+"-enum-name",
                 "id": modalId,
                 "value": enumVal
             });
@@ -557,7 +563,7 @@ var renderParam = function(mainContainer, param, thing, uid, renderDepth){
 
 
         saveChangesFuncs.push(function(){
-            var val = $("input:radio[name=" + uid+"-param-"+param.name+"-enum-name]:checked").val();
+            var val = $("input:radio[name=" + escapeName(uid)+"-param-"+escapeName(param.name)+"-enum-name]:checked").val();
 
             thing[param.name] = val;
         });
@@ -639,7 +645,7 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
 
     if(thing.name != null && thing.name != undefined)
     {
-        var nameId = uid+"-name";
+        var nameId = escapeName(uid)+"-name";
         var formGroupName = $("<div/>", {
             "class": "input-group",
             "id": nameId
@@ -658,7 +664,7 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
         prependElement.append(buttonElement);
         formGroupName.append(prependElement);
 
-        var nameInputId = uid+"-name-input";
+        var nameInputId = escapeName(uid)+"-name-input";
         var inputNameElement = $("<input/>", {
             "id": nameInputId,
             "class": "form-control",
@@ -690,17 +696,17 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
 
             testThing.name = newName;
 
-            var selectorIdDev = "selectorDevice-" + name;
+            var selectorIdDev = "selectorDevice-" + escapeName(name);
             if(focusedDeviceId == selectorIdDev)
             {
                 console.log("Changing focused device to new name");
-                focusedDeviceId = "selectorDevice-" + newName;
+                focusedDeviceId = "selectorDevice-" + escapeName(newName);
             }
             var selectorIdCom = "selectorComposite-" + name;
             if(focusedCompositeId == selectorIdCom)
             {
                 console.log("Changing focused composite to new name");
-                focusedCompositeId = "selectorComposite-" + newName;
+                focusedCompositeId = "selectorComposite-" + escapeName(newName);
             }
 
             saveChanges();
@@ -768,10 +774,10 @@ var renderDevices = function(){
     {
         var device = devices[i];
 
-        var selectorId = "selectorDevice-" + device.name;
+        var selectorId = "selectorDevice-" + escapeName(device.name);
         var selectorText = device.name;
 
-        var contentId = "contentDevice-" + device.name;
+        var contentId = "contentDevice-" + escapeName(device.name);
 
         console.log("Adding device named " + device.name);
 
@@ -819,10 +825,10 @@ var renderComposites = function(){
     {
         var composite = composites[i];
 
-        var selectorId = "selectorComposite-" + composite.name;
+        var selectorId = "selectorComposite-" + escapeName(composite.name);
         var selectorText = composite.name;
 
-        var contentId = "contentComposite-" + composite.name;
+        var contentId = "contentComposite-" + escapeName(composite.name);
 
         console.log("Adding composite peripheral named " + composite.name);
 
