@@ -117,6 +117,32 @@ var saveChanges = function(){
     updateRawConfig();
 }
 
+var getThingByName = function(name){
+    var things = configuration.Devices;
+    var numThings = things.length;
+    for(var i = 0; i < numThings; ++i)
+    {
+        var tmp = things[i];
+        if(tmp.name == name)
+        {
+            return tmp;
+        }
+    }
+
+    things = configuration.CompositePeriphs;
+    numThings = things.length;
+
+    for(var i = 0; i < numThings; ++i)
+    {
+        var tmp = things[i];
+        if(tmp.name == name)
+        {
+            return tmp;
+        }
+    }
+    return null;
+}
+
 var createNewThing = function(paramType, thing, thingType, name){
     console.log("createNewThing paramType=" + paramType + "  thingType=" + thingType);
     var configs = configObjects[paramType];
@@ -129,6 +155,17 @@ var createNewThing = function(paramType, thing, thingType, name){
 
     if(name != null && name != undefined)
     {
+        if(getThingByName(name) != null)
+        {
+            alert("This name is already in use. Choose a unique name.");
+            return false;
+        }
+        if(name == "")
+        {
+            alert("Blank names are not valid. Enter a valid name.");
+            return false;
+        }
+
         thing.name = name;
     }
 
@@ -152,6 +189,7 @@ var createNewThing = function(paramType, thing, thingType, name){
     }
 
     saveChanges();
+    return true;
 }
 
 var createNewThingModal = function(paramType, thing){
@@ -218,7 +256,10 @@ var createNewThingModal = function(paramType, thing){
         {
             name = nameInput.val();
         }
-        createNewThing(paramType, thing, select.val(), name);
+        if(createNewThing(paramType, thing, select.val(), name))
+        {
+            $("#buttonCreateNewThingClose").click();
+        }
     });
 
     modal.modal();
@@ -610,82 +651,27 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
         buttonElement.click(function(){
             var name = thing.name;
             var newName = inputNameElement.val();
-            var things = configuration.Devices;
-            var numThings = things.length;
-            var found = false;
-
             if(newName == name)
             {
                 console.log("No name change");
                 return;
             }
-
-            for(var i = 0; i < numThings; ++i)
+            
+            var testThing = getThingByName(newName);
+            if(testThing != null)
             {
-                var tmp = things[i];
-                if(tmp.name == newName)
-                {
-                    found = true;
-                    alert("This new name is already in use. Please choose a unique name.");
-                    return;
-                }
+                alert("This new name is already in use. Please choose a unique name.");
+                return;
             }
 
-            if(!found)
-            {
-                things = configuration.CompositePeriphs;
-                numThings = things.length;
-
-                for(var i = 0; i < numThings; ++i)
-                {
-                    var tmp = things[i];
-                    if(tmp.name == newName)
-                    {
-                        found = true;
-                        alert("This new name is already in use. Please choose a unique name.");
-                        return;
-                    }
-                }
-            }
-
-
-
-            found = false;
-            things = configuration.Devices;
-            numThings = things.length;
-            for(var i = 0; i < numThings; ++i)
-            {
-                var tmp = things[i];
-                if(tmp.name == name)
-                {
-                    found = true;
-                    tmp.name = newName;
-                    break;
-                }
-            }
-
-            if(!found)
-            {
-                things = configuration.CompositePeriphs;
-                numThings = things.length;
-
-                for(var i = 0; i < numThings; ++i)
-                {
-                    var tmp = things[i];
-                    if(tmp.name == name)
-                    {
-                        found = true;
-                        tmp.name = newName;
-                        break;
-                    }
-                }
-            }
-
-            if(!found)
+            testThing = getThingByName(name);
+            if(testThing == null)
             {
                 alert("Couldn't find the name to change. This shouldn't be possible.");
                 return;
             }
+
+            testThing.name = newName;
 
             var selectorIdDev = "selectorDevice-" + name;
             if(focusedDeviceId == selectorIdDev)
