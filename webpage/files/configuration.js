@@ -436,7 +436,15 @@ var renderParam = function(mainContainer, param, thing, uid, renderDepth){
         formGroup.append(input);
 
         saveChangesFuncs.push(function(){
-            thing[param.name] = input.val();
+            var val = input.val();
+            if(val != "")
+            {
+                thing[param.name] = val;
+            }
+            else
+            {
+                thing[param.name] = null;
+            }
         });
         return formGroup;
     }
