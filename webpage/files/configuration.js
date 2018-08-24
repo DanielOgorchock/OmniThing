@@ -752,6 +752,7 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
         formElement.append("<br/>");
     }
 
+    // Add triggers card for Devices
     if(thing.triggers != null && thing.triggers != undefined)
     {
         var triggers = thing.triggers;
@@ -887,9 +888,191 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
         }
 
         formElement.append(triggersCardElement);
+        formElement.append("<br/>");
     }
 
 
+    // Add subscriptions card for Devices
+    if(thing.subscriptions != null && thing.subscriptions != undefined)
+    {
+        var subscriptions = thing.subscriptions;
+        var subscriptionsCardElement = $("<div/>", {
+            "class": "card border-secondary"
+        });
+
+        var subscriptionsCardHeaderElement = $("<div/>", {
+            "class": "card-header bg-primary"
+        });
+        subscriptionsCardHeaderElement.text("Subscriptions  [Source Device, Source Event, Reaction Command]");
+
+        var subscriptionsAddButton = $("<button/>", {
+            "class": "btn btn-success",
+            "type": "button",
+            "style": "float: right;"
+        });
+        subscriptionsAddButton.text("Add Subscription");
+        subscriptionsAddButton.click(function(){
+            subscriptions.push({source: null, "event": null, command: null});
+            saveChanges();
+        });
+        subscriptionsCardHeaderElement.append(subscriptionsAddButton);
+
+        subscriptionsCardElement.append(subscriptionsCardHeaderElement);
+
+        var subscriptionsCardBodyElement = $("<div/>", {
+            "class": "card-body"
+        });
+        subscriptionsCardElement.append(subscriptionsCardBodyElement);
+
+        var subscriptionCount = subscriptions.length;
+        for(var i = 0; i < subscriptionCount; ++i)
+        {
+            var subscription = subscriptions[i];
+            var commands = type.commands;
+
+            var sources = []
+            var devices = configuration.Devices;
+            var numDevices = devices.length;
+            for(var j = 0; j < numDevices; ++j)
+            {
+                var dev = devices[j];
+                sources.push(dev.name);
+            }
+
+            var subscriptionFormElement = $("<form/>");
+            var subscriptionRowElement = $("<div/>", {
+                "class": "row"
+            });
+            var subscriptionSourceColElement = $("<div/>", {
+                "class": "col"
+            });
+            var subscriptionEventColElement = $("<div/>", {
+                "class": "col"
+            });
+            var subscriptionCommandColElement = $("<div/>", {
+                "class": "col"
+            });
+            var subscriptionDeleteColElement = $("<div/>", {
+                "class": "col-sm-2"
+            });
+
+            var subscriptionDeleteButton = $("<button/>", {
+                "class": "btn btn-danger",
+                "type": "button",
+                "style": "float: right;"
+            });
+            subscriptionDeleteButton.text("Delete");
+            subscriptionDeleteColElement.append(subscriptionDeleteButton);
+
+            var deleteButtonClick = function(index){
+                subscriptionDeleteButton.click(function(){
+                    remove(subscriptions, index); 
+                    saveChanges();
+                });
+            };
+
+            deleteButtonClick(i);
+
+            subscriptionFormElement.append(subscriptionRowElement);
+            subscriptionRowElement.append(subscriptionSourceColElement);
+            subscriptionRowElement.append(subscriptionEventColElement);
+            subscriptionRowElement.append(subscriptionCommandColElement);
+            subscriptionRowElement.append(subscriptionDeleteColElement);
+            var subscriptionBaseId = escapeName(uid) + "-subscriptions-" + i;
+
+            var subscriptionSourceInputElement = $("<select/>", {
+                "class": "form-control",
+                "id": subscriptionBaseId + "source"
+            });
+
+            var numSources = sources.length;
+            for(var j = 0; j < numSources; ++j)
+            {
+                var s = sources[j];
+                var optionElement = $("<option/>");
+                optionElement.text(s);
+                subscriptionSourceInputElement.append(optionElement);
+            }
+
+            subscriptionSourceInputElement.val(subscription.source);
+            subscriptionSourceColElement.append(subscriptionSourceInputElement);
+
+            var subscriptionEventInputElement = $("<select/>", {
+                "class": "form-control",
+                "id": subscriptionBaseId + "event"
+            });
+
+            var populateEvents = function(sourceName, eventE){
+                eventE.empty();
+
+                var dev = getDeviceByName(sourceName);
+                if(dev == null)
+                {
+                    console.log("Source device: " + sourceName + " does not exist");
+                    return;
+                }
+
+                var t = getType(configObjects["Device"], dev.type);
+                var events = t.events;
+                var numEvents = events.length;
+                for(var j = 0; j < numEvents; ++j)
+                {
+                    var e = events[j];
+                    var optionElement = $("<option/>");
+                    optionElement.text(e);
+                    eventE.append(optionElement);
+                }
+            };
+
+            var registerChangeCallback = function(subE, eventE)
+            {
+                subE.change(function(){
+                    populateEvents(subE.val(), eventE);
+                });
+            }
+
+            registerChangeCallback(subscriptionSourceInputElement, subscriptionEventInputElement);
+
+
+            populateEvents(subscription.source, subscriptionEventInputElement);
+
+            subscriptionEventInputElement.val(subscription["event"]);
+            subscriptionEventColElement.append(subscriptionEventInputElement);
+
+            var subscriptionCommandInputElement = $("<select/>", {
+                "class": "form-control",
+                "id": subscriptionBaseId + "command"
+            });
+
+            var numCommands = type.commands.length;
+            for(var j = 0; j < numCommands; ++j)
+            {
+                var command = type.commands[j];
+                var optionElement = $("<option/>");
+                optionElement.text(command);
+                subscriptionCommandInputElement.append(optionElement);
+            }
+
+            subscriptionCommandInputElement.val(subscription.command);
+            subscriptionCommandColElement.append(subscriptionCommandInputElement);
+
+
+            subscriptionsCardBodyElement.append(subscriptionFormElement);
+            subscriptionsCardBodyElement.append("<br/>");
+
+            var saveSubscriptionFunc = function(t, sourceE, eventE, commandE){
+                saveChangesFuncs.push(function(){
+                    t.source = sourceE.val();
+                    t["event"] = eventE.val();
+                    t.command = commandE.val();
+                });
+            };
+            saveSubscriptionFunc(subscription, subscriptionSourceInputElement, subscriptionEventInputElement, subscriptionCommandInputElement);
+        }
+
+        formElement.append(subscriptionsCardElement);
+        formElement.append("<br/>");
+    }
 
 
     for(var i = 0; i < paramsLength; i++)
@@ -1079,6 +1262,19 @@ var renderNetworkSender = function(){
     }
 }
 
+var getDeviceByName = function(name){
+    var numDev = configuration.Devices.length;
+    for(var i = 0; i < numDev; ++i)
+    {
+        var dev = configuration.Devices[i];
+        if(dev.name == name)
+        {
+            return dev;
+        }
+    }
+    return null;
+}
+
 var getType = function(configObject, type){
     var collection = configObject;
     var length = collection.length;
@@ -1125,6 +1321,20 @@ var loadConfig = function(){
             let lines = e.target.result;
             var tmp = JSON.parse(lines); 
             configuration = tmp;
+
+            var numDevs = configuration.Devices.length;
+            for(var i = 0; i < numDevs; ++i)
+            {
+                var dev = configuration.Devices[i];
+                if(dev.triggers == undefined)
+                {
+                    dev.triggers = [];
+                }
+                if(dev.subscriptions == undefined)
+                {
+                    dev.subscriptions = [];
+                }
+            }
         }
         catch(err){
             alert("Failed to parse json configuration. Are you sure you selected a json file?");
