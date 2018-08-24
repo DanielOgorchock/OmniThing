@@ -742,6 +742,24 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
             }
 
             saveChanges();
+
+            var devNum = configuration.Devices.length;
+            for(var i = 0; i < devNum; ++i)
+            {
+                var dev = configuration.Devices[i];
+                var numSubs = dev.subscriptions.length;
+                for(var j = 0; j < numSubs; ++j)
+                {
+                    var s = dev.subscriptions[j];
+                    if(s.source == name)
+                    {
+                        console.log("Change subscription source for name change");
+                        s.source = newName;
+                    }
+                }
+            }
+
+            updateRawConfig();
         });
 
         inputNameElement.val(thing.name);
