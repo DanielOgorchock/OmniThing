@@ -1092,14 +1092,98 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
         formElement.append("<br/>");
     }
 
-
-    for(var i = 0; i < paramsLength; i++)
+    if(type.type == "InputBoolRef" || type.type == "InputFloatRef" || type.type == "InputUIntRef")
     {
-        var param = parameters[i];
-        
-        var paramElement = renderParam(mainContainer, param, thing, uid, renderDepth);
+        var compositeNameId = escapeName(uid) + "-compositeNameId";
+        var compositeValId = escapeName(uid) + "-compositeValId";
+        var compositeNameLabel = $("<label/>", {
+            "for": compositeNameId
+        });
+        var compositeValLabel = $("<label/>", {
+            "for": compositeValId
+        });
 
-        formElement.append(paramElement);
+        compositeNameLabel.text("Composite Peripheral");
+        compositeValLabel.text("Referenced Value");
+
+        var valArrName = null;
+        if(type.type == "InputBoolRef")
+        {
+            valArrName = "bools";
+        }
+        if(type.type == "InputFloatRef")
+        {
+            valArrName = "floats";
+        }
+        if(type.type == "InputUIntRef")
+        {
+            valArrName = "uints";
+        }
+
+        var compositeNameSelect = $("<select/>", {
+            "class": "form-control",
+            "id": compositeNameId
+        });
+        var compositeValSelect = $("<select/>", {
+            "class": "form-control",
+            "id": compositeValId
+        });
+
+        var numCom = configuration.CompositePeriphs.length;
+        for(var j = 0; j < numCom; ++j)
+        {
+            var option = $("<option/>");
+            option.text(configuration.CompositePeriphs[j].name);
+            compositeNameSelect.append(option);
+        }
+        compositeNameSelect.val(thing.compositeName);
+
+        var updateValChoices = function()
+        {
+            compositeValSelect.empty();
+            var periph = getCompositeByName(compositeNameSelect.val());
+            if(periph == null)
+            {
+                return;
+            }
+
+            var cType = getType(configObjects["CompositePeriph"], periph.type);
+            var vals = cType[valArrName];
+            var numVals = vals.length;
+            for(var j = 0; j < numVals; ++j)
+            {
+                var option = $("<option/>");
+                option.text(vals[j]);
+                compositeValSelect.append(option);
+            }
+        }
+        updateValChoices();
+        compositeValSelect.val(thing.paramName);
+
+        compositeNameSelect.change(function(){
+            updateValChoices();
+        });
+
+        saveChangesFuncs.push(function(){
+            thing.compositeName = compositeNameSelect.val();
+            thing.paramName = compositeValSelect.val();
+        });
+
+        formElement.append(compositeNameLabel);
+        formElement.append(compositeNameSelect);
+        formElement.append(compositeValLabel);
+        formElement.append(compositeValSelect);
+    }
+    else
+    {
+        for(var i = 0; i < paramsLength; i++)
+        {
+            var param = parameters[i];
+            
+            var paramElement = renderParam(mainContainer, param, thing, uid, renderDepth);
+
+            formElement.append(paramElement);
+        }
     }
 
 
@@ -1288,6 +1372,19 @@ var getDeviceByName = function(name){
         if(dev.name == name)
         {
             return dev;
+        }
+    }
+    return null;
+}
+
+var getCompositeByName = function(name){
+    var numCom = configuration.CompositePeriphs.length;
+    for(var i = 0; i < numCom; ++i)
+    {
+        var com = configuration.CompositePeriphs[i];
+        if(com.name == name)
+        {
+            return com;
         }
     }
     return null;
