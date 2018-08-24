@@ -120,6 +120,30 @@ var saveChanges = function(){
         saveChangesFuncs[i]();
     }
 
+    var devices = configuration.Devices;
+    var numDevices = devices.length;
+    for(var i = 0; i < numDevices; ++i)
+    {
+        var dev = devices[i];
+        if(jQuery.isEmptyObject(dev))
+        {
+            remove(devices, i);
+            break;
+        }
+    }
+
+    var composites = configuration.CompositePeriphs;
+    var numComposites = composites.length;
+    for(var i = 0; i < numComposites; ++i)
+    {
+        var com = composites[i];
+        if(jQuery.isEmptyObject(com))
+        {
+            remove(composites, i);
+            break;
+        }
+    }
+
     updateRawConfig();
 }
 
@@ -173,6 +197,12 @@ var createNewThing = function(paramType, thing, thingType, name){
 
     for(var member in thing) delete thing[member];
 
+    if(paramType == "Device")
+    {
+        thing.triggers = [];
+        thing.subscriptions = [];
+    }
+
     var len = config.parameters.length;
     thing.type = config.type;
 
@@ -181,11 +211,13 @@ var createNewThing = function(paramType, thing, thingType, name){
         if(getThingByName(name) != null)
         {
             alert("This name is already in use. Choose a unique name.");
+            for(var member in thing) delete thing[member];
             return false;
         }
         if(name == "")
         {
             alert("Blank names are not valid. Enter a valid name.");
+            for(var member in thing) delete thing[member];
             return false;
         }
 
@@ -719,6 +751,145 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
         formElement.append(formGroupName);
         formElement.append("<br/>");
     }
+
+    if(thing.triggers != null && thing.triggers != undefined)
+    {
+        var triggers = thing.triggers;
+        var triggersCardElement = $("<div/>", {
+            "class": "card border-secondary"
+        });
+
+        var triggersCardHeaderElement = $("<div/>", {
+            "class": "card-header bg-primary"
+        });
+        triggersCardHeaderElement.text("Triggers  [Interval, Offset, Command]");
+
+        var triggersAddButton = $("<button/>", {
+            "class": "btn btn-success",
+            "type": "button",
+            "style": "float: right;"
+        });
+        triggersAddButton.text("Add Trigger");
+        triggersAddButton.click(function(){
+            triggers.push({interval: null, offset: null, command: null});
+            saveChanges();
+        });
+        triggersCardHeaderElement.append(triggersAddButton);
+
+        triggersCardElement.append(triggersCardHeaderElement);
+
+        var triggersCardBodyElement = $("<div/>", {
+            "class": "card-body"
+        });
+        triggersCardElement.append(triggersCardBodyElement);
+
+        var triggerCount = triggers.length;
+        for(var i = 0; i < triggerCount; ++i)
+        {
+            var trigger = triggers[i];
+            var commands = type.commands;
+            var triggerFormElement = $("<form/>");
+            var triggerRowElement = $("<div/>", {
+                "class": "row"
+            });
+            var triggerIntervalColElement = $("<div/>", {
+                "class": "col"
+            });
+            var triggerOffsetColElement = $("<div/>", {
+                "class": "col"
+            });
+            var triggerCommandColElement = $("<div/>", {
+                "class": "col"
+            });
+            var triggerDeleteColElement = $("<div/>", {
+                "class": "col-sm-2"
+            });
+
+            var triggerDeleteButton = $("<button/>", {
+                "class": "btn btn-danger",
+                "type": "button",
+                "style": "float: right;"
+            });
+            triggerDeleteButton.text("Delete");
+            triggerDeleteColElement.append(triggerDeleteButton);
+
+            var deleteButtonClick = function(index){
+                triggerDeleteButton.click(function(){
+                    remove(triggers, index); 
+                    saveChanges();
+                });
+            };
+
+            deleteButtonClick(i);
+
+            triggerFormElement.append(triggerRowElement);
+            triggerRowElement.append(triggerIntervalColElement);
+            triggerRowElement.append(triggerOffsetColElement);
+            triggerRowElement.append(triggerCommandColElement);
+            triggerRowElement.append(triggerDeleteColElement);
+            var triggerBaseId = escapeName(uid) + "-triggers-" + i;
+
+            var triggerIntervalInputElement = $("<input/>", {
+                "class": "form-control",
+                "type": "number",
+                "placeholder": "Interval (milliseconds)",
+                "id": triggerBaseId + "interval"
+            });
+            triggerIntervalInputElement.val(trigger.interval);
+            triggerIntervalColElement.append(triggerIntervalInputElement);
+
+            var triggerOffsetInputElement = $("<input/>", {
+                "class": "form-control",
+                "type": "number",
+                "placeholder": "Offset (milliseconds)",
+                "id": triggerBaseId + "offset"
+            });
+            triggerOffsetInputElement.val(trigger.offset);
+            triggerOffsetColElement.append(triggerOffsetInputElement);
+
+            var triggerCommandInputElement = $("<select/>", {
+                "class": "form-control",
+                "id": triggerBaseId + "command"
+            });
+
+            var numCommands = type.commands.length;
+            for(var j = 0; j < numCommands; ++j)
+            {
+                var command = type.commands[j];
+                var optionElement = $("<option/>");
+                optionElement.text(command);
+                triggerCommandInputElement.append(optionElement);
+            }
+
+            triggerCommandInputElement.val(trigger.command);
+            triggerCommandColElement.append(triggerCommandInputElement);
+
+
+            triggersCardBodyElement.append(triggerFormElement);
+            triggersCardBodyElement.append("<br/>");
+
+            var saveTriggerFunc = function(t, intervalE, offsetE, commandE){
+                saveChangesFuncs.push(function(){
+                    t.command = commandE.val();
+                    try{
+                        t.interval = parseInt(intervalE.val())    
+                    } catch(e){
+                        t.interval = null;
+                    }
+                    try{
+                        t.offset = parseInt(offsetE.val())    
+                    } catch(e){
+                        t.offset = null;
+                    }
+                });
+            };
+            saveTriggerFunc(trigger, triggerIntervalInputElement, triggerOffsetInputElement, triggerCommandInputElement);
+        }
+
+        formElement.append(triggersCardElement);
+    }
+
+
 
 
     for(var i = 0; i < paramsLength; i++)
