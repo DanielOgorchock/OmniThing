@@ -34,12 +34,6 @@ else:
     output_filename = "stdout"
     stdio = True
 
-print("\nExecuting jsonToHeader.py...\n")
-
-print("input_file  = "+ input_filename)
-print("output_file = "+ output_filename)
-print("\nParsing the json...\n")
-
 json_raw = None
 if stdio:
     json_raw = sys.stdin.read()
@@ -52,27 +46,21 @@ output = "#ifndef OMNI_ARDUINOJSONCONFIG_H\n#define OMNI_ARDUINOJSONCONFIG_H\n\n
 output += "namespace omni\n{\n"
 
 if "NetworkReceiver" in json_dict:
-    print("NetworkReceiver found")
     writeObject("NetworkReceiver", json_dict["NetworkReceiver"], "NetworkReceiver")
 
 if "NetworkSender" in json_dict:
-    print("NetworkSender found")
     writeObject("NetworkSender", json_dict["NetworkSender"], "NetworkSender")
 
 if "CompositePeriphs" in json_dict:
-    print("CompositePeriphs found")
     writeObject("CompositePeriphs", json_dict["CompositePeriphs"], "CompositePeriphs")
 
 if "Devices" in json_dict:
-    print("Devices found")
-
     count = 0
     for dev in json_dict["Devices"]:
         writeObject("Device_"+str(count), [dev], "Devices")
         count += 1
 
 num_strings = len(names)
-print("Total number of progmem strings: " + str(num_strings))
 
 output += "\n\nconst char* const Config_Json_Strings[] PROGMEM = {\n"
 for name in names:
@@ -86,10 +74,8 @@ output += "const unsigned int Max_Json_String_Length = " + str(maxLength) + ";\n
 
 output += "}\n\n#endif\n"
 
-print("Max string length: " + str(maxLength))
 
 
-print("\nWriting output to header file...\n")
 if stdio:
     sys.stdout.write(output)
 else:

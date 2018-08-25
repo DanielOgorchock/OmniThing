@@ -55,6 +55,10 @@ $(window).on('load', function(){
         downloadJsonConfig("config.json", $("#raw_json").text());
     });
 
+    $("#buttonDownloadHeader").click(function(){
+        downloadArduinoHeader();
+    });
+
     $(window).bind('beforeunload', function(){
         if(configAltered)
         {
@@ -80,6 +84,18 @@ var configInitialization = function(){
             configAltered = false;
         });
     }
+}
+
+var downloadArduinoHeader = function(){
+    $.ajax({
+        method: "POST",
+        url: "/arduino/header",
+        data: JSON.stringify(configuration),
+        contentType: "application/json",
+        success: function(data){
+            downloadJsonConfig("ArduinoJsonConfig.h", data);
+        }
+    });
 }
 
 var objectFromFile = function(objectName, filename, callback){

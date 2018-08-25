@@ -20,7 +20,7 @@
                 "type": "bool",
                 "required": false,
                 "default": false,
-                "description": "If you are using a dht11, set this to true"
+                "description": "If you are using a dht11, set this to true (any other dht = false)"
             }
         ],
         "bools": [
