@@ -1,6 +1,6 @@
 [
     {
-        "name": "esp8266",
+        "name": "ESP8266",
         "supports": [
             "esp8266",
             "arduino"
@@ -8,7 +8,7 @@
     },
     
     {
-        "name": "esp32",
+        "name": "ESP32",
         "supports": [
             "esp32",
             "arduino"
@@ -16,7 +16,7 @@
     },
     
     {
-        "name": "rpi",
+        "name": "Raspberry Pi",
         "supports": [
             "rpi",
             "linux"
@@ -24,14 +24,14 @@
     },
     
     {
-        "name": "linux",
+        "name": "Linux",
         "supports": [
             "linux"
         ]
     },
     
     {
-        "name": "windows",
+        "name": "Windows",
         "supports": [
             "windows"
         ]
