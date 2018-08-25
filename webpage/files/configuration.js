@@ -1,6 +1,9 @@
 var blankConfiguration = {};
 var configuration = {};
 
+var platform = null;
+var platforms = null;
+
 var rawJson = "";
 
 var saveChangesFuncs = [];
@@ -28,6 +31,7 @@ $(window).on('load', function(){
     objectFromFile("InputBool",        "config/input_bools.json", configInitialization);
     objectFromFile("NetworkReceiver",  "config/network_receivers.json", configInitialization);
     objectFromFile("OutputFloat",      "config/output_floats.json", configInitialization);
+    objectFromFile("platforms",        "config/platforms.json", configInitialization);
 
     $("#buttonResetJson").click(resetConfig);
 
@@ -79,15 +83,63 @@ function remove(array, index) {
 }
 
 var configInitialization = function(){
-    if(configObjectsReceived >= 11)
+    if(configObjectsReceived >= 12)
     {
         $.getJSON("blank_config.json", function(data){
             blankConfiguration = data;
+
+            platforms = configObjects["platforms"];
+            platform = platforms[0];
+
+            var numPlatforms = platforms.length;
+            for(var i = 0; i < numPlatforms; ++i)
+            {
+                var plat = platforms[i];
+                var option = $("<option/>");
+                option.text(plat.name);
+                $("#selectPlatform").append(option);
+            }
+            $("#selectPlatform").val(platform.name);
+            $("#selectPlatform").change(function(){
+                var name = $("#selectPlatform").val();
+                for(var i = 0; i < numPlatforms; ++i)
+                {
+                    var plat = platforms[i];
+                    if(plat.name == name)
+                    {
+                        console.log("Switching platform to " + plat.name);
+                        platform = plat;
+                        break;
+                    }
+                }
+
+                saveChanges();
+            });
 
             resetConfig();
             configAltered = false;
         });
     }
+}
+
+var typeSupported = function(type){
+    var supports = platform.supports;
+    var numSupports = supports.length;
+    for(var i = 0; i < numSupports; ++i)
+    {
+        var support = supports[i];
+        var supportedPlats = type.supported_platforms;
+        var numPlats = supportedPlats.length;
+        for(var j = 0; j < numPlats; j++)
+        {
+            var plat = supportedPlats[j];
+            if(plat == "all" || plat == support)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 var downloadArduinoHeader = function(){
@@ -315,9 +367,12 @@ var createNewThingModal = function(paramType, thing){
     var len = configs.length;
     for(var i = 0; i < len; ++i)
     {
-        var option = $("<option/>");
-        option.text(configs[i].type);
-        select.append(option);
+        if(typeSupported(configs[i]))
+        {
+            var option = $("<option/>");
+            option.text(configs[i].type);
+            select.append(option);
+        }
     }
 
 
@@ -664,8 +719,18 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
         "class": cardClass
     });
 
+    var supportedThing = typeSupported(type);
+    var headerClass = "card-header"
+    if(supportedThing)
+    {
+        headerClass += " bg-primary";
+    }
+    else
+    {
+        headerClass += " bg-warning";
+    }
     var cardHeaderElement = $("<div/>", {
-        "class": "card-header bg-primary"
+        "class": headerClass
     });
 
     var headerText = "";
@@ -675,6 +740,10 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
     }
     headerText += thing.type;
 
+    if(!supportedThing)
+    {
+        headerText += "&ensp;&ensp; WARNING: This type is not supported on " + platform.name;
+    }
     cardHeaderElement.append(headerText);
 
 

@@ -1,0 +1,40 @@
+[
+    {
+        "name": "esp8266",
+        "supports": [
+            "esp8266",
+            "arduino"
+        ]
+    },
+    
+    {
+        "name": "esp32",
+        "supports": [
+            "esp32",
+            "arduino"
+        ]
+    },
+    
+    {
+        "name": "rpi",
+        "supports": [
+            "rpi",
+            "linux"
+        ]
+    },
+    
+    {
+        "name": "linux",
+        "supports": [
+            "linux"
+        ]
+    },
+    
+    {
+        "name": "windows",
+        "supports": [
+            "windows"
+        ]
+    }
+    
+]
