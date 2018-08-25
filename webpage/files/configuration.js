@@ -164,7 +164,7 @@ var saveChanges = function(){
 }
 
 var escapeName = function(name){
-    return name.replace(/ /g, "\\");
+    return name.replace(/ /g, "_");
 }
 
 function downloadJsonConfig(filename, text) {
@@ -224,7 +224,7 @@ var createNewThing = function(paramType, thing, thingType, name){
 
     if(name != null && name != undefined)
     {
-        if(getThingByName(name) != null)
+        if(getThingByName(name) != null || getThingByName(name.replace(/ /g, "_")) != null || getThingByName(name.replace(/_/g, " ")) != null)
         {
             alert("This name is already in use. Choose a unique name.");
             for(var member in thing) delete thing[member];
@@ -239,6 +239,12 @@ var createNewThing = function(paramType, thing, thingType, name){
         if(name.includes("\\"))
         {
             alert("No backslashes permitted in name");
+            for(var member in thing) delete thing[member];
+            return false;
+        }
+        if(name.includes("/"))
+        {
+            alert("No forwardslashes permitted in name");
             for(var member in thing) delete thing[member];
             return false;
         }
@@ -738,8 +744,27 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
                 alert("No backslashes permitted in name");
                 return;
             }
+            if(newName.includes("/"))
+            {
+                alert("No forwardslashes permitted in name");
+                return false;
+            }
             
             var testThing = getThingByName(newName);
+            if(testThing != null)
+            {
+                alert("This new name is already in use. Please choose a unique name.");
+                return;
+            }
+
+            testThing = getThingByName(newName.replace(/ /g, "_"))
+            if(testThing != null)
+            {
+                alert("This new name is already in use. Please choose a unique name.");
+                return;
+            }
+
+            testThing = getThingByName(newName.replace(/_/g, " "))
             if(testThing != null)
             {
                 alert("This new name is already in use. Please choose a unique name.");
