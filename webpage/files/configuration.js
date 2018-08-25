@@ -12,6 +12,8 @@ var saveChangesFuncs = [];
 var focusedDeviceId;
 var focusedCompositeId;
 
+var allSupported = true;
+
 
 configObjects = {};
 
@@ -39,7 +41,11 @@ $(window).on('load', function(){
 
     $("#buttonDiscardChanges").click(discardChanges);
 
-    $("#buttonSaveChanges").click(saveChanges);
+    $("#buttonSaveChanges").click(function(){
+        saveChanges();
+        $("#alertSaveChanges").show();
+        setTimeout(function(){$("#alertSaveChanges").hide();}, 1000);
+    });
 
     $("#buttonAddDevice").click(function(){
         var devices = configuration.Devices;
@@ -230,8 +236,6 @@ var saveChanges = function(){
         }
     }
 
-    $("#alertSaveChanges").show();
-    setTimeout(function(){$("#alertSaveChanges").hide();}, 1000);
     updateRawConfig();
 }
 
@@ -730,6 +734,7 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
     else
     {
         headerClass += " bg-warning";
+        allSupported = false;
     }
     var cardHeaderElement = $("<div/>", {
         "class": headerClass
@@ -1338,6 +1343,8 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
 var renderAll = function(){
     var tempScrollTop = $(window).scrollTop();
 
+    allSupported = true;
+
     renderDevices();
     renderComposites();
     renderNetworkReceiver();
@@ -1360,6 +1367,14 @@ var renderAll = function(){
 
 
     $(window).scrollTop(tempScrollTop);
+
+
+    $("#alertNotSupported").hide();
+    if(!allSupported)
+    {
+        $("#alertNotSupported").show();
+    }
+    
 }
 
 var renderDevices = function(){
