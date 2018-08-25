@@ -5,6 +5,8 @@
 
 OmniThing allows you to integrate your computer or microcontroller with SmartThings. Changing functionality is as simple as editing a json configuration file. Take a look at this README to learn how to get started.
 
+Check out the [OmniThing Website](http://omnithing.net). It is home to a configuration tool that makes setting up OmniThing much easier.
+
 ## State of the Project
 OmniThing is currently in Alpha. Please keep in mind that at the time of writing this it has only been used by one person, so any bug reports are appreciated.
 
@@ -17,10 +19,11 @@ Additionally, OmniThing is still in early development, so it may be less stable 
 Finally, unlike ST_Anything, OmniThing does not require the end user to edit actual source code. Instead of adding stuff to an Arduino sketch, everything is done through the OmniThing json configuration file. OmniThing parses this file and dynamically creates the desired devices at startup.
 
 Goals for Beta:
-* Web-based configuration interface so users don't have to manually edit json
-  * If anyone loves web development and has a bunch of spare time, feel free to give this a shot. I've been putting it off.
-  * Note: The config directory has json files describing all the json parameters for the various types. The plan is to use these files as input for both documentation and the web configuration page. They are already being used for the documentation in this README.
-  * I intend to make the web application have the option of auto-generating the arduino sketch, so people targeting ESP32/ESP8266 don't have to bother with installing CMake and Python.
+* ~~Web-based configuration interface so users don't have to manually edit json~~
+  * ~~If anyone loves web development and has a bunch of spare time, feel free to give this a shot. I've been putting it off.~~
+  * ~~Note: The config directory has json files describing all the json parameters for the various types. The plan is to use these files as input for both documentation and the web configuration page. They are already being used for the documentation in this README.~~
+  * ~~I intend to make the web application have the option of auto-generating the arduino sketch, so people targeting ESP32/ESP8266 don't have to bother with installing CMake and Python.~~
+  * Support in-place configuration editing on Linux-based platforms such as raspberry pi
 * I2C support
   * I'd like to have an elegant solution for supporting I2C devices. Not much thought has been put into this yet, but right now I'm thinking it will be somewhat similar to the existing CompositePeripheral framework.
 * Better operating system integration
@@ -44,12 +47,15 @@ Goals for Beta:
 
 ### Version History
 #### Alpha
-- 0.1
-  - Initial release to the public
+- 0.3
+  - Created the OmniThing web configuration tool
+  - Fixed several json parsing bugs
 - 0.2
   - Added SwitchLevel Device type
   - Added PwmOutput OutputFloat type
   - Fixed build errors on windows
+- 0.1
+  - Initial release to the public
 
 ## Design
 The goal of OmniThing to to create a modular home automation device solution for several platforms. OmniThing currently supports ESP8266, ESP32, Raspberry Pi, Linux computers, and Windows computers. It is possible that other embedded Linux platforms will be supported in the future (i.e. Beaglebone).
@@ -130,6 +136,7 @@ git clone https://github.com/DanielOgorchock/OmniThing.git
 ```
 
 ### Arduino (ESP8266/ESP32)
+* Note: You can avoid all this for arduino-based platforms by using the configuration tool at [omnithing.net](http://omnithing.net). It allows you to download a complete sketch with your desired configuration.
 * Open a terminal and navigate to the cloned repository.
   * On windows run cmd to open a terminal.
   * CMake also has a GUI you can use. I haven't used it myself, but it may prove more user friendly to those who don't like messing around in terminals.
@@ -227,6 +234,8 @@ TODO: Actually make the parent device handler support Hubitat
 
 
 ## Json Parameter Documentation
+It is recommended that you create your json configuration with the web-based tool found at [omnithing.net](http://omnithing.net). There's no need to edit any text files yourself unless you really want to.
+
 Below is the documentation for everything configured in the json file.
 
 If you have never used json before, don't worry. It's pretty simple. Take a look [here](https://www.json.org/) to see how the format works.

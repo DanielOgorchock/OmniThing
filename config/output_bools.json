@@ -84,7 +84,7 @@
                 "name": "commandOn",
                 "type": "string",
                 "required": true,
-                "description": "The command to run in the for true shell (i.e. \"echo On\")"
+                "description": "The command to run in the shell for true (i.e. \"echo On\")"
             },
             {
                 "name": "commandOff",
@@ -93,7 +93,7 @@
                 "description": "The command to run in the shell for false (i.e. \"echo Off\")"
             },
             {
-                "name": "mulithread",
+                "name": "multithread",
                 "type": "bool",
                 "required": false,
                 "description": "Set true to run the command in a new thread (NOTE: this is buggy right now)"

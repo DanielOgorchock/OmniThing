@@ -4,6 +4,7 @@ message("Running OmniThing's CMakeLists.txt")
 
 set(ARDUINO_CONFIG "arduino_config.json" CACHE STRING "Which json file to use for config")
 set(BUILD_TARGET "not_set" CACHE STRING "Which build target (linux, windows, rpi, arduino)")
+set(ARDUINO_BUILD_LOCATION "arduino_build/OmniThing" CACHE STRING "Where to put arduino sketch output")
 
 file(GLOB_RECURSE sources_core src/core/*.cpp src/core/*.c)
 file(GLOB_RECURSE sources_os_common src/os_common/lib/*.cpp)
@@ -66,7 +67,7 @@ elseif(BUILD_TARGET STREQUAL "windows")
 elseif(BUILD_TARGET STREQUAL "arduino")
     message("Creating Arduino Build Configuration")
     file(GLOB_RECURSE old_files arduino_build/*)
-    if(EXISTS arduino_build)
+    if(NOT ${old_files} STREQUAL "")
         file(REMOVE ${old_files})
     endif()
     file(COPY src/arduino/OmniThing.ino ${sources_core} 
@@ -77,8 +78,10 @@ elseif(BUILD_TARGET STREQUAL "arduino")
                                         ${sources_ESP32Servo} 
                                         ${sources_embedded_common}
                                         ${includes_embedded_common}
-                                        DESTINATION arduino_build/OmniThing)
-    execute_process(COMMAND python jsonToHeader.py ${ARDUINO_CONFIG} arduino_build/OmniThing/ArduinoJsonConfig.h)
+                                        DESTINATION ${ARDUINO_BUILD_LOCATION})
+    
+    message("Writing header file from " ${ARDUINO_CONFIG}  " to " ${ARDUINO_BUILD_LOCATION} "/ArduinoJsonConfig.h")
+    execute_process(COMMAND python jsonToHeader.py ${ARDUINO_CONFIG} ${ARDUINO_BUILD_LOCATION}/ArduinoJsonConfig.h)
 else()
     message("Invalid BUILD_TARGET specify with -DBUILD_TARGET=[linux, rpi, windows, or arduino]")
 endif()

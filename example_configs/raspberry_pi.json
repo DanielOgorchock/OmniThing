@@ -45,7 +45,7 @@
             "output": {
                 "type":     "DigitalOutputPinRaspberryPi",
                 "pin":      22,
-                "initial":  "Pullup",
+                "initial":  false,
                 "invert":   false
              }, 
             "invert":   false, 

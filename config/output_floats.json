@@ -12,13 +12,13 @@
                 "name": "revertTime",
                 "type": "uint",
                 "required": false,
-                "description": "If set, the servo will revert to initial value after given milliseconds"
+                "description": "If set, the servo will revert to initial value after given milliseconds. Leave this blank to never revert."
             },
             {
                 "name": "shutoffTime",
                 "type": "uint",
                 "required": false,
-                "description": "If set, the servo will be detached given milliseconds after being set to a new percent"
+                "description": "If set, the servo will be detached given milliseconds after being set to a new percent. Leave this blank to never shutoff."
             },
             {
                 "name": "initialPercent",
@@ -66,7 +66,7 @@
         ],
         "supported_platforms": [
             "rpi",
-            "arduino"
+            "esp8266"
         ]
     }
 ]
