@@ -103,6 +103,140 @@
                                 <br/> <br/>
                                 <button type="button" class="btn btn-secondary" id="buttonDownloadHeader">Download Arduino Header</button>
                                 <button type="button" class="btn btn-secondary" id="buttonDownloadSketch">Download Arduino Sketch</button>
+                                <br/><br/>
+                                <h1>Instructions</h1>
+                                <p>
+                                Before reading further, be sure to pick your target platform at the top right!
+                                This determines what capabilities OmniThing has. For example, you won't be able
+                                to configure a GPIO pin on a windows computer.
+                                </p>
+
+                                <h2>Config</h2>
+                                <p>
+                                    The Config tab allows you to see the current json representation of your
+                                    configuration. It also has several buttons:
+                                </p>
+                                <h4>New Configuration</h4>
+                                <p>Erases current config and creates a blank one</p>
+                                <h4>Import Configuration</h4>
+                                <p>
+                                Imports an existing json configuration file from your
+                                filesystem that you want to edit.
+                                </p>
+                                <h4>Download JSON config</h4>
+                                <p>
+                                Downloads the current configuration as a json file. Be sure
+                                to save your changes before downloading.
+                                </p>
+                                <h4>Download Arduino Header</h4>
+                                <p>
+                                Downloads an arduino header file representation of the current
+                                configuration. This is useful if you want to build out of the
+                                same arduino sketch folder. Simply overwrite ArduinoJsonConfig.h with 
+                                the newly downloaded version.
+                                </p>
+                                <h4>Download Arduino Sketch</h4>
+                                <p>
+                                Downloads a zip file including a ready-to-build arduino sketch.
+                                This includes your configuration already in the proper header format.
+                                Just unzip the file, and open the sketch in the arduino IDE. That's 
+                                all there is to it. Also, the zip file includes the json representation
+                                of your configuration (named config.json). This can be used to import back
+                                into the editor if you want to make changes.
+                                </p>
+
+                                <h2>Devices</h2>
+                                <p>
+                                Devices correspond directly to SmartThings devices. If you want anything
+                                to show up in SmartThings, you need to have a device for it! On the devices
+                                tab, you can create, delete, and edit devices. 
+                                </p>
+                                <p>
+                                Click on a device's name to edit it. Devices are composed of several kinds
+                                of parameters. There are rudimentary ones such as booleans, numbers, strings,
+                                and enums. There are also more complex input/output types named InputBool,
+                                InputFloat, InputUInt, OutputVoid, OutputBool, OutputFloat, and OutputString
+                                (with more potentially being added down the line).  
+                                </p>
+                                <p>
+                                These types determine how the device interacts with the real world. A contact
+                                sensor requires an input parameter. This is represented as an InputBool type.
+                                A common choice for an InputBool would be a digital input pin on a
+                                microcontroller. Likewise, a switch requires an OutputBool. Maybe you want
+                                to make your raspberry pi switch a pin on and off. Alternatively, you could
+                                make your switch make your pi send a web request using a shell script. You
+                                get to choose when you configure the output parameter of the switch!
+                                </p>
+                                <p>
+                                When a complex parameter has not been configured yet, you can click the 
+                                "Create" button found under its description. In the pop-up window, you will
+                                get to choose what type it will be. If you change your mind, simply click
+                                delete and then create again.
+                                </p>
+                                <h4>Triggers</h4>
+                                <p>
+                                Every device allows you to optionally add triggers. Triggers are basically
+                                timed events. You can input an interval (in milliseconds), an optional
+                                offset (also in milliseconds), and select from the list of commands you can
+                                give the device. Every device has a "poll" command. This makes the device
+                                send its current status to SmartThings. You will likely want at least one
+                                trigger for every device, issuing a poll command. Other devices like Switches
+                                allow you to send more commands such as "on", "off", and "toggle".
+                                </p>
+                                <h4>Subscriptions</h4>
+                                <p>
+                                Every device can have subscriptions. Subscriptions are very similar to triggers,
+                                but they fire based on events rather than timers. You select a source device,
+                                an event from that device, and finally the command to give the subscribing
+                                device. Subscriptions allow for simple things like turning on a switch when
+                                a contact sensor opens. They are not meant to be a full-fledged rule engine,
+                                so use something like WebCore for complicated automation.
+                                </p>
+
+                                <h2>Composite Peripherals</h2>
+                                <p>
+                                Composite Peripherals represent sensors/actuators that read in multiple values.
+                                They are similar to devices, but <strong>they do NOT correspond to SmartThings
+                                Devices</strong>. They also have no triggers or subscriptions.
+                                </p>
+                                <p>
+                                Using composite peripherals requires two steps. Create the composite peripheral
+                                first. Composite peripherals expose multiple attributes, which can be booleans,
+                                floats, or uints. For example, the DhtReader peripheral exposes two float 
+                                attributes, temperature and humidity. Next, create a device that will use the 
+                                peripheral. Using the DHT example, you can create a TemperatureMeasurement
+                                device and a RelativeHumidityMeasurement device. 
+                                </p>
+
+                                <p>
+                                Devices can use special types of inputs to get a value from a composite
+                                peripheral. These are called InputBoolRef, InputFloatRef, and InputUIntRef.
+                                These ref types allow you to select a source composite peripheral and one
+                                of its attributes. In the DHT example, our two devices would each use an
+                                InputFloatRef for its input. The temperature device would select the temperature
+                                attribute, and the humidity device would choose the humidity attribute.
+                                </p>
+
+                                <p>
+                                You may wonder why OmniThing even has Composite Peripherals. Why not just
+                                have a DHT22 device? Devices are meant to be very generic. A temperature reading
+                                device can receive its input from any InputFloat. This makes OmniThing flexible
+                                and very easy to expand.
+                                </p>
+
+                                <h2>Network Receiver</h2>
+                                <p>
+                                The network receiver defines how OmniThing will receive data from SmartThings.
+                                It is pretty straight forward. Select a port to listen on. On some platforms
+                                you must also specify the IP of the device OmniThing is running on.
+                                </p>
+
+                                <h2>Network Sender</h2>
+                                <p>
+                                The network sender is responsible for sending data to SmartThings. Typically
+                                you must specify the ip address and port of your SmartThings hub.
+                                </p>
+
                             </div>
                         </div>
                     </div>
