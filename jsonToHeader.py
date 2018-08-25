@@ -18,12 +18,21 @@ def writeObject(name, obj, objName):
     maxLength = max(maxLength, len(tmpStr) + 2)
     names.append(name)
 
-if len(sys.argv) != 3:
+if len(sys.argv) != 3 and len(sys.argv) != 1:
     print("Usage: ./jsonToHeader.py [input_json_file] [output_header_file]")
     exit()
     
-input_filename = sys.argv[1]
-output_filename = sys.argv[2]
+input_filename = None
+output_filename = None
+stdio = False
+
+if len(sys.argv) == 3:
+    input_filename = sys.argv[1]
+    output_filename = sys.argv[2]
+else:
+    input_filename = "stdin"
+    output_filename = "stdout"
+    stdio = True
 
 print("\nExecuting jsonToHeader.py...\n")
 
@@ -31,7 +40,11 @@ print("input_file  = "+ input_filename)
 print("output_file = "+ output_filename)
 print("\nParsing the json...\n")
 
-json_raw = open(input_filename, 'r').read()
+json_raw = None
+if stdio:
+    json_raw = sys.stdin.read()
+else:
+    json_raw = open(input_filename, 'r').read()
 
 json_dict = json.loads(json_raw)
 
@@ -77,6 +90,9 @@ print("Max string length: " + str(maxLength))
 
 
 print("\nWriting output to header file...\n")
-open(output_filename, "w").write(output)
+if stdio:
+    sys.stdout.write(output)
+else:
+    open(output_filename, "w").write(output)
 
 
