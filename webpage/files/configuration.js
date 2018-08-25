@@ -1206,6 +1206,8 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
 }
 
 var renderAll = function(){
+    var tempScrollTop = $(window).scrollTop();
+
     renderDevices();
     renderComposites();
     renderNetworkReceiver();
@@ -1225,6 +1227,9 @@ var renderAll = function(){
     catch(e){
         console.log("Failed to focus: " + focusedCompositeId);
     }
+
+
+    $(window).scrollTop(tempScrollTop);
 }
 
 var renderDevices = function(){
