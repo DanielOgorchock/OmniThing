@@ -67,7 +67,7 @@ elseif(BUILD_TARGET STREQUAL "windows")
 elseif(BUILD_TARGET STREQUAL "arduino")
     message("Creating Arduino Build Configuration")
     file(GLOB_RECURSE old_files arduino_build/*)
-    if(EXISTS arduino_build)
+    if(NOT ${old_files} STREQUAL "")
         file(REMOVE ${old_files})
     endif()
     file(COPY src/arduino/OmniThing.ino ${sources_core} 
@@ -79,7 +79,9 @@ elseif(BUILD_TARGET STREQUAL "arduino")
                                         ${sources_embedded_common}
                                         ${includes_embedded_common}
                                         DESTINATION ${ARDUINO_BUILD_LOCATION})
-    execute_process(COMMAND python jsonToHeader.py ${ARDUINO_CONFIG} arduino_build/OmniThing/ArduinoJsonConfig.h)
+    
+    message("Writing header file from " ${ARDUINO_CONFIG}  " to " ${ARDUINO_BUILD_LOCATION} "/ArduinoJsonConfig.h")
+    execute_process(COMMAND python jsonToHeader.py ${ARDUINO_CONFIG} ${ARDUINO_BUILD_LOCATION}/ArduinoJsonConfig.h)
 else()
     message("Invalid BUILD_TARGET specify with -DBUILD_TARGET=[linux, rpi, windows, or arduino]")
 endif()

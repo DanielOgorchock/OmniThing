@@ -59,6 +59,10 @@ $(window).on('load', function(){
         downloadArduinoHeader();
     });
 
+    $("#buttonDownloadSketch").click(function(){
+        downloadArduinoSketch();
+    });
+
     $(window).bind('beforeunload', function(){
         if(configAltered)
         {
@@ -94,6 +98,20 @@ var downloadArduinoHeader = function(){
         contentType: "application/json",
         success: function(data){
             downloadJsonConfig("ArduinoJsonConfig.h", data);
+        }
+    });
+}
+
+var downloadArduinoSketch = function(){
+    $.ajax({
+        method: "POST",
+        url: "/arduino/sketch",
+        data: JSON.stringify(configuration),
+        contentType: "application/json",
+        success: function(data){
+            console.log("url: " + data.url);
+            console.log("sketchIndex: " + data.sketchIndex);
+            $("body").append("<iframe src='" + data.url+"?sketchIndex="+data.sketchIndex+ "' style='display: none;' ></iframe>");
         }
     });
 }
