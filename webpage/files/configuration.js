@@ -148,7 +148,7 @@ var saveChanges = function(){
 }
 
 var escapeName = function(name){
-    return name.replace(/ /g, "_");
+    return name.replace(/ /g, "\\");
 }
 
 function downloadJsonConfig(filename, text) {
@@ -217,6 +217,12 @@ var createNewThing = function(paramType, thing, thingType, name){
         if(name == "")
         {
             alert("Blank names are not valid. Enter a valid name.");
+            for(var member in thing) delete thing[member];
+            return false;
+        }
+        if(name.includes("\\"))
+        {
+            alert("No backslashes permitted in name");
             for(var member in thing) delete thing[member];
             return false;
         }
@@ -709,6 +715,11 @@ var renderOmni = function(mainContainer, thing, configObject, uid, renderDepth, 
             if(newName == name)
             {
                 console.log("No name change");
+                return;
+            }
+            if(newName.includes("\\"))
+            {
+                alert("No backslashes permitted in name");
                 return;
             }
             
