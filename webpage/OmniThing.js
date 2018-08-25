@@ -10,6 +10,7 @@ app.use(express.json())
 cp.exec("rm -rf work/zips work/sketches");
 
 app.get('/', function(req, res){
+    console.log("Visitor to homepage");
     res.sendFile("index.html", {root: __dirname+'/files'})
 })
 
@@ -20,6 +21,7 @@ app.post('/arduino/header', function(req, res){
     });
     process.stdin.write(input);
     process.stdin.end();
+    console.log("header file download");
 });
 
 var sketchIndex = 0;
@@ -34,15 +36,15 @@ app.post('/arduino/sketch', function(req, res){
     var createDir = cp.exec('mkdir -p '+sketchLocation+' ; mkdir -p ' + zipLocation, (error, stdout, stderr) => { 
         fs.writeFile(configFile, JSON.stringify(req.body, null, 4), (err) => {
             var cmake_cmd = 'cd ..; cmake . -DBUILD_TARGET=arduino -DARDUINO_BUILD_LOCATION=\'webpage/'+sketchLocation+'OmniThing\' -DARDUINO_CONFIG=\'webpage/'+configFile+'\'';
-            console.log(cmake_cmd);
+            //console.log(cmake_cmd);
             var cmake = cp.exec(cmake_cmd, (error, stdout, stderr) => {
-                console.log(stderr);
-                console.log(stdout);
+                //console.log(stderr);
+                //console.log(stdout);
 
                 var zip_cmd = "cd " + sketchLocation + "; zip -r ../../../"+zipLocation+'/OmniThing.zip *';
                 var zip = cp.exec(zip_cmd, (error, stdout, stderr) => {
-                    console.log(stderr);
-                    console.log(stdout);
+                    //console.log(stderr);
+                    //console.log(stdout);
                     res.send({url: '/arduino/zip', "sketchIndex": index});
                 });
             });
@@ -59,7 +61,7 @@ app.get('/arduino/zip', function(req, res){
         return;
     }
 
-    console.log("sketchIndex=" + index);
+    console.log("sketch zip download: sketchIndex=" + index);
 
     var sketchLocation = 'work/sketches/'+index+'/';
     var zipLocation = 'work/zips/'+index+'/';
@@ -74,7 +76,7 @@ app.get('/arduino/zip', function(req, res){
                 console.log(error);
             }
             console.log(stderr);
-            console.log(stdout);
+            //console.log(stdout);
             
             console.log("Cleaned up zip file and sketch folder");
         });
