@@ -230,6 +230,8 @@ var saveChanges = function(){
         }
     }
 
+    $("#alertSaveChanges").show();
+    setTimeout(function(){$("#alertSaveChanges").hide();}, 1000);
     updateRawConfig();
 }
 
