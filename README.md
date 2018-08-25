@@ -46,12 +46,15 @@ Goals for Beta:
 
 ### Version History
 #### Alpha
-- 0.1
-  - Initial release to the public
+- 0.3
+  - Created the OmniThing web configuration tool
+  - Fixed several json parsing bugs
 - 0.2
   - Added SwitchLevel Device type
   - Added PwmOutput OutputFloat type
   - Fixed build errors on windows
+- 0.1
+  - Initial release to the public
 
 ## Design
 The goal of OmniThing to to create a modular home automation device solution for several platforms. OmniThing currently supports ESP8266, ESP32, Raspberry Pi, Linux computers, and Windows computers. It is possible that other embedded Linux platforms will be supported in the future (i.e. Beaglebone).
