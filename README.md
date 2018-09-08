@@ -23,7 +23,7 @@ Goals for Beta:
   * ~~If anyone loves web development and has a bunch of spare time, feel free to give this a shot. I've been putting it off.~~
   * ~~Note: The config directory has json files describing all the json parameters for the various types. The plan is to use these files as input for both documentation and the web configuration page. They are already being used for the documentation in this README.~~
   * ~~I intend to make the web application have the option of auto-generating the arduino sketch, so people targeting ESP32/ESP8266 don't have to bother with installing CMake and Python.~~
-  * Support in-place configuration editing on Linux-based platforms such as raspberry pi
+  * ~~Support in-place configuration editing on Linux-based platforms such as raspberry pi~~
 * I2C support
   * I'd like to have an elegant solution for supporting I2C devices. Not much thought has been put into this yet, but right now I'm thinking it will be somewhat similar to the existing CompositePeripheral framework.
 * Better operating system integration
@@ -47,6 +47,11 @@ Goals for Beta:
 
 ### Version History
 #### Alpha
+- 0.4
+  - Allow for self-hosted web server configuration tool on linux platforms
+  - Cmake install target support on linux systems
+  - Created package repo for installing/updating omnithing with apt-get on raspberry pi 
+  - OmniThing and its webtool run as systemd services on linux targets
 - 0.3
   - Created the OmniThing web configuration tool
   - Fixed several json parsing bugs
@@ -117,52 +122,6 @@ The following list shows the current output value types.
   * Example: Run a bash command on Linux computer
   * Class: OutputString
   
-## Build Instructions
-### Prerequisites
-* CMake is required to build OmniThing.
-  * Windows: [Download Here](https://cmake.org/download/)
-  * Raspberry Pi: sudo apt-get install cmake
-* If you are building for a Raspberry Pi, OmniThing is dependent on the [pigpio library](http://abyz.me.uk/rpi/pigpio/download.html)
-  * If running raspbian, I think you can just 'sudo apt-get install pigpio', but I'm not running raspbian so I don't know for sure.
-* If you are building for Arduino (ESP8266/ESP32), the OmniThing build process requires Python to be installed.
-* Arduino also obviously requires the Arduino IDE.
-* If you are building for Linux, gcc is required.
-* If you are building for Windows (to actually run on windows, not to build for Arduino), download [Visual Studio](https://visualstudio.microsoft.com/vs/community/)
-  * Note: Be sure to select the CMake integration when installing.
-
-Now, clone this repository and follow the proper instructions below for your target platform.
-```bash
-git clone https://github.com/DanielOgorchock/OmniThing.git
-```
-
-### Arduino (ESP8266/ESP32)
-* Note: You can avoid all this for arduino-based platforms by using the configuration tool at [omnithing.net](http://omnithing.net). It allows you to download a complete sketch with your desired configuration.
-* Open a terminal and navigate to the cloned repository.
-  * On windows run cmd to open a terminal.
-  * CMake also has a GUI you can use. I haven't used it myself, but it may prove more user friendly to those who don't like messing around in terminals.
-* Run: cmake . -DBUILD_TARGET=arduino -DARDUINO_CONFIG="path/to/your/config.json"
-* NOTE: If you have not yet created a configuration file, look at the Json Configuration documentation lower in the README. Also, take a look at the examples in the example_configs directory.
-* NOTE: Python is required for the above command to work correctly. The json file is converted to a c++ header by a python script.
-* Now, the arduino_build directory should have an OmniThing sketch in it (if everything worked correctly).
-* Open the sketch in the Arduino IDE and build as normal.
-
-### Raspberry Pi
-* Open a terminal and navigate to the cloned repository
-* Run: cmake . -DBUILD_TARGET=rpi
-* Run: make
-* To run OmniThing: sudo ./OmniThing ./path/to/your/config.json
-
-### Linux Computer
-* Open a terminal and navigate to the cloned repository
-* Run: cmake . -DBUILD_TARGET=linux
-* Run: make
-* To run OmniThing: ./OmniThing ./path/to/your/config.json
-
-### Windows Computer
-* Open Visual Studio.
-* Select open folder, and select this repository's folder.
-* You should be able to build using Visual Studio's built-in CMake integration.
-
 ## SmartThings Setup
 NOTE: Right now these instructions are basically ripped directly from ST_Anything, so the pictures are slightly wrong.
 
@@ -216,7 +175,86 @@ Your screen should look like the following image:
 
 ## Hubitat Setup
 TODO: Actually make the parent device handler support Hubitat
+
+## Installation Instructions
+OmniThing is easy to install on raspberry pi, linux platforms, and arduino platforms.
+
+### Arduino (ESP8266/ESP32)
+Just use the OmniThing [website](http://omnithing.net). The configuration tool allows you to download a ready-to-build arduino sketch.
+
+### Raspberry Pi
+It is easy to install OmniThing on a Raspberry Pi and keep it updated. You can directly use the apt package manager like you would for any other raspbian package. You just need to add the OmniThing repository.
+#### Add the OmniThing repository
+`sudo echo "deb http://omnithing.net/repository/rpi ./" >> /etc/apt/sources.list`
+#### Install the omnithing package
+`sudo apt-get update && sudo apt-get install omnithing`
+#### Updating OmniThing
+`sudo apt-get update && sudo apt-get upgrade`
+#### Editing Configuration
+You can edit the current OmniThing configuration using the self-hosted webserver running on port 3333. In your web browser, navigate to http://replace_with_your_pi_ip:3333
+
+### Other Linux Platforms
+#### Building and Installing
+`cd`
+`git clone https://github.com/DanielOgorchock/OmniThing.git`
+`cd OmniThing`
+`cmake . -DBUILD_TARGET=linux -DWEB_CONFIG=webpage/config_linux.json`
+`sudo make install`
+#### Starting Services
+'sudo systemctl enable omnithing`
+'sudo systemctl enable omnithing-webserver`
+'sudo systemctl start omnithing`
+'sudo systemctl start omnithing-webserver`
+#### Editing Configuration
+You can edit the current OmniThing configuration using the self-hosted webserver running on port 3333.
   
+## Build Instructions
+The build instructions can be ignored for linux, raspberry pi, and arduino platforms if you only want to use OmniThing. They are only needed if you want to directly edit OmniThing source code. Refer to the installation instructions for those platforms if you don't need to edit source files.
+### Prerequisites
+* CMake is required to build OmniThing.
+  * Windows: [Download Here](https://cmake.org/download/)
+  * Raspberry Pi: sudo apt-get install cmake
+* If you are building for a Raspberry Pi, OmniThing is dependent on the [pigpio library](http://abyz.me.uk/rpi/pigpio/download.html)
+  * If running raspbian, I think you can just 'sudo apt-get install pigpio', but I'm not running raspbian so I don't know for sure.
+* If you are building for Arduino (ESP8266/ESP32), the OmniThing build process requires Python to be installed.
+* Arduino also obviously requires the Arduino IDE.
+* If you are building for Linux, gcc is required.
+* If you are building for Windows (to actually run on windows, not to build for Arduino), download [Visual Studio](https://visualstudio.microsoft.com/vs/community/)
+  * Note: Be sure to select the CMake integration when installing.
+
+Now, clone this repository and follow the proper instructions below for your target platform.
+```bash
+git clone https://github.com/DanielOgorchock/OmniThing.git
+```
+
+### Arduino (ESP8266/ESP32)
+* Note: You can avoid all this for arduino-based platforms by using the configuration tool at [omnithing.net](http://omnithing.net). It allows you to download a complete sketch with your desired configuration.
+* Open a terminal and navigate to the cloned repository.
+  * On windows run cmd to open a terminal.
+  * CMake also has a GUI you can use. I haven't used it myself, but it may prove more user friendly to those who don't like messing around in terminals.
+* Run: cmake . -DBUILD_TARGET=arduino -DARDUINO_CONFIG="path/to/your/config.json"
+* NOTE: If you have not yet created a configuration file, look at the Json Configuration documentation lower in the README. Also, take a look at the examples in the example_configs directory.
+* NOTE: Python is required for the above command to work correctly. The json file is converted to a c++ header by a python script.
+* Now, the arduino_build directory should have an OmniThing sketch in it (if everything worked correctly).
+* Open the sketch in the Arduino IDE and build as normal.
+
+### Raspberry Pi
+* Open a terminal and navigate to the cloned repository
+* Run: cmake . -DBUILD_TARGET=rpi
+* Run: make
+* To run OmniThing: sudo ./OmniThing ./path/to/your/config.json
+
+### Linux Computer
+* Open a terminal and navigate to the cloned repository
+* Run: cmake . -DBUILD_TARGET=linux
+* Run: make
+* To run OmniThing: ./OmniThing ./path/to/your/config.json
+
+### Windows Computer
+* Open Visual Studio.
+* Select open folder, and select this repository's folder.
+* You should be able to build using Visual Studio's built-in CMake integration.
+
 ## Board Pinouts
   Reference the images below to determine which pin numbers to use for your board.
   Note: Use the numbers following the "GPIO" labels for the ESPs, not the absolute pin position.
