@@ -4,7 +4,7 @@ const cp = require('child_process')
 const stream = require('stream')
 const fs = require('fs');
 
-app.use(express.static('files'))
+app.use("/", express.static('files'))
 app.use(express.json())
 
 
@@ -141,10 +141,7 @@ if(config.repositories != undefined && config.repositories != null)
     for(var i = 0; i < numRepos; ++i)
     {
         var rep = repos[i];
-        app.get('/repository/'+rep.name, function(req, res){
-            console.log("Request for repository: " + rep.name);
-            res.sendFile("Packages.gz", {root: rep.path})
-        });
+        app.use("/repository/"+rep.name, express.static(rep.path));
     }
 }
 
