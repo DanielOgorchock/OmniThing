@@ -6,6 +6,7 @@ set(ARDUINO_CONFIG "arduino_config.json" CACHE STRING "Which json file to use fo
 set(BUILD_TARGET "not_set" CACHE STRING "Which build target (linux, windows, rpi, arduino)")
 set(ARDUINO_BUILD_LOCATION "arduino_build/OmniThing" CACHE STRING "Where to put arduino sketch output")
 set(INSTALL_ROOT "/" CACHE STRING "Where where to treat as root of install")
+set(WEB_CONFIG "webpage/config_selfhost.json" CACHE STRING "Which webpage json config to install")
 
 file(GLOB_RECURSE sources_core src/core/*.cpp src/core/*.c)
 file(GLOB_RECURSE sources_os_common src/os_common/lib/*.cpp)
@@ -27,26 +28,47 @@ function(createLinuxInstallTarget)
                 message(\"Installing with root as ${INSTALL_ROOT}\")
                 if(EXISTS /opt/omnithing/config.json)
                     message(\"config.json exists... installing new blank one as config_new.json\")
-                    file(INSTALL webpage/files/blank_config.json DESTINATION ${INSTALL_ROUTE}/opt/omnithing
+                    file(INSTALL webpage/files/blank_config.json DESTINATION ${INSTALL_ROOT}/opt/omnithing
                             PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ
                             RENAME config_new.json
                             )
                 else()
-                    file(INSTALL webpage/files/blank_config.json DESTINATION ${INSTALL_ROUTE}/opt/omnithing
+                    file(INSTALL webpage/files/blank_config.json DESTINATION ${INSTALL_ROOT}/opt/omnithing
                             PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ
                             RENAME config.json
                             )
                 endif()
             ")
     install(TARGETS OmniThing
-            RUNTIME DESTINATION ${INSTALL_ROUTE}/opt/omnithing
+            RUNTIME DESTINATION ${INSTALL_ROOT}/opt/omnithing
             PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ
             )
-    install(FILES install/omnithing.sh DESTINATION ${INSTALL_ROUTE}/opt/omnithing
+    install(FILES install/omnithing.sh DESTINATION ${INSTALL_ROOT}/opt/omnithing
             PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ
             )
-    install(FILES install/omnithing.service DESTINATION ${INSTALL_ROUTE}/etc/systemd/system/
+    install(FILES install/omnithing-webpage.sh DESTINATION ${INSTALL_ROOT}/opt/omnithing
             PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ
+            )
+    install(FILES install/updateConfig.sh DESTINATION ${INSTALL_ROOT}/opt/omnithing
+            PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ
+            )
+    install(FILES install/omnithing.service DESTINATION ${INSTALL_ROOT}/etc/systemd/system/
+            PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ
+            )
+    install(FILES install/omnithing-webserver.service DESTINATION ${INSTALL_ROOT}/etc/systemd/system/
+            PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ
+            )
+    install(FILES ${WEB_CONFIG} DESTINATION ${INSTALL_ROOT}/opt/omnithing
+            PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ
+            RENAME webpage_config.json
+            )
+    install(DIRECTORY webpage DESTINATION ${INSTALL_ROOT}/opt/omnithing
+            FILES_MATCHING PATTERN "*"
+            PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ WORLD_EXECUTE
+            )
+    install(DIRECTORY config DESTINATION ${INSTALL_ROOT}/opt/omnithing
+            FILES_MATCHING PATTERN "*"
+            PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ WORLD_EXECUTE
             )
 endfunction()
 

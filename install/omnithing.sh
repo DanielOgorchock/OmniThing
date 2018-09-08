@@ -10,4 +10,4 @@ mv logs/omnithing.log.2 logs/omnithing.log.3
 mv logs/omnithing.log.1 logs/omnithing.log.2
 mv logs/omnithing.log logs/omnithing.log.1
 
-./OmniThing config.json > logs/omnithing.log 2>&1
+./OmniThing config.json >> logs/omnithing.log 2>&1

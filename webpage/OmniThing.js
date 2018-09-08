@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const cp = require('child_process')
+const stream = require('stream')
 const fs = require('fs');
 
 app.use(express.static('files'))
@@ -9,9 +10,27 @@ app.use(express.json())
 
 cp.exec("rm -rf work/zips work/sketches");
 
+if(process.argv.length != 3)
+{
+    console.log("usage: node[js] Omnithing.js [configfile.json]")
+    process.exit();
+}
+
+var config = null;
+try{
+    config = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+} catch(e) {
+    console.log("Failed to parse json: " + e);
+    process.exit();
+}
+
 app.get('/', function(req, res){
     console.log("Visitor to homepage");
     res.sendFile("index.html", {root: __dirname+'/files'})
+})
+
+app.get('/configuration/web', function(req, res){
+    res.send(config);
 })
 
 app.post('/arduino/header', function(req, res){
@@ -84,12 +103,41 @@ app.get('/arduino/zip', function(req, res){
     
 });
 
+if(config.selfhost)
+{
+    var installDir = "/opt/omnithing/"
+    app.post('/saveconfig', function(req, res){
+        var newJson = JSON.stringify(req.body, null, 4);
+        console.log("saving new config.json");
+
+        var updateProc = cp.exec(installDir+"updateConfig.sh", (error, stdout, stderr) => {
+            console.log(stdout);
+            console.log(stderr);
+
+            console.log("Restarting omnithing service...");
+            cp.exec("systemctl restart omnithing", (error, stdout, stderr) => {
+                console.log(stdout);
+                console.log(stderr);
+
+                res.send("ok");
+            });
+        });
+        var inputStream = new stream.Readable();
+        inputStream.push(newJson);
+        inputStream.push(null);
+        inputStream.pipe(updateProc.stdin);
+    });
+
+    app.get('/configuration/omni', function(req, res){
+        var omniConfig = JSON.parse(fs.readFileSync("/opt/omnithing/config.json", 'utf8'));
+        res.send(omniConfig);
+    });
+}
 
 
 
 
 
-
-app.listen(process.argv[2], function(){
-    console.log('OmniThing web configuration tool listening on port ' + process.argv[2])
+app.listen(config.port, function(){
+    console.log('OmniThing web configuration tool listening on port ' + config.port)
 })

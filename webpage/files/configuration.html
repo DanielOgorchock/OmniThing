@@ -84,6 +84,10 @@
           Changes saved successfully
     </div>
 
+    <div class="alert alert-success collapse" role="alert" id="alertUpdateLocal">
+          The local configuration has been updated
+    </div>
+
     <div class="tab-content" id="myTabContent">
 
         <div class="tab-pane show active" id="config-content" role="tabpanel" aria-labelledby="config-tab">
@@ -100,9 +104,15 @@
                                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalImportJson">Import Configuration</button>
                                 <br/> <br/>
                                 <button type="button" class="btn btn-secondary" id="buttonDownloadJson">Download JSON Config</button>
+                            <div id="divArduinoButtons">
                                 <br/> <br/>
                                 <button type="button" class="btn btn-secondary" id="buttonDownloadHeader">Download Arduino Header</button>
                                 <button type="button" class="btn btn-secondary" id="buttonDownloadSketch">Download Arduino Sketch</button>
+                            </div>
+                            <div id="divSelfhostButtons" style="display:none">
+                                <br/> <br/>
+                                <button type="button" class="btn btn-primary" id="buttonUpdateLocal">Update Local Config</button>
+                            </div>
                                 <br/><br/>
                                 <h1>Instructions</h1>
                                 <p>
@@ -132,6 +142,7 @@
                                 Downloads the current configuration as a json file. Be sure
                                 to save your changes before downloading.
                                 </p>
+                            <div id="divArduinoInstructions">
                                 <h4>Download Arduino Header</h4>
                                 <p>
                                 Downloads an arduino header file representation of the current
@@ -148,6 +159,20 @@
                                 of your configuration (named config.json). This can be used to import back
                                 into the editor if you want to make changes.
                                 </p>
+                            </div>
+                            <div id="divSelfhostInstructions" style="display:none">
+                                <h4>Update Local Config</h4>
+                                <p>
+                                Overwrites the current configuration running on the device with the one
+                                in the editor. This will also restart the omnithing service. Note: 5 prior
+                                backups of previous configurations are stored in /opt/omnithing/backups if
+                                you accidentally screw up. Navigate to that directory in a terminal, and
+                                move the desired backup to /opt/omnithing/config.json to restore a backup.
+                                </p>
+                                <p>
+                                Be sure to click Save Changes before this!
+                                </p>
+                            </div>
 
                                 <h2>Devices</h2>
                                 <p>

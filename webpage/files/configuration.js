@@ -1,6 +1,8 @@
 var blankConfiguration = {};
 var configuration = {};
 
+var webpageConfig = {};
+
 var platform = null;
 var platforms = null;
 
@@ -22,6 +24,13 @@ var configObjectsReceived = 0;
 var configAltered = false;
 
 $(window).on('load', function(){
+    $.getJSON("/configuration/web", function(data){
+        webpageConfig = data;
+        if(webpageConfig.selfhost)
+            console.log("Selfhost mode");
+        else
+            console.log("Website mode");
+    });
     objectFromFile("CompositePeriph",  "config/composite_peripherals.json", configInitialization);
     objectFromFile("InputFloat",       "config/input_floats.json", configInitialization);
     objectFromFile("NetworkSender",    "config/network_senders.json", configInitialization);
@@ -95,7 +104,8 @@ var configInitialization = function(){
             blankConfiguration = data;
 
             platforms = configObjects["platforms"];
-            platform = platforms[0];
+            console.log("Defaulting to platform at index=" + webpageConfig.platformIndex);
+            platform = platforms[webpageConfig.platformIndex];
 
             var numPlatforms = platforms.length;
             for(var i = 0; i < numPlatforms; ++i)
@@ -124,6 +134,36 @@ var configInitialization = function(){
 
             resetConfig();
             configAltered = false;
+
+            if(webpageConfig.selfhost)
+            {
+                $.getJSON("/configuration/omni", function(data){
+                    configuration = data;
+                    console.log("Loaded local json");
+                    updateRawConfig();
+                    configAltered = false;
+                });
+
+                $("#divArduinoButtons").hide();
+                $("#divArduinoInstructions").hide();
+                $("#divSelfhostButtons").show();
+                $("#divSelfhostInstructions").show();
+
+                $("#buttonUpdateLocal").click(function(){
+                    console.log("Updating local config");
+                    $.ajax({
+                        method: "POST",
+                        url: "/saveconfig",
+                        data: JSON.stringify(configuration),
+                        contentType: "application/json",
+                        success: function(data){
+                            console.log("Response: " + data);
+                            $("#alertUpdateLocal").show();
+                            setTimeout(function(){$("#alertUpdateLocal").hide();}, 1000);
+                        }
+                    });
+                });
+            }
         });
     }
 }
