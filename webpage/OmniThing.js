@@ -6,8 +6,7 @@ const fs = require('fs');
 const path = require('path');
 
 app.use(function(req, res, next) {
-    var filename = path.basename(req.url);
-    if(filename.includes("repository")){
+    if(req.url.includes("repository")){
         console.log("Repository request made");
     }
     next();
