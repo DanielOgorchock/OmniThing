@@ -185,7 +185,7 @@ Just use the OmniThing [website](http://omnithing.net). The configuration tool a
 ### Raspberry Pi
 It is easy to install OmniThing on a Raspberry Pi and keep it updated. You can directly use the apt package manager like you would for any other raspbian package. You just need to add the OmniThing repository.
 #### Add the OmniThing repository
-`sudo echo "deb http://omnithing.net/repository/rpi ./" >> /etc/apt/sources.list`
+`sudo sh -c 'echo "deb http://omnithing.net/repository/rpi ./" >> /etc/apt/sources.list'`
 #### Install the omnithing package
 `sudo apt-get update && sudo apt-get install omnithing`
 #### Updating OmniThing
