@@ -3,7 +3,7 @@ const app = express()
 const cp = require('child_process')
 const stream = require('stream')
 const fs = require('fs');
-const path = require('path);
+const path = require('path');
 
 app.use(function(req, res, next) {
     var filename = path.basename(req.url);
