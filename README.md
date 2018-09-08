@@ -189,6 +189,7 @@ It is easy to install OmniThing on a Raspberry Pi and keep it updated. You can d
 #### Install the omnithing package
 `sudo apt-get update && sudo apt-get install omnithing`
 #### Updating OmniThing
+If a new version of OmniThing is released, you can update to it with the command below:  
 `sudo apt-get update && sudo apt-get upgrade`
 #### Editing Configuration
 You can edit the current OmniThing configuration using the self-hosted webserver running on port 3333. In your web browser, navigate to http://replace_with_your_pi_ip:3333
