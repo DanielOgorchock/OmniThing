@@ -356,6 +356,11 @@ namespace omni
         {
             sendOutgoingJson();
         }
+
+        if(m_pLogger)
+        {
+            m_pLogger->flush();
+        }
     }
 
     void OmniThing::setNetworkReceiver(NetworkReceiver* nr)

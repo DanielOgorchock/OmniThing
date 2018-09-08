@@ -24,6 +24,8 @@ namespace omni
 
             static char endl;
 
+            virtual void flush() {};
+
             virtual Logger& operator<< (bool val) {return *this;}
             virtual Logger& operator<< (short val) {return *this;}
             virtual Logger& operator<< (unsigned short val) {return *this;}

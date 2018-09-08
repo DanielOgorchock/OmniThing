@@ -12,6 +12,11 @@ namespace omni
 
     }
 
+    void LoggerStdout::flush()
+    {
+        std::cout << std::flush;
+    }
+
     Logger& LoggerStdout::operator<< (bool val)
     {
         std::cout << val;

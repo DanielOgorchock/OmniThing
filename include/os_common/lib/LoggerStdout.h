@@ -13,6 +13,8 @@ namespace omni
         public:
             virtual ~LoggerStdout();
 
+            virtual void flush();
+
             virtual Logger& operator<< (bool val);
             virtual Logger& operator<< (short val);
             virtual Logger& operator<< (unsigned short val);

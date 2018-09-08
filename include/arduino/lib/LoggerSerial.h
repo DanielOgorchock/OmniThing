@@ -16,6 +16,8 @@ namespace omni
             LoggerSerial(HardwareSerial& ser, unsigned int long = 9600);
             virtual ~LoggerSerial();
 
+            virtual void flush();
+
             virtual Logger& operator<< (bool val);
             virtual Logger& operator<< (short val);
             virtual Logger& operator<< (unsigned short val);

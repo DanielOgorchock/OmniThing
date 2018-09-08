@@ -19,6 +19,11 @@ namespace omni
 
     }
 
+    void LoggerSerial::flush()
+    {
+        //do nothing on arduino
+    }
+
     Logger& LoggerSerial::operator<< (bool val)
     {
         m_Serial.print(val);
