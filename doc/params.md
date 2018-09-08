@@ -150,7 +150,7 @@ See below for a list of all parameters for everything in the config file
   * type: bool
   * required: False
   * default: False
-  * description: If you are using a dht11, set this to true
+  * description: If you are using a dht11, set this to true (any other dht = false)
 ##### Bool Attributes
 ##### Float Attributes
 * temperature
@@ -399,7 +399,7 @@ See below for a list of all parameters for everything in the config file
   * type: string
   * required: True
   * description: The command to run in the shell (i.e. "echo Hello")
-* mulithread
+* multithread
   * type: bool
   * required: False
   * description: Set true to run the command in a new thread (NOTE: this is buggy right now)
@@ -461,12 +461,12 @@ See below for a list of all parameters for everything in the config file
 * commandOn
   * type: string
   * required: True
-  * description: The command to run in the for true shell (i.e. "echo On")
+  * description: The command to run in the shell for true (i.e. "echo On")
 * commandOff
   * type: string
   * required: True
   * description: The command to run in the shell for false (i.e. "echo Off")
-* mulithread
+* multithread
   * type: bool
   * required: False
   * description: Set true to run the command in a new thread (NOTE: this is buggy right now)
@@ -484,11 +484,11 @@ See below for a list of all parameters for everything in the config file
 * revertTime
   * type: uint
   * required: False
-  * description: If set, the servo will revert to initial value after given milliseconds
+  * description: If set, the servo will revert to initial value after given milliseconds. Leave this blank to never revert.
 * shutoffTime
   * type: uint
   * required: False
-  * description: If set, the servo will be detached given milliseconds after being set to a new percent
+  * description: If set, the servo will be detached given milliseconds after being set to a new percent. Leave this blank to never shutoff.
 * initialPercent
   * type: float
   * required: False
@@ -520,6 +520,6 @@ See below for a list of all parameters for everything in the config file
   * description: PWM pin
 ##### Supported Platforms
 * rpi
-* arduino
+* esp8266
 ## OutputStrings
 
