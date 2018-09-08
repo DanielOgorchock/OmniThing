@@ -28,7 +28,7 @@ file(GLOB sources_ESP32Servo src/ESP32Servo/*)
 function(createLinuxInstallTarget)
     install(CODE "
                 message(\"Installing with root as ${INSTALL_ROOT}\")
-                if(EXISTS /opt/omnithing/config.json)
+                if(EXISTS ${INSTALL_ROOT}/opt/omnithing/config.json)
                     message(\"config.json exists... installing new blank one as config_new.json\")
                     file(INSTALL webpage/files/blank_config.json DESTINATION ${INSTALL_ROOT}/opt/omnithing
                             PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ
