@@ -195,16 +195,16 @@ You can edit the current OmniThing configuration using the self-hosted webserver
 
 ### Other Linux Platforms
 #### Building and Installing
-`cd`
-`git clone https://github.com/DanielOgorchock/OmniThing.git`
-`cd OmniThing`
-`cmake . -DBUILD_TARGET=linux -DWEB_CONFIG=webpage/config_linux.json`
-`sudo make install`
+`cd`  
+`git clone https://github.com/DanielOgorchock/OmniThing.git`  
+`cd OmniThing`  
+`cmake . -DBUILD_TARGET=linux -DWEB_CONFIG=webpage/config_linux.json`  
+`sudo make install`  
 #### Starting Services
-'sudo systemctl enable omnithing`
-'sudo systemctl enable omnithing-webserver`
-'sudo systemctl start omnithing`
-'sudo systemctl start omnithing-webserver`
+`sudo systemctl enable omnithing`  
+`sudo systemctl enable omnithing-webserver`  
+`sudo systemctl start omnithing`  
+`sudo systemctl start omnithing-webserver`  
 #### Editing Configuration
 You can edit the current OmniThing configuration using the self-hosted webserver running on port 3333.
   
