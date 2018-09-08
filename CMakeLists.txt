@@ -80,7 +80,7 @@ endfunction()
 
 if(BUILD_TARGET STREQUAL "website")
     message("Creating Website Build Configuration")
-    createLinuxInstallTarget()
+    createWebsiteInstallTarget()
     install(FILES CMakeLists.txt jsonToHeader.py DESTINATION ${INSTALL_ROOT}/opt/omnithing
             PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ WORLD_EXECUTE
             )
