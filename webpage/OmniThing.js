@@ -3,7 +3,15 @@ const app = express()
 const cp = require('child_process')
 const stream = require('stream')
 const fs = require('fs');
+const path = require('path);
 
+app.use(function(req, res, next) {
+    var filename = path.basename(req.url);
+    if(filename.includes("repository")){
+        console.log("Repository request made");
+    }
+    next();
+});
 app.use("/", express.static('files'))
 app.use(express.json())
 
