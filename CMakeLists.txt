@@ -4,7 +4,7 @@ message("Running OmniThing's CMakeLists.txt")
 message("NOTE: cross compile using -DCMAKE_TOOLCHAIN_FILE= -DRPI_TOOLS=")
 
 set(ARDUINO_CONFIG "arduino_config.json" CACHE STRING "Which json file to use for config")
-set(BUILD_TARGET "not_set" CACHE STRING "Which build target (linux, windows, rpi, arduino)")
+set(BUILD_TARGET "not_set" CACHE STRING "Which build target (linux, windows, rpi, arduino, website)")
 set(ARDUINO_BUILD_LOCATION "arduino_build/OmniThing" CACHE STRING "Where to put arduino sketch output")
 set(INSTALL_ROOT "/" CACHE STRING "Where where to treat as root of install")
 set(WEB_CONFIG "webpage/config_selfhost.json" CACHE STRING "Which webpage json config to install")
@@ -74,7 +74,21 @@ function(createLinuxInstallTarget)
             )
 endfunction()
 
-if(BUILD_TARGET STREQUAL "linux")
+if(BUILD_TARGET STREQUAL "website")
+    message("Creating Website Build Configuration")
+    createLinuxInstallTarget()
+    install(FILES CMakeLists.txt jsonToHeader.py DESTINATION ${INSTALL_ROOT}/opt/omnithing
+            PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ WORLD_EXECUTE
+            )
+    install(DIRECTORY src DESTINATION ${INSTALL_ROOT}/opt/omnithing
+            FILES_MATCHING PATTERN "*"
+            PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ WORLD_EXECUTE
+            )
+    install(DIRECTORY include DESTINATION ${INSTALL_ROOT}/opt/omnithing
+            FILES_MATCHING PATTERN "*"
+            PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ WORLD_EXECUTE
+            )
+elseif(BUILD_TARGET STREQUAL "linux")
     message("Creating Linux Build Configuration")
     add_executable(OmniThing src/os_common/main_os.cpp ${sources_core} ${sources_os_common})
     include_directories(include/core)
