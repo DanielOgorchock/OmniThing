@@ -26,6 +26,14 @@ file(GLOB sources_ESP32WebServer src/ESP32WebServer/*)
 file(GLOB sources_ESP32Servo src/ESP32Servo/*)
 
 function(createLinuxInstallTarget)
+    install(TARGETS OmniThing
+            RUNTIME DESTINATION ${INSTALL_ROOT}/opt/omnithing
+            PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ
+            )
+    createWebsiteInstallTarget()
+endfunction()
+
+function(createWebsiteInstallTarget)
     install(CODE "
                 message(\"Installing with root as ${INSTALL_ROOT}\")
                 if(EXISTS ${INSTALL_ROOT}/opt/omnithing/config.json)
@@ -41,10 +49,6 @@ function(createLinuxInstallTarget)
                             )
                 endif()
             ")
-    install(TARGETS OmniThing
-            RUNTIME DESTINATION ${INSTALL_ROOT}/opt/omnithing
-            PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ
-            )
     install(FILES install/omnithing.sh DESTINATION ${INSTALL_ROOT}/opt/omnithing
             PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ
             )
