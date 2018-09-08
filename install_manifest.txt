@@ -1,0 +1,4 @@
+/opt/omnithing/config_new.json
+/opt/omnithing/OmniThing
+/opt/omnithing/omnithing.sh
+/etc/systemd/system/omnithing.service

@@ -1,0 +1,14 @@
+[Unit]
+Description=OmniThing
+After=network.target
+
+[Service]
+ExecStart=/opt/omnithing/omnithing.sh
+WorkingDirectory=/opt/omnithing
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target

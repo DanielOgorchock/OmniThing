@@ -5,6 +5,7 @@ message("Running OmniThing's CMakeLists.txt")
 set(ARDUINO_CONFIG "arduino_config.json" CACHE STRING "Which json file to use for config")
 set(BUILD_TARGET "not_set" CACHE STRING "Which build target (linux, windows, rpi, arduino)")
 set(ARDUINO_BUILD_LOCATION "arduino_build/OmniThing" CACHE STRING "Where to put arduino sketch output")
+set(INSTALL_ROOT "/" CACHE STRING "Where where to treat as root of install")
 
 file(GLOB_RECURSE sources_core src/core/*.cpp src/core/*.c)
 file(GLOB_RECURSE sources_os_common src/os_common/lib/*.cpp)
@@ -21,6 +22,34 @@ file(GLOB_RECURSE includes_embedded_common include/embedded_common/lib/*.h)
 file(GLOB sources_ESP32WebServer src/ESP32WebServer/*)
 file(GLOB sources_ESP32Servo src/ESP32Servo/*)
 
+function(createLinuxInstallTarget)
+    install(CODE "
+                message(\"Installing with root as ${INSTALL_ROOT}\")
+                if(EXISTS /opt/omnithing/config.json)
+                    message(\"config.json exists... installing new blank one as config_new.json\")
+                    file(INSTALL webpage/files/blank_config.json DESTINATION ${INSTALL_ROUTE}/opt/omnithing
+                            PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ
+                            RENAME config_new.json
+                            )
+                else()
+                    file(INSTALL webpage/files/blank_config.json DESTINATION ${INSTALL_ROUTE}/opt/omnithing
+                            PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ
+                            RENAME config.json
+                            )
+                endif()
+            ")
+    install(TARGETS OmniThing
+            RUNTIME DESTINATION ${INSTALL_ROUTE}/opt/omnithing
+            PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ
+            )
+    install(FILES install/omnithing.sh DESTINATION ${INSTALL_ROUTE}/opt/omnithing
+            PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ
+            )
+    install(FILES install/omnithing.service DESTINATION ${INSTALL_ROUTE}/etc/systemd/system/
+            PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ WORLD_READ
+            )
+endfunction()
+
 if(BUILD_TARGET STREQUAL "linux")
     message("Creating Linux Build Configuration")
     add_executable(OmniThing src/os_common/main_os.cpp ${sources_core} ${sources_os_common})
@@ -33,6 +62,7 @@ if(BUILD_TARGET STREQUAL "linux")
     add_definitions("-DOMNI_NOT_ARDUINO")
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+    createLinuxInstallTarget()
 elseif(BUILD_TARGET STREQUAL "rpi")
     message("Creating Raspberry Pi Build Configuration")
     add_executable(OmniThing src/os_common/main_os.cpp  ${sources_core} 
@@ -51,6 +81,7 @@ elseif(BUILD_TARGET STREQUAL "rpi")
     add_definitions("-DOMNI_NOT_ARDUINO")
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+    createLinuxInstallTarget()
 elseif(BUILD_TARGET STREQUAL "windows")
 	message("Creating Windows Build Configuration")
 	add_executable(OmniThing src/os_common/main_os.cpp ${sources_core} ${sources_os_common})
