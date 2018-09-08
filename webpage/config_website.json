@@ -1,5 +1,11 @@
 {
     "port": 80,
     "selfhost": false,
-    "platformIndex": 0
+    "platformIndex": 0,
+    "repositories": [
+        {
+            "name": "rpi",
+            "path": "/home/daniel/omni_repositories/rpi"
+        }
+    ]
 }

@@ -134,6 +134,19 @@ if(config.selfhost)
     });
 }
 
+if(config.repositories != undefined && config.repositories != null)
+{
+    var repos = config.repositories;
+    var numRepos = repos.length;
+    for(var i = 0; i < numRepos; ++i)
+    {
+        var rep = repos[i];
+        app.get('/repository/'+rep.name, function(req, res){
+            console.log("Request for repository: " + rep.name);
+            res.sendFile("Packages.gz", {root: rep.path})
+        }
+    }
+}
 
 
 
