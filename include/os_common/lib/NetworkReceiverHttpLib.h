@@ -14,7 +14,6 @@ namespace omni
         private:
             httplib::Server m_Server;
             char m_JsonBuffer[2048]; //TODO: make size configurable
-            char m_IP[30];
             unsigned short m_nPort;
             std::thread* m_Thread;
             std::mutex m_BufferMutex;
@@ -26,7 +25,7 @@ namespace omni
         protected:
 
         public:
-            NetworkReceiverHttpLib(const char* ip, unsigned short port);
+            NetworkReceiverHttpLib(unsigned short port);
             virtual ~NetworkReceiverHttpLib();
 
             virtual void init();

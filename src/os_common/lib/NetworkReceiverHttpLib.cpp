@@ -33,7 +33,7 @@ namespace omni
         while(true)
         {
             LOG << "Starting http server...\n";
-            if (!m_Server.listen(m_IP, m_nPort))
+            if (!m_Server.listen("0.0.0.0", m_nPort))
             {
                 LOG << "Failed to bind socket\n";
             }
@@ -45,14 +45,13 @@ namespace omni
 
 //protected
 //public
-    NetworkReceiverHttpLib::NetworkReceiverHttpLib(const char* ip, unsigned short port):
+    NetworkReceiverHttpLib::NetworkReceiverHttpLib(unsigned short port):
         m_Server(),
         m_nPort(port),
 		m_bUnlockMutex(false),
         m_bWipeBuffer(false)
     {
         m_JsonBuffer[0] = 0;
-        strncpy(m_IP, ip, 30);
     }
 
     NetworkReceiverHttpLib::~NetworkReceiverHttpLib()
@@ -98,16 +97,15 @@ namespace omni
     {
         unsigned int len = strlen(json);
 
-        char ip[30];
         unsigned int port;
 
-        if(json_scanf(json, len, "{ip: %s, port: %u}", ip, &port) != 2)
+        if(json_scanf(json, len, "{port: %u}", &port) != 1)
         {
             return nullptr;
         }
 
-        LOG << "ip=" << ip <<" port=" << port << Logger::endl;
-        return new NetworkReceiverHttpLib(ip, port);
+        LOG << "port=" << port << Logger::endl;
+        return new NetworkReceiverHttpLib(port);
     }
 
     const char* NetworkReceiverHttpLib::Type = "NetworkReceiverHttpLib";

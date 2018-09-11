@@ -59,12 +59,6 @@
                 "type": "uint",
                 "required": true,
                 "description": "Port on which to have http server listen"
-            },
-            {
-                "name": "ip",
-                "type": "string",
-                "required": true,
-                "description": "IP for server to listen on (should be this computer's IP)"
             }
         ],
         "supported_platforms": [

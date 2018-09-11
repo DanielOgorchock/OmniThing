@@ -47,6 +47,8 @@ Goals for Beta:
 
 ### Version History
 #### Alpha
+- 0.5 - In progress
+  - No longer need to specify ip address in network receiver for windows, linux, and rpi
 - 0.4
   - Allow for self-hosted web server configuration tool on linux platforms
   - Cmake install target support on linux systems
