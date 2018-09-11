@@ -37,7 +37,7 @@ Goals for Beta:
   * ~~SwitchLevel~~
   * DimmerSwitch
   * DoorControl
-* Provide installable package for raspberry pi, rather than making everyone build from source (can be slow on older pis)
+* ~~Provide installable package for raspberry pi, rather than making everyone build from source (can be slow on older pis)~~
 * Google Home TTS
   * Could be nice to integrate this directly with OmniThing
   * Might not really be necessary though, since Google Assistant Relay can already do this. Maybe the way to go is to have OmniThing use Google Assistant Relay.
