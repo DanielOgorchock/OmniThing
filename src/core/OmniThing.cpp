@@ -604,6 +604,7 @@ namespace omni
         if(json_scanf(t.ptr, t.len, "{type: %s}", type) != 1)
         {
             LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
+            const_cast<char*>(t.ptr)[t.len] = tmp;
             return nullptr;
         }
 
@@ -611,6 +612,7 @@ namespace omni
         if(index < 0)
         {
             LOG << F("ERROR: no config found of type=") << type << Logger::endl;
+            const_cast<char*>(t.ptr)[t.len] = tmp;
             return nullptr;
         }
 
@@ -631,6 +633,7 @@ namespace omni
         if(json_scanf(t.ptr, t.len, "{type: %s}", type) != 1)
         {
             LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
+            const_cast<char*>(t.ptr)[t.len] = tmp;
             return nullptr;
         }
 
@@ -638,6 +641,7 @@ namespace omni
         if(index < 0)
         {
             LOG << F("ERROR: no config found of type=") << type << Logger::endl;
+            const_cast<char*>(t.ptr)[t.len] = tmp;
             return nullptr;
         }
 
@@ -658,6 +662,7 @@ namespace omni
         if(json_scanf(t.ptr, t.len, "{type: %s}", type) != 1)
         {
             LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
+            const_cast<char*>(t.ptr)[t.len] = tmp;
             return nullptr;
         }
 
@@ -665,6 +670,7 @@ namespace omni
         if(index < 0)
         {
             LOG << F("ERROR: no config found of type=") << type << Logger::endl;
+            const_cast<char*>(t.ptr)[t.len] = tmp;
             return nullptr;
         }
 
@@ -685,6 +691,7 @@ namespace omni
         if(json_scanf(t.ptr, t.len, "{type: %s}", type) != 1)
         {
             LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
+            const_cast<char*>(t.ptr)[t.len] = tmp;
             return nullptr;
         }
 
@@ -692,6 +699,7 @@ namespace omni
         if(index < 0)
         {
             LOG << F("ERROR: no config found of type=") << type << Logger::endl;
+            const_cast<char*>(t.ptr)[t.len] = tmp;
             return nullptr;
         }
 
@@ -712,6 +720,7 @@ namespace omni
         if(json_scanf(t.ptr, t.len, "{type: %s}", type) != 1)
         {
             LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
+            const_cast<char*>(t.ptr)[t.len] = tmp;
             return nullptr;
         }
 
@@ -719,6 +728,7 @@ namespace omni
         if(index < 0)
         {
             LOG << F("ERROR: no config found of type=") << type << Logger::endl;
+            const_cast<char*>(t.ptr)[t.len] = tmp;
             return nullptr;
         }
 
@@ -739,6 +749,7 @@ namespace omni
         if(json_scanf(t.ptr, t.len, "{type: %s}", type) != 1)
         {
             LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
+            const_cast<char*>(t.ptr)[t.len] = tmp;
             return nullptr;
         }
 
@@ -746,6 +757,7 @@ namespace omni
         if(index < 0)
         {
             LOG << F("ERROR: no config found of type=") << type << Logger::endl;
+            const_cast<char*>(t.ptr)[t.len] = tmp;
             return nullptr;
         }
 
@@ -766,6 +778,7 @@ namespace omni
         if(json_scanf(t.ptr, t.len, "{type: %s}", type) != 1)
         {
             LOG << F("ERROR: Failed to find type in: ") << t.ptr << Logger::endl;
+            const_cast<char*>(t.ptr)[t.len] = tmp;
             return nullptr;
         }
 
@@ -773,6 +786,7 @@ namespace omni
         if(index < 0)
         {
             LOG << F("ERROR: no config found of type=") << type << Logger::endl;
+            const_cast<char*>(t.ptr)[t.len] = tmp;
             return nullptr;
         }
 
