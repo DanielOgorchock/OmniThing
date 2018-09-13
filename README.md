@@ -60,6 +60,8 @@ Goals for Beta:
 #### Alpha
 - 0.5 - In progress
   - No longer need to specify ip address in network receiver for windows, linux, and rpi
+  - Parse json with a more efficient method that also fixes a buffer overflow bug
+  - Added optional input parameter for the Switch device. If provided, the switch will report its current state to SmartThings based on this input rather than what it most recently set the switch output to.
 - 0.4
   - Allow for self-hosted web server configuration tool on linux platforms
   - Cmake install target support on linux systems
