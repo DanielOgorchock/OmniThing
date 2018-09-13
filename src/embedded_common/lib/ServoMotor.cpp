@@ -105,7 +105,8 @@ namespace omni
     void ServoMotor::trigger(void* arg)
     {
         char* cmd = static_cast<char*>(arg);
-        LOG << F("Servo trigger cmd=") << cmd << Logger::endl;
+        if(strcmp(cmd, Cmd_Detach))
+            LOG << F("Servo trigger cmd=") << cmd << Logger::endl;
 
         if(!strcmp(cmd, Cmd_Detach))
         {
