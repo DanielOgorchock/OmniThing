@@ -42,9 +42,9 @@ namespace omni
     #ifndef OMNI_NOT_ARDUINO
         m_Servo.detach();
     #elif defined(OMNI_PLAT_RPI)
-        int ret = gpioServo(m_nPin, 0);
-        if(ret)
-            LOG << F("ERROR detaching servo\n");
+        /*int ret =*/ gpioServo(m_nPin, 0);
+        /*if(ret)
+            LOG << F("ERROR detaching servo\n");*/
     #endif
     }
 
@@ -111,21 +111,21 @@ namespace omni
         {
             if(++m_nShutoffIdTriggers == m_nShutoffId)
             {
-                LOG << F("Servo shutoff triggered\n");
+                //LOG << F("Servo shutoff triggered\n");
                 detach();
             }
-            else
-                LOG << F("Other shutoff events in progress\n");
+            /*else
+                LOG << F("Other shutoff events in progress\n");*/
         }
         else if(!strcmp(cmd, Cmd_Revert))
         {
             if(++m_nRevertIdTriggers == m_nRevertId)
             {
-                LOG << F("Servo revert triggered\n");
+                //LOG << F("Servo revert triggered\n");
                 writeFloatNoRevert(m_fInitial);
             }
-            else
-                LOG << F("Other revert events in progress\n");
+            /*else
+                LOG << F("Other revert events in progress\n");*/
         }
         else if(!strcmp(cmd, Cmd_Startup))
         {
