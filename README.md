@@ -37,6 +37,8 @@ Goals for Beta:
   * ~~SwitchLevel~~
   * DimmerSwitch
   * DoorControl
+* SSDP support
+  * Make OmniThing discoverable, eliminating the need to manually add a new device in the ST IDE
 * ~~Provide installable package for raspberry pi, rather than making everyone build from source (can be slow on older pis)~~
 * Google Home TTS
   * Could be nice to integrate this directly with OmniThing
