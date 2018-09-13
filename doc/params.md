@@ -76,6 +76,10 @@ See below for a list of all parameters for everything in the config file
   * type: OutputBool
   * required: True
   * description: What the device sets to true/false (i.e. digital output pin)
+* input
+  * type: InputBool
+  * required: False
+  * description: If this OPTIONAL input parameter is created, the switch device will not "trust" the value it wrote to its output. Instead, it will report the value it reads from this input bool to SmartThings. (i.e. a switch that can be manually turned off/on)
 * invert
   * type: bool
   * required: True
@@ -198,10 +202,6 @@ See below for a list of all parameters for everything in the config file
   * type: uint
   * required: True
   * description: Port on which to have http server listen
-* ip
-  * type: string
-  * required: True
-  * description: IP for server to listen on (should be this computer's IP)
 ##### Supported Platforms
 * linux
 * windows

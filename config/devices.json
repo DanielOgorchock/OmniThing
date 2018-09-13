@@ -117,6 +117,12 @@
                 "description": "What the device sets to true/false (i.e. digital output pin)"
             },
             {
+                "name": "input",
+                "type": "InputBool",
+                "required": false,
+                "description": "If this OPTIONAL input parameter is created, the switch device will not \"trust\" the value it wrote to its output. Instead, it will report the value it reads from this input bool to SmartThings. (i.e. a switch that can be manually turned off/on)"
+            },
+            {
                 "name": "invert",
                 "type": "bool",
                 "required": true,

@@ -1,5 +1,6 @@
 #include "Switch.h"
 #include "OutputBool.h"
+#include "InputBool.h"
 
 #include <string.h>
 #include "frozen.h"
@@ -23,7 +24,7 @@ namespace omni
 
     void Switch::writeNoUpdate(bool b)
     {
-        if(b != m_bValue)
+        if(!hasInput() && b != m_bValue)
         {
             emit(Event_Changed);
             if(b)
@@ -32,7 +33,9 @@ namespace omni
                 emit(Event_Off);
         }
 
-        m_bValue = b;
+        if(!hasInput())
+            m_bValue = b;
+
         m_rOutput.writeBool(isInverted() ? !b : b);
 
         LOG << F("Switch: write() state=") << (b?F("on"):F("off")) << Logger::endl;
@@ -40,13 +43,18 @@ namespace omni
 
 //protected
 //public
-    Switch::Switch(OutputBool& output, bool invert, bool initial):
+    Switch::Switch(OutputBool& output, bool invert, bool initial, InputBool* input):
         Device(false),
         m_rOutput(output),
+        m_pInput(input),
         m_bInvert(invert),
         m_bValue(initial)
     {
         writeNoUpdate(m_bValue);
+        if(hasInput())
+        {
+            setRun(true);
+        }
     }
 
     Switch::~Switch()
@@ -84,6 +92,31 @@ namespace omni
         sendJsonPacket();
     }
 
+    void Switch::run()
+    {
+        if(!hasInput())
+        {
+            LOG << F("ERROR: How did we enable switch run() with null input? disabling...\n");
+            setRun(false);
+            return;
+        }
+
+        bool tmp = m_pInput->readBool();
+        tmp = isInverted() ? !tmp : tmp;
+
+        if(tmp != read())
+        {
+            LOG << F("Detected switch ") << getName() << F(" change to state=") << (tmp ? F("on\n") : F("off\n"));
+            m_bValue = tmp;
+            sendJsonPacket();
+            emit(Event_Changed);
+            if(tmp)
+                emit(Event_On);
+            else
+                emit(Event_Off);
+        }
+    }
+
     void Switch::write(bool b)
     {
         writeNoUpdate(b);
@@ -94,6 +127,7 @@ namespace omni
     {
         bool invert;
         bool initial;
+        InputBool* input = nullptr;
 
         unsigned int len = strlen(json);
         json_token t;
@@ -110,7 +144,20 @@ namespace omni
             return nullptr;
         }
 
-        auto d = new Switch(*output, invert, initial);
+        //optional input
+        if(json_scanf(json, len, "{input: %T}", &t) == 0)
+        {
+            LOG << F("Optional input provided\n");
+
+            input = OmniThing::getInstance().buildInputBool(t);
+            if(!input)
+            {
+                LOG << F("ERROR: Failed to create input\n");
+                return nullptr;
+            }
+        }
+
+        auto d = new Switch(*output, invert, initial, input);
         if(!d->parseMisc(json))
             return nullptr;
         return d;
