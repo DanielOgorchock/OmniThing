@@ -493,6 +493,11 @@ var renderParam = function(mainContainer, param, thing, uid, renderDepth){
         var tmpThing = thing[param.name];
         var thingCard = null;
         var addThingButton = null;
+        if(tmpThing == null || tmpThing == undefined)
+        {
+            thing[param.name] = {};
+            tmpThing = thing[param.name];
+        }
         if(tmpThing.type == undefined)
         {
             addThingButton = $("<button/>", {
