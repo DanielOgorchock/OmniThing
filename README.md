@@ -37,6 +37,14 @@ Goals for Beta:
   * ~~SwitchLevel~~
   * DimmerSwitch
   * DoorControl
+* Give Switch device an optional input parameter
+* Give parent device handler the presence capability, signaling whether the OmniThing device is online or not
+* New Inputs
+  * InputFloatToBool (InputBool)
+  * Process return code (InputUInt/InputBool)
+* New Outputs
+  * CommandExecuter that accepts input arguments or stdin
+    * Have to be careful about vulnerabilities with this one though
 * SSDP support
   * Make OmniThing discoverable, eliminating the need to manually add a new device in the ST IDE
 * ~~Provide installable package for raspberry pi, rather than making everyone build from source (can be slow on older pis)~~
