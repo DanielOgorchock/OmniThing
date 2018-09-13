@@ -152,8 +152,7 @@ namespace omni
             input = OmniThing::getInstance().buildInputBool(t);
             if(!input)
             {
-                LOG << F("ERROR: Failed to create input\n");
-                return nullptr;
+                LOG << F("WARNING: Failed to create optional switch input\n");
             }
         }
 
