@@ -89,6 +89,12 @@ namespace omni
 
     void Switch::init()
     {
+        if(hasInput())
+        {
+            bool tmp = m_pInput->readBool();
+            tmp = isInverted() ? !tmp : tmp;
+            m_bValue = tmp;
+        }
         sendJsonPacket();
     }
 
