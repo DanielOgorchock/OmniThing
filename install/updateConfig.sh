@@ -14,6 +14,6 @@ mv backups/backup.json backups/backup.json.1
 
 cp config.json backups/backup.json
 
-IFS= read -t 0.01 -r -d '' indata
+IFS= read -t 0.8 -r -d '' indata
 
 echo "$indata" > config.json
