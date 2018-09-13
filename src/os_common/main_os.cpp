@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
     std::stringstream buffer;
     buffer << f.rdbuf();
 
-    omnithing.loadJsonConfig(buffer.str().c_str());
+    omnithing.loadJsonConfig(const_cast<char*>(buffer.str().c_str()));
 
     omnithing.init();
 

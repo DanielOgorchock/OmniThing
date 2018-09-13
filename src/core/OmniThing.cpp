@@ -790,13 +790,13 @@ namespace omni
     //      "Devices":          [ {"type": string, ... } , ... ],
     // }
     //
-    bool OmniThing::loadJsonConfig(const char* json)
+    bool OmniThing::loadJsonConfig(char* json)
     {
         LOG << F("Parsing Json Config:\n") << json << Logger::endl;
 
         struct json_token t;
         unsigned int len = strlen(json);
-        char buffer[1000];
+        char buffer[100];
         buffer[0] = 0;
 
         // scan for NetworkReceiver
@@ -812,26 +812,23 @@ namespace omni
                     if(!strcmp(buffer, conf->getType()))
                     {
                         found = true;
-                        strncpy(buffer, t.ptr, t.len);
-                        buffer[t.len]=0;
+                        char tmpC = json[t.len];
+                        json[t.len] = 0;
 
                         LOG << F("Found configuration\n");
 
-                        auto obj = conf->createFromJson(buffer);
+                        auto obj = conf->createFromJson(t.ptr);
                         if(!obj)
                         {
-                            LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
+                            LOG << F("ERROR: Failed to create from: \n") << t.ptr << Logger::endl;
                             return false;
                         }
                         else
                         {
                             setNetworkReceiver(obj);
-                            strncpy(buffer, t.ptr, t.len);
-                            buffer[t.len]=0;
-
-                            buffer[t.len] = 0;
-                            LOG << F("Successfully created new ") << buffer << Logger::endl;
+                            LOG << F("Successfully created new ") << t.ptr << Logger::endl;
                         }
+                        json[t.len] = tmpC;
                         break;
                     }
                 }
@@ -861,26 +858,23 @@ namespace omni
                     if(!strcmp(buffer, conf->getType()))
                     {
                         found = true;
-                        strncpy(buffer, t.ptr, t.len);
-                        buffer[t.len]=0;
+                        char tmpC = json[t.len];
+                        json[t.len] = 0;
 
                         LOG << F("Found configuration\n");
 
-                        auto obj = conf->createFromJson(buffer);
+                        auto obj = conf->createFromJson(t.ptr);
                         if(!obj)
                         {
-                            LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
+                            LOG << F("ERROR: Failed to create from: \n") << t.ptr << Logger::endl;
                             return false;
                         }
                         else
                         {
                             setNetworkSender(obj);
-                            strncpy(buffer, t.ptr, t.len);
-                            buffer[t.len]=0;
-
-                            buffer[t.len] = 0;
-                            LOG << F("Successfully created new ") << buffer << Logger::endl;
+                            LOG << F("Successfully created new ") << t.ptr << Logger::endl;
                         }
+                        json[t.len] = tmpC;
                         break;
                     }
                 }
@@ -916,24 +910,21 @@ namespace omni
                 if(!strcmp(buffer, conf->getType()))
                 {
                     found = true;
-                    strncpy(buffer, t.ptr, t.len);
-                    buffer[t.len]=0;
+                    char tmpC = json[t.len];
+                    json[t.len] = 0;
 
-                    auto obj = conf->createFromJson(buffer);
+                    auto obj = conf->createFromJson(t.ptr);
                     if(!obj)
                     {
-                        LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
+                        LOG << F("ERROR: Failed to create from: \n") << t.ptr << Logger::endl;
                         return false;
                     }
                     else
                     {
                         addCompositePeriph(obj);
-                        strncpy(buffer, t.ptr, t.len);
-                        buffer[t.len]=0;
-
-                        buffer[t.len] = 0;
-                        LOG << F("Successfully created new ") << buffer << Logger::endl;
+                        LOG << F("Successfully created new ") << t.ptr << Logger::endl;
                     }
+                    json[t.len] = tmpC;
                     break;
                 }
             }
@@ -963,23 +954,21 @@ namespace omni
                 if(!strcmp(buffer, conf->getType()))
                 {
                     found = true;
-                    strncpy(buffer, t.ptr, t.len);
-                    buffer[t.len]=0;
+                    char tmpC = json[t.len];
+                    json[t.len] = 0;
 
-                    auto obj = conf->createFromJson(buffer);
+                    auto obj = conf->createFromJson(t.ptr);
                     if(!obj)
                     {
-                        LOG << F("ERROR: Failed to create from: \n") << buffer << Logger::endl;
+                        LOG << F("ERROR: Failed to create from: \n") << t.ptr << Logger::endl;
                         return false;
                     }
                     else
                     {
                         addDevice(obj);
-                        strncpy(buffer, t.ptr, t.len);
-                        buffer[t.len]=0;
-
-                        LOG << F("Successfully created new ") << buffer << Logger::endl;
+                        LOG << F("Successfully created new ") << t.ptr << Logger::endl;
                     }
+                    json[t.len] = tmpC;
                     break;
                 }
             }

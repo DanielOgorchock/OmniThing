@@ -256,7 +256,7 @@ namespace omni
             OutputFloat*    buildOutputFloat(json_token& t);
             OutputString*   buildOutputString(json_token& t);
 
-            bool loadJsonConfig(const char* json);
+            bool loadJsonConfig(char* json);
 
     };
 }
