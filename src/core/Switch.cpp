@@ -145,7 +145,7 @@ namespace omni
         }
 
         //optional input
-        if(json_scanf(json, len, "{input: %T}", &t) == 0)
+        if(json_scanf(json, len, "{input: %T}", &t) == 1)
         {
             LOG << F("Optional input provided\n");
 
