@@ -812,8 +812,8 @@ namespace omni
                     if(!strcmp(buffer, conf->getType()))
                     {
                         found = true;
-                        char tmpC = json[t.len];
-                        json[t.len] = 0;
+                        char tmpC = json[(t.ptr-json)+t.len];
+                        json[(t.ptr-json)+t.len] = 0;
 
                         LOG << F("Found configuration\n");
 
@@ -828,7 +828,7 @@ namespace omni
                             setNetworkReceiver(obj);
                             LOG << F("Successfully created new ") << t.ptr << Logger::endl;
                         }
-                        json[t.len] = tmpC;
+                        json[(t.ptr-json)+t.len] = tmpC;
                         break;
                     }
                 }
@@ -858,8 +858,8 @@ namespace omni
                     if(!strcmp(buffer, conf->getType()))
                     {
                         found = true;
-                        char tmpC = json[t.len];
-                        json[t.len] = 0;
+                        char tmpC = json[(t.ptr-json)+t.len];
+                        json[(t.ptr-json)+t.len] = 0;
 
                         LOG << F("Found configuration\n");
 
@@ -874,7 +874,7 @@ namespace omni
                             setNetworkSender(obj);
                             LOG << F("Successfully created new ") << t.ptr << Logger::endl;
                         }
-                        json[t.len] = tmpC;
+                        json[(t.ptr-json)+t.len] = tmpC;
                         break;
                     }
                 }
@@ -910,8 +910,8 @@ namespace omni
                 if(!strcmp(buffer, conf->getType()))
                 {
                     found = true;
-                    char tmpC = json[t.len];
-                    json[t.len] = 0;
+                    char tmpC = json[(t.ptr-json)+t.len];
+                    json[(t.ptr-json)+t.len] = 0;
 
                     auto obj = conf->createFromJson(t.ptr);
                     if(!obj)
@@ -924,7 +924,7 @@ namespace omni
                         addCompositePeriph(obj);
                         LOG << F("Successfully created new ") << t.ptr << Logger::endl;
                     }
-                    json[t.len] = tmpC;
+                    json[(t.ptr-json)+t.len] = tmpC;
                     break;
                 }
             }
@@ -954,8 +954,8 @@ namespace omni
                 if(!strcmp(buffer, conf->getType()))
                 {
                     found = true;
-                    char tmpC = json[t.len];
-                    json[t.len] = 0;
+                    char tmpC = json[(t.ptr-json)+t.len];
+                    json[(t.ptr-json)+t.len] = 0;
 
                     auto obj = conf->createFromJson(t.ptr);
                     if(!obj)
@@ -968,7 +968,7 @@ namespace omni
                         addDevice(obj);
                         LOG << F("Successfully created new ") << t.ptr << Logger::endl;
                     }
-                    json[t.len] = tmpC;
+                    json[(t.ptr-json)+t.len] = tmpC;
                     break;
                 }
             }
