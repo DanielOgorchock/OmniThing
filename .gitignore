@@ -3,7 +3,7 @@ CMakeCache.txt
 Makefile
 test
 cmake_install.cmake
-OmniThing
+./OmniThing
 .vs
 arduino_build
 personal_configs
