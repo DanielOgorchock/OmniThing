@@ -140,7 +140,7 @@ elseif(BUILD_TARGET STREQUAL "windows")
 elseif(BUILD_TARGET STREQUAL "arduino")
     message("Creating Arduino Build Configuration")
     file(GLOB_RECURSE old_files arduino_build/*)
-    if(NOT ${old_files} STREQUAL "")
+    if(NOT "${old_files}" STREQUAL "")
         file(REMOVE ${old_files})
     endif()
     file(COPY src/arduino/OmniThing.ino ${sources_core} 
