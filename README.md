@@ -32,7 +32,7 @@ Goals for Beta:
 * SPI (maybe?)
 * Support for buttons
 * ~~PWM support~~
-  * ESP32 PWM support
+  * ~~ESP32 PWM support~~
 * New Devices
   * ~~SwitchLevel~~
   * DimmerSwitch
@@ -66,6 +66,7 @@ Goals for Beta:
   - Made configuration webpage have the navbar fixed to the top for better usability
   - Added CommandReturnCode InputBool type. Provide a command to run in the shell. A return code of 0 evaluates to true. Any other return code evaluates to false.
   - Hubitat support
+  - Added PwmOutputEsp32 which adds pwm support on esp32 using the ledc library.
 - 0.4
   - Allow for self-hosted web server configuration tool on linux platforms
   - Cmake install target support on linux systems

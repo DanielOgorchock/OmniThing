@@ -19,7 +19,7 @@ namespace omni
 
     #ifndef OMNI_NOT_ARDUINO
         #if defined(ARDUINO_ARCH_ESP32)
-            LOG << F("ERROR: PWM support has not yet been added for ESP32\n");
+            LOG << F("ERROR: PwmOutput doesn't support ESP32. Use PwmOutputEsp32\n");
         #else
             analogWrite(m_nPin, ds);
         #endif

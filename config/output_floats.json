@@ -68,5 +68,40 @@
             "rpi",
             "esp8266"
         ]
+    },
+    {
+        "type": "PwmOutputEsp32",
+        "parameters": [
+            {
+                "name": "pin",
+                "type": "uint",
+                "required": true,
+                "description": "PWM pin"
+            },
+            {
+                "name": "channel",
+                "type": "uint",
+                "required": true,
+                "description": "ledc pwm channel"
+            },
+            {
+                "name": "frequency",
+                "type": "uint",
+                "required": false,
+                "default": 12000,
+                "description": "pwm channel frequency in Hz"
+            },
+            {
+                "name": "resolutionBits",
+                "type": "uint",
+                "required": false,
+                "default": 8,
+                "description": "how many bits of resolution for pwm channel"
+            }
+        ],
+        "supported_platforms": [
+            "esp32"
+        ]
+    }
     }
 ]
