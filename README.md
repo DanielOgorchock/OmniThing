@@ -41,7 +41,7 @@ Goals for Beta:
 * Give parent device handler the presence capability, signaling whether the OmniThing device is online or not
 * New Inputs
   * InputFloatToBool (InputBool)
-  * Process return code (InputUInt/InputBool)
+  * ~~Process return code (InputUInt/InputBool)~~
 * New Outputs
   * CommandExecuter that accepts input arguments or stdin
     * Have to be careful about vulnerabilities with this one though
