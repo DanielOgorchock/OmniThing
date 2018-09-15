@@ -35,7 +35,8 @@ namespace omni
                 LOG << c;
         }
 
-        int ret = WEXITSTATUS(OMNI_PCLOSE(pipe));
+        int status = OMNI_PCLOSE(pipe);
+        int ret = WEXITSTATUS(status);
         if(print)
             LOG << F("\nprocess returned: ") << ret << Logger::endl;
         return ret;
