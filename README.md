@@ -37,7 +37,7 @@ Goals for Beta:
   * ~~SwitchLevel~~
   * DimmerSwitch
   * DoorControl
-* Give Switch device an optional input parameter
+* ~~Give Switch device an optional input parameter~~
 * Give parent device handler the presence capability, signaling whether the OmniThing device is online or not
 * New Inputs
   * InputFloatToBool (InputBool)
