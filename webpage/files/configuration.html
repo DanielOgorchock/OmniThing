@@ -26,6 +26,7 @@
 
 
 <body>
+    <div class="omni_fixed">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="/">OmniThing</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,27 +48,30 @@
       </div>
     </nav>
 
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="config-tab" data-toggle="tab" href="#config-content" role="tab" aria-controls="config-content" aria-selected="true">Config</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="devices-tab" data-toggle="tab" href="#devices-content" role="tab" aria-controls="devices-content" aria-selected="false">Devices</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="composite-tab" data-toggle="tab" href="#composite-content" role="tab" aria-controls="composite-content" aria-selected="false">Composite Peripherals</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="nreceiver-tab" data-toggle="tab" href="#nreceiver-content" role="tab" aria-controls="nreceiver-content" aria-selected="false">Network Receiver</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="nsender-tab" data-toggle="tab" href="#nsender-content" role="tab" aria-controls="nsender-content" aria-selected="false">Network Sender</a>
-        </li>
-    </ul>
 
     <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="config-tab" data-toggle="tab" href="#config-content" role="tab" aria-controls="config-content" aria-selected="true">Config</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="devices-tab" data-toggle="tab" href="#devices-content" role="tab" aria-controls="devices-content" aria-selected="false">Devices</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="composite-tab" data-toggle="tab" href="#composite-content" role="tab" aria-controls="composite-content" aria-selected="false">Composite Peripherals</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="nreceiver-tab" data-toggle="tab" href="#nreceiver-content" role="tab" aria-controls="nreceiver-content" aria-selected="false">Network Receiver</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="nsender-tab" data-toggle="tab" href="#nsender-content" role="tab" aria-controls="nsender-content" aria-selected="false">Network Sender</a>
+                </li>
+            </ul>
+        </div>
         <div class="card-body">
             <button type="button" class="btn btn-primary" id="buttonSaveChanges">Save Changes</button>
+            <button type="button" class="btn btn-primary" id="buttonUpdateLocalHeader" style="display:none">Update Local Config</button>
             <form class="form-inline" style="float: right;">
                 <label for="selectPlatform">Select Platform &ensp;</label>
                 <select class="form-control" id="selectPlatform">
@@ -87,7 +91,9 @@
     <div class="alert alert-success collapse" role="alert" id="alertUpdateLocal">
           The local configuration has been updated
     </div>
+    </div>
 
+    <div id="body-content">
     <div class="tab-content" id="myTabContent">
 
         <div class="tab-pane show active" id="config-content" role="tabpanel" aria-labelledby="config-tab">
@@ -367,6 +373,7 @@
             </div>
         </div>
 
+    </div>
     </div>
 
 

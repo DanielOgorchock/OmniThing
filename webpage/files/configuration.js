@@ -147,9 +147,10 @@ var configInitialization = function(){
                 $("#divArduinoButtons").hide();
                 $("#divArduinoInstructions").hide();
                 $("#divSelfhostButtons").show();
+                $("#buttonUpdateLocalHeader").show();
                 $("#divSelfhostInstructions").show();
 
-                $("#buttonUpdateLocal").click(function(){
+                $("#buttonUpdateLocal, #buttonUpdateLocalHeader").click(function(){
                     console.log("Updating local config");
                     $.ajax({
                         method: "POST",

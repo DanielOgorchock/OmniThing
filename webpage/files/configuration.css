@@ -7,3 +7,12 @@
     margin-top: 7px;
 }
 
+.omni_fixed{
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#body-content{
+    padding-top: 250px;
+}
