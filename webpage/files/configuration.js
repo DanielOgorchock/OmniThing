@@ -53,7 +53,7 @@ $(window).on('load', function(){
     $("#buttonSaveChanges").click(function(){
         saveChanges();
         $("#alertSaveChanges").show();
-        setTimeout(function(){$("#alertSaveChanges").hide();}, 1000);
+        setTimeout(function(){$("#alertSaveChanges").hide();}, 2000);
     });
 
     $("#buttonAddDevice").click(function(){
@@ -151,6 +151,7 @@ var configInitialization = function(){
                 $("#divSelfhostInstructions").show();
 
                 $("#buttonUpdateLocal, #buttonUpdateLocalHeader").click(function(){
+                    saveChanges();
                     console.log("Updating local config");
                     $.ajax({
                         method: "POST",
@@ -160,7 +161,7 @@ var configInitialization = function(){
                         success: function(data){
                             console.log("Response: " + data);
                             $("#alertUpdateLocal").show();
-                            setTimeout(function(){$("#alertUpdateLocal").hide();}, 1000);
+                            setTimeout(function(){$("#alertUpdateLocal").hide();}, 2000);
                         }
                     });
                 });
