@@ -14,6 +14,7 @@ namespace omni
             OutputBool& m_rOutput;
             InputBool* m_pInput;
             bool m_bInvert;
+            bool m_bIgnoreRedundant;
             bool m_bValue;
 
             void sendJsonPacket();
@@ -22,7 +23,7 @@ namespace omni
 
         protected:
         public:
-            Switch(OutputBool& output, bool invert, bool initial, InputBool* input);
+            Switch(OutputBool& output, bool invert, bool initial, InputBool* input, bool ignoreRedundant);
             virtual ~Switch();
 
             virtual void recvJson(const char* cmd, const char* json);

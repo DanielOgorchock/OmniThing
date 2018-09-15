@@ -88,6 +88,11 @@ See below for a list of all parameters for everything in the config file
   * type: bool
   * required: True
   * description: Initial value to set the switch to at startup
+* ignoreRedundant
+  * type: bool
+  * required: False
+  * default: False
+  * description: If set to true, the switch will ignore commands to change its state if it already believes it is in that state. For example, it would ignore an on command if it deems itself to already be on.
 ##### Events
 * on
 * off

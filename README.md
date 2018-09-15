@@ -62,6 +62,7 @@ Goals for Beta:
   - No longer need to specify ip address in network receiver for windows, linux, and rpi
   - Parse json with a more efficient method that also fixes a buffer overflow bug
   - Added optional input parameter for the Switch device. If provided, the switch will report its current state to SmartThings based on this input rather than what it most recently set the switch output to.
+  - Added optional ignoreRedundant parameter to the switch device. If set to true, the switch will ignore commands that will not change the current state of the switch (i.e. an on command when the switch is currently on).
   - Made configuration webpage have the navbar fixed to the top for better usability
   - Added CommandReturnCode InputBool type. Provide a command to run in the shell. A return code of 0 evaluates to true. Any other return code evaluates to false.
   - Hubitat support

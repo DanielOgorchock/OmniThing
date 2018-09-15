@@ -24,6 +24,11 @@ namespace omni
 
     void Switch::writeNoUpdate(bool b)
     {
+        if(b == m_bValue && m_bIgnoreRedundant)
+        {
+            LOG << F("Ignoring redundant switch command\n");
+            return;
+        }
         if(!hasInput() && b != m_bValue)
         {
             emit(Event_Changed);
@@ -43,11 +48,12 @@ namespace omni
 
 //protected
 //public
-    Switch::Switch(OutputBool& output, bool invert, bool initial, InputBool* input):
+    Switch::Switch(OutputBool& output, bool invert, bool initial, InputBool* input, bool ignoreRedundant):
         Device(false),
         m_rOutput(output),
         m_pInput(input),
         m_bInvert(invert),
+        m_bIgnoreRedundant(ignoreRedundant),
         m_bValue(initial)
     {
         writeNoUpdate(m_bValue);
@@ -134,6 +140,7 @@ namespace omni
         bool invert;
         bool initial;
         InputBool* input = nullptr;
+        bool ignoreRedundant = false;
 
         unsigned int len = strlen(json);
         json_token t;
@@ -162,7 +169,9 @@ namespace omni
             }
         }
 
-        auto d = new Switch(*output, invert, initial, input);
+        json_scanf(json, len, "{ignoreRedundant: %B}", &ignoreRedundant); //optional
+
+        auto d = new Switch(*output, invert, initial, input, ignoreRedundant);
         if(!d->parseMisc(json))
             return nullptr;
         return d;

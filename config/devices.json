@@ -133,6 +133,13 @@
                 "type": "bool",
                 "required": true,
                 "description": "Initial value to set the switch to at startup"
+            },
+            {
+                "name": "ignoreRedundant",
+                "type": "bool",
+                "required": false,
+                "default": false,
+                "description": "If set to true, the switch will ignore commands to change its state if it already believes it is in that state. For example, it would ignore an on command if it deems itself to already be on."
             }
         ],
         "events": [
