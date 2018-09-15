@@ -2,28 +2,15 @@
 
 #include "OmniThing.h"
 #include "Logger.h"
+#include "OmniOSUtil.h"
 
 #include <string.h>
 #include "frozen.h"
 #include <thread>
 
-#include <stdio.h>
-#include <stdlib.h>
-
 namespace omni
 {
 //private
-    void CommandExecuter::executeCommand()
-    {
-        LOG << F("Executing: ") << m_CommandStr << Logger::endl;
-        if(!system(nullptr))
-        {
-            LOG << F("ERROR: This platform does not support the system() function\n");
-            return;
-        }
-
-        system(m_CommandStr);
-    }
 
 //protected
 //public
@@ -43,12 +30,12 @@ namespace omni
     {
         if(m_bMultithreaded)
         {
-            std::thread commandRunner(&CommandExecuter::executeCommand, this);
+            std::thread commandRunner(processRun, m_CommandStr, true);
             commandRunner.detach();
         }
         else
         {
-            executeCommand();
+            processRun(m_CommandStr, true);
         }
     }
 

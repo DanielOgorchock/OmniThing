@@ -119,6 +119,7 @@ elseif(BUILD_TARGET STREQUAL "rpi")
     target_link_libraries(OmniThing pigpio pthread rt)
 
     add_definitions("-DOMNI_FAKE_F_MACRO")
+    add_definitions("-DOMNI_PLAT_LINUX")
     add_definitions("-DOMNI_PLAT_RPI")
     add_definitions("-DOMNI_NOT_ARDUINO")
 

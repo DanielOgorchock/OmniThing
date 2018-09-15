@@ -12,7 +12,6 @@ namespace omni
             const char* m_CommandStr;
             bool m_bMultithreaded;
 
-            void executeCommand();
         protected:
         public:
             CommandExecuter(const char* command, bool multithread = false);
@@ -22,7 +21,7 @@ namespace omni
 
             static OutputVoid* createFromJson(const char* json);
 
-            
+
             static const char* Type;
             static ObjectConfig<OutputVoid> OutputVoidConf;
 

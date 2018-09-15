@@ -75,5 +75,21 @@
         "supported_platforms": [
             "rpi"
         ]
+    },
+    {
+        "type": "CommandReturnCode",
+        "parameters": [
+            {
+                "name": "command",
+                "type": "string",
+                "required": "true",
+                "description": "Command to run and check return code of. A return code of 0 evaluates to true. All other return codes evaluate to false."
+            }
+        ],
+        "supported_platforms": [
+            "linux",
+            "rpi",
+            "windows"
+        ]
     }
 ]

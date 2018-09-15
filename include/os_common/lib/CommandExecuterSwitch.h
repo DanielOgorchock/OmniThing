@@ -24,7 +24,7 @@ namespace omni
 
             static OutputBool* createFromJson(const char* json);
 
-            
+
             static const char* Type;
             static ObjectConfig<OutputBool> OutputBoolConf;
 

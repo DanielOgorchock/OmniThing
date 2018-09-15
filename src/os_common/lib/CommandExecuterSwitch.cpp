@@ -2,39 +2,23 @@
 
 #include "OmniThing.h"
 #include "Logger.h"
+#include "OmniOSUtil.h"
 
 #include <string.h>
 #include "frozen.h"
 #include <thread>
-
-#include <stdio.h>
-#include <stdlib.h>
 
 namespace omni
 {
 //private
     void CommandExecuterSwitch::executeCommandOn()
     {
-        LOG << F("Executing: ") << m_CommandStrOn << Logger::endl;
-        if(!system(nullptr))
-        {
-            LOG << F("ERROR: This platform does not support the system() function\n");
-            return;
-        }
-
-        system(m_CommandStrOn);
+        processRun(m_CommandStrOn, true);
     }
 
     void CommandExecuterSwitch::executeCommandOff()
     {
-        LOG << F("Executing: ") << m_CommandStrOff << Logger::endl;
-        if(!system(nullptr))
-        {
-            LOG << F("ERROR: This platform does not support the system() function\n");
-            return;
-        }
-
-        system(m_CommandStrOff);
+        processRun(m_CommandStrOff, true);
     }
 
 //protected

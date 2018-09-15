@@ -306,6 +306,16 @@ See below for a list of all parameters for everything in the config file
   * description: Whether or not to enable internal pullup/pulldown
 ##### Supported Platforms
 * rpi
+### CommandReturnCode
+##### Parameters
+* command
+  * type: string
+  * required: true
+  * description: Command to run and check return code of. A return code of 0 evaluates to true. All other return codes evaluate to false.
+##### Supported Platforms
+* linux
+* rpi
+* windows
 ## InputFloats
 ### InputFloatRef
 ##### Parameters
