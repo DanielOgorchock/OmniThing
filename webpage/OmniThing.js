@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 
 app.use(function(req, res, next) {
-    if(req.url.includes("repository")){
+    if(req.url.includes("Packages")){
         console.log("Repository request made");
     }
     next();
