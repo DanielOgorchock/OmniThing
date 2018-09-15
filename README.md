@@ -62,6 +62,9 @@ Goals for Beta:
   - No longer need to specify ip address in network receiver for windows, linux, and rpi
   - Parse json with a more efficient method that also fixes a buffer overflow bug
   - Added optional input parameter for the Switch device. If provided, the switch will report its current state to SmartThings based on this input rather than what it most recently set the switch output to.
+  - Made configuration webpage have the navbar fixed to the top for better usability
+  - Added CommandReturnCode InputBool type. Provide a command to run in the shell. A return code of 0 evaluates to true. Any other return code evaluates to false.
+  - Hubitat support
 - 0.4
   - Allow for self-hosted web server configuration tool on linux platforms
   - Cmake install target support on linux systems
