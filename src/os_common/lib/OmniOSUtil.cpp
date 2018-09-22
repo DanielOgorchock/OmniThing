@@ -12,6 +12,7 @@
 #elif defined(OMNI_PLAT_WINDOWS)
     #define OMNI_POPEN _popen
     #define OMNI_PCLOSE _pclose
+    #define WEXITSTATUS(x) (x)
 #endif
 
 
