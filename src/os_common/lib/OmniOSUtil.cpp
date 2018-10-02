@@ -20,6 +20,7 @@ namespace omni
 {
     int processRun(const char* command, bool print)
     {
+        char buf[512];
         FILE* pipe = OMNI_POPEN(command, "r");
         if(!pipe)
         {
@@ -29,11 +30,11 @@ namespace omni
 
         if(print)
             LOG << F("Executing command: ") << command << Logger::endl;
-        char c;
-        while((c=fgetc(pipe))!=EOF)
+
+        while(fgets(buf, sizeof(buf), pipe) != nullptr)
         {
             if(print)
-                LOG << c;
+                LOG << buf;
         }
 
         int status = OMNI_PCLOSE(pipe);
