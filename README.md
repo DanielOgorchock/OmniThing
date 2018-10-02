@@ -58,6 +58,8 @@ Goals for Beta:
 
 ### Version History
 #### Alpha
+- 0.5.1
+  - Fixed nasty bug when using a CommandExecuter that could result in writing bogus to logs indefinitely.
 - 0.5
   - No longer need to specify ip address in network receiver for windows, linux, and rpi
   - Parse json with a more efficient method that also fixes a buffer overflow bug
