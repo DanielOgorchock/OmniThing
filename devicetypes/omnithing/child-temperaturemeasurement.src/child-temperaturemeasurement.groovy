@@ -20,6 +20,7 @@
  *    2017-08-23  Allan (vseven) Added a generateEvent routine that gets info from the parent device.  This routine runs each time the value is updated which can lead to other modifications of the device.
  *    2018-06-02  Dan Ogorchock  Revised/Simplified for Hubitat Composite Driver Model
  *    2018-07-15  D.J.O          OmniThing support
+ *    2018-12-14  Dave LaPorte   Updated to include temperature conversions (code stolen from ST_Anything)
  * 
  */
 metadata {
@@ -28,6 +29,15 @@ metadata {
 		capability "Sensor"
 
 		attribute "lastUpdated", "String"
+	}
+
+	preferences {
+		section("Prefs") {
+			//input title: "Temperature Offset", description: "This feature allows you to correct any temperature variations by selecting an offset. Ex: If your sensor consistently reports a temp that's 5 degrees too warm, you'd enter \"-5\". If 3 degrees too cold, enter \"+3\".", displayDuringSetup: false, type: "paragraph", element: "paragraph"
+			input "tempOffset", "number", title: "Temperature Offset", description: "Adjust temperature by this many degrees", range: "*..*", displayDuringSetup: false
+			//input title: "Temperature Unit Conversion", description: "This feature allows you to select F to C, C to F, or no conversion", displayDuringSetup: false, type: "paragraph", element: "paragraph"
+			input "tempUnitConversion", "enum", title: "Temperature Unit Conversion - select F to C, C to F, or no conversion", description: "", defaultValue: "1", required: true, multiple: false, options:[["1":"none"], ["2":"Fahrenheit to Celsius"], ["3":"Celsius to Fahrenheit"]], displayDuringSetup: false
+		}
 	}
         
 	tiles(scale: 2) {
@@ -66,7 +76,26 @@ def parse(def update) {
     {
     	if(e.key != "name" && e.key != "type")
         {
-        	log.debug "sending event: name=${e.key} value=${e.value}"
+
+            // Offset the temperature based on preference
+            def offsetValue = Math.round((Float.parseFloat(e.value))*100.0)/100.0d
+            if (tempOffset) {
+                offsetValue = offsetValue + tempOffset
+            }
+
+            if (tempUnitConversion == "2") {
+                //log.debug "tempUnitConversion = ${tempUnitConversion}"
+                double tempC = fahrenheitToCelsius(offsetValue.toFloat())  //convert from Fahrenheit to Celsius
+                offsetValue = tempC.round(2)
+            }
+
+            if (tempUnitConversion == "3") {
+                //log.debug "tempUnitConversion = ${tempUnitConversion}"
+                double tempC = celsiusToFahrenheit(offsetValue.toFloat())  //convert from Celsius to Fahrenheit
+                offsetValue = tempC.round(2)
+            }
+
+            log.debug "sending event: name=${e.key} value=${e.value}"
             sendEvent(name: e.key, value: e.value)
         }
     }
