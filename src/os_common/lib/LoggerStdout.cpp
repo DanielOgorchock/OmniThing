@@ -59,6 +59,18 @@ namespace omni
         return *this;
     }
 
+    Logger& LoggerStdout::operator<< (long long val)
+    {
+        std::cout << val;
+        return *this;
+    }
+
+    Logger& LoggerStdout::operator<< (unsigned long long val)
+    {
+        std::cout << val;
+        return *this;
+    }
+
     Logger& LoggerStdout::operator<< (float val)
     {
         std::cout << val;
