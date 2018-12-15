@@ -28,9 +28,9 @@ namespace omni
 
         // REQUEST SAMPLE
         outputPin->writeBool(false);
-        sleepMillis(wakeupDelay);
+        sleepMillisBusy(wakeupDelay);
         inputPin->readBool();
-        sleepMicros(40);
+        sleepMicrosBusy(40);
 
         unsigned long long timer;
         // GET ACKNOWLEDGE or TIMEOUT
