@@ -19,6 +19,8 @@ namespace omni
 
             virtual ~DigitalInputPin();
 
+            virtual bool configure() = 0;
+
             unsigned short getPin() const {return m_nPin;}
             bool isInverted() const {return m_bInvertLogic;}
 

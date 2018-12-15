@@ -10,8 +10,6 @@ namespace omni
         private:
             static DigitalOutputPinRaspberryPi* createFromJson(const char* json);
 
-            void configure();
-
         protected:
             void writePin(bool b) final;
 
@@ -19,6 +17,8 @@ namespace omni
             DigitalOutputPinRaspberryPi(unsigned short pin, bool initialVal, bool invertLogic);
 
             virtual ~DigitalOutputPinRaspberryPi();
+
+            virtual bool configure();
 
             static OutputVoid* createVoidFromJson(const char* json);
             static OutputBool* createBoolFromJson(const char* json);

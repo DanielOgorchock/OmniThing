@@ -23,15 +23,9 @@ namespace omni
         return new DigitalOutputPinArduino(pin, initial, invert);
     }
 
-    void DigitalOutputPinArduino::configure()
-    {
-        pinMode(getPin(), OUTPUT);
-    }
-
 //protected
     void DigitalOutputPinArduino::writePin(bool b)
     {
-        configure();
         digitalWrite(getPin(), b);
     }
 
@@ -39,12 +33,19 @@ namespace omni
     DigitalOutputPinArduino::DigitalOutputPinArduino(unsigned short pin, bool initialVal, bool invertLogic):
         DigitalOutputPin(pin, initialVal, invertLogic)
     {
+        configure();
         writeBool(initialVal);
     }
 
     DigitalOutputPinArduino::~DigitalOutputPinArduino()
     {
 
+    }
+
+    bool DigitalOutputPinArduino::configure()
+    {
+        pinMode(getPin(), OUTPUT);
+        return true;
     }
 
     OutputVoid* DigitalOutputPinArduino::createVoidFromJson(const char* json)

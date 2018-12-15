@@ -20,6 +20,8 @@ namespace omni
 
             virtual ~DigitalOutputPinArduino();
 
+            virtual bool configure();
+
             static OutputVoid* createVoidFromJson(const char* json);
             static OutputBool* createBoolFromJson(const char* json);
 

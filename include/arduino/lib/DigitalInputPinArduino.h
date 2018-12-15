@@ -9,7 +9,7 @@ namespace omni
     {
         private:
             bool m_bPullup;
-            
+
             void configure();
         protected:
             bool readPin() final;
@@ -18,6 +18,8 @@ namespace omni
             DigitalInputPinArduino(unsigned short pin, bool invertLogic, bool pullup);
 
             virtual ~DigitalInputPinArduino();
+
+            virtual bool configure();
 
             static InputBool* createFromJson(const char* json);
 

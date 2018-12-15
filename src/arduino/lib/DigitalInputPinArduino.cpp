@@ -7,18 +7,10 @@
 namespace omni
 {
 //private
-    void DigitalInputPinArduino::configure()
-    {
-        if(m_bPullup)
-            pinMode(getPin(), INPUT_PULLUP);
-        else
-            pinMode(getPin(), INPUT);
-    }
 
 //protected
     bool DigitalInputPinArduino::readPin()
     {
-        configure();
         return digitalRead(getPin());
     }
 
@@ -33,6 +25,15 @@ namespace omni
     DigitalInputPinArduino::~DigitalInputPinArduino()
     {
 
+    }
+
+    bool DigitalInputPinArduino::configure()
+    {
+        if(m_bPullup)
+            pinMode(getPin(), INPUT_PULLUP);
+        else
+            pinMode(getPin(), INPUT);
+        return true;
     }
 
     InputBool* DigitalInputPinArduino::createFromJson(const char* json)
