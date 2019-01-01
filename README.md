@@ -58,6 +58,10 @@ Goals for Beta:
 
 ### Version History
 #### Alpha
+- 0.6.0
+  - Added InputDebouncer
+  - Fixed bug involving sending floats with too many digits in json strings
+  - Added temperature conversion options from the ST_Anything groovy code
 - 0.5.1
   - Fixed nasty bug when using a CommandExecuter that could result in writing bogus to logs indefinitely.
 - 0.5
