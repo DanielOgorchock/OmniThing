@@ -25,6 +25,8 @@ namespace omni
             virtual Logger& operator<< (unsigned int val);
             virtual Logger& operator<< (long val);
             virtual Logger& operator<< (unsigned long val);
+            virtual Logger& operator<< (long long val);
+            virtual Logger& operator<< (unsigned long long val);
             virtual Logger& operator<< (float val);
             virtual Logger& operator<< (double val);
             virtual Logger& operator<< (long double val);

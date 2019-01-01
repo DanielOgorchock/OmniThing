@@ -13,8 +13,6 @@ namespace omni
         private:
             PinMode m_PinMode;
 
-            void configure();
-
         protected:
             bool readPin() final;
 
@@ -23,6 +21,8 @@ namespace omni
             DigitalInputPinRaspberryPi(unsigned short pin, bool invertLogic, PinMode pm);
 
             virtual ~DigitalInputPinRaspberryPi();
+
+            virtual bool configure();
 
             static InputBool* createFromJson(const char* json);
 

@@ -15,7 +15,13 @@ namespace omni
         char buffer[100] = "";
         struct json_out out = JSON_OUT_BUF(buffer, sizeof(buffer));
 
-        json_printf(&out, "{name: \"%s\", type: \"%s\", \"%s\": \"%f\"}", getName(), getType(), m_Attribute, getFloat());
+        float val = getFloat();
+        if(val > 1000 || val < -1000)
+        {
+            LOG << F("ERROR: float value too many digits\n");
+            val = -1;
+        }
+        json_printf(&out, "{name: \"%s\", type: \"%s\", \"%s\": \"%f\"}", getName(), getType(), m_Attribute, val);
 
         LOG << buffer << Logger::endl;
         OmniThing::getInstance().sendJson(buffer);

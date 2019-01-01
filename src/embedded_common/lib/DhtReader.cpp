@@ -27,10 +27,12 @@ namespace omni
         for (unsigned char i = 0; i < 5; i++) bits[i] = 0;
 
         // REQUEST SAMPLE
+        outputPin->configure();
         outputPin->writeBool(false);
-        sleepMillis(wakeupDelay);
+        sleepMillisBusy(wakeupDelay);
+        inputPin->configure();
         inputPin->readBool();
-        sleepMicros(40);
+        sleepMicrosBusy(40);
 
         unsigned long long timer;
         // GET ACKNOWLEDGE or TIMEOUT

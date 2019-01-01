@@ -9,23 +9,10 @@
 namespace omni
 {
 //private
-    void DigitalInputPinRaspberryPi::configure()
-    {
-        gpioSetMode(getPin(), PI_INPUT);
-        
-        unsigned short pullupdown = PI_PUD_DOWN;
-        if(m_PinMode == PinMode::Normal)
-            pullupdown = PI_PUD_OFF;
-        else if(m_PinMode == PinMode::Pullup)
-            pullupdown = PI_PUD_UP;
-
-        gpioSetPullUpDown(getPin(), pullupdown);
-    }
 
 //protected
     bool DigitalInputPinRaspberryPi::readPin()
     {
-        configure();
 
         int val = gpioRead(getPin());
         if(val == PI_BAD_GPIO)
@@ -44,12 +31,26 @@ namespace omni
         DigitalInputPin(pin, invertLogic),
         m_PinMode(pm)
     {
-        configure(); 
+        configure();
     }
 
     DigitalInputPinRaspberryPi::~DigitalInputPinRaspberryPi()
     {
 
+    }
+
+    bool DigitalInputPinRaspberryPi::configure()
+    {
+        gpioSetMode(getPin(), PI_INPUT);
+
+        unsigned short pullupdown = PI_PUD_DOWN;
+        if(m_PinMode == PinMode::Normal)
+            pullupdown = PI_PUD_OFF;
+        else if(m_PinMode == PinMode::Pullup)
+            pullupdown = PI_PUD_UP;
+
+        gpioSetPullUpDown(getPin(), pullupdown);
+        return true;
     }
 
     InputBool* DigitalInputPinRaspberryPi::createFromJson(const char* json)

@@ -66,6 +66,18 @@ namespace omni
         return *this;
     }
 
+    Logger& LoggerSerial::operator<< (long long val)
+    {
+        m_Serial.print(val);
+        return *this;
+    }
+
+    Logger& LoggerSerial::operator<< (unsigned long long val)
+    {
+        m_Serial.print(val);
+        return *this;
+    }
+
     Logger& LoggerSerial::operator<< (float val)
     {
         m_Serial.print(val);

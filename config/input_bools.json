@@ -91,5 +91,36 @@
             "rpi",
             "windows"
         ]
+    },
+    {
+        "type": "InputDebouncer",
+        "parameters": [
+            {
+                "name": "input",
+                "type": "InputBool",
+                "required": true,
+                "description": "The input that is to be debounced (i.e. a gpio)"
+            },
+            {
+                "name": "mode",
+                "type": "enum",
+                "enum": [
+                    "Rising",
+                    "Falling",
+                    "Both"
+                ],
+                "required": true,
+                "description": "Which edge(s) to debounce"
+            },
+            {
+                "name": "duration",
+                "type": "uint",
+                "required": true,
+                "description": "How many milliseconds the debounce period should last"
+            }
+        ],
+        "supported_platforms": [
+            "all"
+        ]
     }
 ]
