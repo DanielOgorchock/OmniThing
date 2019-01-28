@@ -68,13 +68,13 @@ namespace omni
 
     Logger& LoggerSerial::operator<< (long long val)
     {
-        m_Serial.print(val);
+        m_Serial.print((long)val);
         return *this;
     }
 
     Logger& LoggerSerial::operator<< (unsigned long long val)
     {
-        m_Serial.print(val);
+        m_Serial.print((unsigned long)val);
         return *this;
     }
 
