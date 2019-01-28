@@ -10,7 +10,6 @@ namespace omni
         private:
             bool m_bPullup;
 
-            void configure();
         protected:
             bool readPin() final;
 
