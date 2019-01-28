@@ -59,6 +59,8 @@ Goals for Beta:
 ### Version History
 #### Alpha
 - 0.6.0
+  - Fix compilation errors on Arduino platforms
+- 0.6.0
   - Added InputDebouncer
   - Fixed bug involving sending floats with too many digits in json strings
   - Added temperature conversion options from the ST_Anything groovy code
