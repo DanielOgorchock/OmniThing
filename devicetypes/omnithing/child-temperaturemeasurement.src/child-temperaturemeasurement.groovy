@@ -21,6 +21,7 @@
  *    2018-06-02  Dan Ogorchock  Revised/Simplified for Hubitat Composite Driver Model
  *    2018-07-15  D.J.O          OmniThing support
  *    2018-12-14  Dave LaPorte   Updated to include temperature conversions (code stolen from ST_Anything)
+ *    2019-01-29  Dan Ogorchock  Fixed bug for rounding and temperature conversion
  * 
  */
 metadata {
@@ -95,8 +96,8 @@ def parse(def update) {
                 offsetValue = tempC.round(2)
             }
 
-            log.debug "sending event: name=${e.key} value=${e.value}"
-            sendEvent(name: e.key, value: e.value)
+            log.debug "sending event: name=${e.key} value=${offsetValue}"
+            sendEvent(name: e.key, value: offsetValue)
         }
     }
     def nowDay = new Date().format("MMM dd", location.timeZone)
