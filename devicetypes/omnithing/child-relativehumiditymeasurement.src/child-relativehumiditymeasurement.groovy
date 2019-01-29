@@ -20,6 +20,7 @@
  *    2017-08-23  Allan (vseven) Added a generateEvent routine that gets info from the parent device.  This routine runs each time the value is updated which can lead to other modifications of the device.
  *    2018-06-02  Dan Ogorchock  Revised/Simplified for Hubitat Composite Driver Model
  *    2018-07-15  D.J.O          OmniThing support
+ *    2019-01-29  Dan Ogorchock  Added support for Humidity Offset and rounding of data
  * 
  */
 metadata {
@@ -29,7 +30,13 @@ metadata {
 
 		attribute "lastUpdated", "String"
 	}
-        
+
+	preferences {
+		section("Prefs") {
+			input "humidityOffset", "number", title: "Humidity Offset in Percent", description: "Adjust humidity by this percentage", range: "*..*", displayDuringSetup: false
+		}
+	}
+	
 	tiles(scale: 2) {
 		multiAttributeTile(name: "humidity", type: "generic", width: 6, height: 4, canChangeIcon: true) {
 			tileAttribute("device.humidity", key: "PRIMARY_CONTROL") {
@@ -57,8 +64,14 @@ def parse(def update) {
     {
     	if(e.key != "name" && e.key != "type")
         {
-        	log.debug "sending event: name=${e.key} value=${e.value}"
-            sendEvent(name: e.key, value: e.value)
+            def offsetValue = Math.round((Float.parseFloat(e.value))*100.0)/100.0d
+            if (humidityOffset) {
+                offsetValue = offsetValue + humidityOffset
+            }
+            // Update device
+
+            log.debug "sending event: name=${e.key} value=${offsetValue}"
+            sendEvent(name: e.key, value: offsetValue)
         }
     }
     def nowDay = new Date().format("MMM dd", location.timeZone)
