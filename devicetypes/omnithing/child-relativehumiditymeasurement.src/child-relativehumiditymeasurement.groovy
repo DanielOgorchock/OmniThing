@@ -69,7 +69,7 @@ def parse(def update) {
                 tmpValue = tmpValue + humidityOffset
             }
             // Update device
-
+			tmpValue = tmpValue.round(2)
             log.debug "sending event: name=${e.key} value=${tmpValue}"
             sendEvent(name: e.key, value: tmpValue)
         }
