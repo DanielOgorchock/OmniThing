@@ -79,25 +79,24 @@ def parse(def update) {
         {
 
             // Offset the temperature based on preference
-            def offsetValue = Math.round((Float.parseFloat(e.value))*100.0)/100.0d
+            float tmpValue = Float.parseFloat(e.value)
             if (tempOffset) {
-                offsetValue = offsetValue + tempOffset
+                tmpValue = tmpValue + tempOffset
             }
 
             if (tempUnitConversion == "2") {
                 //log.debug "tempUnitConversion = ${tempUnitConversion}"
-                double tempC = fahrenheitToCelsius(offsetValue.toFloat())  //convert from Fahrenheit to Celsius
-                offsetValue = tempC.round(2)
+                tmpValue = fahrenheitToCelsius(tmpValue)  //convert from Fahrenheit to Celsius
             }
 
             if (tempUnitConversion == "3") {
                 //log.debug "tempUnitConversion = ${tempUnitConversion}"
-                double tempC = celsiusToFahrenheit(offsetValue.toFloat())  //convert from Celsius to Fahrenheit
-                offsetValue = tempC.round(2)
+                tmpValue = celsiusToFahrenheit(tmpValue)  //convert from Celsius to Fahrenheit
             }
-
-            log.debug "sending event: name=${e.key} value=${offsetValue}"
-            sendEvent(name: e.key, value: offsetValue)
+            
+			tmpValue = tmpValue.round(2)
+            log.debug "sending event: name=${e.key} value=${tmpValue}"
+            sendEvent(name: e.key, value: tmpValue)
         }
     }
     def nowDay = new Date().format("MMM dd", location.timeZone)
