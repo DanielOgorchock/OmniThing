@@ -64,14 +64,14 @@ def parse(def update) {
     {
     	if(e.key != "name" && e.key != "type")
         {
-            def offsetValue = Math.round((Float.parseFloat(e.value))*100.0)/100.0d
+            float tmpValue = Float.parseFloat(e.value)
             if (humidityOffset) {
-                offsetValue = offsetValue + humidityOffset
+                tmpValue = tmpValue + humidityOffset
             }
             // Update device
 
-            log.debug "sending event: name=${e.key} value=${offsetValue}"
-            sendEvent(name: e.key, value: offsetValue)
+            log.debug "sending event: name=${e.key} value=${tmpValue}"
+            sendEvent(name: e.key, value: tmpValue)
         }
     }
     def nowDay = new Date().format("MMM dd", location.timeZone)
