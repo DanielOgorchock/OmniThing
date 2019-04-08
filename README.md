@@ -58,6 +58,8 @@ Goals for Beta:
 
 ### Version History
 #### Alpha
+- 0.7.0
+  - Add CommandParser InputFloat
 - 0.6.1
   - Fix compilation errors on Arduino platforms
 - 0.6.0
