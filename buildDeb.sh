@@ -5,7 +5,7 @@ toolchain_file=Toolchain-rpi.cmake
 build_target=rpi
 web_config=webpage/config_rpi.json
 install_root=$HOME/programming/git/cross-OmniThing/deb/omnithing
-package_version="0.6-0"
+package_version="0.7-0"
 
 cmake . -DCMAKE_TOOLCHAIN_FILE="$toolchain_file" -DRPI_TOOLS="$rpi_tools" -DBUILD_TARGET="$build_target" \
     -DWEB_CONFIG="$web_config" -DINSTALL_ROOT="$install_root" || exit
