@@ -30,7 +30,7 @@ namespace omni
     {
         if(m_bMultithreaded)
         {
-            std::thread commandRunner(processRun, m_CommandStr, true);
+            std::thread commandRunner(processRun, m_CommandStr, true, nullptr, nullptr);
             commandRunner.detach();
         }
         else

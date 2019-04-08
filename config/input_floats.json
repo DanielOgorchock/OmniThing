@@ -1,5 +1,21 @@
 [
     {
+        "type": "CommandParser",
+        "parameters": [
+            {
+                "name": "command",
+                "type": "string",
+                "required": "true",
+                "description": "Command to run and parse output of. The command should output to standard out only the value to be parsed."
+            }
+        ],
+        "supported_platforms": [
+            "linux",
+            "rpi",
+            "windows"
+        ]
+    },
+    {
         "type": "InputFloatRef",
         "parameters": [
             {
