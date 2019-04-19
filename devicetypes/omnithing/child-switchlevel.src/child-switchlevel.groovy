@@ -51,13 +51,13 @@ metadata {
 }
 
 def setLevel(def level) {
-    def child_name 	= device.deviceNetworkId.split("_")[-1]
+    def child_name 	= device.deviceNetworkId.substring(device.deviceNetworkId.indexOf('_') + 1)
     def payload         = [name: child_name, cmd: "setLevel", "level": level]
     parent.sendData(new groovy.json.JsonBuilder(payload).toString())
 }
 
 def sendData(def value) {
-    def child_name 	= device.deviceNetworkId.split("_")[-1]
+    def child_name 	= device.deviceNetworkId.substring(device.deviceNetworkId.indexOf('_') + 1)
     def payload 	= [name: child_name, cmd:value]  
     parent.sendData(new groovy.json.JsonBuilder(payload).toString())  
 }
