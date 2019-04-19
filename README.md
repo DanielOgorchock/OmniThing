@@ -58,6 +58,8 @@ Goals for Beta:
 
 ### Version History
 #### Alpha
+- 0.7.1
+  - Fix parsing of device names with spaces
 - 0.7.0
   - Add CommandParser InputFloat
 - 0.6.1
