@@ -9,6 +9,10 @@
 #include <string.h>
 #include "frozen.h"
 
+//preprocessor magic for string literal stuff
+#define S_(x) #x
+#define S(x) S_(x)
+
 namespace omni
 {
     class Triggerable;

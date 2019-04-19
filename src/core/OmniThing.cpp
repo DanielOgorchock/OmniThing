@@ -11,10 +11,6 @@
 #include "Triggerable.h"
 #include <string.h>
 
-//preprocessor magic for string literal stuff
-#define S_(x) #x
-#define S(x) S_(x)
-
 namespace omni
 {
 //private

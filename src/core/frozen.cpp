@@ -1022,6 +1022,14 @@ static void json_scanf_cb(void *callback_data, const char *name,
 
         }
 #endif
+        // terrible hack to support device names with spaces
+        if(!strcmp("%" S(OMNI_MAX_NAME_LENGTH) "s", info->fmt))
+        {
+            if(snprintf((char*)info->target, OMNI_MAX_NAME_LENGTH, buf) > 0)
+                info->num_conversions++;
+            skip = true;
+        }
+
         if(!skip)
         {
             info->num_conversions += sscanf(buf, info->fmt, info->target);
