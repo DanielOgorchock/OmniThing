@@ -35,7 +35,7 @@ Goals for Beta:
   * ~~ESP32 PWM support~~
 * New Devices
   * ~~SwitchLevel~~
-  * DimmerSwitch
+  * ~~DimmerSwitch~~
   * DoorControl
 * ~~Give Switch device an optional input parameter~~
 * Give parent device handler the presence capability, signaling whether the OmniThing device is online or not
@@ -58,6 +58,10 @@ Goals for Beta:
 
 ### Version History
 #### Alpha
+- 0.8.0
+  - Added CommandExecuterFloat OutputFloat type
+    - sets the environment variable "OMNITHING_FLOAT_VAL" to the float value prior to running command
+  - Added DimmerSwitch device type and handler
 - 0.7.3
   - Fix apt warnings due to OmniThing rpi repo missing files
 - 0.7.2
