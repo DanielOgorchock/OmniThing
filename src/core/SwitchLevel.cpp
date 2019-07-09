@@ -11,7 +11,7 @@ namespace omni
 //private
     void SwitchLevel::sendJsonPacket()
     {
-        char buffer[100] = "";
+        char buffer[256] = "";
         struct json_out out = JSON_OUT_BUF(buffer, sizeof(buffer));
 
         json_printf(&out, "{name: \"%s\", type: \"%s\", level: \"%f\"}", getName(), getType(), read());
@@ -48,13 +48,17 @@ namespace omni
 
     void SwitchLevel::recvJson(const char* cmd, const char* json)
     {
-        unsigned int len = strlen(json);
+        unsigned int len;
+
+        if(json)
+            len = strlen(json);
+
         if(!strcmp(cmd, Cmd_Poll))
         {
             LOG << F("Poll triggered for ") << getType() << F(" ") << getName() << Logger::endl;
             sendJsonPacket();
         }
-        else if(!strcmp(cmd, Cmd_SetLevel))
+        else if(!strcmp(cmd, Cmd_SetLevel) && json)
         {
             LOG << F("SetLevel triggered for ") << getType() << F(" ") << getName() << Logger::endl;
             float level;
