@@ -221,8 +221,37 @@
         "supported_platforms": [
             "all"
         ]
+    },
+    {
+        "type": "DimmerSwitch",
+        "parameters": [
+            {
+                "name": "output",
+                "type": "OutputFloat",
+                "required": true,
+                "description": "The output device"
+            },
+            {
+                "name": "initial",
+                "type": "float",
+                "required": true,
+                "description": "Initial percent level value (0, 100)"
+            }
+        ],
+        "events": [
+            "on",
+            "off",
+            "changed"
+        ],
+        "commands": [
+            "poll",
+            "setLevel",
+            "on",
+            "off",
+            "toggle"
+        ],
+        "supported_platforms": [
+            "all"
+        ]
     }
 ]
-
-
-
