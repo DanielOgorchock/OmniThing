@@ -102,5 +102,27 @@
         "supported_platforms": [
             "esp32"
         ]
+    },
+    {
+        "type": "CommandExecuterFloat",
+        "parameters": [
+            {
+                "name": "command",
+                "type": "string",
+                "required": true,
+                "description": "The command to run in the shell. It will be preceded by \"OMNITHING_FLOAT_VAL=val; \" where val is the output float value. Example command using the output float: 'echo \"my value is ${OMNITHING_FLOAT_VAL}\"'"
+            },
+            {
+                "name": "multithread",
+                "type": "bool",
+                "required": false,
+                "description": "Set true to run the command in a new thread (NOTE: this is buggy right now)"
+            }
+        ],
+        "supported_platforms": [
+            "linux",
+            "windows",
+            "rpi"
+        ]
     }
 ]
