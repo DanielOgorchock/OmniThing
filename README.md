@@ -58,6 +58,8 @@ Goals for Beta:
 
 ### Version History
 #### Alpha
+- 0.7.3
+  - Fix apt warnings due to OmniThing rpi repo missing files
 - 0.7.2
   - Fix parsing of device names with underscores
 - 0.7.1
