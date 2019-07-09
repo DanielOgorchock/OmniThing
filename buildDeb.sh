@@ -47,5 +47,8 @@ cd ../..
 fakeroot dpkg-deb --build omnithing || exit
 
 dpkg-scanpackages ./ /dev/null | gzip -9c > Packages.gz &&
-apt-ftparchive release . > Release
+apt-ftparchive release . > Release &&
+rm -fr KEY.gpg; gpg --output KEY.gpg --armor --export &&
+rm -fr Release.gpg; gpg -abs -o Release.gpg Release &&
+rm -fr Release.gpg; gpg -abs -o Release.gpg Release
 
