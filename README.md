@@ -58,6 +58,8 @@ Goals for Beta:
 
 ### Version History
 #### Alpha
+- 0.8.1
+  - Fix segfault caused by SwitchLevel and DimmerSwitch dereferencing null pointer
 - 0.8.0
   - Added CommandExecuterFloat OutputFloat type
     - sets the environment variable "OMNITHING_FLOAT_VAL" to the float value prior to running command
