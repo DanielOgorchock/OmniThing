@@ -50,5 +50,4 @@ dpkg-scanpackages ./ /dev/null | gzip -9c > Packages.gz &&
 apt-ftparchive release . > Release &&
 rm -fr KEY.gpg; gpg --output KEY.gpg --armor --export &&
 rm -fr Release.gpg; gpg -abs -o Release.gpg Release &&
-rm -fr Release.gpg; gpg -abs -o Release.gpg Release
-
+rm -fr InRelease; gpg --clearsign -o InRelease Release
