@@ -58,6 +58,8 @@ Goals for Beta:
 
 ### Version History
 #### Alpha
+- 0.8.2
+  - Add optional InputFloat to SwitchLevel and DimmerSwitch
 - 0.8.1
   - Fix segfault caused by SwitchLevel and DimmerSwitch dereferencing null pointer
 - 0.8.0
