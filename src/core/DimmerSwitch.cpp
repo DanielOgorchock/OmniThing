@@ -2,8 +2,10 @@
 
 #include "OmniThing.h"
 #include "frozen.h"
+#include <cmath>
 #include <string.h>
 #include "OutputFloat.h"
+#include "InputFloat.h"
 
 
 namespace omni
@@ -23,7 +25,7 @@ namespace omni
 
     void DimmerSwitch::writeNoUpdate(float level, bool turnOff)
     {
-        if(level != m_fLevel)
+        if(!hasInput() && level != m_fLevel)
         {
             emit(Event_Changed);
             if(m_fLevel == 0)
@@ -35,7 +37,7 @@ namespace omni
                 emit(Event_Off);
             }
         }
-        if (!turnOff)
+        if (!hasInput() && !turnOff)
             m_fLevel = level;
         m_bValue = level != 0;
         m_rOutput.writeFloat(level);
@@ -44,13 +46,19 @@ namespace omni
 //protected
 
 //public
-    DimmerSwitch::DimmerSwitch(OutputFloat& output, float initialLevel) :
+    DimmerSwitch::DimmerSwitch(OutputFloat& output, float initialLevel, InputFloat* input) :
         Device(false),
         m_rOutput(output),
+        m_pInput(input),
+        m_fInitial(initialLevel),
         m_fLevel(initialLevel),
         m_bValue(m_fLevel != 0)
     {
         writeNoUpdate(initialLevel, false);
+        if(hasInput())
+        {
+            setRun(true);
+        }
     }
 
     DimmerSwitch::~DimmerSwitch()
@@ -82,6 +90,8 @@ namespace omni
         else if(!strcmp(cmd, Cmd_On))
         {
             LOG << F("On triggered for ") << getType() << F(" ") << getName() << Logger::endl;
+            if(hasInput())
+                m_fLevel = m_fInitial;
             on();
         }
         else if(!strcmp(cmd, Cmd_Off))
@@ -98,7 +108,39 @@ namespace omni
 
     void DimmerSwitch::init()
     {
+        if(hasInput())
+        {
+            m_fLevel = m_pInput->readFloat();
+        }
         sendJsonPacket();
+    }
+
+    void DimmerSwitch::run()
+    {
+        if(!hasInput())
+        {
+            LOG << F("ERROR: How did we enable DimmerSwitch run() with null input? disabling...\n");
+            setRun(false);
+            return;
+        }
+
+        float tmp = m_pInput->readFloat();
+
+        m_bValue = tmp;
+        if(fabs(tmp - read()) >= 0.2)
+        {
+            emit(Event_Changed);
+            if(tmp != 0 && read() == 0)
+            {
+                emit(Event_On);
+            }
+            else if(tmp == 0 && read() != 0)
+            {
+                emit(Event_Off);
+            }
+            m_fLevel = tmp;
+            sendJsonPacket();
+        }
     }
 
     void DimmerSwitch::write(float level, bool turnOff)
@@ -110,6 +152,7 @@ namespace omni
     Device* DimmerSwitch::createFromJson(const char* json)
     {
         float initial;
+        InputFloat* input = nullptr;
 
         unsigned int len = strlen(json);
         json_token t;
@@ -126,7 +169,19 @@ namespace omni
             return nullptr;
         }
 
-        auto d = new DimmerSwitch(*output, initial);
+        //optional input
+        if(json_scanf(json, len, "{input: %T}", &t) == 1)
+        {
+            LOG << F("Optional input provided\n");
+
+            input = OmniThing::getInstance().buildInputFloat(t);
+            if(!input)
+            {
+                LOG << F("WARNING: Failed to create optional DimmerSwitch input\n");
+            }
+        }
+
+        auto d = new DimmerSwitch(*output, initial, input);
         if(!d->parseMisc(json))
             return nullptr;
         return d;

@@ -205,6 +205,12 @@
                 "description": "The output device"
             },
             {
+                "name": "input",
+                "type": "InputFloat",
+                "required": false,
+                "description": "OPTIONAL input to read the switch level"
+            },
+            {
                 "name": "initial",
                 "type": "float",
                 "required": true,
@@ -230,6 +236,12 @@
                 "type": "OutputFloat",
                 "required": true,
                 "description": "The output device"
+            },
+            {
+                "name": "input",
+                "type": "InputFloat",
+                "required": false,
+                "description": "OPTIONAL input to read the switch level"
             },
             {
                 "name": "initial",

@@ -2,8 +2,10 @@
 
 #include "OmniThing.h"
 #include "frozen.h"
+#include <cmath>
 #include <string.h>
 #include "OutputFloat.h"
+#include "InputFloat.h"
 
 
 namespace omni
@@ -22,23 +24,31 @@ namespace omni
 
     void SwitchLevel::writeNoUpdate(float level)
     {
-        if(level != m_fLevel)
+        if(!hasInput() && level != m_fLevel)
         {
             emit(Event_Changed);
         }
-        m_fLevel = level;
+
+        if(!hasInput())
+            m_fLevel = level;
+
         m_rOutput.writeFloat(level);
     }
 
 //protected
 
 //public
-    SwitchLevel::SwitchLevel(OutputFloat& output, float initialLevel) :
+    SwitchLevel::SwitchLevel(OutputFloat& output, float initialLevel, InputFloat* input) :
         Device(false),
         m_rOutput(output),
+        m_pInput(input),
         m_fLevel(initialLevel)
     {
         writeNoUpdate(initialLevel);
+        if(hasInput())
+        {
+            setRun(true);
+        }
     }
 
     SwitchLevel::~SwitchLevel()
@@ -71,7 +81,30 @@ namespace omni
 
     void SwitchLevel::init()
     {
+        if(hasInput())
+        {
+            m_fLevel = m_pInput->readFloat();
+        }
         sendJsonPacket();
+    }
+
+    void SwitchLevel::run()
+    {
+        if(!hasInput())
+        {
+            LOG << F("ERROR: How did we enable SwitchLevel run() with null input? disabling...\n");
+            setRun(false);
+            return;
+        }
+
+        float tmp = m_pInput->readFloat();
+
+        if(fabs(tmp - read()) >= 0.2)
+        {
+            emit(Event_Changed);
+            m_fLevel = tmp;
+            sendJsonPacket();
+        }
     }
 
     void SwitchLevel::write(float level)
@@ -83,6 +116,7 @@ namespace omni
     Device* SwitchLevel::createFromJson(const char* json)
     {
         float initial;
+        InputFloat* input = nullptr;
 
         unsigned int len = strlen(json);
         json_token t;
@@ -99,7 +133,19 @@ namespace omni
             return nullptr;
         }
 
-        auto d = new SwitchLevel(*output, initial);
+        //optional input
+        if(json_scanf(json, len, "{input: %T}", &t) == 1)
+        {
+            LOG << F("Optional input provided\n");
+
+            input = OmniThing::getInstance().buildInputFloat(t);
+            if(!input)
+            {
+                LOG << F("WARNING: Failed to create optional SwitchLevel input\n");
+            }
+        }
+
+        auto d = new SwitchLevel(*output, initial, input);
         if(!d->parseMisc(json))
             return nullptr;
         return d;

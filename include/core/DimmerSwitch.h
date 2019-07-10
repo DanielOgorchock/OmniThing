@@ -6,11 +6,14 @@
 namespace omni
 {
     class OutputFloat;
+    class InputFloat;
 
     class DimmerSwitch : public Device
     {
         private:
             OutputFloat& m_rOutput;
+            InputFloat* m_pInput;
+            float m_fInitial;
             float m_fLevel;
             bool m_bValue;
 
@@ -19,13 +22,15 @@ namespace omni
 
         protected:
         public:
-            DimmerSwitch(OutputFloat& output, float initialLevel);
+            DimmerSwitch(OutputFloat& output, float initialLevel, InputFloat* input);
             virtual ~DimmerSwitch();
 
             virtual void recvJson(const char* cmd, const char* json);
             virtual void init();
+            virtual void run();
 
             virtual const char* getType() const {return Type;}
+            bool hasInput() const {return m_pInput;}
             virtual float read() const {return m_fLevel;}
             virtual void write(float level, bool turnOff);
             virtual void on() {write(m_fLevel, false);}
