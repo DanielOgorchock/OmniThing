@@ -3,6 +3,9 @@ project(OmniThing)
 message("Running OmniThing's CMakeLists.txt")
 message("NOTE: cross compile using -DCMAKE_TOOLCHAIN_FILE= -DRPI_TOOLS=")
 
+# for coc.nvim
+set(CMAKE_EXPORT_COMPILE_COMMANDS "YES")
+
 set(ARDUINO_CONFIG "arduino_config.json" CACHE STRING "Which json file to use for config")
 set(BUILD_TARGET "not_set" CACHE STRING "Which build target (linux, windows, rpi, arduino, website)")
 set(ARDUINO_BUILD_LOCATION "arduino_build/OmniThing" CACHE STRING "Where to put arduino sketch output")

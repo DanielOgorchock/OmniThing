@@ -13,3 +13,4 @@ build_sysroot
 deb
 tags
 *.swp
+compile_commands.json
