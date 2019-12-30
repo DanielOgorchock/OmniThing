@@ -35,6 +35,7 @@ namespace omni
             unsigned int m_nShutoffIdTriggers;
             unsigned int m_nRevertId;
             unsigned int m_nRevertIdTriggers;
+            bool m_bSynchronousRevert;
 
             void writeFloatNoRevert(float percent);
             void attach();
@@ -46,7 +47,7 @@ namespace omni
             static char Cmd_Startup[];
         protected:
         public:
-            ServoMotor(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime, bool shutoff, unsigned long shutoffTime, bool noStartup, unsigned long minPulse, unsigned long maxPulse);
+            ServoMotor(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime, bool shutoff, unsigned long shutoffTime, bool noStartup, unsigned long minPulse, unsigned long maxPulse, bool synchronousRevert);
             virtual ~ServoMotor();
 
             virtual void writeFloat(float percent);

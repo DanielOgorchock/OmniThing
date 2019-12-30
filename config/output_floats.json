@@ -15,6 +15,13 @@
                 "description": "If set, the servo will revert to initial value after given milliseconds. Leave this blank to never revert."
             },
             {
+                "name": "syncRevert",
+                "type": "bool",
+                "required": false,
+                "default": false,
+                "description": "When true (and revertTime provided), omnithing will sleep for the duration of the revert time. This introduces latency for the rest of the system but makes the revert time more reliable."
+            },
+            {
                 "name": "shutoffTime",
                 "type": "uint",
                 "required": false,

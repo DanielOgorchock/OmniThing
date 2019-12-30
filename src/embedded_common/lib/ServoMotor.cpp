@@ -1,6 +1,7 @@
 #include "ServoMotor.h"
 
 #include "OmniThing.h"
+#include "OmniUtil.h"
 #include <string.h>
 #include "frozen.h"
 
@@ -64,7 +65,7 @@ namespace omni
     char ServoMotor::Cmd_Startup[] = "startup";
 //protected
 //public
-    ServoMotor::ServoMotor(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime, bool shutoff, unsigned long shutoffTime, bool noStartup, unsigned long minPulse, unsigned long maxPulse) :
+    ServoMotor::ServoMotor(unsigned short pin, float initialPercent, bool revert, unsigned long revertTime, bool shutoff, unsigned long shutoffTime, bool noStartup, unsigned long minPulse, unsigned long maxPulse, bool synchronousRevert) :
         m_nPin(pin),
         m_fInitial(initialPercent),
         m_bRevert(revert),
@@ -77,7 +78,8 @@ namespace omni
         m_nShutoffId(0),
         m_nShutoffIdTriggers(0),
         m_nRevertId(0),
-        m_nRevertIdTriggers(0)
+        m_nRevertIdTriggers(0),
+        m_bSynchronousRevert(synchronousRevert)
     {
         writeFloat(initialPercent);
         OmniThing::getInstance().addTrigger(this, 0, Cmd_Startup, false);
@@ -96,9 +98,17 @@ namespace omni
 
         if(m_bRevert) // set up revert trigger
         {
-            ++m_nRevertId;
-            OmniThing::getInstance().addTrigger(this, m_nRevertTime, Cmd_Revert, false);
-            //LOG << F("Setting up revert trigger time=") << m_nRevertTime << F("\n");
+            if(m_bSynchronousRevert)
+            {
+                sleepMillis(m_nRevertTime);
+                writeFloatNoRevert(m_fInitial);
+            }
+            else
+            {
+                ++m_nRevertId;
+                OmniThing::getInstance().addTrigger(this, m_nRevertTime, Cmd_Revert, false);
+                //LOG << F("Setting up revert trigger time=") << m_nRevertTime << F("\n");
+            }
         }
     }
 
@@ -144,6 +154,7 @@ namespace omni
         bool shutoff = false;
         unsigned long shutoffTime = 0;
         bool noStartup = false;
+        bool syncRevert = false;
 
         unsigned long minPulse = 544;
         unsigned long maxPulse = 2400;
@@ -169,8 +180,9 @@ namespace omni
         json_scanf(json, len, "{noStartup: %B}", &noStartup);
         json_scanf(json, len, "{minPulse: %lu}", &minPulse);
         json_scanf(json, len, "{maxPulse: %lu}", &maxPulse);
+        json_scanf(json, len, "{syncRevert: %B}", &syncRevert);
 
-        return new ServoMotor(pin, initialPercent, revert, revertTime, shutoff, shutoffTime, noStartup, minPulse, maxPulse);
+        return new ServoMotor(pin, initialPercent, revert, revertTime, shutoff, shutoffTime, noStartup, minPulse, maxPulse, syncRevert);
     }
 
     const char* ServoMotor::Type = "ServoMotor";
