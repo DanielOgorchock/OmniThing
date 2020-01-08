@@ -31,7 +31,7 @@ namespace omni
     {
         std::stringstream ss;
 
-        ss << "OMNITHING_FLOAT_VAL=" << val << "; " << m_CommandStr;
+        ss << "export OMNITHING_FLOAT_VAL=" << val << "; " << m_CommandStr;
         std::string s = ss.str();
 
         if(m_bMultithreaded)
