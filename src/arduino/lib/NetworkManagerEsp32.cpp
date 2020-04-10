@@ -128,6 +128,7 @@ namespace omni
 
     void NetworkManagerEsp32::setCredentials(const char* ssid, const char* passwd)
     {
+        WiFi.setSleep(false);  //fixes poor WiFi performance
         WiFi.begin(ssid, passwd);
     }
 
