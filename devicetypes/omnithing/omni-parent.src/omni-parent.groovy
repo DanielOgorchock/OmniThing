@@ -187,9 +187,12 @@ private void createChildDevice(String name, String type) {
 	log.debug "Attempting to create child with name=" + name + " type=" + type;
     
     try{
+//    	addChildDevice("child_${type}", "${device.deviceNetworkId}_${name}", null,
+//        	[completedSetup: true, label: "${device.displayName} (${name})",
+//            isComponent: false, componentName: "${name}", componentLabel: "${name}"]);
     	addChildDevice("child_${type}", "${device.deviceNetworkId}_${name}", null,
         	[completedSetup: true, label: "${device.displayName} (${name})",
-            isComponent: false, componentName: "${name}", componentLabel: "${name}"]);
+            isComponent: false]);
         log.debug "Created child device with network id: ${device.deviceNetworkId}_${name}"
     }
     catch(e)
