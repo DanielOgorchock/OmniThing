@@ -22,14 +22,15 @@
  *    2018-07-15  D.J.O          OmniThing support
  *    2018-12-14  Dave LaPorte   Updated to include temperature conversions (code stolen from ST_Anything)
  *    2019-01-29  Dan Ogorchock  Fixed bug for rounding and temperature conversion
+ *    2020-10-22  Dan Ogorchock  New ST App Support
  * 
  */
 metadata {
-	definition (name: "child_TemperatureMeasurement", namespace: "OmniThing", author: "Daniel Ogorchock") {
+	definition (name: "child_TemperatureMeasurement", namespace: "OmniThing", author: "Daniel Ogorchock", vid:"generic-temperature-measurement") {
 		capability "Temperature Measurement"
 		capability "Sensor"
 
-		attribute "lastUpdated", "String"
+//		attribute "lastUpdated", "String"
 	}
 
 	preferences {
@@ -64,9 +65,9 @@ metadata {
                                 [value: 96, color: "#bc2323"]
 						])
 			}
- 			tileAttribute("device.lastUpdated", key: "SECONDARY_CONTROL") {
-    				attributeState("default", label:'    Last updated ${currentValue}',icon: "st.Health & Wellness.health9")
-            }
+// 			tileAttribute("device.lastUpdated", key: "SECONDARY_CONTROL") {
+//    				attributeState("default", label:'    Last updated ${currentValue}',icon: "st.Health & Wellness.health9")
+//            }
         }
 	}
 }
@@ -99,9 +100,9 @@ def parse(def update) {
             sendEvent(name: e.key, value: tmpValue)
         }
     }
-    def nowDay = new Date().format("MMM dd", location.timeZone)
-    def nowTime = new Date().format("h:mm a", location.timeZone)
-    sendEvent(name: "lastUpdated", value: nowDay + " at " + nowTime, displayed: false)
+//    def nowDay = new Date().format("MMM dd", location.timeZone)
+//    def nowTime = new Date().format("h:mm a", location.timeZone)
+//    sendEvent(name: "lastUpdated", value: nowDay + " at " + nowTime, displayed: false)
 }
 
 def installed() {

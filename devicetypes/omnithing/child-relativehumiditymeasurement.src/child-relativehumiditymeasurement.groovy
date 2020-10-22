@@ -21,14 +21,15 @@
  *    2018-06-02  Dan Ogorchock  Revised/Simplified for Hubitat Composite Driver Model
  *    2018-07-15  D.J.O          OmniThing support
  *    2019-01-29  Dan Ogorchock  Added support for Humidity Offset and rounding of data
+ *    2020-10-22  Dan Ogorchock  New ST App Support
  * 
  */
 metadata {
-	definition (name: "child_RelativeHumidityMeasurement", namespace: "OmniThing", author: "Daniel Ogorchock") {
+	definition (name: "child_RelativeHumidityMeasurement", namespace: "OmniThing", author: "Daniel Ogorchock", vid:"generic-humidity-3") {
 		capability "Relative Humidity Measurement"
 		capability "Sensor"
 
-		attribute "lastUpdated", "String"
+//		attribute "lastUpdated", "String"
 	}
 
 	preferences {
@@ -51,9 +52,9 @@ metadata {
                         [value: 96, color: "#0A50C2"]
                     ])
                 }
- 			tileAttribute("device.lastUpdated", key: "SECONDARY_CONTROL") {
-    				attributeState("default", label:'    Last updated ${currentValue}',icon: "st.Health & Wellness.health9")
-            }
+// 			tileAttribute("device.lastUpdated", key: "SECONDARY_CONTROL") {
+//    				attributeState("default", label:'    Last updated ${currentValue}',icon: "st.Health & Wellness.health9")
+//            }
         }
 	}
 }
@@ -74,9 +75,9 @@ def parse(def update) {
             sendEvent(name: e.key, value: tmpValue)
         }
     }
-    def nowDay = new Date().format("MMM dd", location.timeZone)
-    def nowTime = new Date().format("h:mm a", location.timeZone)
-    sendEvent(name: "lastUpdated", value: nowDay + " at " + nowTime, displayed: false)
+//    def nowDay = new Date().format("MMM dd", location.timeZone)
+//    def nowTime = new Date().format("h:mm a", location.timeZone)
+//    sendEvent(name: "lastUpdated", value: nowDay + " at " + nowTime, displayed: false)
 }
 
 def installed() {

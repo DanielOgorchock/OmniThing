@@ -20,6 +20,7 @@
  *    2017-08-23  Allan (vseven) Added a generateEvent routine that gets info from the parent device.  This routine runs each time the value is updated which can lead to other modifications of the device.
  *    2018-06-02  Dan Ogorchock  Revised/Simplified for Hubitat Composite Driver Model
  *    2018-06-04  D.J.O          OmniThing support
+ *    2020-10-22  Dan Ogorchock  New ST App Support
  * 
  */
 metadata {
@@ -27,7 +28,7 @@ metadata {
 		capability "Voltage Measurement"
 		capability "Sensor"
 
-		attribute "lastUpdated", "String"
+//		attribute "lastUpdated", "String"
 	}
         
 	tiles(scale: 2) {
@@ -35,9 +36,9 @@ metadata {
 			tileAttribute("device.voltage", key: "PRIMARY_CONTROL") {
 				attributeState("voltage", label: '${currentValue} ${unit}', unit: "V", defaultState: true)
 			}
- 			tileAttribute("device.lastUpdated", key: "SECONDARY_CONTROL") {
-    				attributeState("default", label:'    Last updated ${currentValue}',icon: "st.Health & Wellness.health9")
-            }
+// 			tileAttribute("device.lastUpdated", key: "SECONDARY_CONTROL") {
+//    				attributeState("default", label:'    Last updated ${currentValue}',icon: "st.Health & Wellness.health9")
+//            }
 		}
 	}
 }
@@ -52,9 +53,9 @@ def parse(def update) {
             sendEvent(name: e.key, value: e.value)
         }
     }
-    def nowDay = new Date().format("MMM dd", location.timeZone)
-    def nowTime = new Date().format("h:mm a", location.timeZone)
-    sendEvent(name: "lastUpdated", value: nowDay + " at " + nowTime, displayed: false)
+//    def nowDay = new Date().format("MMM dd", location.timeZone)
+//    def nowTime = new Date().format("h:mm a", location.timeZone)
+//    sendEvent(name: "lastUpdated", value: nowDay + " at " + nowTime, displayed: false)
 }
 
 def installed() {

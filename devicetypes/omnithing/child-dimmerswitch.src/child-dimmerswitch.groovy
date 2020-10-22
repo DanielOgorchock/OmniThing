@@ -17,16 +17,17 @@
  *    Date        Who            What
  *    ----        ---            ----
  *    2019-07-08  D.J.O.         Creation
+ *    2020-10-22  Dan Ogorchock  New ST App Support
  * 
  */
 metadata {
-	definition (name: "child_DimmerSwitch", namespace: "OmniThing", author: "Daniel Ogorchock") {
+	definition (name: "child_DimmerSwitch", namespace: "OmniThing", author: "Daniel Ogorchock", vid: "generic-dimmer") {
 		capability "Switch"
 		capability "Switch Level"
 		capability "Actuator"
 		capability "Sensor"
 
-		attribute "lastUpdated", "String"
+//		attribute "lastUpdated", "String"
 	}
 
 	simulator {
@@ -44,9 +45,9 @@ metadata {
 			tileAttribute ("device.level", key: "SLIDER_CONTROL") {
 				attributeState "level", action:"switch level.setLevel"
 			}
- 			tileAttribute("device.lastUpdated", key: "SECONDARY_CONTROL") {
-    				attributeState("default", label:'    Last updated ${currentValue}',icon: "st.Health & Wellness.health9")
-            }
+// 			tileAttribute("device.lastUpdated", key: "SECONDARY_CONTROL") {
+//    				attributeState("default", label:'    Last updated ${currentValue}',icon: "st.Health & Wellness.health9")
+//            }
 		}
 	}
 }
@@ -81,9 +82,9 @@ def parse(def update) {
             sendEvent(name: e.key, value: e.value)
         }
     }
-    def nowDay = new Date().format("MMM dd", location.timeZone)
-    def nowTime = new Date().format("h:mm a", location.timeZone)
-    sendEvent(name: "lastUpdated", value: nowDay + " at " + nowTime, displayed: false)
+//    def nowDay = new Date().format("MMM dd", location.timeZone)
+//    def nowTime = new Date().format("h:mm a", location.timeZone)
+//    sendEvent(name: "lastUpdated", value: nowDay + " at " + nowTime, displayed: false)
 }
 
 def installed() {
